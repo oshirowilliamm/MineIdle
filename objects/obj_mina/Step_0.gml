@@ -1,0 +1,1 @@
+mina.carrega_chunks();
