@@ -30,7 +30,6 @@
   },
   "name":"MineIdle",
   "resources":[
-    {"id":{"name":"notaas","path":"notes/notaas/notaas.yy",},},
     {"id":{"name":"obj_colisao","path":"objects/obj_colisao/obj_colisao.yy",},},
     {"id":{"name":"obj_mina","path":"objects/obj_mina/obj_mina.yy",},},
     {"id":{"name":"obj_parede","path":"objects/obj_parede/obj_parede.yy",},},
