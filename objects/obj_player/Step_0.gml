@@ -16,6 +16,7 @@ dir = round(_dir / 90) % 4;
 //aplicando as funções
 controles();
 roda_estado();
+segura_picareta();
 
 #region Debugs
 
@@ -23,5 +24,7 @@ if (keyboard_check_pressed(vk_tab))
 {
     debug = !debug;
 }
+
+show_debug_message(usando_equip);
 
 #endregion

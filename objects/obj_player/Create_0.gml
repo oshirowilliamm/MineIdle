@@ -3,7 +3,7 @@
 debug = false;
 
 //variaveis de movimento
-spd = 8;
+spd = 5;
 hspd = 0;
 vspd = 0;
 
@@ -19,6 +19,11 @@ colisores = [obj_colisao, obj_parede, tile_colisor];
 
 //variavel pra direção do player
 dir = 1;
+
+//variavel para saber se tenho uma picareta
+picareta = noone;
+//variavel pra saber se estou usando um equip
+usando_equip = noone;
 
 //variaveis de estado
 estado_parado = new estado();
@@ -114,6 +119,94 @@ controles = function()
     }
     
 #endregion
+
+//usando o equipamento
+usa_equip = function()
+{
+    //click
+    var _click = mouse_check_button(mb_left);
+    
+    //se n to usando nada
+    if (!usando_equip)
+    {
+        //codigo para usar o equip
+        if (_click)
+        {
+            usando_equip = true;
+        }
+    }
+    //to usando 
+    else 
+    {
+    	//codigo de uso do equip
+        picareta.golpe();
+    }
+}
+
+//segurando a picareta
+segura_picareta = function()
+{
+    //se n existir a picareta
+    if (!picareta) exit;
+    
+    //pegando os pontos de origem do player e o ponto q eu quero que a picareta fique no player
+    var _px = 12;
+    var _py = 29;
+    var _picx = 12; 
+    var _picy = 20;
+    
+    //direção e depth da picareta
+    var _picareta_dir;
+    var _depth = depth - 5;
+    
+    //pegando as caracteristicas da picareta de acordo com a direção
+    switch (dir) 
+    {
+        //direita
+    	case 0: 
+             _picareta_dir = 1;
+        break;
+        //cima
+        case 1: 
+             _picareta_dir = -1;
+            //mudando pontos da picareta
+            _picx = 10;
+            _picy = 19;
+            _depth = depth + 5;
+        break;
+        //esquerda
+    	case 2: 
+             _picareta_dir = -1;
+        break;
+        //baixo
+    	case 3: 
+             _picareta_dir = 1;
+            //mudando pontos da picareta
+            _picx = 10;
+            _picy = 19;
+        break;
+    }
+    
+    //fazendo a distancia e a direção dos pontos
+    var _len = point_distance(_px * _picareta_dir, _py, _picx * _picareta_dir, _picy);
+    var _dir = point_direction(_px * _picareta_dir, _py, _picx * _picareta_dir, _picy);
+    
+    //achando a posição da picareta com o lenghtdir
+    var _x = x + lengthdir_x(_len, _dir);
+    var _y = y + lengthdir_y(_len, _dir);
+    
+    //setando propriedades da picareta
+    picareta.x = _x;
+    picareta.y = _y;
+    picareta.depth = _depth;                //sobrepondo o player
+    picareta.image_xscale = _picareta_dir;	//espelhar de acordo com dir
+    
+    //ação de equip
+    usa_equip();
+}
+
+//criando a picareta da raposa
+picareta = instance_create_depth(x, y, depth, obj_picareta);
 
 //iniciando estado padrao do player
 inicia_estado(estado_parado);

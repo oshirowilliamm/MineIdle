@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"Object5",
+  "%Name":"obj_seletor",
   "eventList":[],
   "managed":true,
-  "name":"Object5",
+  "name":"obj_seletor",
   "overriddenProperties":[],
   "parent":{
     "name":"objects",
@@ -27,7 +27,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_seletor",
+    "path":"sprites/spr_seletor/spr_seletor.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
