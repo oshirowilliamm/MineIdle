@@ -1,16 +1,16 @@
 {
   "$GMTileSet":"v1",
-  "%Name":"tl_grama",
+  "%Name":"tl_minerios",
   "autoTileSets":[
-    {"$GMAutoTileSet":"","%Name":"autotile_1","closed_edge":false,"name":"autotile_1","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[41,36,37,38,47,58,0,34,48,0,59,39,49,45,50,72,],},
+    {"$GMAutoTileSet":"","%Name":"autotile_1","closed_edge":false,"name":"autotile_1","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[2,138,139,140,153,168,0,136,154,0,169,141,155,151,156,86,],},
   ],
   "macroPageTiles":{
     "SerialiseHeight":0,
     "SerialiseWidth":0,
     "TileSerialiseData":[],
   },
-  "name":"tl_grama",
-  "out_columns":4,
+  "name":"tl_minerios",
+  "out_columns":15,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -20,8 +20,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"spr_tile_chao",
-    "path":"sprites/spr_tile_chao/spr_tile_chao.yy",
+    "name":"spr_tile_01",
+    "path":"sprites/spr_tile_01/spr_tile_01.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{
@@ -36,5 +36,5 @@
   "tileWidth":64,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":16,
+  "tile_count":225,
 }

@@ -14,7 +14,7 @@ up = 0;
 down  = 0;
 
 //variaveis de colisao
-tile_colisor = layer_tilemap_get_id("tl_colisao");
+tile_colisor = layer_tilemap_get_id("tl_minerios");
 colisores = [obj_colisao, obj_parede, tile_colisor];
 
 //variavel pra direção do player

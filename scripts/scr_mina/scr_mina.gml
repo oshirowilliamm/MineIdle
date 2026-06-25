@@ -38,13 +38,12 @@ function mina_sistema() constructor
         static ini_defs = function()
         {
             //metodo rapido pra adicionar uma nova definição de bloco
-            var _add_def = function(_id, _nome, _spr, _hp, _spr_drop, _qtd, _peso)
+            var _add_def = function(_id, _nome, _hp, _spr_drop, _qtd, _peso)
             {
                 //atributos dos blocos
                 bloco_defs[_id] =
                 {
                     nome:   _nome, 
-    				sprite: _spr,
     				hp: _hp, 
                     sprite_drop: _spr_drop, 
     				quantidade_drop: _qtd, 
@@ -57,11 +56,11 @@ function mina_sistema() constructor
             }
             
             //adicionando as definições dos blocos
-            _add_def(BLOCOS.terra,    "terra",    spr_terra,     1,  0, 1, 35);
-            _add_def(BLOCOS.pedra,    "pedra",    spr_pedra,     1,  1, 1, 50);
-            _add_def(BLOCOS.ferro,    "ferro",    spr_ferro,     15, 2, 1, 5);
-            _add_def(BLOCOS.ouro,	  "ouro",	  spr_ouro,		 15, 3, 1, 5);
-    		_add_def(BLOCOS.ametista, "ametista", spr_ametista,  28, 4, 1, 1);
+            _add_def(BLOCOS.terra,    "terra",    1,  0, 1, 35);
+            _add_def(BLOCOS.pedra,    "pedra",    1,  1, 1, 50);
+            _add_def(BLOCOS.ferro,    "ferro",    15, 2, 1, 5);
+            _add_def(BLOCOS.ouro,	  "ouro",	  15, 3, 1, 5);
+    		_add_def(BLOCOS.ametista, "ametista", 28, 4, 1, 1);
         }
         
     #endregion
@@ -112,6 +111,20 @@ function mina_sistema() constructor
     #endregion
     
     #region Funções de Geração  
+        
+        //função para calcular o autotile
+        static get_tile_id = function(_bloco_tipo)
+        {
+            switch (_bloco_tipo) 
+            {
+            	case BLOCOS.terra:      return 1;
+                case BLOCOS.pedra:      return 2;
+                case BLOCOS.ferro:      return 3;  
+                case BLOCOS.ouro:       return 4;
+                case BLOCOS.ametista:   return 5;  
+                default:                return 0;
+            }
+        }
         
         //função para gerar os blocos de forma aleatória considerando os pesos
         static gera_blocos = function() 
@@ -173,7 +186,7 @@ function mina_sistema() constructor
             };
             
             //infos do tile
-            var _tile_id = layer_tilemap_get_id("tl_colisao");
+            var _tile_id = layer_tilemap_get_id("tl_minerios");
             
             //prencheendo a grid
             for (var i = 0; i < chunk_w; i++)
@@ -183,12 +196,18 @@ function mina_sistema() constructor
                     //criando o bloco
                     var _bloco_tipo = gera_blocos();
                     var _bloco_id = get_bloco_id(i, j);
+                    
+                    //pegando posição para o tile
                     var _xtile = grid_to_pixel_x(i + (_id * chunk_w));
                     var _ytile = grid_to_pixel_y(j);
                     
-                    //setando o tile de colisão
-                    tilemap_set_at_pixel(_tile_id, 1, _xtile, _ytile);
+                    //pegando minerio do tile
+                    var _tile_data = get_tile_id(_bloco_tipo);
                     
+                    //setando o tile de colisão
+                    tilemap_set_at_pixel(_tile_id, _tile_data, _xtile, _ytile);
+                    
+                    //setando informações do bloco e do hp na chunk
                     _novo_chunk.blocos[_bloco_id] =
                     {
                         id: _bloco_tipo,
@@ -214,59 +233,6 @@ function mina_sistema() constructor
         
         
     #endregion
-    
-    //////////////////////////////////////////////////////////////////
-    
-    //desenha a mina nas chunks, apenas oq aparece na camera
-    static draw_mina = function()
-    {
-        //infos da camera
-        var _cam = view_camera[0];
-	    var _vx = camera_get_view_x(_cam);
-	    var _vy = camera_get_view_y(_cam);
-	    var _vw = camera_get_view_width(_cam);
-	    var _vh = camera_get_view_height(_cam);
-        
-        //posição do loop
-        var _col1 = max(0, pixel_to_grid_x(_vx));
-        var _col2 = min((total_chunks * chunk_w) - 1, pixel_to_grid_x(_vx + _vw));
-        
-        var _row1 = max(0, pixel_to_grid_y(_vy));
-        var _row2 = min(chunk_h - 1, pixel_to_grid_y(_vy + _vh));
-        
-        //prencheendo a grid
-        for (var i = _col1; i <= _col2; i++)
-        {
-            //pegando o chunk id
-            var _chunk_id = floor(i / chunk_w);
-            
-            //verificando existencia do chunk
-            if (!variable_struct_exists(chunks, _chunk_id)) continue;
-            
-            //infos da chunk
-            var _chunk = chunks[$ _chunk_id];
-            var _chunk_col = get_chunk_col(i);
-            
-            for (var j = _row1; j <= _row2; j++)
-            {
-                //infos do bloco
-                var _bloco_id = get_bloco_id(_chunk_col, j);
-                var _bloco = _chunk.blocos[_bloco_id];
-                
-                //desenha se o bloco não estiver vazio
-                if (_bloco.id != BLOCOS.vazio)
-                {
-                    //infos do bloco
-                    var _x = grid_to_pixel_x(i);
-                    var _y = grid_to_pixel_y(j);
-                    var _def = bloco_defs[_bloco.id];
-                    
-                    //desenhando sprite
-                    draw_sprite(_def.sprite, 0, _x, _y);
-                }
-            }
-        }
-    }
     
     //chamando o blocos defs
     ini_defs();
