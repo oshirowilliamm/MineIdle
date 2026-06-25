@@ -1,1 +1,1 @@
-mina.carrega_chunks();
+global.mina.carrega_chunks();

@@ -32,9 +32,11 @@
   "resources":[
     {"id":{"name":"obj_colisao","path":"objects/obj_colisao/obj_colisao.yy",},},
     {"id":{"name":"obj_mina","path":"objects/obj_mina/obj_mina.yy",},},
+    {"id":{"name":"obj_parede","path":"objects/obj_parede/obj_parede.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
     {"id":{"name":"scr_estados","path":"scripts/scr_estados/scr_estados.yy",},},
+    {"id":{"name":"scr_globais","path":"scripts/scr_globais/scr_globais.yy",},},
     {"id":{"name":"scr_mina","path":"scripts/scr_mina/scr_mina.yy",},},
     {"id":{"name":"scr_utilidades","path":"scripts/scr_utilidades/scr_utilidades.yy",},},
     {"id":{"name":"spr_ametista","path":"sprites/spr_ametista/spr_ametista.yy",},},

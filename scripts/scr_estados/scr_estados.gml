@@ -2,7 +2,7 @@
 function estado() constructor 
 {
     //iniciando o estado
-    static inicia= function() {};
+    static inicia = function() {};
     //rodando o estado
     static roda = function() {};
     //finalizando o estado

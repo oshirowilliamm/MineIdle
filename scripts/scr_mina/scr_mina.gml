@@ -11,10 +11,10 @@ enum BLOCOS
 function mina_sistema() constructor
 {
     //informações bases
-    size_w  = 64;           //tamanho horizontal
-    size_h  = 64;           //tamanho vertical
+    size_w  = 64;           //tamanho horizontal da celula
+    size_h  = 64;           //tamanho vertical da celula
     chunk_x = 10 * size_w;  //posição x inicial
-    chunk_y = 0;            //posição y inicial
+    chunk_y = 0 + size_h;   //posição y inicial
     chunk_w = 16;           //qtd de colunas
     chunk_h = 12;           //qtd de linhas
     total_chunks = 2;       //total de chunks
@@ -22,7 +22,7 @@ function mina_sistema() constructor
     
     //informações de armazenamento
     chunks = {};
-    bloco_defs = [];
+    bloco_defs = {};
     peso_total = 0;
     
     #region Inicialização dos Blocos
@@ -97,11 +97,7 @@ function mina_sistema() constructor
     	//pega a coluna do chunk
         static get_chunk_col = function(_x) 
         { 
-            return _x mod chunk_w; //pega o resto da divisão entre o pixel e o tamanho de colunas da chunk
-        } 
-        static get_chunk_row = function(_y) 
-        { 
-            return _y mod chunk_h; //pega o resto da divisão entre o pixel e o tamanho de linhas da chunk
+            return _x % chunk_w; //pega o resto da divisão entre o pixel e o tamanho de colunas da chunk
         } 
         //pega o id do bloco
         static get_bloco_id = function(_x, _y) 
@@ -176,6 +172,9 @@ function mina_sistema() constructor
                 blocos: array_create(chunk_w * chunk_h)
             };
             
+            //infos do tile
+            var _tile_id = layer_tilemap_get_id("tl_colisao");
+            
             //prencheendo a grid
             for (var i = 0; i < chunk_w; i++)
             {
@@ -184,6 +183,11 @@ function mina_sistema() constructor
                     //criando o bloco
                     var _bloco_tipo = gera_blocos();
                     var _bloco_id = get_bloco_id(i, j);
+                    var _xtile = grid_to_pixel_x(i + (_id * chunk_w));
+                    var _ytile = grid_to_pixel_y(j);
+                    
+                    //setando o tile de colisão
+                    tilemap_set_at_pixel(_tile_id, 1, _xtile, _ytile);
                     
                     _novo_chunk.blocos[_bloco_id] =
                     {

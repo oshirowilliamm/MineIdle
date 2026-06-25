@@ -1,0 +1,2 @@
+//mina
+global.mina = noone;

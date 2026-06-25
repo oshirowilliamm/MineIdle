@@ -1,2 +1,2 @@
 //desenhando as chunks
-mina.draw_mina();
+global.mina.draw_mina();

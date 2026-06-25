@@ -3,7 +3,7 @@
 debug = false;
 
 //variaveis de movimento
-spd = 10;
+spd = 8;
 hspd = 0;
 vspd = 0;
 
@@ -15,7 +15,7 @@ down  = 0;
 
 //variaveis de colisao
 tile_colisor = layer_tilemap_get_id("tl_colisao");
-colisores = [obj_colisao, tile_colisor];
+colisores = [obj_colisao, obj_parede, tile_colisor];
 
 //variavel pra direção do player
 dir = 1;
@@ -33,6 +33,7 @@ xscale = 1;
 //movimento e colisao
 controles = function()
 {
+    //inputs
     left    = keyboard_check(ord("A"));
     right   = keyboard_check(ord("D"));
     up      = keyboard_check(ord("W"));

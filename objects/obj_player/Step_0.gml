@@ -11,7 +11,7 @@ var _dir = point_direction(x, y, mouse_x, mouse_y);
      posição = 3 -> baixo
      o round serve pra arredondar o angulo e o mod para n ter o numero 4
 */
-dir = round(_dir / 90) mod 4;
+dir = round(_dir / 90) % 4;
 
 //aplicando as funções
 controles();
