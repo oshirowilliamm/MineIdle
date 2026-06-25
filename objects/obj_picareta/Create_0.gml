@@ -1,3 +1,6 @@
+//dano da picareta
+dano = 1;
+
 //variavel para checar se pode golpear
 pode_golpear = true;
 //variavel pra checar se esta usando a picareta
@@ -8,36 +11,43 @@ tempo = 0;
 //picaretando
 golpe = function()
 {
+    //validação com o player
+    if (!instance_exists(obj_player)) exit
+    
     //variaveis do efeito
-    var _angle, _xscale, _yscale;
+    var _angle, _xscale, _yscale
+    var _x = obj_player.x;
+    var _y = obj_player.y;
+    var _dist = 16;
     
     //espelhando efeito de acordo com a direção da picareta
-    if (instance_exists(obj_player))
+    switch (obj_player.dir) 
     {
-        switch (obj_player.dir) 
-        {
-            //direita
-        	case 0:
-                _angle = 270;
-                _yscale = 1;
-            break;
-            //cima
-            case 1:
-                _angle = 180;
-                _yscale = -1;
-            break;
-            //esquerda
-            case 2:
-                _angle = 270;
-                _yscale = -1;
-            break;
-            //baixo
-            case 3:
-                _angle = 180;
-                _yscale = 1;
-            break;
-        }
-    }   
+        //direita
+        case 0:
+            _angle = 270;
+            _yscale = 1;
+            _x += _dist;
+        break;
+        //cima
+        case 1:
+            _angle = 180;
+            _yscale = -1;
+            _y -= _dist;
+        break;
+        //esquerda
+        case 2:
+            _angle = 270;
+            _yscale = -1;
+            _x -= _dist;
+        break;
+        //baixo
+        case 3:
+            _angle = 180;
+            _yscale = 1;
+            _y += _dist;
+        break;
+    } 
     
     //se pode golpear
     if (pode_golpear)
@@ -49,6 +59,9 @@ golpe = function()
         image_angle = _angle;
         image_yscale = _yscale;
         image_index = 1;
+
+        //chamando o minera bloco
+        global.mina.minera_bloco(_x, _y, dano);
     }
     
     //quando chegar no tempo limite do efeito, reseta tudo

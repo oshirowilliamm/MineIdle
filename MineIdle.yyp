@@ -35,7 +35,6 @@
     {"id":{"name":"obj_parede","path":"objects/obj_parede/obj_parede.yy",},},
     {"id":{"name":"obj_picareta","path":"objects/obj_picareta/obj_picareta.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
-    {"id":{"name":"obj_seletor","path":"objects/obj_seletor/obj_seletor.yy",},},
     {"id":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
     {"id":{"name":"scr_estados","path":"scripts/scr_estados/scr_estados.yy",},},
     {"id":{"name":"scr_globais","path":"scripts/scr_globais/scr_globais.yy",},},

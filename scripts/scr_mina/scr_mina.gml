@@ -230,7 +230,56 @@ function mina_sistema() constructor
     
     #region Funções de Interação com os Blocos
         
-        
+        //função pra minerar os blocos
+        static minera_bloco = function(_x, _y, _dano)
+        {
+            //pegando chunk do bloco
+            var _chunk_id = get_chunk_id(_x);
+            
+            //validação da existencia do chunk
+            if (!variable_struct_exists(chunks, _chunk_id)) return false;
+            
+            //acessando o chunk
+            var _chunk_atual = chunks[$ _chunk_id];
+            
+            //pegando posição da grid
+            var _xgrid = pixel_to_grid_x(_x);
+            var _ygrid = pixel_to_grid_y(_y);
+            
+            //validação de bloco fora do chunk verticalmente
+            if (_ygrid < 0 || _ygrid >= chunk_h) return false;
+            
+            //pegando o id do bloco
+            var _col = get_chunk_col(_xgrid);
+            var _bloco_id = get_bloco_id(_col, _ygrid);
+            
+            //pegando o bloco
+            var _bloco = _chunk_atual.blocos[_bloco_id];
+            
+            //verifica se o minério não está vazio
+            if (_bloco.id != BLOCOS.vazio)
+            {
+                //aplicando dano
+                _bloco.hp -= _dano;
+                
+                //quebrando bloco
+                if (_bloco.hp <= 0)
+                {
+                    //setando o bloco como vazio
+                    _chunk_atual.blocos[_bloco_id] = bloco_vazio;
+                    
+                    //apagando o tile
+                    var _tile_id = layer_tilemap_get_id("tl_minerios");
+                    tilemap_set_at_pixel(_tile_id, 0, _x, _y);
+                }
+                
+                //avisa que a picareta acertou um bloco não vazio
+                return true;
+            }
+            
+            //avisando que bateu em nada
+            return false;
+        }
         
     #endregion
     
