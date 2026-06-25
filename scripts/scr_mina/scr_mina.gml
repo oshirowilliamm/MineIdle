@@ -11,9 +11,9 @@ enum BLOCOS
 function mina_sistema() constructor
 {
     //informações bases
-    size_w  = 64;           //tamanho horizontal da celula
-    size_h  = 64;           //tamanho vertical da celula
-    chunk_x = 10 * size_w;  //posição x inicial
+    size_w  = 32;           //tamanho horizontal da celula
+    size_h  = 32;           //tamanho vertical da celula
+    chunk_x = 7 * size_w;   //posição x inicial
     chunk_y = 0 + size_h;   //posição y inicial
     chunk_w = 16;           //qtd de colunas
     chunk_h = 12;           //qtd de linhas

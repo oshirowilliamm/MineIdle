@@ -3,7 +3,7 @@
 debug = false;
 
 //variaveis de movimento
-spd = 5;
+spd = 3;
 hspd = 0;
 vspd = 0;
 
@@ -20,6 +20,12 @@ colisores = [obj_colisao, obj_parede, tile_colisor];
 //variavel pra direção do player
 dir = 1;
 
+//variaveis de equip
+equip_dir = 1;
+equip_x = 0;
+equip_y = 0;
+equip_depth = 0;
+
 //variavel para saber se tenho uma picareta
 picareta = noone;
 //variavel pra saber se estou usando um equip
@@ -28,10 +34,6 @@ usando_equip = noone;
 //variaveis de estado
 estado_parado = new estado();
 estado_andando = new estado();
-
-//variaveis pro desenho do player
-sprite = spr_player_idle_side;
-xscale = 1;
 
 #endregion
 
@@ -51,6 +53,10 @@ controles = function()
     //movendo e colidindo
     move_and_collide(hspd, vspd, colisores, 12);
 }
+
+//variaveis pro desenho do player de acordo com os estados
+sprite = spr_player_idle_side;
+xscale = 1; //muda entre esquerda e direita
 
 #region Estado Parado
 
@@ -120,6 +126,10 @@ controles = function()
     
 #endregion
 
+//variaveis de cooldown
+cooldown_max = 15;
+cooldown_atual = 0;
+
 //usando o equipamento
 usa_equip = function()
 {
@@ -129,17 +139,25 @@ usa_equip = function()
     //se n to usando nada
     if (!usando_equip)
     {
+        //abaixando o cooldown para 0
+        if (cooldown_atual > 0) cooldown_atual--;
+        
         //codigo para usar o equip
-        if (_click)
+        if (_click && cooldown_atual <= 0)
         {
+            //usando o equip
             usando_equip = true;
         }
     }
     //to usando 
-    else 
+    else
     {
+        //start no cooldown
+        cooldown_atual = cooldown_max; 
+        
     	//codigo de uso do equip
-        picareta.golpe();
+        //o golpe() retorna false quando terminar o movimento
+        usando_equip = picareta.golpe();
     }
 }
 
@@ -149,47 +167,13 @@ segura_picareta = function()
     //se n existir a picareta
     if (!picareta) exit;
     
-    //pegando os pontos de origem do player e o ponto q eu quero que a picareta fique no player
+    //pontos de origem do player
     var _px = 12;
     var _py = 29;
-    var _picx = 12; 
-    var _picy = 20;
-    
-    //direção e depth da picareta
-    var _picareta_dir;
-    var _depth = depth - 5;
-    
-    //pegando as caracteristicas da picareta de acordo com a direção
-    switch (dir) 
-    {
-        //direita
-    	case 0: 
-             _picareta_dir = 1;
-        break;
-        //cima
-        case 1: 
-             _picareta_dir = -1;
-            //mudando pontos da picareta
-            _picx = 10;
-            _picy = 19;
-            _depth = depth + 5;
-        break;
-        //esquerda
-    	case 2: 
-             _picareta_dir = -1;
-        break;
-        //baixo
-    	case 3: 
-             _picareta_dir = 1;
-            //mudando pontos da picareta
-            _picx = 10;
-            _picy = 19;
-        break;
-    }
-    
-    //fazendo a distancia e a direção dos pontos
-    var _len = point_distance(_px * _picareta_dir, _py, _picx * _picareta_dir, _picy);
-    var _dir = point_direction(_px * _picareta_dir, _py, _picx * _picareta_dir, _picy);
+
+    //fazendo a distancia e a direção dos pontos de origem do player com o oq eu quero que a picareta fique
+    var _len = point_distance(_px * equip_dir, _py, equip_x * equip_dir, equip_y);
+    var _dir = point_direction(_px * equip_dir, _py, equip_x * equip_dir, equip_y);
     
     //achando a posição da picareta com o lenghtdir
     var _x = x + lengthdir_x(_len, _dir);
@@ -198,8 +182,8 @@ segura_picareta = function()
     //setando propriedades da picareta
     picareta.x = _x;
     picareta.y = _y;
-    picareta.depth = _depth;                //sobrepondo o player
-    picareta.image_xscale = _picareta_dir;	//espelhar de acordo com dir
+    picareta.depth = equip_depth;
+    picareta.image_xscale = equip_dir;
     
     //ação de equip
     usa_equip();

@@ -51,6 +51,7 @@
     {"id":{"name":"spr_player_run","path":"sprites/spr_player_run/spr_player_run.yy",},},
     {"id":{"name":"spr_quebrando","path":"sprites/spr_quebrando/spr_quebrando.yy",},},
     {"id":{"name":"spr_seletor","path":"sprites/spr_seletor/spr_seletor.yy",},},
+    {"id":{"name":"spr_teste","path":"sprites/spr_teste/spr_teste.yy",},},
     {"id":{"name":"spr_tile_01","path":"sprites/spr_tile_01/spr_tile_01.yy",},},
     {"id":{"name":"tl_minerios","path":"tilesets/tl_minerios/tl_minerios.yy",},},
   ],

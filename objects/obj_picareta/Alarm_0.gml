@@ -1,1 +1,0 @@
-terminou = true;
