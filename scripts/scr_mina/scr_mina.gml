@@ -17,7 +17,7 @@ function mina_sistema() constructor
     chunk_y = 0 + size_h;   //posição y inicial
     chunk_w = 16;           //qtd de colunas
     chunk_h = 12;           //qtd de linhas
-    total_chunks = 2;       //total de chunks
+    total_chunks = 50;       //total de chunks
     margem = 2;             //margem de colunas extras
     seletor_index = 0;      //controlando animação do seletor
     
@@ -211,7 +211,15 @@ function mina_sistema() constructor
             };
             
             //infos do tile
-            var _tile_id = layer_tilemap_get_id("tl_minerios");
+            //criando a colisão com tiles apenas se existe a camada de tiles
+            if (layer_exists("tl_minerios"))
+            {
+                var _tile_id = layer_tilemap_get_id("tl_minerios");
+            } 
+            else 
+            {
+            	var _tile_id = -1;
+            }
             
             //prencheendo a grid
             for (var i = 0; i < chunk_w; i++)
@@ -274,15 +282,23 @@ function mina_sistema() constructor
                 //quebrando bloco
                 if (_bloco.hp <= 0)
                 {
+                    //criando o drop
+                    var _xcentro = grid_to_pixel_x(pixel_to_grid_x(_x)) + size_w / 2;
+                    var _ycentro = grid_to_pixel_y(pixel_to_grid_y(_y)) + size_h / 2;
+                    cria_drop(_xcentro, _ycentro, _bloco.id);
+                    
                     //setando o bloco como vazio
                     _bloco.id = BLOCOS.vazio;
                     _bloco.hp = 0;
                     
                     //apagando os tiles
-                    var _id_tile_minerios= layer_tilemap_get_id("tl_minerios");
-                    var _id_tile_rachaduras = layer_tilemap_get_id("tl_rachaduras");
-                    tilemap_set_at_pixel(_id_tile_minerios, 0, _x, _y);
-                    tilemap_set_at_pixel(_id_tile_rachaduras, 0, _x, _y);
+                    if (layer_exists("tl_minerios") && layer_exists("tl_rachaduras"))
+                    {
+                        var _id_tile_minerios= layer_tilemap_get_id("tl_minerios");
+                        var _id_tile_rachaduras = layer_tilemap_get_id("tl_rachaduras");
+                        tilemap_set_at_pixel(_id_tile_minerios, 0, _x, _y);
+                        tilemap_set_at_pixel(_id_tile_rachaduras, 0, _x, _y);
+                    } 
                 }
                 
                 //avisa que a picareta acertou um bloco não vazio
@@ -299,10 +315,6 @@ function mina_sistema() constructor
             //validação da existência do player
             if(!instance_exists(obj_player)) exit;
             
-            //posição do player
-            var _xplayer = obj_player.x;
-            var _yplayer = obj_player.y - 15;
-            
             //distancia do lengthdir
             var _dist = 36;
             
@@ -311,7 +323,7 @@ function mina_sistema() constructor
             {
                 //cima
                 case 1:
-                    _dist -= 12;
+                    _dist -= 5;
                 break;
                 //baixo
                 case 3:
@@ -320,11 +332,11 @@ function mina_sistema() constructor
             } 
             
             //pegando direção do player pro mouse
-            var _dir = point_direction(_xplayer, _yplayer, mouse_x, mouse_y);
+            var _dir = point_direction(obj_player.x, obj_player.yy, mouse_x, mouse_y);
             
             //traça uma linha de visão do player com a distancia de 32 pixels e direção do mouse
-            var _x = _xplayer + lengthdir_x(_dist, _dir);
-            var _y = _yplayer + lengthdir_y(_dist, _dir);
+            var _x = obj_player.x + lengthdir_x(_dist, _dir);
+            var _y = obj_player.yy + lengthdir_y(_dist, _dir);
             
             //retornando as posições da linha
             return
@@ -362,8 +374,30 @@ function mina_sistema() constructor
             else if (_porc <= _4)               _index = 4; //20% da vida
             
             //desenhando as rachaduras
-            var _tile_id = layer_tilemap_get_id("tl_rachaduras");
-            tilemap_set_at_pixel(_tile_id, _index, _x, _y);
+            if (layer_exists("tl_rachaduras")) 
+            {
+                var _tile_id = layer_tilemap_get_id("tl_rachaduras");
+                tilemap_set_at_pixel(_tile_id, _index, _x, _y);
+            }
+        }
+        
+        //função para criar o drop 
+        static cria_drop = function(_x, _y, _bloco_id)
+        {
+           //passando informações pro drop 
+            var _bloco_def = bloco_defs[_bloco_id];
+            var _drop_infos = 
+            {
+                index:      _bloco_def.sprite_drop,     //mudando o sprite index do drop de acordo com o tipo do bloco
+                tipo:       _bloco_id,                  //tipo de bloco
+            }
+            
+            //criando a quantidade de vezes que o bloco pedir
+            repeat (_bloco_def.quantidade_drop) 
+            {
+            	//criando o drop
+                var _drop = instance_create_layer(_x, _y, "Drops", obj_drop, _drop_infos);
+            }
         }
         
     #endregion

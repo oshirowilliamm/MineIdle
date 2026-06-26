@@ -47,6 +47,9 @@ switch (dir)
     break;
 }
 
+//corrigindo y em relação ao ponto de origem
+yy = y - 15;
+
 
 
 //aplicando as funções
@@ -62,4 +65,3 @@ if (keyboard_check_pressed(vk_tab))
 }
 
 #endregion
-

@@ -14,11 +14,14 @@ up = 0;
 down  = 0;
 
 //variaveis de colisao
-tile_colisor = layer_tilemap_get_id("tl_minerios");
-colisores = [obj_colisao, obj_parede, tile_colisor];
+tile_colisor = -1;
+colisores = [];
 
 //variavel pra direção do player
 dir = 1;
+
+//y corrigido em relação ao ponto de origem
+yy = 0;
 
 //variaveis de equip
 equip_dir = 1;
@@ -46,9 +49,21 @@ controles = function()
     up      = keyboard_check(ord("W"));
     down    = keyboard_check(ord("S"));
     
-    //adicionando velocidade
-    hspd = (right - left) * spd;
-    vspd = (down - up) * spd;
+    //zerando velocidade por padrão
+    hspd = 0;
+    vspd = 0;
+    
+    //descobrindo movimentação (retorna -1, 0 ou 1)
+    var _xaxis = right - left;
+    var _yaxis = down - up;
+    
+    //configurando hspd e vspd com lenghtdir
+    if (_xaxis != 0 || _yaxis != 0)
+    {
+        var _dir = point_direction(0, 0, _xaxis, _yaxis);
+        hspd = lengthdir_x(spd, _dir);
+        vspd = lengthdir_y(spd, _dir);
+    }
 
     //movendo e colidindo
     move_and_collide(hspd, vspd, colisores, 12);
@@ -188,9 +203,6 @@ segura_picareta = function()
     //ação de equip
     usa_equip();
 }
-
-//criando a picareta da raposa
-picareta = instance_create_depth(x, y, depth, obj_picareta);
 
 //iniciando estado padrao do player
 inicia_estado(estado_parado);
