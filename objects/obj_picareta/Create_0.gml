@@ -15,10 +15,7 @@ golpe = function()
     if (!instance_exists(obj_player)) exit
     
     //variaveis do efeito
-    var _angle, _xscale, _yscale
-    var _x = obj_player.x;
-    var _y = obj_player.y;
-    var _dist = 16;
+    var _angle, _xscale, _yscale;
     
     //espelhando efeito de acordo com a direção da picareta
     switch (obj_player.dir) 
@@ -27,25 +24,21 @@ golpe = function()
         case 0:
             _angle = 270;
             _yscale = 1;
-            _x += _dist;
         break;
         //cima
         case 1:
             _angle = 180;
             _yscale = -1;
-            _y -= _dist;
         break;
         //esquerda
         case 2:
             _angle = 270;
             _yscale = -1;
-            _x -= _dist;
         break;
         //baixo
         case 3:
             _angle = 180;
             _yscale = 1;
-            _y += _dist;
         break;
     } 
     
@@ -59,9 +52,16 @@ golpe = function()
         image_angle = _angle;
         image_yscale = _yscale;
         image_index = 1;
-
+    }
+    
+    //chamando o codigo de minerar bloco no meio da animação
+    if (tempo == 5)
+    {
+        //pegando a linha de mineração
+        var _linha = global.mina.linha_mineracao();
+        
         //chamando o minera bloco
-        global.mina.minera_bloco(_x, _y, dano);
+        global.mina.minera_bloco(_linha.x, _linha.y, dano);
     }
     
     //quando chegar no tempo limite do efeito, reseta tudo
@@ -82,7 +82,6 @@ golpe = function()
     {
     	pode_golpear = true;
     }
-
     
     //retornando o valor do pode golpear para resetar o golpe
     return pode_golpear;

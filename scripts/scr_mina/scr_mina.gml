@@ -19,6 +19,7 @@ function mina_sistema() constructor
     chunk_h = 12;           //qtd de linhas
     total_chunks = 2;       //total de chunks
     margem = 2;             //margem de colunas extras
+    seletor_index = 0;      //controlando animação do seletor
     
     //informações de armazenamento
     chunks = {};
@@ -26,13 +27,6 @@ function mina_sistema() constructor
     peso_total = 0;
     
     #region Inicialização dos Blocos
-        
-        //struct rapido para blocos vazios
-        static bloco_vazio = 
-        {
-            id: BLOCOS.vazio,
-            hp: 0
-        }
         
         //iniciando os blocos do jogo
         static ini_defs = function()
@@ -56,8 +50,8 @@ function mina_sistema() constructor
             }
             
             //adicionando as definições dos blocos
-            _add_def(BLOCOS.terra,    "terra",    1,  0, 1, 35);
-            _add_def(BLOCOS.pedra,    "pedra",    1,  1, 1, 50);
+            _add_def(BLOCOS.terra,    "terra",    2,  0, 1, 35);
+            _add_def(BLOCOS.pedra,    "pedra",    3,  1, 1, 50);
             _add_def(BLOCOS.ferro,    "ferro",    15, 2, 1, 5);
             _add_def(BLOCOS.ouro,	  "ouro",	  15, 3, 1, 5);
     		_add_def(BLOCOS.ametista, "ametista", 28, 4, 1, 1);
@@ -110,9 +104,9 @@ function mina_sistema() constructor
         
     #endregion
     
-    #region Funções de Geração  
+    #region Funções de Ajuda
         
-        //função para calcular o autotile
+        //função para pegar id do tile de acordo com o tipo de bloco
         static get_tile_id = function(_bloco_tipo)
         {
             switch (_bloco_tipo) 
@@ -125,6 +119,37 @@ function mina_sistema() constructor
                 default:                return 0;
             }
         }
+        
+        //função para pegar um bloco especifico de uma chunk, de acordo com uma posição em pixel
+        static get_bloco = function(_x, _y)
+        {
+            //pegando chunk do bloco
+            var _chunk_id = get_chunk_id(_x);
+            
+            //validação da existencia do chunk
+            if (!variable_struct_exists(chunks, _chunk_id)) return false;
+            
+            //pegando posição da grid
+            var _xgrid = pixel_to_grid_x(_x);
+            var _ygrid = pixel_to_grid_y(_y);
+            
+            //validação de bloco fora do chunk verticalmente
+            if (_ygrid < 0 || _ygrid >= chunk_h) return false;
+            
+            //acessando o chunk
+            var _chunk_atual = chunks[$ _chunk_id];
+            
+            //pegando o id do bloco
+            var _col = get_chunk_col(_xgrid);
+            var _bloco_id = get_bloco_id(_col, _ygrid);
+
+            //retornando a struct do bloco (com id e hp)
+            return _chunk_atual.blocos[_bloco_id];
+        }
+        
+    #endregion
+    
+    #region Funções de Geração  
         
         //função para gerar os blocos de forma aleatória considerando os pesos
         static gera_blocos = function() 
@@ -233,28 +258,9 @@ function mina_sistema() constructor
         //função pra minerar os blocos
         static minera_bloco = function(_x, _y, _dano)
         {
-            //pegando chunk do bloco
-            var _chunk_id = get_chunk_id(_x);
-            
-            //validação da existencia do chunk
-            if (!variable_struct_exists(chunks, _chunk_id)) return false;
-            
-            //acessando o chunk
-            var _chunk_atual = chunks[$ _chunk_id];
-            
-            //pegando posição da grid
-            var _xgrid = pixel_to_grid_x(_x);
-            var _ygrid = pixel_to_grid_y(_y);
-            
-            //validação de bloco fora do chunk verticalmente
-            if (_ygrid < 0 || _ygrid >= chunk_h) return false;
-            
-            //pegando o id do bloco
-            var _col = get_chunk_col(_xgrid);
-            var _bloco_id = get_bloco_id(_col, _ygrid);
-            
             //pegando o bloco
-            var _bloco = _chunk_atual.blocos[_bloco_id];
+            var _bloco = get_bloco(_x, _y);
+            if (!_bloco) return false;
             
             //verifica se o minério não está vazio
             if (_bloco.id != BLOCOS.vazio)
@@ -266,7 +272,8 @@ function mina_sistema() constructor
                 if (_bloco.hp <= 0)
                 {
                     //setando o bloco como vazio
-                    _chunk_atual.blocos[_bloco_id] = bloco_vazio;
+                    _bloco.id = BLOCOS.vazio;
+                    _bloco.hp = 0;
                     
                     //apagando o tile
                     var _tile_id = layer_tilemap_get_id("tl_minerios");
@@ -279,6 +286,107 @@ function mina_sistema() constructor
             
             //avisando que bateu em nada
             return false;
+        }
+        
+        //função para pegar a linha de mineração
+        static linha_mineracao = function()
+        {
+            //validação da existência do player
+            if(!instance_exists(obj_player)) exit;
+            
+            //posição do player
+            var _xplayer = obj_player.x;
+            var _yplayer = obj_player.y - 15;
+            
+            //distancia do lengthdir
+            var _dist = 36;
+            
+            //pegando a direção da linha de acordo com a direção do player
+            switch (obj_player.dir) 
+            {
+                //cima
+                case 1:
+                    _dist -= 12;
+                break;
+                //baixo
+                case 3:
+                    _dist += 7;
+                break;
+            } 
+            
+            //pegando direção do player pro mouse
+            var _dir = point_direction(_xplayer, _yplayer, mouse_x, mouse_y);
+            
+            //traça uma linha de visão do player com a distancia de 32 pixels e direção do mouse
+            var _x = _xplayer + lengthdir_x(_dist, _dir);
+            var _y = _yplayer + lengthdir_y(_dist, _dir);
+            
+            //retornando as posições da linha
+            return
+            {
+                x: _x,
+                y: _y
+            };
+        }
+        
+    #endregion
+    
+    #region Desenho
+        
+        //desenhando as interações com o bloco
+        static desenha_interacao = function()
+        {
+            //pegando a linha de mineracao
+            var _linha = linha_mineracao();
+            
+            //pegando o bloco
+            var _bloco = get_bloco(_linha.x, _linha.y);
+            if (!_bloco) return false;
+            
+            //pegando a posição exata (canto superior esquerdo) para desenhar o seletor
+            var _x = grid_to_pixel_x(pixel_to_grid_x(_linha.x));
+            var _y = grid_to_pixel_y(pixel_to_grid_y(_linha.y));
+            
+            //posição do seletor
+            var _xseletor = _x - 5;
+            var _yseletor = _y - 6;
+            
+            //fazendo a animação do seletor
+            seletor_index += .1;
+            
+            //verifica se o bloco não está vazio
+            if (_bloco.id != BLOCOS.vazio)
+            {
+                //fazendo as rachaduras
+                //pegando vida maxima e atual do bloco
+                var _hp_max = bloco_defs[_bloco.id].hp;
+                var _hp_atual = _bloco.hp;
+                
+                //porcentagens
+                var _porc = (_hp_atual / _hp_max) * 100;
+                var _1 = 80;
+                var _2 = 60;
+                var _3 = 40;
+                var _4 = 20;
+                
+                //desenhando quebrado de acordo com a vida do bloco
+                var _index = 0;
+                
+                if (_porc <= 100 && _porc > _1)     _index = 0; //100% da vida
+                else if (_porc <= _1 && _porc > _2) _index = 1; //80% da vida
+                else if (_porc <= _2 && _porc > _3) _index = 2; //60% da vida
+                else if (_porc <= _3 && _porc > _4) _index = 3; //40% da vida
+                else if (_porc <= _4)               _index = 4; //20% da vida
+                
+                //desenhando rachadura
+                draw_sprite(spr_quebrando, _index, _x, _y);
+                
+                //desenhando seletor
+                draw_sprite(spr_seletor, seletor_index, _xseletor, _yseletor);
+                
+                //debug para ver a vida do bloco
+                //draw_text(_x, _y, string(_hp_max) + " " + string(_hp_atual));
+            }
         }
         
     #endregion

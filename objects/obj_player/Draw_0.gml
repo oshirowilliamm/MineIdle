@@ -6,7 +6,10 @@ draw_sprite_ext(sprite, image_index, x, y, xscale, image_yscale, image_angle, im
 
 if (debug)
 {
-    draw_text(x, y, "olhando para: "+ string(dir));
+    //desenhando a linha de mineração
+    var _linha = global.mina.linha_mineracao();
+    
+    draw_line(x, y - 15, _linha.x, _linha.y);
 }
 
 #endregion
