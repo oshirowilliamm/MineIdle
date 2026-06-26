@@ -1,16 +1,14 @@
 {
   "$GMTileSet":"v1",
-  "%Name":"tl_minerios",
-  "autoTileSets":[
-    {"$GMAutoTileSet":"","%Name":"autotile_1","closed_edge":false,"name":"autotile_1","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[2,138,139,140,153,168,0,136,154,0,169,141,155,151,156,86,],},
-  ],
+  "%Name":"tl_rachaduras",
+  "autoTileSets":[],
   "macroPageTiles":{
     "SerialiseHeight":0,
     "SerialiseWidth":0,
     "TileSerialiseData":[],
   },
-  "name":"tl_minerios",
-  "out_columns":31,
+  "name":"tl_rachaduras",
+  "out_columns":2,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -20,8 +18,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"spr_tile_minerios",
-    "path":"sprites/spr_tile_minerios/spr_tile_minerios.yy",
+    "name":"spr_tile_quebrando",
+    "path":"sprites/spr_tile_quebrando/spr_tile_quebrando.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{
@@ -36,5 +34,5 @@
   "tileWidth":32,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":961,
+  "tile_count":5,
 }

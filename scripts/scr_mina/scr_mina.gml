@@ -268,6 +268,9 @@ function mina_sistema() constructor
                 //aplicando dano
                 _bloco.hp -= _dano;
                 
+                //fazendo rachaduras no bloco
+                bloco_rachadura(_x, _y);
+                
                 //quebrando bloco
                 if (_bloco.hp <= 0)
                 {
@@ -275,9 +278,11 @@ function mina_sistema() constructor
                     _bloco.id = BLOCOS.vazio;
                     _bloco.hp = 0;
                     
-                    //apagando o tile
-                    var _tile_id = layer_tilemap_get_id("tl_minerios");
-                    tilemap_set_at_pixel(_tile_id, 0, _x, _y);
+                    //apagando os tiles
+                    var _id_tile_minerios= layer_tilemap_get_id("tl_minerios");
+                    var _id_tile_rachaduras = layer_tilemap_get_id("tl_rachaduras");
+                    tilemap_set_at_pixel(_id_tile_minerios, 0, _x, _y);
+                    tilemap_set_at_pixel(_id_tile_rachaduras, 0, _x, _y);
                 }
                 
                 //avisa que a picareta acertou um bloco não vazio
@@ -329,6 +334,38 @@ function mina_sistema() constructor
             };
         }
         
+        //função para rachaduras do bloco
+        static bloco_rachadura = function(_x, _y)
+        {
+            //pegando o bloco
+            var _bloco = get_bloco(_x, _y);
+            if (!_bloco) return false;
+            
+            //pegando vida maxima e atual do bloco
+            var _hp_max = bloco_defs[_bloco.id].hp;
+            var _hp_atual = _bloco.hp;
+            
+            //porcentagens
+            var _porc = (_hp_atual / _hp_max) * 100;
+            var _1 = 80;
+            var _2 = 60;
+            var _3 = 40;
+            var _4 = 20;
+            
+            //desenhando quebrado de acordo com a vida do bloco
+            var _index = 0;
+            
+            if (_porc <= 100 && _porc > _1)     _index = 0; //100% da vida
+            else if (_porc <= _1 && _porc > _2) _index = 1; //80% da vida
+            else if (_porc <= _2 && _porc > _3) _index = 2; //60% da vida
+            else if (_porc <= _3 && _porc > _4) _index = 3; //40% da vida
+            else if (_porc <= _4)               _index = 4; //20% da vida
+            
+            //desenhando as rachaduras
+            var _tile_id = layer_tilemap_get_id("tl_rachaduras");
+            tilemap_set_at_pixel(_tile_id, _index, _x, _y);
+        }
+        
     #endregion
     
     #region Desenho
@@ -357,30 +394,6 @@ function mina_sistema() constructor
             //verifica se o bloco não está vazio
             if (_bloco.id != BLOCOS.vazio)
             {
-                //fazendo as rachaduras
-                //pegando vida maxima e atual do bloco
-                var _hp_max = bloco_defs[_bloco.id].hp;
-                var _hp_atual = _bloco.hp;
-                
-                //porcentagens
-                var _porc = (_hp_atual / _hp_max) * 100;
-                var _1 = 80;
-                var _2 = 60;
-                var _3 = 40;
-                var _4 = 20;
-                
-                //desenhando quebrado de acordo com a vida do bloco
-                var _index = 0;
-                
-                if (_porc <= 100 && _porc > _1)     _index = 0; //100% da vida
-                else if (_porc <= _1 && _porc > _2) _index = 1; //80% da vida
-                else if (_porc <= _2 && _porc > _3) _index = 2; //60% da vida
-                else if (_porc <= _3 && _porc > _4) _index = 3; //40% da vida
-                else if (_porc <= _4)               _index = 4; //20% da vida
-                
-                //desenhando rachadura
-                draw_sprite(spr_quebrando, _index, _x, _y);
-                
                 //desenhando seletor
                 draw_sprite(spr_seletor, seletor_index, _xseletor, _yseletor);
                 
