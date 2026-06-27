@@ -1,18 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_botao",
-  "eventList":[],
+  "%Name":"obj_entidades",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"obj_botao",
+  "name":"obj_entidades",
   "overriddenProperties":[],
   "parent":{
-    "name":"loja",
-    "path":"folders/objects/loja.yy",
+    "name":"objects",
+    "path":"folders/objects.yy",
   },
-  "parentObjectId":{
-    "name":"obj_entidades",
-    "path":"objects/obj_entidades/obj_entidades.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,10 +29,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_debug",
-    "path":"sprites/spr_debug/spr_debug.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

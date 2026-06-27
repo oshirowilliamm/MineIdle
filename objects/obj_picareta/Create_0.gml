@@ -1,3 +1,5 @@
+event_inherited();
+
 //dano da picareta
 dano = global.picareta.dano;
 

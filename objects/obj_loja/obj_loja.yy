@@ -9,7 +9,10 @@
     "name":"loja",
     "path":"folders/objects/loja.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_entidades",
+    "path":"objects/obj_entidades/obj_entidades.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

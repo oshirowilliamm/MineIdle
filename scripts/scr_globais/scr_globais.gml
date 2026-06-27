@@ -18,3 +18,6 @@ global.picareta =
     dano: 1,
     cooldown: 15
 };
+
+//interface
+global.interface = false;
