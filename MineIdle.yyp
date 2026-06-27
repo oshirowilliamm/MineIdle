@@ -40,6 +40,7 @@
     {"id":{"name":"obj_botao","path":"objects/obj_botao/obj_botao.yy",},},
     {"id":{"name":"obj_colisao","path":"objects/obj_colisao/obj_colisao.yy",},},
     {"id":{"name":"obj_drop","path":"objects/obj_drop/obj_drop.yy",},},
+    {"id":{"name":"obj_entidades","path":"objects/obj_entidades/obj_entidades.yy",},},
     {"id":{"name":"obj_hud","path":"objects/obj_hud/obj_hud.yy",},},
     {"id":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},},
     {"id":{"name":"obj_mina","path":"objects/obj_mina/obj_mina.yy",},},

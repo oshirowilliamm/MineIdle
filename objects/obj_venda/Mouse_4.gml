@@ -1,5 +1,5 @@
 //ligando a loja
-
+global.interface = !global.interface
 
 
 /*

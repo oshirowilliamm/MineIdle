@@ -14,8 +14,8 @@
     "path":"folders/objects/loja.yy",
   },
   "parentObjectId":{
-    "name":"obj_colisao",
-    "path":"objects/obj_colisao/obj_colisao.yy",
+    "name":"obj_entidades",
+    "path":"objects/obj_entidades/obj_entidades.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

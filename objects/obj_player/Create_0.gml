@@ -1,3 +1,4 @@
+event_inherited();
 #region Iniciando Variáveis
 
 debug = false;

@@ -1,3 +1,5 @@
+event_inherited();
+
 //ajustando profundidade do player
 depth = -y;
 
