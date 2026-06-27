@@ -1,1 +1,1 @@
-custo = 10;
+upgrade = global.upgrades.dano[0];

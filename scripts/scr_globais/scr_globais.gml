@@ -24,15 +24,29 @@ global.picareta =
 //upgrades
 global.upgrades = 
 {
-    //classe 1 - dano de picareta
-    dano_picareta:
-    {
-        descricao: "Aumenta o dano da picareta em 0.1",
-        custo: 10
-    },
-    //classe 2 - velocidade
-    velocidade_player:
-    {
-        
-    }
+    //classe 1 - dano
+    dano:
+    [
+        //0
+        {
+            descricao: "Aumenta o dano \nda picareta \nem 0.1", 
+            custo: 20,
+            efeito: function()
+            {
+                global.picareta.dano += .1;
+            }
+        }
+    ],
+    //classe 2 - stamina
+    stamina:
+    [
+        {
+            descricao: "Aumenta a \nstamina em 0.5", 
+            custo: 10,
+            efeito: function()
+            {
+                show_message("ok");
+            }
+        }
+    ]
 };

@@ -1,8 +1,9 @@
-if (global.moeda >= custo)
+//aplicando upgrade
+if (global.moeda >= upgrade.custo)
 {
-    //deixando picareta mais forte
-    global.picareta.dano += 1;
+    //tirando dinheiro
+    global.moeda -= upgrade.custo;
     
-    //tirando o dinheiro
-    global.moeda -= custo;
-}    
+    //efeito
+    upgrade.efeito();
+}

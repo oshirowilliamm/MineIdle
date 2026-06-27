@@ -64,6 +64,10 @@ if (keyboard_check_pressed(vk_tab))
     debug = !debug;
 }
 
-show_debug_message(room);
+//ganhando dinheiro
+if (keyboard_check_pressed(ord("G")))
+{
+    global.moeda++;
+}
 
 #endregion

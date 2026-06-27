@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_debug",
-    "path":"sprites/spr_debug/spr_debug.yy",
+    "name":"spr_item",
+    "path":"sprites/spr_item/spr_item.yy",
   },
   "spriteMaskId":null,
   "visible":true,

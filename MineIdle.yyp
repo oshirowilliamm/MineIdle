@@ -59,7 +59,6 @@
     {"id":{"name":"scr_mina","path":"scripts/scr_mina/scr_mina.yy",},},
     {"id":{"name":"scr_utilidades","path":"scripts/scr_utilidades/scr_utilidades.yy",},},
     {"id":{"name":"spr_background","path":"sprites/spr_background/spr_background.yy",},},
-    {"id":{"name":"spr_debug","path":"sprites/spr_debug/spr_debug.yy",},},
     {"id":{"name":"spr_drops","path":"sprites/spr_drops/spr_drops.yy",},},
     {"id":{"name":"spr_fundo","path":"sprites/spr_fundo/spr_fundo.yy",},},
     {"id":{"name":"spr_item","path":"sprites/spr_item/spr_item.yy",},},
