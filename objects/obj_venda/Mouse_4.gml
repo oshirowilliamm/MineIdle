@@ -1,8 +1,3 @@
-//ligando a loja
-global.interface = !global.interface
-
-
-/*
 var _bloco = global.itens[tipo_bloco];
 
 if (_bloco.quantidade > 0)
@@ -13,4 +8,3 @@ if (_bloco.quantidade > 0)
     //trocando item por dinheiro
     global.moeda += _bloco.valor;
 }
-*/

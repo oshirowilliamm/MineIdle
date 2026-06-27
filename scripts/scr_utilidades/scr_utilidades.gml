@@ -8,3 +8,16 @@ function desenha_sombra(_scale = .5)
 	var _y = y - sprite_yoffset + sprite_height; 
 	draw_sprite_ext(spr_sombra, 0, x, _y, _scale, _scale, 0, c_white, .25);
 }
+
+//seleção
+function selecao()
+{
+    if (position_meeting(mouse_x, mouse_y, id))
+    {
+        image_index = 1;
+    }
+    else
+    {
+        image_index = 0;
+    }
+}

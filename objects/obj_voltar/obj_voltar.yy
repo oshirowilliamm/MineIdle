@@ -1,18 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"obj_botao",
-  "eventList":[],
+  "%Name":"obj_voltar",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":4,"eventType":6,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"obj_botao",
+  "name":"obj_voltar",
   "overriddenProperties":[],
   "parent":{
     "name":"loja",
     "path":"folders/objects/loja.yy",
   },
-  "parentObjectId":{
-    "name":"obj_entidades",
-    "path":"objects/obj_entidades/obj_entidades.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_debug",
-    "path":"sprites/spr_debug/spr_debug.yy",
+    "name":"spr_voltar",
+    "path":"sprites/spr_voltar/spr_voltar.yy",
   },
   "spriteMaskId":null,
   "visible":true,
