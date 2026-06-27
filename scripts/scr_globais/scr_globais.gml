@@ -2,12 +2,14 @@
 global.mina = noone;
 
 //itens
-global.itens = {};
-global.itens[BLOCOS.terra] =    {nome: "terra",     valor: 1, quantidade: 0};
-global.itens[BLOCOS.pedra] =    {nome: "pedra",     valor: 2, quantidade: 0};
-global.itens[BLOCOS.ferro] =    {nome: "ferro",     valor: 5, quantidade: 0};
-global.itens[BLOCOS.ouro] =     {nome: "ouro",      valor: 5, quantidade: 0};
-global.itens[BLOCOS.ametista] = {nome: "ametista",  valor: 20, quantidade: 0};
+global.itens = 
+[
+    {nome: "terra",    valor: 1,  quantidade: 0},
+    {nome: "pedra",    valor: 2,  quantidade: 0}, 
+    {nome: "ferro",    valor: 5,  quantidade: 0}, 
+    {nome: "ouro",     valor: 5,  quantidade: 0}, 
+    {nome: "ametista", valor: 20, quantidade: 0}  
+];
 
 //dinheiro
 global.moeda = 0;
@@ -19,5 +21,18 @@ global.picareta =
     cooldown: 15
 };
 
-//interface
-global.interface = false;
+//upgrades
+global.upgrades = 
+{
+    //classe 1 - dano de picareta
+    dano_picareta:
+    {
+        descricao: "Aumenta o dano da picareta em 0.1",
+        custo: 10
+    },
+    //classe 2 - velocidade
+    velocidade_player:
+    {
+        
+    }
+};
