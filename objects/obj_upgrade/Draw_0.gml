@@ -8,7 +8,7 @@ draw_set_colour(c_black);
 //nome
 draw_text(x, y - 6, nome);
 //valor
-draw_text(x, y + 15, "Venda: " + string(global.itens[tipo_bloco].valor));
+draw_text(x, y + 15, "Custo: " + string(custo));
 
 draw_set_font(-1);
 draw_set_halign(-1);

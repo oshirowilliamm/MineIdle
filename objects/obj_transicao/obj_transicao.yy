@@ -12,7 +12,10 @@
     "name":"outros",
     "path":"folders/objects/outros.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_colisao",
+    "path":"objects/obj_colisao/obj_colisao.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

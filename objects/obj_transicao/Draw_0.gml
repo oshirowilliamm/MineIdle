@@ -4,7 +4,7 @@ draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_colour(c_white);
 
-draw_text(x + 16, y + 16, nome);
+draw_text(x, y, nome);
 
 draw_set_font(-1);
 draw_set_halign(-1);

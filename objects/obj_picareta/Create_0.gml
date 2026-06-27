@@ -1,5 +1,5 @@
 //dano da picareta
-dano = 1;
+dano = global.picareta.dano;
 
 //variavel para checar se pode golpear
 pode_golpear = true;

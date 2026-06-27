@@ -11,3 +11,10 @@ global.itens[BLOCOS.ametista] = {nome: "ametista",  valor: 20, quantidade: 0};
 
 //dinheiro
 global.moeda = 0;
+
+//picareta
+global.picareta = 
+{
+    dano: 1,
+    cooldown: 15
+};
