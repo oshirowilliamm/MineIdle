@@ -10,8 +10,8 @@
   "name":"obj_upgrade",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"loja",
+    "path":"folders/objects/loja.yy",
   },
   "parentObjectId":{
     "name":"obj_colisao",
