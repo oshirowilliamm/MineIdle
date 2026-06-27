@@ -10,7 +10,7 @@ else
 	tile_colisor = -1;
 
 //criando colisao
-colisores = [obj_colisao, obj_parede, tile_colisor, obj_transicao, obj_venda];
+colisores = [obj_colisao, tile_colisor];
 
 //criando a picareta so se estiver na mina
 if (!instance_exists(obj_picareta) && room == rm_mina) 

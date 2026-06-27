@@ -3,7 +3,7 @@
 debug = false;
 
 //variaveis de movimento
-spd = 3;
+spd = 2;
 hspd = 0;
 vspd = 0;
 
@@ -142,7 +142,7 @@ xscale = 1; //muda entre esquerda e direita
 #endregion
 
 //variaveis de cooldown
-cooldown_max = 15;
+cooldown_max = global.picareta.cooldown;
 cooldown_atual = 0;
 
 //usando o equipamento

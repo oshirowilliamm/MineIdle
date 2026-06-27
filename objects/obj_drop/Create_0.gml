@@ -11,7 +11,7 @@ vspd = lengthdir_y(2, random(359));
 pode_andar = false;
 raio_atracao = 96;
 raio_coleta = 15;
-alarm[0] = 70;
+alarm[0] = 30;
 
 //variaveis de gravidade
 z = -1; 
