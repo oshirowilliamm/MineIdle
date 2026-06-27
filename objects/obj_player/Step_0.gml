@@ -66,4 +66,6 @@ if (keyboard_check_pressed(vk_tab))
     debug = !debug;
 }
 
+show_debug_message(image_index);
+
 #endregion

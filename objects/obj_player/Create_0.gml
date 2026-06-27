@@ -86,6 +86,9 @@ xscale = 1; //muda entre esquerda e direita
             spr_player_idle_front, 
             spr_player_idle_back
         );
+        
+        //aplicando a sprite
+        sprite_index = sprite;
     }
     
     estado_parado.roda = function()
@@ -98,6 +101,9 @@ xscale = 1; //muda entre esquerda e direita
             spr_player_idle_front, 
             spr_player_idle_back
         );
+        
+        //aplicando a sprite
+        sprite_index = sprite;
         
         //mudando de estado
         if (up xor down or right xor left)
@@ -120,6 +126,9 @@ xscale = 1; //muda entre esquerda e direita
             spr_player_idle_front, 
             spr_player_idle_back
         );
+        
+        //aplicando a sprite
+        sprite_index = sprite;
     }
     
     estado_andando.roda = function()
@@ -132,6 +141,9 @@ xscale = 1; //muda entre esquerda e direita
             spr_player_idle_front, 
             spr_player_idle_back
         );
+        
+        //aplicando a sprite
+        sprite_index = sprite;
         
         //mudando de estado
         if (hspd == 0 && vspd == 0)
