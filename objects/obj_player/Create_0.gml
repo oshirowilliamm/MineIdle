@@ -116,7 +116,7 @@ xscale = 1; //muda entre esquerda e direita
         sprite = define_sprite
         (
             dir, 
-            spr_player_idle_side, 
+            spr_player_run_side, 
             spr_player_idle_front, 
             spr_player_idle_back
         );
@@ -128,7 +128,7 @@ xscale = 1; //muda entre esquerda e direita
         sprite = define_sprite
         (
             dir, 
-            spr_player_idle_side, 
+            spr_player_run_side, 
             spr_player_idle_front, 
             spr_player_idle_back
         );
