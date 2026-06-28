@@ -17,7 +17,7 @@
     {"$GMFolder":"","%Name":"rooms","folderPath":"folders/rooms.yy","name":"rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"scripts","folderPath":"folders/scripts.yy","name":"scripts","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"sprites","folderPath":"folders/sprites.yy","name":"sprites","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"loja","folderPath":"folders/sprites/loja.yy","name":"loja","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"loja","folderPath":"folders/sprites/outros/loja.yy","name":"loja","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"minerios","folderPath":"folders/sprites/minerios.yy","name":"minerios","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"outros","folderPath":"folders/sprites/outros.yy","name":"outros","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"player","folderPath":"folders/sprites/player.yy","name":"player","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -82,10 +82,10 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"rm_venda","path":"rooms/rm_venda/rm_venda.yy",},},
-    {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
     {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
+    {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
     {"roomId":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},},
+    {"roomId":{"name":"rm_venda","path":"rooms/rm_venda/rm_venda.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

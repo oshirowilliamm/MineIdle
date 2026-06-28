@@ -1,6 +1,13 @@
 //mina
 global.mina = noone;
 
+//dinheiro
+global.moeda = 0;
+
+//stamina
+global.stamina_max = 100;
+global.stamina_atual = global.stamina_max;
+
 //itens
 global.itens = 
 [
@@ -11,13 +18,10 @@ global.itens =
     {nome: "ametista", valor: 20, quantidade: 0}  
 ];
 
-//dinheiro
-global.moeda = 0;
-
 //picareta
 global.picareta = 
 {
-    dano: 1,
+    dano: 5,
     cooldown: 15
 };
 
@@ -29,19 +33,20 @@ global.upgrades =
     [
         //0
         {
-            descricao: "Aumenta o dano \nda picareta \nem 0.1", 
+            descricao: "Aumenta o dano \nda picareta \nem 10%", 
             custo: 20,
             efeito: function()
             {
-                global.picareta.dano += .1;
+                global.picareta.dano += global.picareta.dano * .1;
             }
         }
     ],
     //classe 2 - stamina
     stamina:
     [
+        //0
         {
-            descricao: "Aumenta a \nstamina em 0.5", 
+            descricao: "Aumenta a \nstamina em 50%", 
             custo: 10,
             efeito: function()
             {

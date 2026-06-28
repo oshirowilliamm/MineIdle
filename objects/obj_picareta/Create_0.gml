@@ -1,6 +1,3 @@
-//dano da picareta
-dano = global.picareta.dano;
-
 //variavel para checar se pode golpear
 pode_golpear = true;
 //variavel pra checar se esta usando a picareta
@@ -61,7 +58,7 @@ golpe = function()
         var _linha = global.mina.linha_mineracao();
         
         //chamando o minera bloco
-        global.mina.minera_bloco(_linha.x, _linha.y, dano);
+        global.mina.minera_bloco(_linha.x, _linha.y, global.picareta.dano);
     }
     
     //quando chegar no tempo limite do efeito, reseta tudo

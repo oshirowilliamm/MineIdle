@@ -56,6 +56,7 @@ yy = y - 15;
 controles();
 roda_estado();
 segura_picareta();
+stamina();
 
 #region Debugs
 

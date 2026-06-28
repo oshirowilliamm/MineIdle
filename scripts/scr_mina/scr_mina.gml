@@ -17,7 +17,7 @@ function mina_sistema() constructor
     chunk_y = 0 + size_h;   //posição y inicial
     chunk_w = 16;           //qtd de colunas
     chunk_h = 12;           //qtd de linhas
-    total_chunks = 50;       //total de chunks
+    total_chunks = 50;      //total de chunks
     margem = 2;             //margem de colunas extras
     seletor_index = 0;      //controlando animação do seletor
     
@@ -50,11 +50,11 @@ function mina_sistema() constructor
             }
             
             //adicionando as definições dos blocos
-            _add_def(BLOCOS.terra,    "terra",    2,  0, 1, 35);
-            _add_def(BLOCOS.pedra,    "pedra",    3,  1, 1, 50);
-            _add_def(BLOCOS.ferro,    "ferro",    15, 2, 1, 5);
-            _add_def(BLOCOS.ouro,	  "ouro",	  15, 3, 1, 5);
-    		_add_def(BLOCOS.ametista, "ametista", 28, 4, 1, 1);
+            _add_def(BLOCOS.terra,    "terra",    10,  0, 1, 35);
+            _add_def(BLOCOS.pedra,    "pedra",    20,  1, 1, 50);
+            _add_def(BLOCOS.ferro,    "ferro",    40, 2, 1, 5);
+            _add_def(BLOCOS.ouro,	  "ouro",	  50, 3, 1, 5);
+    		_add_def(BLOCOS.ametista, "ametista", 100, 4, 1, 1);
         }
         
     #endregion
@@ -244,7 +244,8 @@ function mina_sistema() constructor
                     _novo_chunk.blocos[_bloco_id] =
                     {
                         id: _bloco_tipo,
-                        hp: bloco_defs[_bloco_tipo].hp
+                        hp: bloco_defs[_bloco_tipo].hp,
+                        tempo_dano: 0
                     };
                 }
             }
@@ -275,6 +276,12 @@ function mina_sistema() constructor
             {
                 //aplicando dano
                 _bloco.hp -= _dano;
+                
+                //guardando esse dano no bloco
+                _bloco.tempo_dano = current_time;
+                
+                //perdendo stamina do player
+                global.stamina_atual -= 5;
                 
                 //fazendo rachaduras no bloco
                 bloco_rachadura(_x, _y);
@@ -397,6 +404,52 @@ function mina_sistema() constructor
             {
             	//criando o drop
                 var _drop = instance_create_layer(_x, _y, "Drops", obj_drop, _drop_infos);
+            }
+        }
+        
+        //função para regenerar a vida dos blocos
+        static regenera_bloco = function()
+        {
+            //rodando as chunks visiveis igual no carrega chunks
+            var _vx = camera_get_view_x(view_camera[0]);
+            var _vw = camera_get_view_width(view_camera[0]);
+            var _chunk1 = get_chunk_id(_vx);
+            var _chunk2 = get_chunk_id(_vx + _vw);
+            var _left_chunk     = max(0, _chunk1 - margem);
+            var _right_chunk    = max(0, _chunk2 + margem);
+            
+            //rodando as chunks da tela
+            for (var _id = _left_chunk; _id <= _right_chunk; _id++)
+            {
+                //validação da existência do chunk
+                if (!variable_struct_exists(chunks, _id)) continue;
+                   
+                var _chunk_atual = chunks[$ _id];
+                
+                //acessando os blocos
+                for (var i = 0; i < array_length(_chunk_atual.blocos); i++)
+                {
+                    //pegando o bloco
+                    var _bloco = _chunk_atual.blocos[i];
+                    //tempo pra regenerar em milissegundos
+                    var _tempo = 5 * 1000;
+                    
+                    //validações
+                    if (_bloco.id == BLOCOS.vazio)                  continue; //bloco vazio
+                    if (_bloco.hp >= bloco_defs[_bloco.id].hp)      continue; //vida cheia
+                    if (current_time - _bloco.tempo_dano < _tempo ) continue; //tempo de espera
+                    
+                    //regenerando vida
+                    _bloco.hp++;
+                    
+                    //regenerando rachaduras
+                    var _col = i % chunk_w;
+                    var _row = floor(i / chunk_w);
+                    var _xbloco = grid_to_pixel_x(_col + (_id * chunk_w));
+                    var _ybloco = grid_to_pixel_y(_row);
+                    
+                    bloco_rachadura(_xbloco, _ybloco);
+                }
             }
         }
         
