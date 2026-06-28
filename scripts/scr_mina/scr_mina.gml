@@ -17,7 +17,7 @@ function mina_sistema() constructor
     chunk_y = 0 + size_h;   //posição y inicial
     chunk_w = 16;           //qtd de colunas
     chunk_h = 12;           //qtd de linhas
-    total_chunks = 50;       //total de chunks
+    total_chunks = 50;      //total de chunks
     margem = 2;             //margem de colunas extras
     seletor_index = 0;      //controlando animação do seletor
     

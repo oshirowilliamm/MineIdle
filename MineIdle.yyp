@@ -82,9 +82,9 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
     {"roomId":{"name":"rm_venda","path":"rooms/rm_venda/rm_venda.yy",},},
     {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
-    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
     {"roomId":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},},
   ],
   "templateType":"game",
