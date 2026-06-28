@@ -46,7 +46,7 @@
   "origin":4,
   "parent":{
     "name":"loja",
-    "path":"folders/sprites/loja.yy",
+    "path":"folders/sprites/outros/loja.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

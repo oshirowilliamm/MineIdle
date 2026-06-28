@@ -3,7 +3,8 @@
 debug = false;
 
 //variaveis de movimento
-spd = 2;
+spd_max = 2;
+spd = spd_max;
 hspd = 0;
 vspd = 0;
 
@@ -214,6 +215,45 @@ segura_picareta = function()
     
     //ação de equip
     usa_equip();
+}
+
+//salvando dano da picareta antiga
+picareta_dano_original = global.picareta.dano;
+
+//stamina
+stamina = function()
+{
+    //se estiver na mina
+    if (room == rm_mina)
+    {
+        //se stamina acabar, o player fica lento
+        if (global.stamina_atual <= 0)
+        {
+            //fica lento
+            spd = 1;
+            
+            //picareta lenta
+            
+            global.picareta.dano = 1;
+            
+            //resetando stamina atual
+            global.stamina_atual = 0;
+        }
+    }
+    else 
+    {
+        //resetando stamina
+    	global.stamina_atual = global.stamina_max;
+        
+        //resetando velocidade
+        var _spd = lerp(spd, spd_max + 1, .01);
+        spd = min(_spd, spd_max);
+        
+        //resetando dano da picareta
+        global.picareta.dano = picareta_dano_original;
+    }
+    
+    
 }
 
 //iniciando estado padrao do player
