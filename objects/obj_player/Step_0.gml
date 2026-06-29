@@ -65,16 +65,6 @@ if (keyboard_check_pressed(vk_tab))
     debug = !debug;
 }
 
-//ganhando dinheiro
-if (keyboard_check_pressed(ord("G")))
-{
-    global.moeda += 10;
-}
-
-//reiniciando jogo
-if (keyboard_check_pressed(ord("R")))
-{
-    game_restart();
-}
+debugs();
 
 #endregion

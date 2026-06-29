@@ -1,6 +1,32 @@
 //deixando jogo aleatorio
 randomise();
 
+//debugs
+function debugs()
+{
+    //ganhando dinheiro
+    if (keyboard_check_pressed(ord("G")))
+    {
+        global.moeda += 10;
+    }
+    
+    //reiniciando jogo
+    if (keyboard_check_pressed(ord("R")))
+    {
+        game_restart();
+    }
+    
+    //ganhando itens
+    if (keyboard_check_pressed(ord("I")))
+    {
+        global.inventario[0].quantidade++;
+        global.inventario[1].quantidade++;
+        global.inventario[2].quantidade++;
+        global.inventario[3].quantidade++;
+        global.inventario[4].quantidade++;
+    }
+}
+
 //sombra
 function desenha_sombra(_scale = .5)
 {

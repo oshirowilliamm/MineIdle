@@ -10,7 +10,7 @@ vspd = lengthdir_y(2, random(359));
 //variaveis de coleta
 pode_andar = false;
 raio_atracao = 96;
-raio_coleta = 15;
+raio_coleta = 30;
 alarm[0] = 30;
 
 //variaveis de gravidade
@@ -73,7 +73,7 @@ sugando = function(_dist)
         if (_dist < raio_coleta)
         {
             //coletando item
-            global.itens[tipo_bloco].quantidade++;
+            global.inventario[tipo_bloco].quantidade++;
             
             //destruindo
             instance_destroy();

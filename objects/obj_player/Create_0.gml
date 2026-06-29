@@ -229,25 +229,19 @@ stamina = function()
         //se stamina acabar, o player fica lento
         if (global.stamina_atual <= 0)
         {
-            //fica lento
-            spd = 1;
-            
             //picareta lenta
-            
             global.picareta.dano = 1;
             
             //resetando stamina atual
             global.stamina_atual = 0;
         }
     }
+    //se tiver fora da mina
     else 
     {
         //resetando stamina
-    	global.stamina_atual = global.stamina_max;
-        
-        //resetando velocidade
-        var _spd = lerp(spd, spd_max + 1, .01);
-        spd = min(_spd, spd_max);
+        var _stamina = lerp(global.stamina_atual, global.stamina_max + global.stamina_max * .2, .01); 
+    	global.stamina_atual = min(_stamina, global.stamina_max);
         
         //resetando dano da picareta
         global.picareta.dano = picareta_dano_original;

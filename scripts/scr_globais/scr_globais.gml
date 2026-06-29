@@ -7,15 +7,16 @@ global.moeda = 0;
 //stamina
 global.stamina_max = 100;
 global.stamina_atual = global.stamina_max;
+global.stamina_dano = 2;
 
 //itens
-global.itens = 
+global.inventario = 
 [
-    {nome: "Pedra",     valor: 1,  quantidade: 0},
-    {nome: "Roxo",      valor: 2,  quantidade: 0}, 
-    {nome: "Verde",     valor: 5,  quantidade: 0}, 
-    {nome: "Azul",      valor: 5,  quantidade: 0}, 
-    {nome: "Amarelo",   valor: 20, quantidade: 0}  
+    {nome: "Pedra",     valor: 1,  quantidade: 0, peso: 200},
+    {nome: "Roxo",      valor: 2,  quantidade: 0, peso: 400},
+    {nome: "Verde",     valor: 5,  quantidade: 0, peso: 600},
+    {nome: "Azul",      valor: 5,  quantidade: 0, peso: 800},
+    {nome: "Amarelo",   valor: 20, quantidade: 0, peso: 1000}
 ];
 
 //picareta

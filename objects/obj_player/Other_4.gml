@@ -2,18 +2,12 @@
 
 var _salas = [rm_venda, rm_upgrade];
 
-//rodando as salas
-for (var i = 0; i < array_length(_salas); i++)
+if (array_contains(_salas, room))
 {
-    //pegando sala
-    var _room = _salas[i];
-    
-    //destruindo
-    if (room == _room) instance_destroy();
+    instance_destroy();
 }
 
 #endregion
-
 
 //validação da existência do player
 if (!instance_exists(obj_player_spawn)) exit;

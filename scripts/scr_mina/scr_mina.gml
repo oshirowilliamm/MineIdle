@@ -24,7 +24,7 @@ function mina_sistema() constructor
     //informações de armazenamento
     chunks = {};
     bloco_defs = {};
-    peso_total = 0;
+    chance_spawn_total = 0;
     
     #region Inicialização dos Blocos
         
@@ -32,7 +32,7 @@ function mina_sistema() constructor
         static ini_defs = function()
         {
             //metodo rapido pra adicionar uma nova definição de bloco
-            var _add_def = function(_id, _nome, _hp, _spr_drop, _qtd, _peso)
+            var _add_def = function(_id, _nome, _hp, _spr_drop, _qtd, _spawn, _peso)
             {
                 //atributos dos blocos
                 bloco_defs[_id] =
@@ -41,20 +41,19 @@ function mina_sistema() constructor
     				hp: _hp, 
                     sprite_drop: _spr_drop, 
     				quantidade_drop: _qtd, 
-    				peso: _peso, //tem a ver com chance de geração
-    				solid: true //uso na colisão
+    				chance_spawn: _spawn, //tem a ver com chance de geração
                 }
                 
-                //adicionando o peso total
-                peso_total += _peso;
+                //adicionando o chance de spawn total
+                chance_spawn_total += _spawn;
             }
             
             //adicionando as definições dos blocos
-            _add_def(BLOCOS.pedra,    "pedra",    10,  0, 1, 35);
-            _add_def(BLOCOS.roxo,     "roxo",     20,  1, 1, 50);
-            _add_def(BLOCOS.verde,    "verde",    40,  2, 1, 5);
-            _add_def(BLOCOS.azul,	  "azul",	  50,  3, 1, 5);
-    		_add_def(BLOCOS.amarelo,  "amarelo",  100, 4, 1, 1);
+            _add_def(BLOCOS.pedra,    "Pedra",    10,  0, 1, 35);
+            _add_def(BLOCOS.roxo,     "Roxo",     20,  1, 1, 50);
+            _add_def(BLOCOS.verde,    "Verde",    40,  2, 1, 5);
+            _add_def(BLOCOS.azul,	  "Azul",	  50,  3, 1, 5);
+    		_add_def(BLOCOS.amarelo,  "Amarelo",  100, 4, 1, 1);
         }
         
     #endregion
@@ -151,17 +150,17 @@ function mina_sistema() constructor
     
     #region Funções de Geração  
         
-        //função para gerar os blocos de forma aleatória considerando os pesos
+        //função para gerar os blocos de forma aleatória considerando as chances de spawn
         static gera_blocos = function() 
         {
-            var _random = irandom(peso_total - 1); //faz um irandom(99)
+            var _random = irandom(chance_spawn_total - 1); //faz um irandom(99)
             var _acumulador = 0;
             
-            //pega um bloco aleatorio e seu peso
+            //pega um bloco aleatorio e sua chance de spawn
             for (var i = 0; i < array_length(bloco_defs); i++)
             {
-                //bloco que nao foi escolhido para somar com o peso do proximo bloco
-                _acumulador += bloco_defs[i].peso;
+                //bloco que nao foi escolhido para somar com a chance do proximo bloco
+                _acumulador += bloco_defs[i].chance_spawn;
                 //caso o bloco escolhido nao for menor que a porcentagem de aparecer
                 if (_random < _acumulador) return i; //retorna o bloco escolhido
             }
@@ -281,7 +280,7 @@ function mina_sistema() constructor
                 _bloco.tempo_dano = current_time;
                 
                 //perdendo stamina do player
-                global.stamina_atual -= 5;
+                global.stamina_atual -= global.stamina_dano;
                 
                 //fazendo rachaduras no bloco
                 bloco_rachadura(_x, _y);
@@ -489,7 +488,29 @@ function mina_sistema() constructor
             }
         }
         
+        //arrumando bug de tiles nao aparecendo quando a room acaba
+        static ajusta_tamanho_tile = function()
+        {
+            //pegando largura total da room em celulas
+            var _largura_room = total_chunks * chunk_w * size_w + chunk_x;
+            
+            //tile minerios
+            if (layer_exists("tl_minerios")) {
+                var _tile_id_minerios = layer_tilemap_get_id("tl_minerios");
+                tilemap_set_width(_tile_id_minerios, _largura_room);
+            }
+            
+            //tile rachaduras
+            if (layer_exists("tl_rachaduras")) {
+                var _tile_id_rachaduras = layer_tilemap_get_id("tl_rachaduras");
+                tilemap_set_width(_tile_id_rachaduras, _largura_room);
+            }
+        }
+        
     #endregion
+    
+    //ajustando o tamanho da room pros tiles
+    ajusta_tamanho_tile();
     
     //chamando o blocos defs
     ini_defs();
