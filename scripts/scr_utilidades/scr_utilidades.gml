@@ -7,7 +7,7 @@ function debugs()
     //ganhando dinheiro
     if (keyboard_check_pressed(ord("G")))
     {
-        global.moeda += 10;
+        global.moeda += 100;
     }
     
     //reiniciando jogo

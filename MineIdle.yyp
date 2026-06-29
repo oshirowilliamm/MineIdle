@@ -12,8 +12,8 @@
   "Folders":[
     {"$GMFolder":"","%Name":"fontes","folderPath":"folders/fontes.yy","name":"fontes","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"objects","folderPath":"folders/objects.yy","name":"objects","resourceType":"GMFolder","resourceVersion":"2.0",},
-    {"$GMFolder":"","%Name":"mina","folderPath":"folders/objects/mina.yy","name":"mina","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"loja","folderPath":"folders/objects/loja.yy","name":"loja","resourceType":"GMFolder","resourceVersion":"2.0",},
+    {"$GMFolder":"","%Name":"mina","folderPath":"folders/objects/mina.yy","name":"mina","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"outros","folderPath":"folders/objects/outros.yy","name":"outros","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"player","folderPath":"folders/objects/player.yy","name":"player","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"rooms","folderPath":"folders/rooms.yy","name":"rooms","resourceType":"GMFolder","resourceVersion":"2.0",},
@@ -34,7 +34,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+    "IDEVersion":"2024.14.4.222",
   },
   "name":"MineIdle",
   "resources":[
