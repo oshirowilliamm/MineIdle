@@ -1,11 +1,11 @@
 enum BLOCOS 
 {
 	vazio = -1,
-    terra,
     pedra,
-    ferro,
-    ouro,
-    ametista
+    roxo,
+    verde,
+    azul,
+    amarelo
 }
 
 function mina_sistema() constructor
@@ -16,7 +16,7 @@ function mina_sistema() constructor
     chunk_x = 7 * size_w;   //posição x inicial
     chunk_y = 0 + size_h;   //posição y inicial
     chunk_w = 16;           //qtd de colunas
-    chunk_h = 12;           //qtd de linhas
+    chunk_h = 20;           //qtd de linhas
     total_chunks = 50;      //total de chunks
     margem = 2;             //margem de colunas extras
     seletor_index = 0;      //controlando animação do seletor
@@ -50,11 +50,11 @@ function mina_sistema() constructor
             }
             
             //adicionando as definições dos blocos
-            _add_def(BLOCOS.terra,    "terra",    10,  0, 1, 35);
-            _add_def(BLOCOS.pedra,    "pedra",    20,  1, 1, 50);
-            _add_def(BLOCOS.ferro,    "ferro",    40, 2, 1, 5);
-            _add_def(BLOCOS.ouro,	  "ouro",	  50, 3, 1, 5);
-    		_add_def(BLOCOS.ametista, "ametista", 100, 4, 1, 1);
+            _add_def(BLOCOS.pedra,    "pedra",    10,  0, 1, 35);
+            _add_def(BLOCOS.roxo,     "roxo",     20,  1, 1, 50);
+            _add_def(BLOCOS.verde,    "verde",    40,  2, 1, 5);
+            _add_def(BLOCOS.azul,	  "azul",	  50,  3, 1, 5);
+    		_add_def(BLOCOS.amarelo,  "amarelo",  100, 4, 1, 1);
         }
         
     #endregion
@@ -111,11 +111,11 @@ function mina_sistema() constructor
         {
             switch (_bloco_tipo) 
             {
-            	case BLOCOS.terra:      return 1;
-                case BLOCOS.pedra:      return 2;
-                case BLOCOS.ferro:      return 3;  
-                case BLOCOS.ouro:       return 4;
-                case BLOCOS.ametista:   return 5;  
+            	case BLOCOS.pedra:      return 1;
+                case BLOCOS.roxo:      return 2;
+                case BLOCOS.verde:      return 3;  
+                case BLOCOS.azul:       return 4;
+                case BLOCOS.amarelo:   return 5;  
                 default:                return 0;
             }
         }
@@ -166,8 +166,8 @@ function mina_sistema() constructor
                 if (_random < _acumulador) return i; //retorna o bloco escolhido
             }
             
-            //retorna a terra por segurança
-            return BLOCOS.terra;
+            //retorna a pedra por segurança
+            return BLOCOS.pedra;
         }
         
         //função para chamar os chunks na camera

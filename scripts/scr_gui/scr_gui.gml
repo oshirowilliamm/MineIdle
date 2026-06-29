@@ -44,7 +44,7 @@ if (_click && _retangulo)
 
 #endregion
 
-//vendendo terra
+//vendendo pedra
 var _xitem = _xfundo + 150;
 var _yitem = _yfundo + 100;
 var _witem = 150;
@@ -54,4 +54,4 @@ var _hitem = 150;
 draw_sprite_stretched_ext(spr_item, 0, _xitem, _yitem, _witem, _hitem, c_orange, 1);
 
 //texto item
-draw_text(_xitem, _yitem, "Terra");
+draw_text(_xitem, _yitem, "pedra");

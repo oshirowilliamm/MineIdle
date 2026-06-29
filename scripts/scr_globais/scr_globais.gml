@@ -11,11 +11,11 @@ global.stamina_atual = global.stamina_max;
 //itens
 global.itens = 
 [
-    {nome: "terra",    valor: 1,  quantidade: 0},
-    {nome: "pedra",    valor: 2,  quantidade: 0}, 
-    {nome: "ferro",    valor: 5,  quantidade: 0}, 
-    {nome: "ouro",     valor: 5,  quantidade: 0}, 
-    {nome: "ametista", valor: 20, quantidade: 0}  
+    {nome: "Pedra",     valor: 1,  quantidade: 0},
+    {nome: "Roxo",      valor: 2,  quantidade: 0}, 
+    {nome: "Verde",     valor: 5,  quantidade: 0}, 
+    {nome: "Azul",      valor: 5,  quantidade: 0}, 
+    {nome: "Amarelo",   valor: 20, quantidade: 0}  
 ];
 
 //picareta
@@ -50,7 +50,7 @@ global.upgrades =
             custo: 10,
             efeito: function()
             {
-                show_message("ok");
+                global.stamina_max += global.stamina_max * .5;
             }
         }
     ]
