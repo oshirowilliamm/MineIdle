@@ -10,7 +10,7 @@ with (global.mina)
     var _mina_height = (chunk_h * size_h) + chunk_y;
     //infos do tamanho da parede
     var _parede_width = sprite_get_width(spr_parede);
-    var _parede_height = sprite_get_height(spr_parede);
+    var _parede_height = sprite_get_height(spr_teto);
     
     //definindo tamanho
     room_width = _mina_width + _parede_width;
