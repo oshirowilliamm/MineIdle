@@ -18,9 +18,9 @@ with (global.mina)
     
     //criando as paredes
     var _left = instance_create_layer(0, 0, "Parede", obj_parede);
-    var _top = instance_create_layer(0, 0, "Parede", obj_parede);
+    var _top = instance_create_layer(0, 0, "Parede", obj_teto);
     var _right = instance_create_layer(room_width - size_w, 0, "Parede", obj_parede);
-    var _bottom = instance_create_layer(0, room_height - size_h, "Parede", obj_parede);
+    var _bottom = instance_create_layer(0, room_height - size_h, "Parede", obj_teto);
     
     //alterando a escala da parede
     _left.image_yscale = room_height;

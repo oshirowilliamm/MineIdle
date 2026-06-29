@@ -10,6 +10,7 @@ global.stamina_atual = global.stamina_max;
 global.stamina_dano = 2;
 
 //itens
+global.inventario_max = 10000;
 global.inventario = 
 [
     {nome: "Pedra",     valor: 1,  quantidade: 0, peso: 200},

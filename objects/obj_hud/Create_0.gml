@@ -23,3 +23,17 @@ desenha_stamina = function()
     //barra da stamina
     draw_sprite_stretched_ext(spr_barra_stamina, 0, _x1, _y1, _width, _height, _cor, 1);
 }
+
+//desenhando a sacola que guarda os itens
+desenha_sacola = function()
+{
+    //variaveis pro draw
+    var _escala = 5;
+    var _x1 = display_get_gui_width() - 80;
+    var _y1 = 580;
+    
+    //desenhando fundo da sacola
+    draw_sprite_ext(spr_sacola, 1, _x1, _y1, _escala, _escala, 0, c_white, 1);
+    //desenhando frente da sacola
+    draw_sprite_ext(spr_sacola, 0, _x1, _y1, _escala, _escala, 0, c_white, 1);
+}

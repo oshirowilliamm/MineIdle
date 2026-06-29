@@ -1,17 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"obj_picareta",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_teto",
+  "eventList":[],
   "managed":true,
-  "name":"obj_picareta",
+  "name":"obj_teto",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/objects/player.yy",
+    "name":"outros",
+    "path":"folders/objects/outros.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_colisao",
+    "path":"objects/obj_colisao/obj_colisao.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_picareta",
-    "path":"sprites/spr_picareta/spr_picareta.yy",
+    "name":"spr_teto",
+    "path":"sprites/spr_teto/spr_teto.yy",
   },
   "spriteMaskId":null,
   "visible":true,

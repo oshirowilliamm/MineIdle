@@ -14,7 +14,7 @@ function mina_sistema() constructor
     size_w  = 32;           //tamanho horizontal da celula
     size_h  = 32;           //tamanho vertical da celula
     chunk_x = 7 * size_w;   //posição x inicial
-    chunk_y = 0 + size_h;   //posição y inicial
+    chunk_y = 64;           //posição y inicial
     chunk_w = 16;           //qtd de colunas
     chunk_h = 20;           //qtd de linhas
     total_chunks = 50;      //total de chunks
@@ -32,7 +32,7 @@ function mina_sistema() constructor
         static ini_defs = function()
         {
             //metodo rapido pra adicionar uma nova definição de bloco
-            var _add_def = function(_id, _nome, _hp, _spr_drop, _qtd, _spawn, _peso)
+            var _add_def = function(_id, _nome, _hp, _spr_drop, _qtd, _spawn)
             {
                 //atributos dos blocos
                 bloco_defs[_id] =
@@ -49,9 +49,9 @@ function mina_sistema() constructor
             }
             
             //adicionando as definições dos blocos
-            _add_def(BLOCOS.pedra,    "Pedra",    10,  0, 1, 35);
-            _add_def(BLOCOS.roxo,     "Roxo",     20,  1, 1, 50);
-            _add_def(BLOCOS.verde,    "Verde",    40,  2, 1, 5);
+            _add_def(BLOCOS.pedra,    "Pedra",    10,  0, 1, 50);
+            _add_def(BLOCOS.roxo,     "Roxo",     20,  1, 1, 15);
+            _add_def(BLOCOS.verde,    "Verde",    40,  2, 1, 10);
             _add_def(BLOCOS.azul,	  "Azul",	  50,  3, 1, 5);
     		_add_def(BLOCOS.amarelo,  "Amarelo",  100, 4, 1, 1);
         }

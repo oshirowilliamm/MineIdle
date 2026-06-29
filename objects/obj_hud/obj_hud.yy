@@ -11,8 +11,8 @@
   "name":"obj_hud",
   "overriddenProperties":[],
   "parent":{
-    "name":"objects",
-    "path":"folders/objects.yy",
+    "name":"player",
+    "path":"folders/objects/player.yy",
   },
   "parentObjectId":null,
   "persistent":true,
