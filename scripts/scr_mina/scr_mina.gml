@@ -289,7 +289,7 @@ function mina_sistema() constructor
                     _bloco.hp = 0;
                     
                     //atualizando os tiles
-                    atualiza_vizinhos();
+                    atualiza_vizinhos(_x, _y);
                 }
                 
                 //avisa que a picareta acertou um bloco não vazio
@@ -461,8 +461,8 @@ function mina_sistema() constructor
         //função que calcula o autotile
         static calcula_autotile = function(_x, _y, _bloco_tipo)
         {
-            //bloco vazio é 0
-            if (_bloco_tipo == BLOCOS.vazio) return 0;
+            //bloco vazio
+            if (_bloco_tipo == BLOCOS.vazio) return 10;
             
             var _bitmask = 0;
             
@@ -490,7 +490,7 @@ function mina_sistema() constructor
             var _index = bitmask_tile[_bitmask];
             
             //offset do minerio
-            var _offset = _bloco_tipo + 2;
+            var _offset = (_bloco_tipo * 16) + 1;
             
             return _offset + _index;
         }

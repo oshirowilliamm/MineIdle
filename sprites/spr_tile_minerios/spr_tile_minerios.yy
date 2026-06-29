@@ -2,9 +2,9 @@
   "$GMSprite":"v2",
   "%Name":"spr_tile_minerios",
   "bboxMode":0,
-  "bbox_bottom":127,
-  "bbox_left":32,
-  "bbox_right":415,
+  "bbox_bottom":1015,
+  "bbox_left":0,
+  "bbox_right":543,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -17,7 +17,7 @@
   ],
   "gridX":32,
   "gridY":32,
-  "height":200,
+  "height":2000,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"82f4f235-e9d8-452e-bc7f-c5df37dabd5c","blendMode":0,"displayName":"default","isLocked":false,"name":"82f4f235-e9d8-452e-bc7f-c5df37dabd5c","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -109,5 +109,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":448,
+  "width":544,
 }
