@@ -10,7 +10,7 @@
     "TileSerialiseData":[],
   },
   "name":"tl_minerios",
-  "out_columns":6,
+  "out_columns":35,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -36,5 +36,5 @@
   "tileWidth":32,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":42,
+  "tile_count":1240,
 }
