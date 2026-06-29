@@ -106,20 +106,6 @@ function mina_sistema() constructor
     
     #region Funções de Ajuda
         
-        //função para pegar id do tile de acordo com o tipo de bloco
-        static get_tile_id = function(_bloco_tipo)
-        {
-            switch (_bloco_tipo) 
-            {
-            	case BLOCOS.pedra:      return 1;
-                case BLOCOS.roxo:      return 2;
-                case BLOCOS.verde:      return 3;  
-                case BLOCOS.azul:       return 4;
-                case BLOCOS.amarelo:   return 5;  
-                default:                return 0;
-            }
-        }
-        
         //função para pegar um bloco especifico de uma chunk, de acordo com uma posição em pixel
         static get_bloco = function(_x, _y)
         {
@@ -211,15 +197,7 @@ function mina_sistema() constructor
             };
             
             //infos do tile
-            //criando a colisão com tiles apenas se existe a camada de tiles
-            if (layer_exists("tl_minerios"))
-            {
-                var _tile_id = layer_tilemap_get_id("tl_minerios");
-            } 
-            else 
-            {
-            	var _tile_id = -1;
-            }
+            var _tile_id = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
             
             //prencheendo a grid
             for (var i = 0; i < chunk_w; i++)
@@ -299,13 +277,10 @@ function mina_sistema() constructor
                     _bloco.hp = 0;
                     
                     //apagando os tiles
-                    if (layer_exists("tl_minerios") && layer_exists("tl_rachaduras"))
-                    {
-                        var _id_tile_minerios= layer_tilemap_get_id("tl_minerios");
-                        var _id_tile_rachaduras = layer_tilemap_get_id("tl_rachaduras");
-                        tilemap_set_at_pixel(_id_tile_minerios, 0, _x, _y);
-                        tilemap_set_at_pixel(_id_tile_rachaduras, 0, _x, _y);
-                    } 
+                    var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
+                    var _id_racha = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
+                    tilemap_set_at_pixel(_id_minerio, 0, _x, _y);
+                    tilemap_set_at_pixel(_id_racha, 0, _x, _y);
                 }
                 
                 //avisa que a picareta acertou um bloco não vazio
@@ -381,11 +356,8 @@ function mina_sistema() constructor
             else if (_porc <= _4)               _index = 4; //20% da vida
             
             //desenhando as rachaduras
-            if (layer_exists("tl_rachaduras")) 
-            {
-                var _tile_id = layer_tilemap_get_id("tl_rachaduras");
-                tilemap_set_at_pixel(_tile_id, _index, _x, _y);
-            }
+            var _tile_id = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
+            tilemap_set_at_pixel(_tile_id, _index, _x, _y);
         }
         
         //função para criar o drop 
@@ -486,25 +458,6 @@ function mina_sistema() constructor
                 
                 //debug para ver a vida do bloco
                 //draw_text(_x, _y, string(_hp_max) + " " + string(_hp_atual));
-            }
-        }
-        
-        //arrumando bug de tiles nao aparecendo quando a room acaba
-        static ajusta_tamanho_tile = function()
-        {
-            //pegando largura total da room em celulas
-            var _largura_room = total_chunks * chunk_w * size_w + chunk_x;
-            
-            //tile minerios
-            if (layer_exists("tl_minerios")) {
-                var _tile_id_minerios = layer_tilemap_get_id("tl_minerios");
-                tilemap_set_width(_tile_id_minerios, _largura_room);
-            }
-            
-            //tile rachaduras
-            if (layer_exists("tl_rachaduras")) {
-                var _tile_id_rachaduras = layer_tilemap_get_id("tl_rachaduras");
-                tilemap_set_width(_tile_id_rachaduras, _largura_room);
             }
         }
         

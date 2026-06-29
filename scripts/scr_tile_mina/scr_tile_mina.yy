@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_gui",
+  "%Name":"scr_tile_mina",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_gui",
+  "name":"scr_tile_mina",
   "parent":{
     "name":"scripts",
     "path":"folders/scripts.yy",
