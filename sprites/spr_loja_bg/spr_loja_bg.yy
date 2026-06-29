@@ -22,8 +22,8 @@
     {"$GMSpriteFrame":"v1","%Name":"697cd897-df59-4198-bb33-6d0f03eedf5f","name":"697cd897-df59-4198-bb33-6d0f03eedf5f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"43ded158-3631-4757-b0b4-fc2dd6da2c62","name":"43ded158-3631-4757-b0b4-fc2dd6da2c62","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"556f738e-aad4-41b2-a59a-f280c633bcbe","name":"556f738e-aad4-41b2-a59a-f280c633bcbe","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"v1","%Name":"f33380e3-8f31-4fa4-981f-129cc25d9562","name":"f33380e3-8f31-4fa4-981f-129cc25d9562","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"98c33245-e2d8-4ac5-ae24-8382031ed2f7","name":"98c33245-e2d8-4ac5-ae24-8382031ed2f7","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f33380e3-8f31-4fa4-981f-129cc25d9562","name":"f33380e3-8f31-4fa4-981f-129cc25d9562","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"ac55c54e-9643-4326-b451-8d3251ee309e","name":"ac55c54e-9643-4326-b451-8d3251ee309e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"82306784-c929-4c5c-a4a2-edd95b4dff92","name":"82306784-c929-4c5c-a4a2-edd95b4dff92","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"fc68ad41-23cd-4880-a4af-352c04473cfe","name":"fc68ad41-23cd-4880-a4af-352c04473cfe","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
@@ -75,7 +75,7 @@
     },
     "name":"spr_loja_bg",
     "playback":1,
-    "playbackSpeed":6.0,
+    "playbackSpeed":8.0,
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",
@@ -115,11 +115,11 @@
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"556f738e-aad4-41b2-a59a-f280c633bcbe","path":"sprites/spr_loja_bg/spr_loja_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"40d3fd45-d610-41f7-bdf6-6e6b84f3d6c3","IsCreationKey":false,"Key":9.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f33380e3-8f31-4fa4-981f-129cc25d9562","path":"sprites/spr_loja_bg/spr_loja_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"c78b09e2-483b-4c72-a47c-73f165b1ba55","IsCreationKey":false,"Key":10.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"98c33245-e2d8-4ac5-ae24-8382031ed2f7","path":"sprites/spr_loja_bg/spr_loja_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"21e267a2-efef-4049-8886-4580821075c8","IsCreationKey":false,"Key":11.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+              },"Disabled":false,"id":"21e267a2-efef-4049-8886-4580821075c8","IsCreationKey":false,"Key":10.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f33380e3-8f31-4fa4-981f-129cc25d9562","path":"sprites/spr_loja_bg/spr_loja_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"c78b09e2-483b-4c72-a47c-73f165b1ba55","IsCreationKey":false,"Key":11.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ac55c54e-9643-4326-b451-8d3251ee309e","path":"sprites/spr_loja_bg/spr_loja_bg.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"897cbc53-6375-45fd-9109-515e633564f5","IsCreationKey":false,"Key":12.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
