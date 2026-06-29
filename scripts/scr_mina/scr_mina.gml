@@ -199,7 +199,7 @@ function mina_sistema() constructor
             //infos do tile
             var _tile_id = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
             
-            //prencheendo a grid
+            //criando o chunk
             for (var i = 0; i < chunk_w; i++)
             {
                 for (var j = 0; j < chunk_h; j++)
@@ -207,16 +207,6 @@ function mina_sistema() constructor
                     //criando o bloco
                     var _bloco_tipo = gera_blocos();
                     var _bloco_id = get_bloco_id(i, j);
-                    
-                    //pegando posição para o tile
-                    var _xtile = grid_to_pixel_x(i + (_id * chunk_w));
-                    var _ytile = grid_to_pixel_y(j);
-                    
-                    //pegando minerio do tile
-                    var _tile_data = get_tile_id(_bloco_tipo);
-                    
-                    //setando o tile de colisão
-                    tilemap_set_at_pixel(_tile_id, _tile_data, _xtile, _ytile);
                     
                     //setando informações do bloco e do hp na chunk
                     _novo_chunk.blocos[_bloco_id] =
@@ -234,6 +224,28 @@ function mina_sistema() constructor
             //debug
             show_debug_message("Chunk Gerado: ID:" + string(_id));
             
+            //calculando tiles
+            for (var i = 0; i < chunk_w; i++)
+            {
+                for (var j = 0; j < chunk_h; j++)
+                {
+                    //pegando o bloco
+                    var _bloco_id = get_bloco_id(i, j);
+                    var _bloco = _novo_chunk.blocos[_bloco_id];
+                    
+                    //posição do tile
+                    var _global_x = i + (_id * chunk_w);
+                    var _xtile = grid_to_pixel_x(_global_x);
+                    var _ytile = grid_to_pixel_y(j);
+                    
+                    //pegando tile de acordo com os vizinhos
+                    var _tile_data = calcula_autotile(_global_x, j, _bloco.id);
+                    
+                    //setando a camada de tile
+                    if (_tile_id != -1) tilemap_set_at_pixel(_tile_id, _tile_data, _xtile, _ytile);
+                }
+            }
+            
             //retornando o novo chunk
             return _novo_chunk;
         }
@@ -245,7 +257,7 @@ function mina_sistema() constructor
         //função pra minerar os blocos
         static minera_bloco = function(_x, _y, _dano)
         {
-            //pegando o bloco
+            //pegando o bloco   
             var _bloco = get_bloco(_x, _y);
             if (!_bloco) return false;
             
@@ -276,11 +288,8 @@ function mina_sistema() constructor
                     _bloco.id = BLOCOS.vazio;
                     _bloco.hp = 0;
                     
-                    //apagando os tiles
-                    var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-                    var _id_racha = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
-                    tilemap_set_at_pixel(_id_minerio, 0, _x, _y);
-                    tilemap_set_at_pixel(_id_racha, 0, _x, _y);
+                    //atualizando os tiles
+                    atualiza_vizinhos();
                 }
                 
                 //avisa que a picareta acertou um bloco não vazio
@@ -425,6 +434,123 @@ function mina_sistema() constructor
             }
         }
         
+    #endregion
+    
+    #region Funções de Tile
+        
+        //variavel pra pegar o bitmask pro auto tile
+        static bitmask_tile = [
+            0,  //Sozinho (Sem vizinhos)
+            1,  //Norte
+            2,  //Leste
+            3,  //Norte + Leste
+            4,  //Sul
+            5,  //Norte + Sul
+            6,  //Leste + Sul
+            7,  //Norte + Leste + Sul
+            8,  //Oeste
+            9,  //Norte + Oeste
+            10, //Leste + Oeste
+            11, //Norte + Leste + Oeste
+            12, //Sul + Oeste
+            13, //Norte + Sul + Oeste
+            14, //Leste + Sul + Oeste
+            15  //Todas as direções (Bloco Central)
+        ];
+        
+        //função que calcula o autotile
+        static calcula_autotile = function(_x, _y, _bloco_tipo)
+        {
+            //bloco vazio é 0
+            if (_bloco_tipo == BLOCOS.vazio) return 0;
+            
+            var _bitmask = 0;
+            
+            //direção [Norte, Leste, Sul, Oeste]
+            var _dx = [ 0, 1, 0, -1];
+            var _dy = [-1, 0, 1,  0];
+            var _pesos = [1, 2, 4, 8];
+            
+            for (var i = 0; i < 4; i++)
+            {
+                //posição do bloco
+                var _xbloco = grid_to_pixel_x(_x + _dx[i]);
+                var _ybloco = grid_to_pixel_y(_y + _dy[i]);
+                
+                var _vizinho = get_bloco(_xbloco, _ybloco);
+                
+                //se o vizinho existir e for do mesmo tipo, soma o peso
+                if (_vizinho && _vizinho.id == _bloco_tipo)
+                {
+                    _bitmask += _pesos[i];
+                }
+            }
+            
+            //pegando o index do bloco
+            var _index = bitmask_tile[_bitmask];
+            
+            //offset do minerio
+            var _offset = _bloco_tipo + 2;
+            
+            return _offset + _index;
+        }
+        
+        //função para atualizar os vizinhos quando quebrado
+        static atualiza_vizinhos = function(_x, _y)
+        {
+            //apagando o tile original
+            if (layer_exists("tl_minerios"))
+            {
+                var _id = layer_tilemap_get_id("tl_minerios");
+                tilemap_set_at_pixel(_id, 0, _x, _y);
+            }
+            
+            //atualizando vizinhos
+            var _xgrid = pixel_to_grid_x(_x);
+            var _ygrid = pixel_to_grid_y(_y);
+            
+            //direções
+            var _dx = [ 0, 1, 0, -1];
+            var _dy = [-1, 0, 1,  0];
+            
+            for (var i = 0; i < 4; i++)
+            {
+                //posição do bloco
+                var _xx = _x + _dx[i];
+                var _yy = _y + _dy[i];
+                var _xbloco = grid_to_pixel_x(_xx);
+                var _ybloco = grid_to_pixel_y(_yy);
+                
+                var _vizinho = get_bloco(_xbloco, _ybloco);
+                
+                //se o vizinho existir e não for vazio
+                if (_vizinho && _vizinho != BLOCOS.vazio)
+                {
+                    var _novo_tile = calcula_autotile(_xx, _yy, _vizinho.id);
+                    if (layer_exists("tl_minerios")) {
+                        tilemap_set_at_pixel(_id, _novo_tile, _xbloco, _ybloco);
+                    }
+                }
+            }
+        }
+        
+        //arrumando bug de tiles nao aparecendo quando a room acaba
+        static ajusta_tamanho_tile = function()
+        {
+            //pegando largura total da room em celulas
+            var _largura_room = total_chunks * chunk_w * size_w + chunk_x;
+            
+            //id dos tiles
+            var _tile_id_minerios = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
+            var _tile_id_rachaduras = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
+            
+            //tile minerios
+            tilemap_set_width(_tile_id_minerios, _largura_room);
+            tilemap_set_width(_tile_id_rachaduras, _largura_room);
+        }
+        
+    #endregion
+    
     #endregion
     
     #region Desenho
