@@ -1,3 +1,4 @@
+//definições dos blocos
 function mina_ini_defs()
 {
     //metodo rapido pra adicionar uma nova definição de bloco
@@ -24,4 +25,15 @@ function mina_ini_defs()
     _add_def(BLOCOS.verde,    "Verde",    40,  2, 1, 10);
     _add_def(BLOCOS.azul,	  "Azul",	  50,  3, 1, 5);
     _add_def(BLOCOS.amarelo,  "Amarelo",  100, 4, 1, 1);
+}
+
+//infos do bloco na mina
+function mina_novo_bloco(_tipo)
+{
+    return
+    {
+        index : _tipo,
+        hp : global.bloco_defs[_tipo].hp,
+        tempo_dano : 0
+    }
 }

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"mina_tiles",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"mina_tiles",
+  "parent":{
+    "name":"Mina",
+    "path":"folders/scripts/Mina.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"mina_math",
+  "%Name":"mina_ajuda",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"mina_math",
+  "name":"mina_ajuda",
   "parent":{
     "name":"Mina",
     "path":"folders/scripts/Mina.yy",
