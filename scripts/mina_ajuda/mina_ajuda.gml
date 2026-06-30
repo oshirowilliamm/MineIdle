@@ -58,10 +58,10 @@ function mina_chunks_visiveis(_function)
     for (var _chunk = _inicio; _chunk <= _fim; _chunk++)
     {
         //validações
-        if (!variable_struct_exists(global.chunks, _chunk)) continue; //se chunk existe
+        if (!variable_struct_exists(chunks, _chunk)) continue; //se chunk existe
         
         //pegando o chunk da struct de chunks
-        var _chunk_struct = global.chunks[$ _chunk];
+        var _chunk_struct = chunks[$ _chunk];
         
         _function(_chunk_struct, _chunk);
     }
@@ -77,10 +77,10 @@ function mina_blocos_visiveis(_function)
     for (var _chunk = _inicio; _chunk <= _fim; _chunk++)
     {
         //validações
-        if (!variable_struct_exists(global.chunks, _chunk)) continue; //se chunk existe
+        if (!variable_struct_exists(chunks, _chunk)) continue; //se chunk existe
         
         //pegando o chunk da struct de chunks
-        var _chunk_struct = global.chunks[$ _chunk];
+        var _chunk_struct = chunks[$ _chunk];
         
         //rodando coluna da chunk
         for (var i = 0; i < MINA_CHUNK_W; i++)

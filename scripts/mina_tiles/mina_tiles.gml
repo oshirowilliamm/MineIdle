@@ -40,11 +40,9 @@ function mina_cria_tiles(_id, _chunk)
 function mina_atualiza_tiles(_x, _y)
 {
     var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-    var _id_racha = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
     
     //apagando os tiles do bloco 
     tilemap_set_at_pixel(_id_minerio, 0, _x, _y);
-    tilemap_set_at_pixel(_id_racha, 0, _x, _y);
     
     //atualizando bloco de baixo
     mina_atualiza_baixo(_x, _y);
@@ -86,7 +84,7 @@ function mina_cria_tile_parede(_bloco, _x, _y)
         var _tile = mina_tile_tipo(_bloco.index);
         
         //desenhando o tile do topo
-        var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
+        var _id_minerio = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
         tilemap_set_at_pixel(_id_minerio, _tile, _x, _y + MINA_SIZE_H);
     }
 }

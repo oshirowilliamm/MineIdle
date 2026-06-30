@@ -5,7 +5,7 @@ function mina_ini_defs()
     var _add_def = function(_id, _nome, _hp, _spr_drop, _qtd, _spawn)
     {
         //atributos dos blocos
-        global.bloco_defs[_id] =
+        bloco_defs[_id] =
         {
             nome:   _nome, 
             hp: _hp, 
@@ -15,7 +15,7 @@ function mina_ini_defs()
         }
         
         //adicionando o chance de spawn total
-        global.chance_spawn_total += _spawn;
+        chance_spawn_total += _spawn;
     }
     
     //adicionando as definições dos blocos
@@ -33,7 +33,7 @@ function mina_novo_bloco(_tipo)
     return
     {
         index : _tipo,
-        hp : global.bloco_defs[_tipo].hp,
+        hp : bloco_defs[_tipo].hp,
         tempo_dano : 0
     }
 }

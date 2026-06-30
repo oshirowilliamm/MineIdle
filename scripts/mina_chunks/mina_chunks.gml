@@ -13,7 +13,7 @@ function mina_cria_chunks(_id)
     mina_cria_bordas(_chunk);
     
     //colocando a nova chunk na struct
-    global.chunks[$ _id] = _chunk;
+    chunks[$ _id] = _chunk;
     
     //tiles
     mina_cria_tiles(_id, _chunk);
@@ -35,7 +35,7 @@ function mina_carrega_chunks()
     {
         //validações
         if (i >= MINA_TOTAL_CHUNKS) continue; //esta dentro do total de chunks
-        if (variable_struct_exists(global.chunks, i)) continue; //chunk existe
+        if (variable_struct_exists(chunks, i)) continue; //chunk existe
         
         //cria a chunk
         mina_cria_chunks(i);
@@ -45,14 +45,14 @@ function mina_carrega_chunks()
 //controla a geração de blocos conforme a chance de spawn
 function mina_gera_blocos()
 {
-    var _random = irandom(global.chance_spawn_total - 1); //faz um irandom(99)
+    var _random = irandom(chance_spawn_total - 1); //faz um irandom(99)
     var _acumulador = 0;
     
     //pega um bloco aleatorio e sua chance de spawn
-    for (var i = 0; i < array_length(global.bloco_defs); i++)
+    for (var i = 0; i < array_length(bloco_defs); i++)
     {
         //bloco que nao foi escolhido para somar com a chance do proximo bloco
-        _acumulador += global.bloco_defs[i].chance_spawn;
+        _acumulador += bloco_defs[i].chance_spawn;
         //caso o bloco escolhido nao for menor que a porcentagem de aparecer
         if (_random < _acumulador) return i; //retorna o bloco escolhido
     }
@@ -105,7 +105,7 @@ function mina_cria_bordas(_chunk)
                 
                 //setando bloco como borda
                 _chunk.blocos[_id].index = BLOCOS.borda;
-                _chunk.blocos[_id].hp = global.bloco_defs[BLOCOS.borda].hp;
+                _chunk.blocos[_id].hp = bloco_defs[BLOCOS.borda].hp;
             }
         }
     }

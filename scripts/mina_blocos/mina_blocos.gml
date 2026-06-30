@@ -5,7 +5,7 @@ function mina_get_bloco(_x, _y)
     var _chunk_id = mina_get_chunk_id(_x);
     
     //validação da existencia do chunk
-    if (!variable_struct_exists(global.chunks, _chunk_id)) return false;
+    if (!variable_struct_exists(chunks, _chunk_id)) return false;
     
     //pegando posição da grid
     var _xgrid = mina_pixel_to_grid_x(_x);
@@ -15,7 +15,7 @@ function mina_get_bloco(_x, _y)
     if (_ygrid < 0 || _ygrid >= MINA_CHUNK_H) return false;
     
     //acessando o chunk
-    var _chunk_atual = global.chunks[$ _chunk_id];
+    var _chunk_atual = chunks[$ _chunk_id];
     
     //pegando o id do bloco
     var _col = mina_get_chunk_col(_xgrid);
@@ -41,7 +41,7 @@ function mina_minera_bloco(_x, _y, _dano)
     
     //funções
     //aplicando dano
-    mina_dano_bloco(_bloco, _dano);
+    mina_dano_bloco(_bloco, _dano, _x, _y);
     
     //quebrando o bloco
     if (_bloco.hp <= 0 )
@@ -51,7 +51,7 @@ function mina_minera_bloco(_x, _y, _dano)
 }
 
 //dano do bloco
-function mina_dano_bloco(_bloco, _dano)
+function mina_dano_bloco(_bloco, _dano, _x, _y)
 {
     //dano
     _bloco.hp -= _dano;
@@ -89,7 +89,7 @@ function mina_quebra_bloco(_x, _y, _bloco)
 function mina_cria_drop(_x, _y, _bloco_id)
 {
     //passando informações pro drop 
-    var _bloco_def = global.bloco_defs[_bloco_id];
+    var _bloco_def = bloco_defs[_bloco_id];
     var _drop_infos = 
     {
         index:      _bloco_def.sprite_drop,     //mudando o sprite index do drop de acordo com o tipo do bloco
@@ -114,11 +114,10 @@ function mina_regenera_bloco()
         if (_bloco == undefined) exit;
         if (_bloco.index == BLOCOS.vazio) exit;
         
-        if (_bloco.hp >= global.bloco_defs[_bloco.index].hp) exit;
+        if (_bloco.hp >= bloco_defs[_bloco.index].hp) exit;
         if (current_time - _bloco.tempo_dano < _tempo) exit;
         
         _bloco.hp++;
-        desenha_rachadura(_x, _y);
     });
 }
 

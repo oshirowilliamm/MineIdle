@@ -1,8 +1,5 @@
 //mina
 global.mina = noone;
-global.chunks = {};
-global.bloco_defs = {};
-global.chance_spawn_total = 0;
 
 //dinheiro
 global.moeda = 0;
