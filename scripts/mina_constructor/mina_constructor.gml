@@ -1,155 +1,18 @@
-enum BLOCOS 
-{
-	vazio = -1,
-    borda,
-    pedra,
-    roxo,
-    verde,
-    azul,
-    amarelo
-}
-
 function mina_sistema() constructor
 {
-    //informações bases
-    size_w  = 32;               //tamanho horizontal da celula
-    size_h  = 32;               //tamanho vertical da celula
-    tam_parede = 64;            //deslocamento da parede
-    chunk_x = 7 * tam_parede;   //posição x inicial
-    chunk_y = tam_parede;       //posição y inicial
-    chunk_w = 16;               //qtd de colunas
-    chunk_h = 20;               //qtd de linhas
-    total_chunks = 50;          //total de chunks
-    margem = 2;                 //margem de colunas extras
-    seletor_index = 0;          //controlando animação do seletor
-    
-    //informações de armazenamento
-    chunks = {};
-    bloco_defs = {};
-    chance_spawn_total = 0;
-    
-    #region Inicialização dos Blocos
-        
-        //iniciando os blocos do jogo
-        static ini_defs = function()
-        {
-            //metodo rapido pra adicionar uma nova definição de bloco
-            var _add_def = function(_id, _nome, _hp, _spr_drop, _qtd, _spawn)
-            {
-                //atributos dos blocos
-                bloco_defs[_id] =
-                {
-                    nome:   _nome, 
-    				hp: _hp, 
-                    sprite_drop: _spr_drop, 
-    				quantidade_drop: _qtd, 
-    				chance_spawn: _spawn, //tem a ver com chance de geração
-                }
-                
-                //adicionando o chance de spawn total
-                chance_spawn_total += _spawn;
-            }
-            
-            //adicionando as definições dos blocos
-            _add_def(BLOCOS.borda,    "Parede",   infinity, -1, 0, 0);
-            _add_def(BLOCOS.pedra,    "Pedra",    10,  0, 1, 50);
-            _add_def(BLOCOS.roxo,     "Roxo",     20,  1, 1, 15);
-            _add_def(BLOCOS.verde,    "Verde",    40,  2, 1, 10);
-            _add_def(BLOCOS.azul,	  "Azul",	  50,  3, 1, 5);
-    		_add_def(BLOCOS.amarelo,  "Amarelo",  100, 4, 1, 1);
-        }
-        
-    #endregion
-    
-    #region Funções Matemáticas
-        
-        //pega uma coordenada em pixel e transforma num grid id 
-        static pixel_to_grid_x = function(_x) 
-        { 
-            return floor((_x - chunk_x) / size_w); //faz pixel / tamanho
-        } 
-        static pixel_to_grid_y = function(_y) 
-        { 
-            return floor((_y - chunk_y) / size_h); 
-        }
-        
-    	//pega uma coordenada em grid id e transforma em pixel
-        static grid_to_pixel_x = function(_x) 
-        { 
-            return chunk_x + (_x * size_w); //faz pixel * tamanho
-            
-        } 
-        static grid_to_pixel_y = function(_y) 
-        { 
-            return chunk_y + (_y * size_h); 
-        }
-        
-    	//pega um grid id e transforma em chunk id
-        static get_chunk_id = function(_x) 
-        { 
-            return floor(pixel_to_grid_x(_x) / chunk_w); //pega o pixel e divide pelo tamanho de colunas da chunk
-        }
-    	//pega a coluna do chunk
-        static get_chunk_col = function(_x) 
-        { 
-            return _x % chunk_w; //pega o resto da divisão entre o pixel e o tamanho de colunas da chunk
-        } 
-        //pega o id do bloco
-        static get_bloco_id = function(_x, _y) 
-        { 
-            /* 
-                pegando as coordenadas de cada bloco de uma array 1d 
-                formula -> id = (linha x largura do chunk) + coluna
-            */
-            return _y * chunk_w + _x; 
-        }
-        
-    #endregion
-    
-    #region Funções de Ajuda
-        
-        //função para pegar um bloco especifico de uma chunk, de acordo com uma posição em pixel
-        static get_bloco = function(_x, _y)
-        {
-            //pegando chunk do bloco
-            var _chunk_id = get_chunk_id(_x);
-            
-            //validação da existencia do chunk
-            if (!variable_struct_exists(chunks, _chunk_id)) return false;
-            
-            //pegando posição da grid
-            var _xgrid = pixel_to_grid_x(_x);
-            var _ygrid = pixel_to_grid_y(_y);
-            
-            //validação de bloco fora do chunk verticalmente
-            if (_ygrid < 0 || _ygrid >= chunk_h) return false;
-            
-            //acessando o chunk
-            var _chunk_atual = chunks[$ _chunk_id];
-            
-            //pegando o id do bloco
-            var _col = get_chunk_col(_xgrid);
-            var _bloco_id = get_bloco_id(_col, _ygrid);
-
-            //retornando a struct do bloco (com id e hp)
-            return _chunk_atual.blocos[_bloco_id];
-        }
-        
-    #endregion
-    
     #region Funções de Geração  
         
         //função para gerar os blocos de forma aleatória considerando as chances de spawn
         static gera_blocos = function() 
         {
-            var _random = irandom(chance_spawn_total - 1); //faz um irandom(99)
+            var _random = irandom(global.chance_spawn_total - 1); //faz um irandom(99)
             var _acumulador = 0;
             
             //pega um bloco aleatorio e sua chance de spawn
-            for (var i = 0; i < array_length(bloco_defs); i++)
+            for (var i = 0; i < array_length(global.bloco_defs); i++)
             {
                 //bloco que nao foi escolhido para somar com a chance do proximo bloco
-                _acumulador += bloco_defs[i].chance_spawn;
+                _acumulador += global.bloco_defs[i].chance_spawn;
                 //caso o bloco escolhido nao for menor que a porcentagem de aparecer
                 if (_random < _acumulador) return i; //retorna o bloco escolhido
             }
@@ -166,21 +29,21 @@ function mina_sistema() constructor
             var _vw = camera_get_view_width(view_camera[0]);
             
             //pegando o primeiro e o ultimo chunk que aparece na camera
-            var _chunk1 = get_chunk_id(_vx);
-            var _chunk2 = get_chunk_id(_vx + _vw);
+            var _chunk1 = mina_get_chunk_id(_vx);
+            var _chunk2 = mina_get_chunk_id(_vx + _vw);
             
             //garantindo a margem do chunk e que ele não vai ser menor que 0
-            var _left_chunk     = max(0, _chunk1 - margem);
-            var _right_chunk    = max(0, _chunk2 + margem);
+            var _left_chunk     = max(0, _chunk1 - MINA_MARGEM);
+            var _right_chunk    = max(0, _chunk2 + MINA_MARGEM);
             
             //rodando as chunks da tela
             for (var _id = _left_chunk; _id <= _right_chunk; _id++)
             {
                 //validação de não criar chunks a mais que o total permitido
-                if (_id >= total_chunks) continue;
+                if (_id >= MINA_TOTAL_CHUNKS) continue;
                     
                 //checando se a chunk já existe
-                if (!variable_struct_exists(chunks, _id))
+                if (!variable_struct_exists(global.chunks, _id))
                 {
                     //criando a chunk
                     cria_chunk(_id);
@@ -195,24 +58,24 @@ function mina_sistema() constructor
             var _novo_chunk = 
             {
                 id: _id,
-                blocos: array_create(chunk_w * chunk_h)
+                blocos: array_create(MINA_CHUNK_W * MINA_CHUNK_H)
             };
             
             //prencheendo a grid
-            for (var i = 0; i < chunk_w; i++)
+            for (var i = 0; i < MINA_CHUNK_W; i++)
             {
-                for (var j = 0; j < chunk_h; j++)
+                for (var j = 0; j < MINA_CHUNK_H; j++)
                 {
                     //criando o bloco
                     var _bloco_tipo = gera_blocos();
-                    var _bloco_id = get_bloco_id(i, j);
+                    var _bloco_id = mina_get_bloco_id(i, j);
                     
                     //criando as bordas da mina
                     //infos das bordas (boolean)
                     var _top    = (j == 0);
-                    var _bottom = (j == chunk_h - 1);
+                    var _bottom = (j == MINA_CHUNK_H - 1);
                     var _left   = (_id == 0 && i == 0);
-                    var _right  = (_id == total_chunks - 1 && i == chunk_w - 1);
+                    var _right  = (_id == MINA_TOTAL_CHUNKS - 1 && i == MINA_CHUNK_W - 1);
                     
                     //se a posição esta na posição da parede, cria a parede
                     if (_top || _bottom || _left || _right)
@@ -224,14 +87,14 @@ function mina_sistema() constructor
                     _novo_chunk.blocos[_bloco_id] =
                     {
                         id: _bloco_tipo,
-                        hp: bloco_defs[_bloco_tipo].hp,
+                        hp: global.bloco_defs[_bloco_tipo].hp,
                         tempo_dano: 0
                     };
                 }
             }
             
             //colocando o novo chunk na struct dos chunks
-            chunks[$ _id] = _novo_chunk;
+            global.chunks[$ _id] = _novo_chunk;
             
             //criando os tiles dos minerios
             cria_tiles(_id, _novo_chunk);
@@ -247,51 +110,7 @@ function mina_sistema() constructor
     
     #region Funções de Interação com os Blocos
         
-        //função pra minerar os blocos
-        static minera_bloco = function(_x, _y, _dano)
-        {
-            //pegando o bloco
-            var _bloco = get_bloco(_x, _y);
-            if (!_bloco) return false;
-            
-            //verifica se o minério não está vazio
-            if (_bloco.id != BLOCOS.vazio && _bloco.id != BLOCOS.borda)
-            {
-                //aplicando dano
-                _bloco.hp -= _dano;
-                
-                //guardando esse dano no bloco
-                _bloco.tempo_dano = current_time;
-                
-                //perdendo stamina do player
-                global.stamina_atual -= global.stamina_dano;
-                
-                //fazendo rachaduras no bloco
-                desenha_rachadura(_x, _y);
-                
-                //quebrando bloco
-                if (_bloco.hp <= 0)
-                {
-                    //criando o drop
-                    var _xcentro = grid_to_pixel_x(pixel_to_grid_x(_x)) + size_w / 2;
-                    var _ycentro = grid_to_pixel_y(pixel_to_grid_y(_y)) + size_h / 2;
-                    cria_drop(_xcentro, _ycentro, _bloco.id);
-                    
-                    //setando o bloco como vazio
-                    _bloco.id = BLOCOS.vazio;
-                    _bloco.hp = 0;
-                    
-                    //apagando e atualizando blocos de cima
-                    atualiza_tiles(_x, _y);
-                }
-                
-                //avisa que a picareta acertou um bloco não vazio
-                return true;
-            }
-            
-            //avisando que bateu em nada
-            return false;
-        }
+        minera_bloco = mina_minera_bloco;
         
         //função para pegar a linha de mineração
         static linha_mineracao = function()
@@ -334,7 +153,7 @@ function mina_sistema() constructor
         static cria_drop = function(_x, _y, _bloco_id)
         {
            //passando informações pro drop 
-            var _bloco_def = bloco_defs[_bloco_id];
+            var _bloco_def = global.bloco_defs[_bloco_id];
             var _drop_infos = 
             {
                 index:      _bloco_def.sprite_drop,     //mudando o sprite index do drop de acordo com o tipo do bloco
@@ -355,18 +174,18 @@ function mina_sistema() constructor
             //rodando as chunks visiveis igual no carrega chunks
             var _vx = camera_get_view_x(view_camera[0]);
             var _vw = camera_get_view_width(view_camera[0]);
-            var _chunk1 = get_chunk_id(_vx);
-            var _chunk2 = get_chunk_id(_vx + _vw);
-            var _left_chunk     = max(0, _chunk1 - margem);
-            var _right_chunk    = max(0, _chunk2 + margem);
+            var _chunk1 = mina_get_chunk_id(_vx);
+            var _chunk2 = mina_get_chunk_id(_vx + _vw);
+            var _left_chunk     = max(0, _chunk1 - MINA_MARGEM);
+            var _right_chunk    = max(0, _chunk2 + MINA_MARGEM);
             
             //rodando as chunks da tela
             for (var _id = _left_chunk; _id <= _right_chunk; _id++)
             {
                 //validação da existência do chunk
-                if (!variable_struct_exists(chunks, _id)) continue;
+                if (!variable_struct_exists(global.chunks, _id)) continue;
                    
-                var _chunk_atual = chunks[$ _id];
+                var _chunk_atual = global.chunks[$ _id];
                 
                 //acessando os blocos
                 for (var i = 0; i < array_length(_chunk_atual.blocos); i++)
@@ -378,17 +197,17 @@ function mina_sistema() constructor
                     
                     //validações
                     if (_bloco.id == BLOCOS.vazio)                  continue; //bloco vazio
-                    if (_bloco.hp >= bloco_defs[_bloco.id].hp)      continue; //vida cheia
+                    if (_bloco.hp >= global.bloco_defs[_bloco.id].hp)      continue; //vida cheia
                     if (current_time - _bloco.tempo_dano < _tempo ) continue; //tempo de espera
                     
                     //regenerando vida
                     _bloco.hp++;
                     
                     //regenerando rachaduras
-                    var _col = i % chunk_w;
-                    var _row = floor(i / chunk_w);
-                    var _xbloco = grid_to_pixel_x(_col + (_id * chunk_w));
-                    var _ybloco = grid_to_pixel_y(_row);
+                    var _col = i % MINA_CHUNK_W;
+                    var _row = floor(i / MINA_CHUNK_W);
+                    var _xbloco = mina_grid_to_pixel_x(_col + (_id * MINA_CHUNK_W));
+                    var _ybloco = mina_grid_to_pixel_y(_row);
                     
                     desenha_rachadura(_xbloco, _ybloco);
                 }
@@ -422,34 +241,34 @@ function mina_sistema() constructor
             if (_id_minerio == -1) return;
             
             //rodando os blocos
-            for (var i = 0; i < chunk_w; i++)
+            for (var i = 0; i < MINA_CHUNK_W; i++)
             {
-                for (var j = 0; j < chunk_h; j++)
+                for (var j = 0; j < MINA_CHUNK_H; j++)
                 {
                     //pegando o bloco
-                    var _bloco_id = get_bloco_id(i, j);
+                    var _bloco_id = mina_get_bloco_id(i, j);
                     var _bloco = _chunk.blocos[_bloco_id];
                     
                     if (_bloco.id != BLOCOS.vazio)
                     {
                         //pegando infos do tile do topo
                         var _tile_data = get_tile_tipo(_bloco.id);
-                        var _xtile = grid_to_pixel_x(i + (_id * chunk_w));
-                        var _ytile = grid_to_pixel_y(j);
+                        var _xtile = mina_grid_to_pixel_x(i + (_id * MINA_CHUNK_W));
+                        var _ytile = mina_grid_to_pixel_y(j);
                         
                         //desenhando o tile do topo
                         tilemap_set_at_pixel(_id_minerio, _tile_data, _xtile, _ytile);
                         
                         //se n tiver na ultima linha
-                        if (j < chunk_h - 1)
+                        if (j < MINA_CHUNK_H - 1)
                         {
-                            var _bloco_abaixo_id = get_bloco_id(i, j + 1);
+                            var _bloco_abaixo_id = mina_get_bloco_id(i, j + 1);
                             var _bloco_abaixo = _chunk.blocos[_bloco_abaixo_id];
                             
                             //se o bloco abaixo for vazio, desenha a parede
                             if (_bloco_abaixo.id == BLOCOS.vazio) 
                             {
-                                tilemap_set_at_pixel(_id_chao, _tile_data, _xtile, _ytile + size_h);
+                                tilemap_set_at_pixel(_id_chao, _tile_data, _xtile, _ytile + MINA_SIZE_H);
                             }
                         }
                     }
@@ -470,8 +289,8 @@ function mina_sistema() constructor
             tilemap_set_at_pixel(_id_racha, 0, _x, _y);
             
             //apagando a parede de baixo
-            var _ybaixo = _y + size_h;
-            var _bloco_abaixo = get_bloco(_x, _ybaixo);
+            var _ybaixo = _y + MINA_SIZE_H;
+            var _bloco_abaixo = mina_get_bloco(_x, _ybaixo);
             
             //se o bloco de baixo existe e esta vazio, apaga a parede
             if (_bloco_abaixo && _bloco_abaixo.id == BLOCOS.vazio)
@@ -480,7 +299,7 @@ function mina_sistema() constructor
             }
             
             //criando a parede de cima
-            var _bloco_cima = get_bloco(_x, _y - size_h);
+            var _bloco_cima = mina_get_bloco(_x, _y - MINA_SIZE_H);
             
             //se existe e não é vazio, cria a parede
             if (_bloco_cima && _bloco_cima.id != BLOCOS.vazio)
@@ -494,7 +313,7 @@ function mina_sistema() constructor
         static ajusta_tamanho_tile = function()
         {
             //pegando largura total da room em celulas
-            var _largura_room = total_chunks * chunk_w * size_w + chunk_x;
+            var _largura_room = MINA_TOTAL_CHUNKS * MINA_CHUNK_W * MINA_SIZE_W + MINA_CHUNK_X;
             
             //id dos tiles
             var _id_minerios = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
@@ -515,11 +334,11 @@ function mina_sistema() constructor
         static desenha_rachadura = function(_x, _y)
         {
             //pegando o bloco
-            var _bloco = get_bloco(_x, _y);
+            var _bloco = mina_get_bloco(_x, _y);
             if (!_bloco) return false;
             
             //pegando vida maxima e atual do bloco
-            var _hp_max = bloco_defs[_bloco.id].hp;
+            var _hp_max = global.bloco_defs[_bloco.id].hp;
             var _hp_atual = _bloco.hp;
             
             //porcentagens
@@ -567,6 +386,6 @@ function mina_sistema() constructor
     //ajustando o tamanho da room pros tiles
     ajusta_tamanho_tile();
     
-    //chamando o blocos defs
-    ini_defs();
+    //iniciando as definições dos blocos
+    mina_ini_defs();
 }

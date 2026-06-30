@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"mina_constructor",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"mina_constructor",
+  "parent":{
+    "name":"Mina",
+    "path":"folders/scripts/Mina.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

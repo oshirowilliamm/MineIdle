@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_mina",
+  "%Name":"mina_math",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_mina",
+  "name":"mina_math",
   "parent":{
-    "name":"scripts",
-    "path":"folders/scripts.yy",
+    "name":"Mina",
+    "path":"folders/scripts/Mina.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

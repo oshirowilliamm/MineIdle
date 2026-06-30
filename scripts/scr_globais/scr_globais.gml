@@ -1,15 +1,8 @@
-//itens / drops
-enum ITENS
-{
-    pedra,
-    roxo,
-    verde,
-    azul,
-    amarelo
-}
-
 //mina
 global.mina = noone;
+global.chunks = {};
+global.bloco_defs = {};
+global.chance_spawn_total = 0;
 
 //dinheiro
 global.moeda = 0;
