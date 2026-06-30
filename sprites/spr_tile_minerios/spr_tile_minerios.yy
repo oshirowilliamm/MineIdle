@@ -3,8 +3,8 @@
   "%Name":"spr_tile_minerios",
   "bboxMode":0,
   "bbox_bottom":1015,
-  "bbox_left":0,
-  "bbox_right":543,
+  "bbox_left":32,
+  "bbox_right":271,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -109,5 +109,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":544,
+  "width":640,
 }
