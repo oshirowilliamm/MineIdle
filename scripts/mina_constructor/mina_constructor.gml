@@ -24,6 +24,7 @@ function mina_sistema() constructor
     chunks = {};
     bloco_defs = {};
     chance_spawn_total = 0;
+    brilho_index = 0;
     
     //iniciando as definições dos blocos
     mina_ini_defs();
