@@ -1,16 +1,14 @@
 {
   "$GMTileSet":"v1",
-  "%Name":"tl_minerios",
-  "autoTileSets":[
-    {"$GMAutoTileSet":"","%Name":"autotile_1","closed_edge":false,"name":"autotile_1","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[2,138,139,140,153,168,0,136,154,0,169,141,155,151,156,86,],},
-  ],
+  "%Name":"tl_bordas",
+  "autoTileSets":[],
   "macroPageTiles":{
     "SerialiseHeight":0,
     "SerialiseWidth":0,
     "TileSerialiseData":[],
   },
-  "name":"tl_minerios",
-  "out_columns":35,
+  "name":"tl_bordas",
+  "out_columns":7,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -20,8 +18,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"spr_tile_minerios",
-    "path":"sprites/spr_tile_minerios/spr_tile_minerios.yy",
+    "name":"spr_tile_bordas",
+    "path":"sprites/spr_tile_bordas/spr_tile_bordas.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{
@@ -30,11 +28,11 @@
   },
   "tileAnimationFrames":[],
   "tileAnimationSpeed":15.0,
-  "tileHeight":32,
+  "tileHeight":64,
   "tilehsep":0,
   "tilevsep":0,
-  "tileWidth":32,
+  "tileWidth":64,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":1240,
+  "tile_count":49,
 }
