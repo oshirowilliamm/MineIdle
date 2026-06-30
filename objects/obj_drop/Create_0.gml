@@ -1,6 +1,6 @@
 //variaveis de infos do bloco
 image_index = index //image_index de acordo com o tipo do bloco
-tipo_bloco = tipo; //tipo do bloco pra eu saber onde encaixar o drop
+item_tipo = item; //tipo do bloco pra eu saber onde encaixar o drop
 
 //variaveis de movimentacao, começa andando um pouco
 spd = 0;
@@ -68,7 +68,7 @@ sugando = function(_dist)
         if (_dist < raio_coleta)
         {
             //coletando item
-            global.inventario[tipo_bloco].quantidade++;
+            global.inventario[item_tipo].quantidade++;
             
             //destruindo
             instance_destroy();

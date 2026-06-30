@@ -1,3 +1,13 @@
+//itens / drops
+enum ITENS
+{
+    pedra,
+    roxo,
+    verde,
+    azul,
+    amarelo
+}
+
 //mina
 global.mina = noone;
 

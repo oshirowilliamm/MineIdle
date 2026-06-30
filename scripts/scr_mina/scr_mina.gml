@@ -267,7 +267,7 @@ function mina_sistema() constructor
                 global.stamina_atual -= global.stamina_dano;
                 
                 //fazendo rachaduras no bloco
-                bloco_rachadura(_x, _y);
+                desenha_rachadura(_x, _y);
                 
                 //quebrando bloco
                 if (_bloco.hp <= 0)
@@ -330,38 +330,6 @@ function mina_sistema() constructor
             };
         }
         
-        //função para rachaduras do bloco
-        static bloco_rachadura = function(_x, _y)
-        {
-            //pegando o bloco
-            var _bloco = get_bloco(_x, _y);
-            if (!_bloco) return false;
-            
-            //pegando vida maxima e atual do bloco
-            var _hp_max = bloco_defs[_bloco.id].hp;
-            var _hp_atual = _bloco.hp;
-            
-            //porcentagens
-            var _porc = (_hp_atual / _hp_max) * 100;
-            var _1 = 80;
-            var _2 = 60;
-            var _3 = 40;
-            var _4 = 20;
-            
-            //desenhando quebrado de acordo com a vida do bloco
-            var _index = 0;
-            
-            if (_porc <= 100 && _porc > _1)     _index = 0; //100% da vida
-            else if (_porc <= _1 && _porc > _2) _index = 1; //80% da vida
-            else if (_porc <= _2 && _porc > _3) _index = 2; //60% da vida
-            else if (_porc <= _3 && _porc > _4) _index = 3; //40% da vida
-            else if (_porc <= _4)               _index = 4; //20% da vida
-            
-            //desenhando as rachaduras
-            var _tile_id = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
-            tilemap_set_at_pixel(_tile_id, _index, _x, _y);
-        }
-        
         //função para criar o drop 
         static cria_drop = function(_x, _y, _bloco_id)
         {
@@ -370,7 +338,7 @@ function mina_sistema() constructor
             var _drop_infos = 
             {
                 index:      _bloco_def.sprite_drop,     //mudando o sprite index do drop de acordo com o tipo do bloco
-                tipo:       _bloco_id,                  //tipo de bloco
+                item:       _bloco_id - 1,              //item de acordo com o tipo do bloco
             }
             
             //criando a quantidade de vezes que o bloco pedir
@@ -422,7 +390,7 @@ function mina_sistema() constructor
                     var _xbloco = grid_to_pixel_x(_col + (_id * chunk_w));
                     var _ybloco = grid_to_pixel_y(_row);
                     
-                    bloco_rachadura(_xbloco, _ybloco);
+                    desenha_rachadura(_xbloco, _ybloco);
                 }
             }
         }
@@ -537,6 +505,61 @@ function mina_sistema() constructor
             tilemap_set_width(_id_minerios, _largura_room);
             tilemap_set_width(_id_rachaduras, _largura_room);
             tilemap_set_width(_id_chao, _largura_room);
+        }
+        
+    #endregion
+    
+    #region Funções de Desenho
+        
+        //função para rachaduras do bloco
+        static desenha_rachadura = function(_x, _y)
+        {
+            //pegando o bloco
+            var _bloco = get_bloco(_x, _y);
+            if (!_bloco) return false;
+            
+            //pegando vida maxima e atual do bloco
+            var _hp_max = bloco_defs[_bloco.id].hp;
+            var _hp_atual = _bloco.hp;
+            
+            //porcentagens
+            var _porc = (_hp_atual / _hp_max) * 100;
+            var _1 = 80;
+            var _2 = 60;
+            var _3 = 40;
+            var _4 = 20;
+            
+            //desenhando quebrado de acordo com a vida do bloco
+            var _index = 0;
+            
+            if (_porc <= 100 && _porc > _1)     _index = 0; //100% da vida
+            else if (_porc <= _1 && _porc > _2) _index = 1; //80% da vida
+            else if (_porc <= _2 && _porc > _3) _index = 2; //60% da vida
+            else if (_porc <= _3 && _porc > _4) _index = 3; //40% da vida
+            else if (_porc <= _4)               _index = 4; //20% da vida
+            
+            //desenhando as rachaduras
+            var _tile_id = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
+            tilemap_set_at_pixel(_tile_id, _index, _x, _y);
+        }
+        
+        //função para colocar brilho 
+        static desenha_brilho = function(_x, _y, _bloco_id)
+        {
+            //não desenhar em pedra
+            if (_bloco_id == BLOCOS.pedra) exit;
+                
+            var _frames = sprite_get_number(spr_brilho);
+            var _frame_atual = (current_time / 100) % _frames;
+            
+            // O pulo do gato: Blend Mode Aditivo
+            gpu_set_blendmode(bm_add);
+            
+            // Desenha o brilho por cima do bloco
+            draw_sprite(spr_brilho, _frame_atual, _x, _y);
+            
+            // Resetar o blend mode para não estragar o resto do desenho
+            gpu_set_blendmode(bm_normal);
         }
         
     #endregion

@@ -8,7 +8,7 @@
     "TileSerialiseData":[],
   },
   "name":"tl_rachaduras",
-  "out_columns":2,
+  "out_columns":3,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -18,8 +18,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"spr_tile_quebrando",
-    "path":"sprites/spr_tile_quebrando/spr_tile_quebrando.yy",
+    "name":"spr_tile_rachaduras",
+    "path":"sprites/spr_tile_rachaduras/spr_tile_rachaduras.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{
@@ -34,5 +34,5 @@
   "tileWidth":32,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":5,
+  "tile_count":10,
 }
