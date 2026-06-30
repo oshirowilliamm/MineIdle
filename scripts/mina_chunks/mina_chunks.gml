@@ -16,7 +16,7 @@ function mina_cria_chunks(_id)
     global.chunks[$ _id] = _chunk;
     
     //tiles
-    cria_tiles(_id, _chunk);
+    mina_cria_tiles(_id, _chunk);
     
     show_debug_message("Chunk criada: " + string(_id));
     
@@ -41,6 +41,27 @@ function mina_carrega_chunks()
         mina_cria_chunks(i);
     }
 }
+
+//controla a geração de blocos conforme a chance de spawn
+function mina_gera_blocos()
+{
+    var _random = irandom(global.chance_spawn_total - 1); //faz um irandom(99)
+    var _acumulador = 0;
+    
+    //pega um bloco aleatorio e sua chance de spawn
+    for (var i = 0; i < array_length(global.bloco_defs); i++)
+    {
+        //bloco que nao foi escolhido para somar com a chance do proximo bloco
+        _acumulador += global.bloco_defs[i].chance_spawn;
+        //caso o bloco escolhido nao for menor que a porcentagem de aparecer
+        if (_random < _acumulador) return i; //retorna o bloco escolhido
+    }
+    
+    //retorna a pedra por segurança
+    return BLOCOS.pedra;
+}
+
+
 
 
 

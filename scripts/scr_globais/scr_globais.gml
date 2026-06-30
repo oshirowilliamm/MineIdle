@@ -26,7 +26,7 @@ global.inventario =
 //picareta
 global.picareta = 
 {
-    dano: 500,
+    dano: 5,
     cooldown: 15
 };
 

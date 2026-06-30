@@ -58,7 +58,6 @@ function mina_chunks_visiveis(_function)
     for (var _chunk = _inicio; _chunk <= _fim; _chunk++)
     {
         //validações
-        if (i >= MINA_TOTAL_CHUNKS) continue; //esta dentro do total de chunks
         if (!variable_struct_exists(global.chunks, _chunk)) continue; //se chunk existe
         
         //pegando o chunk da struct de chunks
@@ -71,8 +70,18 @@ function mina_chunks_visiveis(_function)
 //percorre todos os blocos visiveis na tela
 function mina_blocos_visiveis(_function)
 {
-    mina_chunks_visiveis(function(_chunk_struct, _chunk)
+    var _inicio = mina_chunks_camera().inicio;
+    var _fim    = mina_chunks_camera().fim;
+    
+    //rodando os chunks
+    for (var _chunk = _inicio; _chunk <= _fim; _chunk++)
     {
+        //validações
+        if (!variable_struct_exists(global.chunks, _chunk)) continue; //se chunk existe
+        
+        //pegando o chunk da struct de chunks
+        var _chunk_struct = global.chunks[$ _chunk];
+        
         //rodando coluna da chunk
         for (var i = 0; i < MINA_CHUNK_W; i++)
         {
@@ -91,5 +100,5 @@ function mina_blocos_visiveis(_function)
                 _function(_bloco, _x, _y);
             }
         }
-    })
+    }
 }

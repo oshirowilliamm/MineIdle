@@ -55,7 +55,7 @@ golpe = function()
     if (tempo == 5)
     {
         //pegando a linha de mineração
-        var _linha = global.mina.linha_mineracao();
+        var _linha = linha_mineracao();
         
         //chamando o minera bloco
         global.mina.minera_bloco(_linha.x, _linha.y, global.picareta.dano);

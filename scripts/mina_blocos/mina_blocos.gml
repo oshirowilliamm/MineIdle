@@ -27,25 +27,6 @@ function mina_get_bloco(_x, _y)
 
 
 
-//controla a geração de blocos conforme a chance de spawn
-function mina_gera_blocos()
-{
-    var _random = irandom(global.chance_spawn_total - 1); //faz um irandom(99)
-    var _acumulador = 0;
-    
-    //pega um bloco aleatorio e sua chance de spawn
-    for (var i = 0; i < array_length(global.bloco_defs); i++)
-    {
-        //bloco que nao foi escolhido para somar com a chance do proximo bloco
-        _acumulador += global.bloco_defs[i].chance_spawn;
-        //caso o bloco escolhido nao for menor que a porcentagem de aparecer
-        if (_random < _acumulador) return i; //retorna o bloco escolhido
-    }
-    
-    //retorna a pedra por segurança
-    return BLOCOS.pedra;
-}
-
 
 
 //minerando
@@ -97,8 +78,12 @@ function mina_quebra_bloco(_x, _y, _bloco)
     _bloco.hp = 0;
     
     //atualizando os tiles
-    atualiza_tiles(_x, _y);
+    mina_atualiza_tiles(_x, _y);
 }
+
+
+
+
 
 //cria o drop
 function mina_cria_drop(_x, _y, _bloco_id)
@@ -122,10 +107,10 @@ function mina_cria_drop(_x, _y, _bloco_id)
 //regenera o bloco
 function mina_regenera_bloco()
 {
-    var _tempo = 5000;
-
     mina_blocos_visiveis(function(_bloco, _x, _y)
     {
+        var _tempo = 5000;
+        
         if (_bloco == undefined) exit;
         if (_bloco.index == BLOCOS.vazio) exit;
         
@@ -135,4 +120,41 @@ function mina_regenera_bloco()
         _bloco.hp++;
         desenha_rachadura(_x, _y);
     });
+}
+
+//função para pegar a linha de mineração
+function linha_mineracao()
+{
+    //validação da existência do player
+    if(!instance_exists(obj_player)) exit;
+    
+    //distancia do lengthdir
+    var _dist = 36;
+    
+    //pegando a direção da linha de acordo com a direção do player
+    switch (obj_player.dir) 
+    {
+        //cima
+        case 1:
+            _dist -= 5;
+        break;
+        //baixo
+        case 3:
+            _dist += 7;
+        break;
+    } 
+    
+    //pegando direção do player pro mouse
+    var _dir = point_direction(obj_player.x, obj_player.yy, mouse_x, mouse_y);
+    
+    //traça uma linha de visão do player com a distancia de 32 pixels e direção do mouse
+    var _x = obj_player.x + lengthdir_x(_dist, _dir);
+    var _y = obj_player.yy + lengthdir_y(_dist, _dir);
+    
+    //retornando as posições da linha
+    return
+    {
+        x: _x,
+        y: _y
+    };
 }
