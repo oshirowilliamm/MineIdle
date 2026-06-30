@@ -445,49 +445,12 @@ function mina_sistema() constructor
             }
         }
         
-        //função para pegar o autotile
-        static get_autotile_id = function(_col_global, _row)
-        {
-            var _top    = 0;
-            var _left   = 0;
-            var _right  = 0;
-            var _bottom = 0;
-            
-            //verificando os vizinhos
-            var _bloco_top      = get_bloco_id_global(_col_global, _row -1);
-            var _bloco_left     = get_bloco_id_global(_col_global - 1, _row);
-            var _bloco_right    = get_bloco_id_global(_col_global + 1, _row);
-            var _bloco_bottom   = get_bloco_id_global(_col_global, _row + 1);
-            
-            //verifica se os vizinhos são sólidos
-            if (_row == 0 || _bloco_top != BLOCOS.vazio) _top = 1;
-            if (_col_global == 0 || _bloco_left != BLOCOS.vazio) _left = 2;
-            if (_col_global == (total_chunks * chunk_w) - 1 || _bloco_right != BLOCOS.vazio) _right = 4;
-            if (_row == chunk_h - 1 || _bloco_bottom != BLOCOS.vazio) _bottom = 8;
-            
-            // Retorna a soma (de 0 a 15) que será o index do seu Tile
-            return (_top + _left + _right + _bottom);
-        }
-        
-        //função para pegar o bloco global (independente de chunk)
-        static get_bloco_id_global = function(_col, _row)
-        {
-            var _chunk_id = floor(_col / chunk_w);
-            if (!variable_struct_exists(chunks, _chunk_id)) return BLOCOS.borda;
-            
-            var _col_local = _col % chunk_w;
-            var _bloco_id = get_bloco_id(_col_local, _row);
-            
-            return chunks[$ _chunk_id].blocos[_bloco_id].id;
-        }
-        
         //função para criar os tiles
         static cria_tiles = function(_id, _chunk)
         {
             //pegando id do tile
             var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
             var _id_chao = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
-            var _id_borda = layer_exists("tl_bordas") ? layer_tilemap_get_id("tl_bordas") : -1;
             if (_id_minerio == -1) return;
             
             //rodando os blocos
@@ -499,21 +462,13 @@ function mina_sistema() constructor
                     var _bloco_id = get_bloco_id(i, j);
                     var _bloco = _chunk.blocos[_bloco_id];
                     
-                    //pegando posição do tile
-                    var _col_global = i + (_id *chunk_w);
-                    var _xtile = grid_to_pixel_x(i + (_id * chunk_w));
-                    var _ytile = grid_to_pixel_y(j);
-                    
-                     var _tile_data = get_autotile_id(_col_global, j);
-                    
-                    //desenhando as bordas
-                    if (_bloco.id == BLOCOS.borda)
+                    if (_bloco.id != BLOCOS.vazio)
                     {
-                        tilemap_set_at_pixel(_id_borda, _tile_data, _xtile, _ytile);
-                    }
-                    //desenhando os blocos
-                    else if (_bloco.id != BLOCOS.vazio)
-                    {
+                        //pegando infos do tile do topo
+                        var _tile_data = get_tile_tipo(_bloco.id);
+                        var _xtile = grid_to_pixel_x(i + (_id * chunk_w));
+                        var _ytile = grid_to_pixel_y(j);
+                        
                         //desenhando o tile do topo
                         tilemap_set_at_pixel(_id_minerio, _tile_data, _xtile, _ytile);
                         
