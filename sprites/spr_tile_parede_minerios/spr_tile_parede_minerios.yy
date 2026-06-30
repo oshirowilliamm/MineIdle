@@ -1,6 +1,6 @@
 {
   "$GMSprite":"v2",
-  "%Name":"spr_tile_minerios",
+  "%Name":"spr_tile_parede_minerios",
   "bboxMode":0,
   "bbox_bottom":1015,
   "bbox_left":32,
@@ -22,7 +22,7 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"82f4f235-e9d8-452e-bc7f-c5df37dabd5c","blendMode":0,"displayName":"default","isLocked":false,"name":"82f4f235-e9d8-452e-bc7f-c5df37dabd5c","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"spr_tile_minerios",
+  "name":"spr_tile_parede_minerios",
   "nineSlice":{
     "$GMNineSliceData":"",
     "bottom":0,
@@ -53,7 +53,7 @@
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"spr_tile_minerios",
+    "%Name":"spr_tile_parede_minerios",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -77,7 +77,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"spr_tile_minerios",
+    "name":"spr_tile_parede_minerios",
     "playback":1,
     "playbackSpeed":0.0,
     "playbackSpeedType":0,
@@ -89,10 +89,10 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1f5fe4dc-2c46-40c1-8a79-9467941482d3","path":"sprites/spr_tile_minerios/spr_tile_minerios.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1f5fe4dc-2c46-40c1-8a79-9467941482d3","path":"sprites/spr_tile_parede_minerios/spr_tile_parede_minerios.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"35457586-66ef-4f76-8f93-5238c1ce8669","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"5ffc2b36-1029-42c5-8720-a138de71207c","path":"sprites/spr_tile_minerios/spr_tile_minerios.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"5ffc2b36-1029-42c5-8720-a138de71207c","path":"sprites/spr_tile_parede_minerios/spr_tile_parede_minerios.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"65f9e311-8a6f-4630-baea-e8bd7927b2b1","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],

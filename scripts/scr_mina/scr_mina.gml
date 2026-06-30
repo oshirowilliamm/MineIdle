@@ -1,6 +1,7 @@
 enum BLOCOS 
 {
 	vazio = -1,
+    borda,
     pedra,
     roxo,
     verde,
@@ -50,6 +51,7 @@ function mina_sistema() constructor
             }
             
             //adicionando as definições dos blocos
+            _add_def(BLOCOS.borda,    "Parede",   infinity, -1, 0, 0);
             _add_def(BLOCOS.pedra,    "Pedra",    10,  0, 1, 50);
             _add_def(BLOCOS.roxo,     "Roxo",     20,  1, 1, 15);
             _add_def(BLOCOS.verde,    "Verde",    40,  2, 1, 10);
@@ -205,7 +207,20 @@ function mina_sistema() constructor
                     var _bloco_tipo = gera_blocos();
                     var _bloco_id = get_bloco_id(i, j);
                     
-                    //setando informações do bloco e do hp na chunk
+                    //criando as bordas da mina
+                    //infos das bordas (boolean)
+                    var _top    = (j == 0);
+                    var _bottom = (j == chunk_h - 1);
+                    var _left   = (_id == 0 && i == 0);
+                    var _right  = (_id == total_chunks - 1 && i == chunk_w - 1);
+                    
+                    //se a posição esta na posição da parede, cria a parede
+                    if (_top || _bottom || _left || _right)
+                    {
+                        _bloco_tipo = BLOCOS.borda;
+                    }
+                    
+                    //setando informações da struct do bloco na chunk
                     _novo_chunk.blocos[_bloco_id] =
                     {
                         id: _bloco_tipo,
@@ -215,11 +230,11 @@ function mina_sistema() constructor
                 }
             }
             
-            //criando os tiles dos minerios
-            cria_tiles(_id, _novo_chunk);
-            
             //colocando o novo chunk na struct dos chunks
             chunks[$ _id] = _novo_chunk;
+            
+            //criando os tiles dos minerios
+            cria_tiles(_id, _novo_chunk);
             
             //debug
             show_debug_message("Chunk Gerado: ID:" + string(_id));
@@ -240,7 +255,7 @@ function mina_sistema() constructor
             if (!_bloco) return false;
             
             //verifica se o minério não está vazio
-            if (_bloco.id != BLOCOS.vazio)
+            if (_bloco.id != BLOCOS.vazio && _bloco.id != BLOCOS.borda)
             {
                 //aplicando dano
                 _bloco.hp -= _dano;
@@ -416,30 +431,16 @@ function mina_sistema() constructor
     
     #region Funções de Tile
         
-        //função para pegar o tile do topo
-        static get_tile_topo = function(_bloco_tipo)
+        //função para pegar o tile de acordo com o tipo de bloco
+        static get_tile_tipo = function(_bloco_tipo)
         {
             switch (_bloco_tipo) 
             {
                 case BLOCOS.pedra:      return 1;
-                case BLOCOS.roxo:       return 3;
-                case BLOCOS.verde:      return 5;  
-                case BLOCOS.azul:       return 7;
-                case BLOCOS.amarelo:    return 9;  
-                default:                return 0;
-            }
-        }
-        
-        //função para pegar o tile da parede
-        static get_tile_parede = function(_bloco_tipo)
-        {
-            switch (_bloco_tipo) 
-            {
-                case BLOCOS.pedra:      return 2;
-                case BLOCOS.roxo:       return 4;
-                case BLOCOS.verde:      return 6;  
-                case BLOCOS.azul:       return 8;
-                case BLOCOS.amarelo:    return 10;  
+                case BLOCOS.roxo:       return 2;
+                case BLOCOS.verde:      return 3;  
+                case BLOCOS.azul:       return 4;
+                case BLOCOS.amarelo:    return 5;  
                 default:                return 0;
             }
         }
@@ -448,8 +449,9 @@ function mina_sistema() constructor
         static cria_tiles = function(_id, _chunk)
         {
             //pegando id do tile
-            var _tile_id = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-            if (_tile_id == -1) return;
+            var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
+            var _id_chao = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
+            if (_id_minerio == -1) return;
             
             //rodando os blocos
             for (var i = 0; i < chunk_w; i++)
@@ -463,12 +465,12 @@ function mina_sistema() constructor
                     if (_bloco.id != BLOCOS.vazio)
                     {
                         //pegando infos do tile do topo
-                        var _tile_topo = get_tile_topo(_bloco.id);
+                        var _tile_data = get_tile_tipo(_bloco.id);
                         var _xtile = grid_to_pixel_x(i + (_id * chunk_w));
                         var _ytile = grid_to_pixel_y(j);
                         
                         //desenhando o tile do topo
-                        tilemap_set_at_pixel(_tile_id, _tile_topo, _xtile, _ytile);
+                        tilemap_set_at_pixel(_id_minerio, _tile_data, _xtile, _ytile);
                         
                         //se n tiver na ultima linha
                         if (j < chunk_h - 1)
@@ -479,8 +481,7 @@ function mina_sistema() constructor
                             //se o bloco abaixo for vazio, desenha a parede
                             if (_bloco_abaixo.id == BLOCOS.vazio) 
                             {
-                                var _tile_parede = get_tile_parede(_bloco.id);
-                                tilemap_set_at_pixel(_tile_id, _tile_parede, _xtile, _ytile + size_h);
+                                tilemap_set_at_pixel(_id_chao, _tile_data, _xtile, _ytile + size_h);
                             }
                         }
                     }
@@ -493,6 +494,7 @@ function mina_sistema() constructor
         {
             var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
             var _id_racha = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
+            var _id_chao = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
             if (_id_minerio == -1) return;
             
             //apagando os tiles
@@ -506,18 +508,17 @@ function mina_sistema() constructor
             //se o bloco de baixo existe e esta vazio, apaga a parede
             if (_bloco_abaixo && _bloco_abaixo.id == BLOCOS.vazio)
             {
-                tilemap_set_at_pixel(_id_minerio, 0, _x, _ybaixo);
+                tilemap_set_at_pixel(_id_chao, 0, _x, _ybaixo);
             }
             
             //criando a parede de cima
-            var _ycima = _y - size_h;
-            var _bloco_cima = get_bloco(_x, _ycima);
+            var _bloco_cima = get_bloco(_x, _y - size_h);
             
             //se existe e não é vazio, cria a parede
-            if (_bloco_cima && _bloco_cima != BLOCOS.vazio)
+            if (_bloco_cima && _bloco_cima.id != BLOCOS.vazio)
             {
-                var _tile_parede = get_tile_parede(_bloco_cima.id);
-                tilemap_set_at_pixel(_id_minerio, _tile_parede, _x, _y);
+                var _tile_data = get_tile_tipo(_bloco_cima.id);
+                tilemap_set_at_pixel(_id_chao, _tile_data, _x, _y);
             }
         }
         
@@ -528,48 +529,14 @@ function mina_sistema() constructor
             var _largura_room = total_chunks * chunk_w * size_w + chunk_x;
             
             //id dos tiles
-            var _tile_id_minerios = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-            var _tile_id_rachaduras = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
+            var _id_minerios = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
+            var _id_rachaduras = layer_exists("tl_rachaduras") ? layer_tilemap_get_id("tl_rachaduras") : -1;
+            var _id_chao = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
             
-            //tile minerios
-            tilemap_set_width(_tile_id_minerios, _largura_room);
-            tilemap_set_width(_tile_id_rachaduras, _largura_room);
-        }
-        
-    #endregion
-    
-    #region Desenho
-        
-        //desenhando as interações com o bloco
-        static desenha_interacao = function()
-        {
-            //pegando a linha de mineracao
-            var _linha = linha_mineracao();
-            
-            //pegando o bloco
-            var _bloco = get_bloco(_linha.x, _linha.y);
-            if (!_bloco) return false;
-            
-            //pegando a posição exata (canto superior esquerdo) para desenhar o seletor
-            var _x = grid_to_pixel_x(pixel_to_grid_x(_linha.x));
-            var _y = grid_to_pixel_y(pixel_to_grid_y(_linha.y));
-            
-            //posição do seletor
-            var _xseletor = _x - 5;
-            var _yseletor = _y - 6;
-            
-            //fazendo a animação do seletor
-            seletor_index += .1;
-            
-            //verifica se o bloco não está vazio
-            if (_bloco.id != BLOCOS.vazio)
-            {
-                //desenhando seletor
-                draw_sprite(spr_seletor, seletor_index, _xseletor, _yseletor);
-                
-                //debug para ver a vida do bloco
-                //draw_text(_x, _y, string(_hp_max) + " " + string(_hp_atual));
-            }
+            //definindo largura dos tiles
+            tilemap_set_width(_id_minerios, _largura_room);
+            tilemap_set_width(_id_rachaduras, _largura_room);
+            tilemap_set_width(_id_chao, _largura_room);
         }
         
     #endregion
