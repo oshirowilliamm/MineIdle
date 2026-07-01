@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"fnt_itens",
+  "%Name":"fnt_ui",
   "AntiAlias":0,
   "applyKerning":0,
   "ascender":25,
@@ -205,7 +205,7 @@
   "last":0,
   "lineHeight":31,
   "maintainGms1Font":false,
-  "name":"fnt_itens",
+  "name":"fnt_ui",
   "parent":{
     "name":"fontes",
     "path":"folders/fontes.yy",

@@ -56,32 +56,51 @@ pulando = function(_dist)
 //fazendo o drop ir ate o player
 sugando = function(_dist)
 {
-    //se estiver no raio de atração e poder andar
-    if (_dist <= raio_atracao && pode_andar)
-    {  
-        //direção do drop pro player
-        var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
-        
-        //definindo movimentação
-        spd = lerp(spd, 10, .01);
-        hspd = lengthdir_x(spd, _dir);
-        vspd = lengthdir_y(spd, _dir);
-        
-        //encostando no player
-        if (_dist < raio_coleta)
-        {
-            //coletando item
-            global.inventario[item_tipo].quantidade++;
+    //checando peso maximo
+    if (global.peso_atual < global.peso_max)
+    {
+        //se estiver no raio de atração e poder andar
+        if (_dist <= raio_atracao && pode_andar)
+        {  
+            //direção do drop pro player
+            var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
             
-            //destruindo
-            instance_destroy();
+            //definindo movimentação
+            spd = lerp(spd, 10, .01);
+            hspd = lengthdir_x(spd, _dir);
+            vspd = lengthdir_y(spd, _dir);
+            
+            coletando(_dist);
+        }
+        //se estiver fora do alcance
+        else
+        {
+            //zerando movimentação
+            hspd = lerp(hspd, 0, .1);
+            vspd = lerp(vspd, 0, .1);   
         }
     }
-    //se estiver fora do alcance
     else
     {
         //zerando movimentação
         hspd = lerp(hspd, 0, .1);
-        vspd = lerp(vspd, 0, .1);
+        vspd = lerp(vspd, 0, .1);   
+    }
+}
+
+//coletando drop
+coletando = function(_dist)
+{
+    //encostando no player
+    if (_dist < raio_coleta)
+    {
+        //coletando item
+        global.inventario[item_tipo].quantidade++;
+        
+        //adicionando peso
+        global.peso_atual += global.inventario[item_tipo].peso;
+        
+        //destruindo
+        instance_destroy();
     }
 }

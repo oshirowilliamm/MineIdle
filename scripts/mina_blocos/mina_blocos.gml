@@ -110,7 +110,7 @@ function mina_cria_drop(_x, _y, _bloco_id)
 function mina_regenera_bloco()
 {
     //tempo em milissegundos
-    var _tempo = 1000;
+    var _tempo = 5000;
     
     //rodando os blocos machucados
     for (var i = array_length(blocos_machucados) - 1; i >= 0; i--)

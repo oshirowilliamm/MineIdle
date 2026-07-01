@@ -31,8 +31,11 @@ global.stamina_max = 100;
 global.stamina_atual = global.stamina_max;
 global.stamina_dano = 2;
 
+//peso do inventario
+global.peso_max = 2000;
+global.peso_atual = 0;
+
 //itens
-global.inventario_max = 10000;
 global.inventario = 
 [
     {nome: "Pedra",     valor: 1,  quantidade: 0, peso: 200},
@@ -45,7 +48,7 @@ global.inventario =
 //picareta
 global.picareta = 
 {
-    dano: 500,
+    dano: 5,
     cooldown: 15
 };
 
