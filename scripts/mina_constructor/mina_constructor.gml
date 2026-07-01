@@ -7,8 +7,8 @@
 #macro MINA_TAM_PAREDE 64 
 
 //posição inicial da chunk
-#macro MINA_CHUNK_X (5 * MINA_TAM_PAREDE) 
-#macro MINA_CHUNK_Y MINA_TAM_PAREDE       
+#macro MINA_CHUNK_X 0
+#macro MINA_CHUNK_Y 0   
 
 //tamanho da chunk
 #macro MINA_CHUNK_W 10              

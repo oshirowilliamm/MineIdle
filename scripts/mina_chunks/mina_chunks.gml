@@ -9,7 +9,7 @@ function mina_cria_chunks(_id)
     };
     
     //preenchendo a chunk com minerios
-    mina_preenche_chunk(_chunk);
+    mina_preenche_minerios(_chunk);
     
     //colocando a nova chunk na struct
     chunks[$ _id] = _chunk;
@@ -64,21 +64,42 @@ function mina_gera_blocos()
 
 
 
-//preenchendo a chunk com as infos
-function mina_preenche_chunk(_chunk)
+//preenchendo a chunk com minerios
+function mina_preenche_minerios(_chunk)
 {
     for (var i = 0; i < MINA_CHUNK_W; i++)
     {
         for (var j = 0; j < MINA_CHUNK_H; j++)
         {
-            //pegando o tipo do bloco
-            var _tipo = mina_gera_blocos();
-            
             //pegando id do bloco
             var _id = mina_get_bloco_id(i, j);
             
-            //setando a nova chunk com os blocos gerados
-            _chunk.blocos[_id] = mina_novo_bloco(_tipo);
+            //chunk inicial vazia
+            if (_chunk.index <= 0)
+            {
+                _chunk.blocos[_id] = mina_bloco_vazio();
+            }
+            //resto das chunks da mina
+            else 
+            {
+                //pegando o tipo do bloco
+                var _tipo = mina_gera_blocos();
+                
+            	//setando a nova chunk com os blocos gerados
+                _chunk.blocos[_id] = mina_novo_bloco(_tipo);
+            }
+        }
+    }
+}
+
+//fazendo as bordas
+function mina_preenche_bordas(_chunk)
+{
+    for (var i = 0; i < MINA_CHUNK_W; i++)
+    {
+        for (var j = 0; j < MINA_CHUNK_H; j++)
+        {
+            
         }
     }
 }

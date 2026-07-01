@@ -6,8 +6,8 @@ with (global.mina)
 {
     //mudando o tamanho da room
     //infos do tamanho da mina
-    var _mina_width = (MINA_CHUNK_W * MINA_SIZE_W * MINA_TOTAL_CHUNKS) + MINA_CHUNK_X;
-    var _mina_height = (MINA_CHUNK_H * MINA_SIZE_H) + MINA_CHUNK_Y;
+    var _mina_width     = MINA_CHUNK_W * MINA_SIZE_W * MINA_TOTAL_CHUNKS;
+    var _mina_height    = MINA_CHUNK_H * MINA_SIZE_H;
     
     //definindo tamanho
     room_width = _mina_width;
