@@ -7,19 +7,19 @@ function mina_pixel_to_grid_x(_x)
 
 function mina_pixel_to_grid_y(_y) 
 { 
-    return floor((_y - MINA_CHUNK_Y) / MINA_SIZE_H); 
+    return floor(_y / MINA_SIZE_H); 
 }
 
 //pega uma coordenada em grid id e transforma em pixel
 //faz pixel * tamanho
 function mina_grid_to_pixel_x(_x) 
 { 
-    return MINA_CHUNK_X + (_x * MINA_SIZE_W); 
+    return _x * MINA_SIZE_W; 
 } 
 
 function mina_grid_to_pixel_y(_y) 
 { 
-    return MINA_CHUNK_Y + (_y * MINA_SIZE_H); 
+    return _y * MINA_SIZE_H; 
 }
 
 //pega um grid id (coluna global) e transforma em chunk id (chunks globais)

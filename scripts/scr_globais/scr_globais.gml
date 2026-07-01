@@ -2,6 +2,7 @@
 enum BLOCOS 
 {
 	vazio = -1,
+    borda, 
     pedra,
     roxo,
     verde,

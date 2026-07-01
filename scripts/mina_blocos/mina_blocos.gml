@@ -25,10 +25,6 @@ function mina_get_bloco(_x, _y)
     return _chunk_atual.blocos[_bloco_id];
 }
 
-
-
-
-
 //minerando
 function mina_minera_bloco(_x, _y, _dano)
 {
@@ -99,7 +95,7 @@ function mina_cria_drop(_x, _y, _bloco_id)
     var _drop_infos = 
     {
         index:      _bloco_def.sprite_drop,     //mudando o sprite index do drop de acordo com o tipo do bloco
-        item:       _bloco_id,                  //item de acordo com o tipo do bloco
+        item:       _bloco_id - 1,                  //item de acordo com o tipo do bloco
     }
     
     //criando a quantidade de vezes que o bloco pedir
@@ -147,41 +143,4 @@ function mina_regenera_bloco()
             }
         }
     }
-}
-
-//função para pegar a linha de mineração
-function linha_mineracao()
-{
-    //validação da existência do player
-    if(!instance_exists(obj_player)) exit;
-    
-    //distancia do lengthdir
-    var _dist = 36;
-    
-    //pegando a direção da linha de acordo com a direção do player
-    switch (obj_player.dir) 
-    {
-        //cima
-        case 1:
-            _dist -= 5;
-        break;
-        //baixo
-        case 3:
-            _dist += 7;
-        break;
-    } 
-    
-    //pegando direção do player pro mouse
-    var _dir = point_direction(obj_player.x, obj_player.yy, mouse_x, mouse_y);
-    
-    //traça uma linha de visão do player com a distancia de 32 pixels e direção do mouse
-    var _x = obj_player.x + lengthdir_x(_dist, _dir);
-    var _y = obj_player.yy + lengthdir_y(_dist, _dir);
-    
-    //retornando as posições da linha
-    return
-    {
-        x: _x,
-        y: _y
-    };
 }

@@ -22,7 +22,7 @@ tile_bordas     = layer_exists("tl_bordas") ? layer_tilemap_get_id("tl_bordas") 
 tile_colisao    = layer_exists("tl_colisao") ? layer_tilemap_get_id("tl_colisao") : -1;
 
 //criando colisao
-colisores = [obj_colisao, tile_bordas, tile_colisao, tile_minerios];
+colisores = [obj_colisao, tile_bordas, tile_colisao];
 
 //criando a picareta so se estiver na mina
 if (!instance_exists(obj_picareta) && room == rm_mina) 

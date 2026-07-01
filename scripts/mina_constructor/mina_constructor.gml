@@ -6,14 +6,10 @@
 //tamanho da parede    
 #macro MINA_TAM_PAREDE 64 
 
-//posição inicial da chunk
-#macro MINA_CHUNK_X 0
-#macro MINA_CHUNK_Y 0   
-
 //tamanho da chunk
-#macro MINA_CHUNK_W 10              
-#macro MINA_CHUNK_H 20              
-#macro MINA_TOTAL_CHUNKS 100  
+#macro MINA_CHUNK_W 12           
+#macro MINA_CHUNK_H 24        
+#macro MINA_TOTAL_CHUNKS 100
 
 //margem de colunas extras da chunk       
 #macro MINA_MARGEM 1
@@ -30,6 +26,8 @@ function mina_sistema() constructor
     //id dos tiles
     global.tile_minerio = layer_tilemap_get_id("tl_minerios");
     global.tile_chao    = layer_tilemap_get_id("tl_chao");
+    global.tile_bordas  = layer_tilemap_get_id("tl_bordas");
+    global.tile_paredes = layer_tilemap_get_id("tl_paredes");
     
     //iniciando as definições dos blocos
     mina_ini_defs();

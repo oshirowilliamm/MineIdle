@@ -85,6 +85,16 @@ function mina_cria_tile_parede(_bloco, _x, _y)
     }
 }
 
+//tile da borda
+function mina_cria_tile_borda(_bloco, _x, _y)
+{
+    //se o bloco é um bloco de borda
+    if (_bloco.index != BLOCOS.borda) exit;
+    
+    
+}
+
+
 //atualiza o bloco de cima
 function mina_atualiza_cima(_x, _y)
 {
