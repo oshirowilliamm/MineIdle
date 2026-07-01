@@ -24,7 +24,12 @@ function mina_sistema() constructor
     chunks = {};
     bloco_defs = {};
     chance_spawn_total = 0;
-    brilho_index = 0;
+    brilho_index = 0;       //pra animação do brilho do minério
+    blocos_machucados = []; //pra regeneração do bloco
+    
+    //id dos tiles
+    global.tile_minerio = layer_tilemap_get_id("tl_minerios");
+    global.tile_chao    = layer_tilemap_get_id("tl_chao");
     
     //iniciando as definições dos blocos
     mina_ini_defs();
@@ -40,6 +45,7 @@ function mina_sistema() constructor
     desenha_rachaduras = mina_desenha_rachaduras;
     desenha_brilho = mina_desenha_brilho;
     
+    //função auxiliar pra rodar os blocos visiveis
     blocos_visiveis = mina_blocos_visiveis;
     
 }

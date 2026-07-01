@@ -61,6 +61,12 @@ function mina_dano_bloco(_bloco, _dano, _x, _y)
     
     //stamina
     global.stamina_atual -= global.stamina_dano;
+    
+    //colocando o bloco como machucado pra regeneração
+    if (!variable_struct_exists(_bloco, "machucado") || _bloco.machucado == false) {
+        array_push(blocos_machucados, _bloco);
+        _bloco.machucado = true;
+    }
 }
 
 //quebrando o bloco
@@ -76,6 +82,7 @@ function mina_quebra_bloco(_x, _y, _bloco)
     //zerando bloco
     _bloco.index = BLOCOS.vazio;
     _bloco.hp = 0;
+    _bloco.machucado = false;
     
     //atualizando os tiles
     mina_atualiza_tiles(_x, _y);
@@ -107,18 +114,40 @@ function mina_cria_drop(_x, _y, _bloco_id)
 //regenera o bloco
 function mina_regenera_bloco()
 {
-    mina_blocos_visiveis(function(_bloco, _x, _y)
+    //tempo em milissegundos
+    var _tempo = 1000;
+    
+    //rodando os blocos machucados
+    for (var i = array_length(blocos_machucados) - 1; i >= 0; i--)
     {
-        var _tempo = 5000;
+        //pegando o bloco
+        var _bloco = blocos_machucados[i];
         
-        if (_bloco == undefined) exit;
-        if (_bloco.index == BLOCOS.vazio) exit;
+        //validação pra bloco vazio
+        if (_bloco.index == BLOCOS.vazio) 
+        {
+            _bloco.machucado = false;
+            array_delete(blocos_machucados, i, 1);
+            continue;
+        }
         
-        if (_bloco.hp >= bloco_defs[_bloco.index].hp) exit;
-        if (current_time - _bloco.tempo_dano < _tempo) exit;
+        //pegando a vida maxima do bloco
+        var _hp_max = bloco_defs[_bloco.index].hp;
         
-        _bloco.hp++;
-    });
+        //se passou o tempo de dano do bloco
+        if (current_time - _bloco.tempo_dano >= _tempo)
+        {
+            //regenerando a vida
+            _bloco.hp = _hp_max;
+            
+            //tirando da lista se ja curou
+            if (_bloco.hp >= _hp_max)
+            {
+                _bloco.machucado = false;
+                array_delete(blocos_machucados, i, 1);
+            }
+        }
+    }
 }
 
 //função para pegar a linha de mineração

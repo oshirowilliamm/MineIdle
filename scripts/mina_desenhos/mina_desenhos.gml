@@ -1,8 +1,6 @@
 //rachaduras
-function mina_desenha_rachaduras(_x, _y)
+function mina_desenha_rachaduras(_bloco, _x, _y)
 {
-    //pegando o bloco
-    var _bloco = mina_get_bloco(_x, _y);
     if (!_bloco) return false;
     if (_bloco.index == BLOCOS.vazio) return false;
     if (_bloco.index == BLOCOS.borda) return false;  
@@ -13,10 +11,10 @@ function mina_desenha_rachaduras(_x, _y)
     
     //porcentagens
     var _porc = (_hp_atual / _hp_max) * 100;
-    var _1 = 80;
-    var _2 = 60;
-    var _3 = 40;
-    var _4 = 20;
+    var _1 = 80, _2 = 60, _3 = 40, _4 = 20;
+    
+    //validação de se a vida estiver cheia
+    if (_hp_atual >= _hp_max) return false;
     
     //desenhando quebrado de acordo com a vida do bloco
     var _index = 0;
@@ -39,15 +37,9 @@ function mina_desenha_brilho(_bloco, _x, _y)
         return;
     
     var _frames = sprite_get_number(spr_brilho);
-    var _frame_atual = (current_time / 100) % _frames;
-    
-    // O pulo do gato: Blend Mode Aditivo
-    gpu_set_blendmode(bm_add);
+    var _frame_atual = floor(current_time / 100) % _frames;
     
     // Desenha o brilho por cima do bloco
     draw_sprite(spr_brilho, _frame_atual, _x, _y);
-    
-    // Resetar o blend mode para não estragar o resto do desenho
-    gpu_set_blendmode(bm_normal);
 }
 

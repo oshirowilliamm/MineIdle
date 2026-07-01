@@ -34,6 +34,7 @@ function mina_novo_bloco(_tipo)
     {
         index : _tipo,
         hp : bloco_defs[_tipo].hp,
-        tempo_dano : 0
+        tempo_dano : 0,
+        machucado: false
     }
 }

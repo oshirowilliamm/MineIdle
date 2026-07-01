@@ -39,10 +39,8 @@ function mina_cria_tiles(_id, _chunk)
 //função para apagar ou atualizar os tiles
 function mina_atualiza_tiles(_x, _y)
 {
-    var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-    
     //apagando os tiles do bloco 
-    tilemap_set_at_pixel(_id_minerio, 0, _x, _y);
+    tilemap_set_at_pixel(global.tile_minerio , 0, _x, _y);
     
     //atualizando bloco de baixo
     mina_atualiza_baixo(_x, _y);
@@ -65,8 +63,7 @@ function mina_cria_tile_bloco(_bloco, _x, _y)
     var _tile = mina_tile_tipo(_bloco.index);
     
     //desenhando o tile do topo
-    var _id_minerio = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-    tilemap_set_at_pixel(_id_minerio, _tile, _x, _y);
+    tilemap_set_at_pixel(global.tile_minerio, _tile, _x, _y);
 }
 
 //tile da parede
@@ -84,17 +81,13 @@ function mina_cria_tile_parede(_bloco, _x, _y)
         var _tile = mina_tile_tipo(_bloco.index);
         
         //desenhando o tile do topo
-        var _id_minerio = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
-        tilemap_set_at_pixel(_id_minerio, _tile, _x, _y + MINA_SIZE_H);
+        tilemap_set_at_pixel(global.tile_chao, _tile, _x, _y + MINA_SIZE_H);
     }
 }
 
 //atualiza o bloco de cima
 function mina_atualiza_cima(_x, _y)
 {
-    //id layer
-    var _id_chao = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
-    
     //criando a parede de cima
     var _bloco = mina_get_bloco(_x, _y - MINA_SIZE_H);
     
@@ -102,22 +95,19 @@ function mina_atualiza_cima(_x, _y)
     if (_bloco && _bloco.index != BLOCOS.vazio)
     {
         var _tile_data = mina_tile_tipo(_bloco.index);
-        tilemap_set_at_pixel(_id_chao, _tile_data, _x, _y);
+        tilemap_set_at_pixel(global.tile_chao, _tile_data, _x, _y);
     }
 }
 
 //atualiza o bloco de baixo
 function mina_atualiza_baixo(_x, _y)
 {
-    //id layer
-    var _id_chao = layer_exists("tl_chao") ? layer_tilemap_get_id("tl_chao") : -1;
-    
     //apagando a parede de baixo
     var _bloco= mina_get_bloco(_x, _y + MINA_SIZE_H);
     
     //se o bloco de baixo existe e esta vazio, apaga a parede
     if (_bloco && _bloco.index == BLOCOS.vazio)
     {
-        tilemap_set_at_pixel(_id_chao, 0, _x, _y + MINA_SIZE_H);
+        tilemap_set_at_pixel(global.tile_chao, 0, _x, _y + MINA_SIZE_H);
     }
 }
