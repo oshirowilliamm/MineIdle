@@ -11,12 +11,12 @@
 #macro MINA_CHUNK_Y MINA_TAM_PAREDE       
 
 //tamanho da chunk
-#macro MINA_CHUNK_W 16              
+#macro MINA_CHUNK_W 10              
 #macro MINA_CHUNK_H 20              
-#macro MINA_TOTAL_CHUNKS 50  
+#macro MINA_TOTAL_CHUNKS 100  
 
 //margem de colunas extras da chunk       
-#macro MINA_MARGEM 2    
+#macro MINA_MARGEM 1
 
 function mina_sistema() constructor
 {

@@ -3,7 +3,6 @@ function mina_desenha_rachaduras(_bloco, _x, _y)
 {
     if (!_bloco) return false;
     if (_bloco.index == BLOCOS.vazio) return false;
-    if (_bloco.index == BLOCOS.borda) return false;  
     
     //pegando vida maxima e atual do bloco
     var _hp_max = bloco_defs[_bloco.index].hp;
@@ -33,7 +32,7 @@ function mina_desenha_rachaduras(_bloco, _x, _y)
 function mina_desenha_brilho(_bloco, _x, _y)
 {
     //não desenhar:
-    if (_bloco.index == BLOCOS.vazio || _bloco.index == BLOCOS.borda ||_bloco.index == BLOCOS.pedra) 
+    if (_bloco.index == BLOCOS.vazio ||_bloco.index == BLOCOS.pedra) 
         return;
     
     var _frames = sprite_get_number(spr_brilho);

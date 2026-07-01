@@ -37,7 +37,6 @@ function mina_minera_bloco(_x, _y, _dano)
     //validações
     if (!_bloco) return false;
     if (_bloco.index == BLOCOS.vazio) return false;
-    if (_bloco.index == BLOCOS.borda) return false;
     
     //funções
     //aplicando dano
@@ -100,7 +99,7 @@ function mina_cria_drop(_x, _y, _bloco_id)
     var _drop_infos = 
     {
         index:      _bloco_def.sprite_drop,     //mudando o sprite index do drop de acordo com o tipo do bloco
-        item:       _bloco_id - 1,              //item de acordo com o tipo do bloco
+        item:       _bloco_id,                  //item de acordo com o tipo do bloco
     }
     
     //criando a quantidade de vezes que o bloco pedir

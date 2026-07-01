@@ -19,7 +19,6 @@ function mina_ini_defs()
     }
     
     //adicionando as definições dos blocos
-    _add_def(BLOCOS.borda,    "Parede",   infinity, -1, 0, 0);
     _add_def(BLOCOS.pedra,    "Pedra",    10,  0, 1, 50);
     _add_def(BLOCOS.roxo,     "Roxo",     20,  1, 1, 15);
     _add_def(BLOCOS.verde,    "Verde",    40,  2, 1, 10);

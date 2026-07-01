@@ -15,7 +15,9 @@ up = 0;
 down  = 0;
 
 //variaveis de colisao
-tile_colisor = -1;
+tile_minerios = -1;
+tile_bordas = -1;
+tile_colisao = -1;
 colisores = [];
 
 //variavel pra direção do player

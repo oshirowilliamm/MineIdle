@@ -1,3 +1,24 @@
+//blocos da mina
+enum BLOCOS 
+{
+	vazio = -1,
+    pedra,
+    roxo,
+    verde,
+    azul,
+    amarelo
+}
+
+//itens / drops
+enum ITENS
+{
+    pedra,
+    roxo,
+    verde,
+    azul,
+    amarelo
+}
+
 //mina
 global.mina = noone;
 
@@ -23,7 +44,7 @@ global.inventario =
 //picareta
 global.picareta = 
 {
-    dano: 5,
+    dano: 500,
     cooldown: 15
 };
 
