@@ -10,7 +10,7 @@ draw_sprite_ext(sprite_index, image_index, x, y, xscale, image_yscale, image_ang
 if (debug)
 {
     //desenhando a linha de mineração
-    var _linha = global.mina.linha_mineracao();
+    var _linha = linha_mineracao();
     
     draw_line(x, y - 15, _linha.x, _linha.y);
 }

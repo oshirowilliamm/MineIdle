@@ -1,13 +1,3 @@
-//itens / drops
-enum ITENS
-{
-    pedra,
-    roxo,
-    verde,
-    azul,
-    amarelo
-}
-
 //mina
 global.mina = noone;
 
@@ -33,7 +23,7 @@ global.inventario =
 //picareta
 global.picareta = 
 {
-    dano: 500,
+    dano: 5,
     cooldown: 15
 };
 
