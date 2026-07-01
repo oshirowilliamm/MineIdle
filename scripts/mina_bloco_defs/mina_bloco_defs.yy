@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"mina_bloco_defs",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"mina_bloco_defs",
+  "parent":{
+    "name":"Mina",
+    "path":"folders/scripts/Mina.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

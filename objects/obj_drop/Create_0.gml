@@ -1,6 +1,6 @@
 //variaveis de infos do bloco
 image_index = index //image_index de acordo com o tipo do bloco
-tipo_bloco = tipo; //tipo do bloco pra eu saber onde encaixar o drop
+item_tipo = item; //tipo do bloco pra eu saber onde encaixar o drop
 
 //variaveis de movimentacao, começa andando um pouco
 spd = 0;
@@ -19,12 +19,7 @@ zspd = -3;
 grav = .3;
 
 //variaveis de colisao
-//criando a colisão com tiles apenas se existe a camada de tiles
-if (layer_exists("tl_minerios"))
-    tile_colisor = layer_tilemap_get_id("tl_minerios");
-else 
-	tile_colisor = -1;
-
+tile_colisor = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
 colisores = [obj_colisao, obj_parede, tile_colisor];
 
 //fazendo o drop pular do bloco
@@ -73,7 +68,7 @@ sugando = function(_dist)
         if (_dist < raio_coleta)
         {
             //coletando item
-            global.inventario[tipo_bloco].quantidade++;
+            global.inventario[item_tipo].quantidade++;
             
             //destruindo
             instance_destroy();

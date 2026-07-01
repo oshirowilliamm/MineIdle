@@ -20,20 +20,20 @@ if (debug)
     draw_set_colour(c_white);
     
     //minerios
-    draw_text(_xnome, _ynome, global.inventario[BLOCOS.pedra].nome);
-    draw_text(_xqtd, _ynome, global.inventario[BLOCOS.pedra].quantidade);
+    draw_text(_xnome, _ynome, global.inventario[ITENS.pedra].nome);
+    draw_text(_xqtd, _ynome, global.inventario[ITENS.pedra].quantidade);
     
-    draw_text(_xnome, _ynome + 30, global.inventario[BLOCOS.roxo].nome);
-    draw_text(_xqtd, _ynome + 30, global.inventario[BLOCOS.roxo].quantidade);
+    draw_text(_xnome, _ynome + 30, global.inventario[ITENS.roxo].nome);
+    draw_text(_xqtd, _ynome + 30, global.inventario[ITENS.roxo].quantidade);
     
-    draw_text(_xnome, _ynome + 60, global.inventario[BLOCOS.verde].nome);
-    draw_text(_xqtd, _ynome + 60, global.inventario[BLOCOS.verde].quantidade);
+    draw_text(_xnome, _ynome + 60, global.inventario[ITENS.verde].nome);
+    draw_text(_xqtd, _ynome + 60, global.inventario[ITENS.verde].quantidade);
     
-    draw_text(_xnome, _ynome + 90, global.inventario[BLOCOS.azul].nome);
-    draw_text(_xqtd, _ynome + 90, global.inventario[BLOCOS.azul].quantidade);
+    draw_text(_xnome, _ynome + 90, global.inventario[ITENS.azul].nome);
+    draw_text(_xqtd, _ynome + 90, global.inventario[ITENS.azul].quantidade);
     
-    draw_text(_xnome, _ynome + 120, global.inventario[BLOCOS.amarelo].nome);
-    draw_text(_xqtd, _ynome + 120, global.inventario[BLOCOS.amarelo].quantidade);
+    draw_text(_xnome, _ynome + 120, global.inventario[ITENS.amarelo].nome);
+    draw_text(_xqtd, _ynome + 120, global.inventario[ITENS.amarelo].quantidade);
     
     var _xmoeda = _xnome + 165;
     

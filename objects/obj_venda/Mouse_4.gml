@@ -1,4 +1,4 @@
-var _bloco = global.inventario[tipo_bloco];
+var _bloco = global.inventario[item];
 
 if (_bloco.quantidade > 0)
 {

@@ -2,4 +2,4 @@
 infos = false;
 
 //texto do item
-texto = global.inventario[tipo_bloco].nome;
+texto = global.inventario[item].nome;
