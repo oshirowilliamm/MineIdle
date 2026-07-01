@@ -19,10 +19,9 @@ y = obj_player_spawn.y;
 //criando a colisão com tiles apenas se existe a camada de tiles
 tile_minerios   = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
 tile_bordas     = layer_exists("tl_bordas") ? layer_tilemap_get_id("tl_bordas") : -1;
-tile_colisao    = layer_exists("tl_colisao") ? layer_tilemap_get_id("tl_colisao") : -1;
 
 //criando colisao
-colisores = [tile_bordas, tile_colisao];
+colisores = [tile_bordas, tile_minerios];
 
 //criando a picareta so se estiver na mina
 if (!instance_exists(obj_picareta) && room == rm_mina) 

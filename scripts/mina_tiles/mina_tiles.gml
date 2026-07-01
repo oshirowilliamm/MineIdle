@@ -113,7 +113,7 @@ function mina_cria_tile_borda(_id, _bloco, _x, _y, _i, _j)
     
     //offsets
     var _woffset = _i % 12;
-    var _hoffset = (_j % 12) * 49;
+    var _hoffset = (_j % 8) * 49;
     
     //tile de acordo com canto horizontal
     if (_top1)          _tile = 50 + _woffset;
@@ -141,9 +141,6 @@ function mina_cria_tile_borda_parede(_id, _bloco, _x, _y, _i, _j)
     if (_j == 1)
     {
         var _tile = 99 + (_i % 12); //repetindo o tile
-        
-        //colisao da parede
-        tilemap_set_at_pixel(global.tile_colisao, 1, _x, _y + 32);
         
         //desenhando o tile da borda
         tilemap_set_at_pixel(global.tile_paredes, _tile, _x, _y + 32);

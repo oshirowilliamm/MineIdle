@@ -81,7 +81,6 @@
     {"id":{"name":"spr_rachaduras","path":"sprites/spr_rachaduras/spr_rachaduras.yy",},},
     {"id":{"name":"spr_sacola","path":"sprites/spr_sacola/spr_sacola.yy",},},
     {"id":{"name":"spr_sombra","path":"sprites/spr_sombra/spr_sombra.yy",},},
-    {"id":{"name":"spr_teste","path":"sprites/spr_teste/spr_teste.yy",},},
     {"id":{"name":"spr_tile_bordas_mina","path":"sprites/spr_tile_bordas_mina/spr_tile_bordas_mina.yy",},},
     {"id":{"name":"spr_tile_bordas","path":"sprites/spr_tile_bordas/spr_tile_bordas.yy",},},
     {"id":{"name":"spr_tile_minerios","path":"sprites/spr_tile_minerios/spr_tile_minerios.yy",},},
@@ -96,8 +95,8 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
     {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
+    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
     {"roomId":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},},
     {"roomId":{"name":"rm_venda","path":"rooms/rm_venda/rm_venda.yy",},},
   ],

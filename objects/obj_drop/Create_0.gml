@@ -21,10 +21,9 @@ grav = .3;
 //variaveis de colisao
 tile_minerios   = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
 tile_bordas     = layer_exists("tl_bordas") ? layer_tilemap_get_id("tl_bordas") : -1;
-tile_colisao    = layer_exists("tl_colisao") ? layer_tilemap_get_id("tl_colisao") : -1;
 
 //criando colisao
-colisores = [tile_bordas, tile_colisao, tile_minerios];
+colisores = [tile_bordas, tile_minerios];
 
 //fazendo o drop pular do bloco
 pulando = function(_dist)
