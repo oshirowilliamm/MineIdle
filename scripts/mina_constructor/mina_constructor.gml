@@ -28,6 +28,7 @@ function mina_sistema() constructor
     global.tile_chao    = layer_tilemap_get_id("tl_chao");
     global.tile_bordas  = layer_tilemap_get_id("tl_bordas");
     global.tile_paredes = layer_tilemap_get_id("tl_paredes");
+    global.tile_colisao = layer_tilemap_get_id("tl_colisao");
     
     //iniciando as definições dos blocos
     mina_ini_defs();

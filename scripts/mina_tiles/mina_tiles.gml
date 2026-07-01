@@ -32,6 +32,10 @@ function mina_cria_tiles(_id, _chunk)
             
             //parede do bloco embaixo
             mina_cria_tile_parede(_bloco, _x, _y);
+            
+            //bloco de borda
+            mina_cria_tile_borda(_id, _bloco, _x, _y, i, j);
+            mina_cria_tile_borda_parede(_id, _bloco, _x, _y, i, j);
         }
     }
 }
@@ -86,13 +90,68 @@ function mina_cria_tile_parede(_bloco, _x, _y)
 }
 
 //tile da borda
-function mina_cria_tile_borda(_bloco, _x, _y)
+function mina_cria_tile_borda(_id, _bloco, _x, _y, _i, _j)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
     
+    //tile
+    var _tile = 0;
     
+    //cantos da mina
+    var _top1 = _j == 1;
+    var _top2 = _j <= 0;
+    
+    var _left1 = _i == 1 && _id <= 0;
+    var _left2 = _i <= 0 && _id <= 0;
+    
+    var _bottom1 = _j == MINA_CHUNK_H - 2;
+    var _bottom2 = _j >= MINA_CHUNK_H - 1;
+    
+    var _right1 = _i == MINA_CHUNK_W - 2 && _id == MINA_TOTAL_CHUNKS - 1;
+    var _right2 = _i >= MINA_CHUNK_W - 1 && _id == MINA_TOTAL_CHUNKS - 1;
+    
+    //offsets
+    var _woffset = _i % 12;
+    var _hoffset = (_j % 12) * 49;
+    
+    //tile de acordo com canto horizontal
+    if (_top1)          _tile = 50 + _woffset;
+    else if (_top2)     _tile = 1 + _woffset;
+    else if (_bottom1)  _tile = 25 + _woffset;
+    else if (_bottom2)  _tile = 74 + _woffset;
+    
+    //tile de acordo com canto vertical
+    if (_left1)         _tile = 150 + _hoffset;
+    else if (_left2)    _tile = 149 + _hoffset;
+    else if (_right1)   _tile = 147 + _hoffset;
+    else if (_right2)   _tile = 148 + _hoffset;
+    
+    //desenhando o tile da borda
+    tilemap_set_at_pixel(global.tile_bordas, _tile, _x, _y);
 }
+
+//tile da parede da borda
+function mina_cria_tile_borda_parede(_id, _bloco, _x, _y, _i, _j)
+{
+    //se o bloco é um bloco de borda
+    if (_bloco.index != BLOCOS.borda) exit;
+    
+    //se tiver na parede de cima
+    if (_j == 1)
+    {
+        var _tile = 99 + (_i % 12); //repetindo o tile
+        
+        //colisao da parede
+        tilemap_set_at_pixel(global.tile_colisao, 1, _x, _y + 32);
+        
+        //desenhando o tile da borda
+        tilemap_set_at_pixel(global.tile_paredes, _tile, _x, _y + 32);
+    } 
+}
+
+
+
 
 
 //atualiza o bloco de cima

@@ -3,7 +3,7 @@
   "%Name":"spr_tile_bordas",
   "bboxMode":0,
   "bbox_bottom":1985,
-  "bbox_left":0,
+  "bbox_left":32,
   "bbox_right":1953,
   "bbox_top":0,
   "collisionKind":1,
@@ -14,8 +14,8 @@
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"b49d2fa9-94db-4e2e-9003-c8d90bee3489","name":"b49d2fa9-94db-4e2e-9003-c8d90bee3489","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
-  "gridX":64,
-  "gridY":64,
+  "gridX":32,
+  "gridY":32,
   "height":2000,
   "HTile":false,
   "layers":[

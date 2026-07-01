@@ -32,7 +32,7 @@ function mina_minera_bloco(_x, _y, _dano)
     
     //validações
     if (!_bloco) return false;
-    if (_bloco.index == BLOCOS.vazio) return false;
+    if (_bloco.index == BLOCOS.vazio || _bloco.index == BLOCOS.borda) return false;
     
     //funções
     //aplicando dano
