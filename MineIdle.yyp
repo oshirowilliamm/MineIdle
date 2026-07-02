@@ -78,6 +78,7 @@
     {"id":{"name":"spr_fundo","path":"sprites/spr_fundo/spr_fundo.yy",},},
     {"id":{"name":"spr_item","path":"sprites/spr_item/spr_item.yy",},},
     {"id":{"name":"spr_loja_bg","path":"sprites/spr_loja_bg/spr_loja_bg.yy",},},
+    {"id":{"name":"spr_loja","path":"sprites/spr_loja/spr_loja.yy",},},
     {"id":{"name":"spr_moeda","path":"sprites/spr_moeda/spr_moeda.yy",},},
     {"id":{"name":"spr_parede","path":"sprites/spr_parede/spr_parede.yy",},},
     {"id":{"name":"spr_picareta","path":"sprites/spr_picareta/spr_picareta.yy",},},

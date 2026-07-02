@@ -11,9 +11,9 @@
     {"name":"inst_7739332A","path":"rooms/rm_vila/rm_vila.yy",},
     {"name":"inst_31377458","path":"rooms/rm_vila/rm_vila.yy",},
     {"name":"inst_55FE8145","path":"rooms/rm_vila/rm_vila.yy",},
-    {"name":"inst_D19725F","path":"rooms/rm_vila/rm_vila.yy",},
     {"name":"inst_13AA09C5","path":"rooms/rm_vila/rm_vila.yy",},
     {"name":"inst_443BACF5","path":"rooms/rm_vila/rm_vila.yy",},
+    {"name":"inst_D19725F","path":"rooms/rm_vila/rm_vila.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -23,10 +23,10 @@
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"propertyId":{"name":"nome","path":"objects/obj_transicao/obj_transicao.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"\"Mina\"",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":896.0,"y":320.0,},
         {"$GMRInstance":"v4","%Name":"inst_55FE8145","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_55FE8145","objectId":{"name":"obj_player_spawn","path":"objects/obj_player_spawn/obj_player_spawn.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":832.0,"y":320.0,},
-        {"$GMRInstance":"v4","%Name":"inst_D19725F","colour":4278235656,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_D19725F","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"properties":[
+        {"$GMRInstance":"v4","%Name":"inst_D19725F","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_D19725F","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"previewSprite":{"name":"spr_loja","path":"sprites/spr_loja/spr_loja.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"propertyId":{"name":"destino","path":"objects/obj_transicao/obj_transicao.yy",},"resource":{"name":"rm_venda","path":"rooms/rm_venda/rm_venda.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_venda",},
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"propertyId":{"name":"nome","path":"objects/obj_transicao/obj_transicao.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"\"Vendas\"",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":768.0,"y":224.0,},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":576.0,"y":128.0,},
         {"$GMRInstance":"v4","%Name":"inst_13AA09C5","colour":4278235656,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_13AA09C5","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"propertyId":{"name":"destino","path":"objects/obj_transicao/obj_transicao.yy",},"resource":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_upgrade",},
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_transicao","path":"objects/obj_transicao/obj_transicao.yy",},"propertyId":{"name":"nome","path":"objects/obj_transicao/obj_transicao.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"\"Upgrades\"",},
