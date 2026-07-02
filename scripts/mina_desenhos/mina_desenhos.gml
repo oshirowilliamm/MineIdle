@@ -35,10 +35,7 @@ function mina_desenha_brilho(_bloco, _x, _y)
     if (_bloco.index == BLOCOS.vazio || _bloco.index == BLOCOS.borda || _bloco.index == BLOCOS.pedra) 
         return;
     
-    var _frames = sprite_get_number(spr_brilho);
-    var _frame_atual = floor(current_time / 100) % _frames;
-    
     // Desenha o brilho por cima do bloco
-    draw_sprite(spr_brilho, _frame_atual, _x, _y);
+    draw_sprite(spr_brilho, brilho_frame, _x, _y);
 }
 

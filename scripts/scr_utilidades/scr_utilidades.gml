@@ -98,3 +98,21 @@ function info_loja(_valor)
     draw_set_halign(-1);
     draw_set_font(-1);
 }
+
+//animação em draw_sprite
+function draw_animation(_frame, _sprite)
+{
+    //velocidade de acordo com o editor
+    var _spd = sprite_get_speed(_sprite) / game_get_speed(gamespeed_fps);
+    
+    //adicionando frames
+    _frame += _spd;
+    
+    //zerando se passar do numero de frames do sprite
+    if (_frame >= sprite_get_number(_sprite))
+    {
+        return 0
+    }   
+    
+    return _frame
+}

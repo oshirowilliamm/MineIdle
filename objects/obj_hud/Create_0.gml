@@ -1,4 +1,5 @@
 debug = false;
+frame = 0;
 
 //desenhando a barra de stamina
 desenha_stamina = function()
@@ -56,8 +57,9 @@ desenha_moeda = function()
     var _x = 60;
     var _y = 60;
     
-    //desenhando moeda
-    draw_sprite_ext(spr_moeda, 1, _x, _y, _escala, _escala, 0, c_white, 1);
+    //desenhando moedas
+    frame = draw_animation(frame, spr_moeda);
+    draw_sprite_ext(spr_moeda, frame, _x, _y, _escala, _escala, 0, c_white, 1);
     
     //texto da moeda
     draw_set_halign(fa_center);

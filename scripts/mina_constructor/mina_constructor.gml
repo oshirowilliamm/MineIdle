@@ -20,7 +20,7 @@ function mina_sistema() constructor
     chunks = {};
     bloco_defs = {};
     chance_spawn_total = 0;
-    brilho_index = 0;       //pra animação do brilho do minério
+    brilho_frame = 0;       //pra animação do brilho do minério
     blocos_machucados = []; //pra regeneração do bloco
     
     //id dos tiles
