@@ -100,6 +100,15 @@ coletando = function(_dist)
         //adicionando peso
         global.peso_atual += global.inventario[item_tipo].peso;
         
+        //lista de itens para cair na sacola
+        array_push(obj_hud.itens_caindo, 
+        {
+            vspd: 0,
+            y: 0,
+            frame: item_tipo,
+            peso: global.inventario[item_tipo].peso
+        });
+        
         //destruindo
         instance_destroy();
     }

@@ -242,7 +242,7 @@ stamina = function()
     else 
     {
         //resetando stamina
-        var _stamina = lerp(global.stamina_atual, global.stamina_max + global.stamina_max * .2, .01); 
+        var _stamina = lerp(global.stamina_atual, global.stamina_max + global.stamina_max * .2, .05); 
     	global.stamina_atual = min(_stamina, global.stamina_max);
         
         //resetando dano da picareta
