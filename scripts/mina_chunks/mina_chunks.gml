@@ -8,9 +8,9 @@ function mina_cria_chunks(_id)
         blocos: array_create(MINA_CHUNK_W * MINA_CHUNK_H)
     };
     
-    //preenchendo a chunk com minerios e bordas
-    mina_preenche_chunk(_chunk);
-    mina_cria_bordas(_chunk);
+    //preenchendo a chunk
+    mina_preenche_minerios(_chunk);
+    mina_preenche_bordas(_chunk);
     
     //colocando a nova chunk na struct
     chunks[$ _id] = _chunk;
@@ -65,47 +65,58 @@ function mina_gera_blocos()
 
 
 
-//preenchendo a chunk com as infos
-function mina_preenche_chunk(_chunk)
+//preenchendo a chunk com minerios
+function mina_preenche_minerios(_chunk)
 {
     for (var i = 0; i < MINA_CHUNK_W; i++)
     {
         for (var j = 0; j < MINA_CHUNK_H; j++)
         {
-            //pegando o tipo do bloco
-            var _tipo = mina_gera_blocos();
-            
             //pegando id do bloco
             var _id = mina_get_bloco_id(i, j);
             
-            //setando a nova chunk com os blocos gerados
-            _chunk.blocos[_id] = mina_novo_bloco(_tipo);
+            //chunk inicial vazia
+            if (_chunk.index <= 0)
+            {
+                _chunk.blocos[_id] = mina_bloco_vazio();
+            }
+            //resto das chunks da mina
+            else 
+            {
+                //pegando o tipo do bloco
+                var _tipo = mina_gera_blocos();
+                
+            	//setando a nova chunk com os blocos gerados
+                _chunk.blocos[_id] = mina_novo_bloco(_tipo);
+            }
         }
     }
 }
 
-//criando as bordas
-function mina_cria_bordas(_chunk)
+//fazendo as bordas
+function mina_preenche_bordas(_chunk)
 {
     for (var i = 0; i < MINA_CHUNK_W; i++)
     {
         for (var j = 0; j < MINA_CHUNK_H; j++)
         {
-            //infos das bordas (boolean)
-            var _top    = (j == 0);
-            var _bottom = (j == MINA_CHUNK_H - 1);
-            var _left   = (_chunk.index == 0 && i == 0);
-            var _right  = (_chunk.index == MINA_TOTAL_CHUNKS - 1 && i == MINA_CHUNK_W - 1);
+            //cantos da mina
+            //2 primeiras linhas
+            var _top = j < 2;    
+            //2 primeiras colunas e primeira chunk                                                  
+            var _left = i < 2 && _chunk.index <= 0;       
+            //2 ultimas linhas                       
+            var _bottom = j >= MINA_CHUNK_H - 2;                       
+            //2 ultimas colunas e ultima chunk             
+            var _right = i >= MINA_CHUNK_W - 2 && _chunk.index == MINA_TOTAL_CHUNKS -1;   
             
-            //se a posição esta na posição da parede, cria a parede
-            if (_top || _bottom || _left || _right)
+            //verificando se o bloco esta nos cantos
+            if (_top || _left || _bottom || _right)
             {
-                //pegando bloco
                 var _id = mina_get_bloco_id(i, j);
                 
-                //setando bloco como borda
-                _chunk.blocos[_id].index = BLOCOS.borda;
-                _chunk.blocos[_id].hp = bloco_defs[BLOCOS.borda].hp;
+                //setando os blocos como borda
+                _chunk.blocos[_id] = mina_novo_bloco(BLOCOS.borda);
             }
         }
     }

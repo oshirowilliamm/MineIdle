@@ -55,8 +55,12 @@ if (debug)
 
 
 
+draw_set_font(fnt_ui);
+
+//desenhando as huds
 desenha_sacola();
-
-if (!hud) exit;
-
 desenha_stamina();
+desenha_moeda();
+
+
+draw_set_font(-1);

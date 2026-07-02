@@ -1,10 +1,16 @@
-var _bloco = global.inventario[item];
+var _item = global.inventario[item];
 
-if (_bloco.quantidade > 0)
+if (_item.quantidade > 0)
 {
     //removendo item
-    _bloco.quantidade--;
+    _item.quantidade--;
+    
+    //removendo peso do inventario
+    global.peso_atual -= _item.peso;
+    
+    //removendo minerios do saco
+    obj_hud.peso_atual -= _item.peso;
     
     //trocando item por dinheiro
-    global.moeda += _bloco.valor;
+    global.moeda += _item.valor;
 }

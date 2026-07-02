@@ -19,8 +19,11 @@ zspd = -3;
 grav = .3;
 
 //variaveis de colisao
-tile_colisor = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-colisores = [obj_colisao, obj_parede, tile_colisor];
+tile_minerios   = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
+tile_bordas     = layer_exists("tl_bordas") ? layer_tilemap_get_id("tl_bordas") : -1;
+
+//criando colisao
+colisores = [tile_bordas, tile_minerios];
 
 //fazendo o drop pular do bloco
 pulando = function(_dist)
@@ -53,32 +56,60 @@ pulando = function(_dist)
 //fazendo o drop ir ate o player
 sugando = function(_dist)
 {
-    //se estiver no raio de atração e poder andar
-    if (_dist <= raio_atracao && pode_andar)
-    {  
-        //direção do drop pro player
-        var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
-        
-        //definindo movimentação
-        spd = lerp(spd, 10, .01);
-        hspd = lengthdir_x(spd, _dir);
-        vspd = lengthdir_y(spd, _dir);
-        
-        //encostando no player
-        if (_dist < raio_coleta)
-        {
-            //coletando item
-            global.inventario[item_tipo].quantidade++;
+    //checando peso maximo
+    if (global.peso_atual < global.peso_max)
+    {
+        //se estiver no raio de atração e poder andar
+        if (_dist <= raio_atracao && pode_andar)
+        {  
+            //direção do drop pro player
+            var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
             
-            //destruindo
-            instance_destroy();
+            //definindo movimentação
+            spd = lerp(spd, 10, .01);
+            hspd = lengthdir_x(spd, _dir);
+            vspd = lengthdir_y(spd, _dir);
+            
+            coletando(_dist);
+        }
+        //se estiver fora do alcance
+        else
+        {
+            //zerando movimentação
+            hspd = lerp(hspd, 0, .1);
+            vspd = lerp(vspd, 0, .1);   
         }
     }
-    //se estiver fora do alcance
     else
     {
         //zerando movimentação
         hspd = lerp(hspd, 0, .1);
-        vspd = lerp(vspd, 0, .1);
+        vspd = lerp(vspd, 0, .1);   
+    }
+}
+
+//coletando drop
+coletando = function(_dist)
+{
+    //encostando no player
+    if (_dist < raio_coleta)
+    {
+        //coletando item
+        global.inventario[item_tipo].quantidade++;
+        
+        //adicionando peso
+        global.peso_atual += global.inventario[item_tipo].peso;
+        
+        //lista de itens para cair na sacola
+        array_push(obj_hud.itens_caindo, 
+        {
+            vspd: 0,
+            y: 0,
+            frame: item_tipo,
+            peso: global.inventario[item_tipo].peso
+        });
+        
+        //destruindo
+        instance_destroy();
     }
 }

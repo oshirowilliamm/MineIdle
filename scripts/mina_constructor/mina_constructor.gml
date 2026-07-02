@@ -6,17 +6,13 @@
 //tamanho da parede    
 #macro MINA_TAM_PAREDE 64 
 
-//posição inicial da chunk
-#macro MINA_CHUNK_X (5 * MINA_TAM_PAREDE) 
-#macro MINA_CHUNK_Y MINA_TAM_PAREDE       
-
 //tamanho da chunk
-#macro MINA_CHUNK_W 16              
-#macro MINA_CHUNK_H 20              
-#macro MINA_TOTAL_CHUNKS 50  
+#macro MINA_CHUNK_W 12           
+#macro MINA_CHUNK_H 24        
+#macro MINA_TOTAL_CHUNKS 100
 
 //margem de colunas extras da chunk       
-#macro MINA_MARGEM 2    
+#macro MINA_MARGEM 1
 
 function mina_sistema() constructor
 {
@@ -24,7 +20,14 @@ function mina_sistema() constructor
     chunks = {};
     bloco_defs = {};
     chance_spawn_total = 0;
-    brilho_index = 0;
+    brilho_frame = 0;       //pra animação do brilho do minério
+    blocos_machucados = []; //pra regeneração do bloco
+    
+    //id dos tiles
+    global.tile_minerio = layer_tilemap_get_id("tl_minerios");
+    global.tile_chao    = layer_tilemap_get_id("tl_chao");
+    global.tile_bordas  = layer_tilemap_get_id("tl_bordas");
+    global.tile_paredes = layer_tilemap_get_id("tl_paredes");
     
     //iniciando as definições dos blocos
     mina_ini_defs();
@@ -40,6 +43,7 @@ function mina_sistema() constructor
     desenha_rachaduras = mina_desenha_rachaduras;
     desenha_brilho = mina_desenha_brilho;
     
+    //função auxiliar pra rodar os blocos visiveis
     blocos_visiveis = mina_blocos_visiveis;
     
 }

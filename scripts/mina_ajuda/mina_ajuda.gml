@@ -2,24 +2,24 @@
 //faz pixel / tamanho
 function mina_pixel_to_grid_x(_x) 
 { 
-    return floor((_x - MINA_CHUNK_X) / MINA_SIZE_W); 
+    return floor(_x / MINA_SIZE_W); 
 } 
 
 function mina_pixel_to_grid_y(_y) 
 { 
-    return floor((_y - MINA_CHUNK_Y) / MINA_SIZE_H); 
+    return floor(_y / MINA_SIZE_H); 
 }
 
 //pega uma coordenada em grid id e transforma em pixel
 //faz pixel * tamanho
 function mina_grid_to_pixel_x(_x) 
 { 
-    return MINA_CHUNK_X + (_x * MINA_SIZE_W); 
+    return _x * MINA_SIZE_W; 
 } 
 
 function mina_grid_to_pixel_y(_y) 
 { 
-    return MINA_CHUNK_Y + (_y * MINA_SIZE_H); 
+    return _y * MINA_SIZE_H; 
 }
 
 //pega um grid id (coluna global) e transforma em chunk id (chunks globais)
@@ -47,25 +47,6 @@ function mina_get_bloco_id(_x, _y)
 }
 
 
-
-//percorre todos os chunks visiveis na tela
-function mina_chunks_visiveis(_function)
-{
-    var _inicio = mina_chunks_camera().inicio;
-    var _fim    = mina_chunks_camera().fim;
-    
-    //rodando os chunks
-    for (var _chunk = _inicio; _chunk <= _fim; _chunk++)
-    {
-        //validações
-        if (!variable_struct_exists(chunks, _chunk)) continue; //se chunk existe
-        
-        //pegando o chunk da struct de chunks
-        var _chunk_struct = chunks[$ _chunk];
-        
-        _function(_chunk_struct, _chunk);
-    }
-}
 
 //percorre todos os blocos visiveis na tela
 function mina_blocos_visiveis(_function)

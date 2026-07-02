@@ -83,3 +83,40 @@ golpe = function()
     //retornando o valor do pode golpear para resetar o golpe
     return pode_golpear;
 }
+
+//função para pegar a linha de mineração    
+linha_mineracao = function()
+{
+    //validação da existência do player
+    if(!instance_exists(obj_player)) exit;
+    
+    //distancia do lengthdir
+    var _dist = 36;
+    
+    //pegando a direção da linha de acordo com a direção do player
+    switch (obj_player.dir) 
+    {
+        //cima
+        case 1:
+            _dist -= 5;
+        break;
+        //baixo
+        case 3:
+            _dist += 7;
+        break;
+    } 
+    
+    //pegando direção do player pro mouse
+    var _dir = point_direction(obj_player.x, obj_player.yy, mouse_x, mouse_y);
+    
+    //traça uma linha de visão do player com a distancia de 32 pixels e direção do mouse
+    var _x = obj_player.x + lengthdir_x(_dist, _dir);
+    var _y = obj_player.yy + lengthdir_y(_dist, _dir);
+    
+    //retornando as posições da linha
+    return
+    {
+        x: _x,
+        y: _y
+    };
+}
