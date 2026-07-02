@@ -89,6 +89,7 @@
     {"id":{"name":"spr_tile_minerios","path":"sprites/spr_tile_minerios/spr_tile_minerios.yy",},},
     {"id":{"name":"spr_tile_parede_minerios","path":"sprites/spr_tile_parede_minerios/spr_tile_parede_minerios.yy",},},
     {"id":{"name":"spr_voltar","path":"sprites/spr_voltar/spr_voltar.yy",},},
+    {"id":{"name":"Sprite24","path":"sprites/Sprite24/Sprite24.yy",},},
     {"id":{"name":"tl_bordas_mina","path":"tilesets/tl_bordas_mina/tl_bordas_mina.yy",},},
     {"id":{"name":"tl_bordas","path":"tilesets/tl_bordas/tl_bordas.yy",},},
     {"id":{"name":"tl_colisao","path":"tilesets/tl_colisao/tl_colisao.yy",},},

@@ -13,7 +13,7 @@ switch (dir)
     case 0: 
         equip_dir = 1;
         //ajustando pontos de origem
-        equip_x = 5;
+        equip_x = 4;
         equip_y = 18;
         //ajustando depth
         equip_depth = depth - 5;
@@ -22,7 +22,7 @@ switch (dir)
     case 1: 
         equip_dir = -1;
         //ajustando pontos de origem
-        equip_x = 5;
+        equip_x = 4;
         equip_y = 18;
         //ajustando depth 
         equip_depth = depth + 5;
@@ -31,7 +31,7 @@ switch (dir)
     case 2: 
         equip_dir = -1;
         //ajustando pontos de origem
-        equip_x = 5;
+        equip_x = 4;
         equip_y = 18;
         //ajustando depth
         equip_depth = depth - 5;
@@ -41,7 +41,7 @@ switch (dir)
         equip_dir = 1;
         //ajustando pontos de origem
         equip_x = 3;
-        equip_y = 18;
+        equip_y = 19;
         //ajustando depth
         equip_depth = depth - 5;
     break;
