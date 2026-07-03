@@ -15,7 +15,7 @@ desenha_stamina = function()
     
     //variaveis pro draw
     var _x = display_get_gui_width() / 3;
-    var _y = 660;
+    var _y = 20;
     
     //mudando cor
     var _cor = merge_colour(c_red, c_lime, _stamina);
@@ -40,18 +40,10 @@ desenha_sacola = function()
     
     //variaveis pro draw
     var _x = 100;
-    var _y = 590;
+    var _y = 640;
     
     //desenhando fundo da sacola
     draw_sprite_ext(spr_sacola, 1, _x, _y, escala, escala, 0, c_white, 1);
-    
-    //texto de peso
-    var _peso_atual = string_format(global.peso_atual / 1000, 1, 1);
-    var _peso_max = string_format(global.peso_max / 1000, 1, 1) + "kg";
-    
-    draw_set_halign(fa_center);
-    draw_text(_x + 10, _y + 80, _peso_atual + "/" + _peso_max);
-    draw_set_halign(-1);
     
     //adicionando minerio de acordo com o peso
     var _porc = (peso_atual / global.peso_max) * 100;
@@ -74,6 +66,16 @@ desenha_sacola = function()
     //desenhando frente da sacola
     draw_sprite_ext(spr_sacola, 0, _x, _y, escala, escala, 0, c_white, 1);
     
+    //texto de peso
+    var _peso_atual = string_format(global.peso_atual / 1000, 1, 1);
+    var _peso_max = string_format(global.peso_max / 1000, 1, 1) + "kg";
+    
+    //mudando de cor quando chegar no maximo
+    var _cor = c_white;
+    if (global.peso_atual >= global.peso_max) _cor = c_red;
+    
+    draw_text_colour(_x + 80, _y + 20, _peso_atual + "/" + _peso_max, _cor, _cor, _cor, _cor, 1);
+    
     draw_set_font(-1);
 }
 
@@ -94,12 +96,10 @@ desenha_moeda = function()
     draw_sprite_ext(spr_moeda, frame, _x, _y, escala, escala, 0, c_white, 1);
     
     //texto da moeda
-    draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     
-    draw_text(_x + 60, _y, global.moeda);
+    draw_text(_x + 40, _y, global.moeda);
     
-    draw_set_halign(-1);
     draw_set_valign(-1);
     draw_set_font(-1);
 }
