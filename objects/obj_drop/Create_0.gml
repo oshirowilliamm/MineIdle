@@ -104,7 +104,7 @@ coletando = function(_dist)
         array_push(obj_hud.itens_caindo, 
         {
             vspd: 0,
-            y: 0,
+            y: -5,
             frame: item_tipo,
             peso: global.inventario[item_tipo].peso
         });

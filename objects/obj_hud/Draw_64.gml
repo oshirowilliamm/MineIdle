@@ -55,8 +55,6 @@ if (debug)
 
 
 
-draw_set_font(fnt_ui);
-
 //desenhando as huds
 desenha_sacola();
 desenha_stamina();

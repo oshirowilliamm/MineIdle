@@ -43,5 +43,18 @@ global.upgrades =
                 global.stamina_max += global.stamina_max * .5;
             }
         }
+    ],
+    //classe 3 - capacidade
+    capacidade:
+    [
+        //0
+        {
+            descricao: "Aumenta a capacidade da bolsa de minérios em 50%", 
+            custo: 30,
+            efeito: function()
+            {
+                global.peso_max += global.peso_max * .5;
+            }
+        }
     ]
 };

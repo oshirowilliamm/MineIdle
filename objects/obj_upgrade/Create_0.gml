@@ -3,3 +3,5 @@ upgrade = global.upgrades.dano[0];
 
 //variavel de controle pra mostrar as infos
 infos = false;
+
+frame_moeda = 0;
