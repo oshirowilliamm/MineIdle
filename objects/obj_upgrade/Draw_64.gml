@@ -1,6 +1,9 @@
-if (!infos) exit;
+draw_set_font(fnt_itens);
+draw_set_halign(fa_center);
 
-//valor do upgrade
-var _valor = string(upgrade.custo);
+desenha_botoes();
+desenha_infos();
 
-info_loja(_valor);
+
+draw_set_halign(-1);
+draw_set_font(-1);

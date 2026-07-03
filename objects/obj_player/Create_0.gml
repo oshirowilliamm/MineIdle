@@ -125,8 +125,8 @@ xscale = 1; //muda entre esquerda e direita
         (
             dir, 
             spr_player_run_side, 
-            spr_player_idle_front, 
-            spr_player_idle_back
+            spr_player_run_front, 
+            spr_player_run_back
         );
         
         //aplicando a sprite
@@ -140,8 +140,8 @@ xscale = 1; //muda entre esquerda e direita
         (
             dir, 
             spr_player_run_side, 
-            spr_player_idle_front, 
-            spr_player_idle_back
+            spr_player_run_front, 
+            spr_player_run_back
         );
         
         //aplicando a sprite

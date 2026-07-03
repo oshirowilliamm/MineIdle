@@ -2,6 +2,7 @@ debug = false;
 frame = 0;
 itens_caindo = [];
 peso_atual = global.peso_atual;
+escala = 4;
 
 //desenhando a barra de stamina
 desenha_stamina = function()
@@ -32,18 +33,25 @@ desenha_stamina = function()
 //desenhando a sacola que guarda os itens
 desenha_sacola = function()
 {
+    draw_set_font(fnt_ui);
+    
+    //não desenha a moeda na sala de upgrades
+    if (room == rm_upgrade) exit;
+    
     //variaveis pro draw
-    var _escala = 5;
-    var _x = display_get_gui_width() - 90;
-    var _y = 580;
+    var _x = 100;
+    var _y = 590;
     
     //desenhando fundo da sacola
-    draw_sprite_ext(spr_sacola, 1, _x, _y, _escala, _escala, 0, c_white, 1);
+    draw_sprite_ext(spr_sacola, 1, _x, _y, escala, escala, 0, c_white, 1);
     
     //texto de peso
-    var _peso_atual = string(global.peso_atual / 1000);
-    var _peso_max = string(global.peso_max / 1000) + "kg";
-    draw_text(_x - 120, _y + 80, _peso_atual + "/" + _peso_max);
+    var _peso_atual = string_format(global.peso_atual / 1000, 1, 1);
+    var _peso_max = string_format(global.peso_max / 1000, 1, 1) + "kg";
+    
+    draw_set_halign(fa_center);
+    draw_text(_x + 10, _y + 80, _peso_atual + "/" + _peso_max);
+    draw_set_halign(-1);
     
     //adicionando minerio de acordo com o peso
     var _porc = (peso_atual / global.peso_max) * 100;
@@ -61,37 +69,39 @@ desenha_sacola = function()
     desenha_drop(_x, _y);
     
     //desenhando os minerios no saquinho
-    draw_sprite_ext(spr_sacola, _index, _x, _y, _escala, _escala, 0, c_white, 1);
+    draw_sprite_ext(spr_sacola, _index, _x, _y, escala, escala, 0, c_white, 1);
     
     //desenhando frente da sacola
-    draw_sprite_ext(spr_sacola, 0, _x, _y, _escala, _escala, 0, c_white, 1);
+    draw_sprite_ext(spr_sacola, 0, _x, _y, escala, escala, 0, c_white, 1);
     
-    show_debug_message(_porc);
+    draw_set_font(-1);
 }
 
 //desenhando a moeda
 desenha_moeda = function()
 {
+    draw_set_font(fnt_ui);
+    
     //não desenha a moeda na mina
     if (room == rm_mina) exit;
     
     //variaveis pro draw
-    var _escala = 5;
     var _x = 60;
     var _y = 60;
     
     //desenhando moedas
     frame = draw_animation(frame, spr_moeda);
-    draw_sprite_ext(spr_moeda, frame, _x, _y, _escala, _escala, 0, c_white, 1);
+    draw_sprite_ext(spr_moeda, frame, _x, _y, escala, escala, 0, c_white, 1);
     
     //texto da moeda
     draw_set_halign(fa_center);
     draw_set_valign(fa_middle);
     
-    draw_text(_x + 80, _y, global.moeda);
+    draw_text(_x + 60, _y, global.moeda);
     
     draw_set_halign(-1);
     draw_set_valign(-1);
+    draw_set_font(-1);
 }
 
 //desenhando o drop caindo na sacola
@@ -102,14 +112,12 @@ desenha_drop = function(_xsacola, _ysacola)
     {
         var _item = itens_caindo[i];
         
-        var _escala = 5;
-        
         //aplicando velocidade
         _item.vspd += .2;
         _item.y += _item.vspd;
         
         //desenhando a sprite
-        draw_sprite_ext(spr_drops_sacola, _item.frame, _xsacola, _item.y, _escala, _escala, 0, c_white, 1);
+        draw_sprite_ext(spr_drops_sacola, _item.frame, _xsacola, _item.y, escala, escala, 0, c_white, 1);
         
         //apagando se chegou na sacola
         if (_item.y >= _ysacola)
