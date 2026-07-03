@@ -10,14 +10,14 @@ escala = 4;
 //frame de animação da moeda
 frame_moeda = 0;
 
+//pegando a posição central da grid
+margem = 50;
+tamanho = (32 * escala) + margem;
+xcentro = (display_get_gui_width() / 2) - margem / 2;
+ycentro = (display_get_gui_height() / 2) - margem / 2;
+
 desenha_botoes = function()
 {
-    //pegando a posição central da grid
-    var _margem = 50;
-    var _tamanho = (32 * escala) + _margem;
-    var _xcentro = (display_get_gui_width() / 2) - _margem / 2;
-    var _ycentro = (display_get_gui_height() / 2) - _margem / 2;
-    
     //pegando a categoria dos upgrades
     var _categoria = struct_get_names(global.upgrades);
     infos = false;
@@ -35,8 +35,8 @@ desenha_botoes = function()
             var _upgrade = _tipo[j];
             
             //posição do upgrade em grid
-            var _x = _xcentro + (_upgrade.coluna * _tamanho);
-            var _y = _ycentro + (_upgrade.linha * _tamanho);   
+            var _x = xcentro + (_upgrade.coluna * tamanho);
+            var _y = ycentro + (_upgrade.linha * tamanho);   
             
             //desenhando os botões
             draw_sprite_ext(spr_upgrade, 0, _x, _y, escala, escala, 0, c_white, 1);
@@ -64,7 +64,16 @@ desenha_infos = function()
     //valor do upgrade
     var _valor = string(upgrade.custo);
     
+    //margem
     var _margem = 50;
+    
+    //posição do upgrade
+    var _x = xcentro + (upgrade.coluna * tamanho);
+    var _y = ycentro + (upgrade.linha * tamanho);  
+    
+    //posição do fundo
+    var _xfundo = _x;
+    var _yfundo = _y - sprite_get_height(spr_upgrade) * escala * 2;
     
     //largura do fundo
     var _wfundo = 300 + _margem;
@@ -72,10 +81,6 @@ desenha_infos = function()
     //altura do fundo
     var _espaco = 20; //espaço entre nome e venda
     var _hfundo = 100 + _margem;
-    
-    //posição do fundo
-    var _xfundo = sprite_get_width(spr_item) - 32;
-    var _yfundo = sprite_get_height(spr_item) - 32;
     
     //desenhando fundo
     draw_sprite_stretched(spr_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
