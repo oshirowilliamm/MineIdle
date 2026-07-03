@@ -23,12 +23,16 @@ global.upgrades =
     [
         //0
         {
-            descricao: "Aumenta o dano \nda picareta \nem 10%", 
+            nome: "Dano da Picareta",
+            descricao: "Aumenta o dano da picareta em 10%", 
             custo: 20,
             efeito: function()
             {
                 global.picareta.dano += global.picareta.dano * .1;
-            }
+            },
+            //posição
+            coluna: 0,
+            linha: 0
         }
     ],
     //classe 2 - stamina
@@ -36,12 +40,16 @@ global.upgrades =
     [
         //0
         {
-            descricao: "Aumenta a \nstamina em 50%", 
+            nome: "Stamina",
+            descricao: "Aumenta a stamina em 50%", 
             custo: 10,
             efeito: function()
             {
                 global.stamina_max += global.stamina_max * .5;
-            }
+            },
+            //posição
+            coluna: 1,
+            linha: 0
         }
     ],
     //classe 3 - capacidade
@@ -49,12 +57,16 @@ global.upgrades =
     [
         //0
         {
+            nome: "Capacidade",
             descricao: "Aumenta a capacidade da bolsa de minérios em 50%", 
             custo: 30,
             efeito: function()
             {
                 global.peso_max += global.peso_max * .5;
-            }
+            },
+            //posição
+            coluna: 0,
+            linha: 1
         }
     ]
 };
