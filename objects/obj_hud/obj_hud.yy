@@ -10,8 +10,8 @@
   "name":"obj_hud",
   "overriddenProperties":[],
   "parent":{
-    "name":"player",
-    "path":"folders/objects/player.yy",
+    "name":"objects",
+    "path":"folders/objects.yy",
   },
   "parentObjectId":null,
   "persistent":true,

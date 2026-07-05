@@ -1,6 +1,6 @@
 {
   "$GMFont":"",
-  "%Name":"fnt_sacola",
+  "%Name":"fnt_ui",
   "AntiAlias":0,
   "applyKerning":0,
   "ascender":33,
@@ -205,7 +205,7 @@
   "last":0,
   "lineHeight":41,
   "maintainGms1Font":false,
-  "name":"fnt_sacola",
+  "name":"fnt_ui",
   "parent":{
     "name":"fontes",
     "path":"folders/fontes.yy",

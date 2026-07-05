@@ -5,13 +5,13 @@ upgrade = 0;
 infos = false;
 
 //escala de desenho
-escala = 4;
+escala = 2;
 
 //frame de animação da moeda
 frame_moeda = 0;
 
 //pegando a posição central da grid
-margem = 50;
+margem = 20;
 tamanho = (32 * escala) + margem;
 xcentro = (display_get_gui_width() / 2) - margem / 2;
 ycentro = (display_get_gui_height() / 2) - margem / 2;
@@ -39,7 +39,7 @@ desenha_botoes = function()
             var _y = ycentro + (_upgrade.linha * tamanho);   
             
             //desenhando os botões
-            draw_sprite_ext(spr_upgrade, 0, _x, _y, escala, escala, 0, c_white, 1);
+            draw_sprite_ext(spr_upgrade, _upgrade.index, _x, _y, escala, escala, 0, c_white, 1);
             
             //clicando nos botões
             var _mx = device_mouse_x_to_gui(0);
@@ -50,8 +50,14 @@ desenha_botoes = function()
             
             if (_rectangle)
             {
+                //habilitando as infos
                 infos = true;
+                
+                //guardando o upgrade selecionado
                 upgrade = _upgrade;
+                
+                //comprando
+                comprando();
             }
         }
     }
@@ -61,50 +67,98 @@ desenha_infos = function()
 {
     if (!infos) exit;
     
-    //valor do upgrade
-    var _valor = string(upgrade.custo);
-    
     //margem
-    var _margem = 50;
+    var _margem = 20;
     
-    //posição do upgrade
-    var _x = xcentro + (upgrade.coluna * tamanho);
-    var _y = ycentro + (upgrade.linha * tamanho);  
-    
-    //posição do fundo
-    var _xfundo = _x;
-    var _yfundo = _y - sprite_get_height(spr_upgrade) * escala * 2;
-    
+    //infos do botão de upgrade
+    var _wbotao = sprite_get_width(spr_upgrade) * escala;
+    var _hbotao = sprite_get_height(spr_upgrade) * escala;
+    var _xbotao = xcentro + (upgrade.coluna * tamanho) - (_wbotao / 2);
+    var _ybotao = ycentro + (upgrade.linha * tamanho) - (_hbotao / 2);
+
+    /////////////// FUNDO ///////////////
     //largura do fundo
-    var _wfundo = 300 + _margem;
+    var _wfundo = 500 + _margem;
+    
+    //altura da descrição
+    var _htxt = string_height(upgrade.descricao);
+    var _htxt_ext = string_height_ext(upgrade.descricao, _htxt, _wfundo - _margem) * .8;
     
     //altura do fundo
-    var _espaco = 20; //espaço entre nome e venda
-    var _hfundo = 100 + _margem;
+    var _hnome = string_height(upgrade.nome);
+    var _hcusto = string_height(string(upgrade.custo)) * 1.5;
+    var _espaco = 20; //entre os itens
+    var _hfundo = _margem + (_hnome / 2) + _espaco + _htxt_ext + _espaco + _hcusto + _margem;
+    
+    //posição do fundo
+    var _xfundo = _xbotao - _wfundo / 2;
+    var _yfundo = _ybotao - _hfundo - _hbotao / 2;
     
     //desenhando fundo
     draw_sprite_stretched(spr_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
     
-    /////////////// DESCRIÇÃO ///////////////
-    var _xnome = _xfundo + _wfundo / 2;
-    var _ynome = _yfundo + _margem / 2;
-    var _hnome = string_height(upgrade.descricao);
     
-    draw_text_ext(_xnome, _ynome, upgrade.descricao, _hnome, _wfundo);
+    
+    /////////////// NOME ///////////////
+    //posição
+    var _xnome = _xfundo + _wfundo / 2;
+    var _ynome = _yfundo + _margem;
+    
+    //texto
+    draw_text(_xnome, _ynome, upgrade.nome);
+    
+    //desenhando a linha de divisória
+    var _ylinha = _ynome + _hnome / 2 + _espaco / 2;
+    draw_sprite_stretched(spr_linha, 0, _xfundo, _ylinha, _wfundo, 1);
+    
+    
+    
+    /////////////// DESCRIÇÃO ///////////////
+    //posição
+    var _xtxt = _xnome;
+    var _ytxt = _ylinha + _htxt_ext / 2 + _espaco / 2;
+    
+    //texto da descricao
+    draw_text_ext_transformed(_xtxt, _ytxt, upgrade.descricao, _htxt, _wfundo - _margem, .8, .8, 0);
+    
+    //desenhando a linha de divisória
+    var _ylinha2 = _ytxt + _htxt_ext / 2 + _espaco / 2
+    draw_sprite_stretched(spr_linha, 0, _xfundo, _ylinha2, _wfundo, 1);
+    
+    
     
     /////////////// VALOR DO UPGRADE ///////////////
-    var _xvenda = _xnome + 10;
-    var _yvenda = _ynome + _hnome + _espaco;
+    //posição
+    var _xvenda = _xtxt + 25;
+    var _yvenda = _ylinha2 + _hcusto / 2 + _espaco / 2;
     
-    draw_set_colour(c_lime);
-    draw_text(_xvenda, _yvenda, _valor);
+    //texto do custo
+    draw_set_colour(c_yellow);
+    draw_text_transformed(_xvenda, _yvenda, upgrade.custo, 1.5, 1.5, 0);
     draw_set_colour(c_white);
     
+    
+    
     /////////////// MOEDA ///////////////
-    var _xmoeda = _xvenda - string_width(_valor) - 15;
-    var _ymoeda = _yvenda + 15;
-    var _escala = 3;
+    var _xmoeda = _xvenda - string_width(upgrade.custo) - 25;
+    var _ymoeda = _yvenda;
     frame_moeda = draw_animation(frame_moeda, spr_moeda);
     
-    draw_sprite_ext(spr_moeda, frame_moeda, _xmoeda, _ymoeda, _escala, _escala, 0, c_white, 1);
+    draw_sprite_ext(spr_moeda, frame_moeda, _xmoeda, _ymoeda, 4, 4, 0, c_white, 1);
+}
+
+comprando = function()
+{
+    if (mouse_check_button_pressed(mb_left))
+    {
+        //aplicando upgrade
+        if (global.moeda >= upgrade.custo)
+        {
+            //tirando dinheiro
+            global.moeda -= upgrade.custo;
+            
+            //efeito
+            upgrade.efeito();
+        }
+    }
 }

@@ -32,7 +32,8 @@ global.upgrades =
             },
             //posição
             coluna: 0,
-            linha: 0
+            linha: 0,
+            index: 0
         }
     ],
     //classe 2 - stamina
@@ -49,7 +50,8 @@ global.upgrades =
             },
             //posição
             coluna: 1,
-            linha: 0
+            linha: 0,
+            index: 1
         }
     ],
     //classe 3 - capacidade
@@ -66,7 +68,8 @@ global.upgrades =
             },
             //posição
             coluna: 0,
-            linha: 1
+            linha: 1,
+            index: 2
         }
     ]
 };
