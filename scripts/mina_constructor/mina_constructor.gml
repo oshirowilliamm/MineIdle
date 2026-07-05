@@ -19,7 +19,6 @@ function mina_sistema() constructor
     //dados da mina
     chunks = {};
     bloco_defs = {};
-    chance_spawn_total = 0;
     brilho_frame = 0;       //pra animação do brilho do minério
     blocos_machucados = []; //pra regeneração do bloco
     
@@ -42,6 +41,7 @@ function mina_sistema() constructor
     //desenho
     desenha_rachaduras = mina_desenha_rachaduras;
     desenha_brilho = mina_desenha_brilho;
+    desenha_escuridao = mina_desenha_escuridao;
     
     //função auxiliar pra rodar os blocos visiveis
     blocos_visiveis = mina_blocos_visiveis;

@@ -15,7 +15,7 @@ function mina_cria_chunks(_id)
     //colocando a nova chunk na struct
     chunks[$ _id] = _chunk;
     
-    //tiles
+    //criando os tiles
     mina_cria_tiles(_id, _chunk);
     
     show_debug_message("Chunk criada: " + string(_id));
@@ -43,9 +43,19 @@ function mina_carrega_chunks()
 }
 
 //controla a geração de blocos conforme a chance de spawn
-function mina_gera_blocos()
+function mina_gera_blocos(_chunk, _col)
 {
-    var _random = irandom(chance_spawn_total - 1); //faz um irandom(99)
+    //colunas iniciais de pedra
+    if (_chunk.index <= 1)
+    {
+        if (_col <= 1)
+        {
+            return BLOCOS.pedra
+        }
+    }
+    
+    
+    var _random = irandom(99); //faz um irandom(99)
     var _acumulador = 0;
     
     //pega um bloco aleatorio e sua chance de spawn
@@ -84,7 +94,7 @@ function mina_preenche_minerios(_chunk)
             else 
             {
                 //pegando o tipo do bloco
-                var _tipo = mina_gera_blocos();
+                var _tipo = mina_gera_blocos(_chunk, i);
                 
             	//setando a nova chunk com os blocos gerados
                 _chunk.blocos[_id] = mina_novo_bloco(_tipo);

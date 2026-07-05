@@ -12,9 +12,6 @@ function mina_ini_defs()
             quantidade_drop: _qtd, 
             chance_spawn: _spawn, //tem a ver com chance de geração
         }
-        
-        //adicionando o chance de spawn total
-        chance_spawn_total += _spawn;
     }
     
     //adicionando as definições dos blocos
