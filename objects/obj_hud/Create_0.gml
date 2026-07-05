@@ -30,55 +30,6 @@ desenha_stamina = function()
     draw_sprite_stretched_ext(spr_barra_stamina, 0, _x, _y, _width, _height, _cor, 1);
 }
 
-//desenhando a sacola que guarda os itens
-desenha_sacola = function()
-{
-    draw_set_font(fnt_ui);
-    
-    //não desenha a moeda na sala de upgrades
-    if (room == rm_upgrade) exit;
-    
-    //variaveis pro draw
-    var _x = 100;
-    var _y = 640;
-    
-    //desenhando fundo da sacola
-    draw_sprite_ext(spr_sacola, 1, _x, _y, escala, escala, 0, c_white, 1);
-    
-    //adicionando minerio de acordo com o peso
-    var _porc = (peso_atual / global.peso_max) * 100;
-    var _index = 0;
-    
-    //configurando porcentagem
-    if (_porc > 0 && _porc < 20)         _index = 2;
-    else if (_porc >= 20 && _porc < 40)  _index = 3;
-    else if (_porc >= 40 && _porc < 60)  _index = 4;
-    else if (_porc >= 60 && _porc < 80)  _index = 5;
-    else if (_porc >= 80 && _porc < 100) _index = 6;
-    else if (_porc >= 100)               _index = 7;
-    
-    //desenhando os drops caindo
-    desenha_drop(_x, _y);
-    
-    //desenhando os minerios no saquinho
-    draw_sprite_ext(spr_sacola, _index, _x, _y, escala, escala, 0, c_white, 1);
-    
-    //desenhando frente da sacola
-    draw_sprite_ext(spr_sacola, 0, _x, _y, escala, escala, 0, c_white, 1);
-    
-    //texto de peso
-    var _peso_atual = string_format(global.peso_atual / 1000, 1, 1);
-    var _peso_max = string_format(global.peso_max / 1000, 1, 1) + "kg";
-    
-    //mudando de cor quando chegar no maximo
-    var _cor = c_white;
-    if (global.peso_atual >= global.peso_max) _cor = c_red;
-    
-    draw_text_colour(_x + 80, _y + 20, _peso_atual + "/" + _peso_max, _cor, _cor, _cor, _cor, 1);
-    
-    draw_set_font(-1);
-}
-
 //desenhando a moeda
 desenha_moeda = function()
 {
@@ -104,8 +55,60 @@ desenha_moeda = function()
     draw_set_font(-1);
 }
 
+//desenhando a sacola que guarda os itens
+desenha_sacola = function()
+{
+    draw_set_font(fnt_ui);
+    
+    //não desenha a sacola na sala de upgrades
+    if (room == rm_upgrade) exit;
+    
+    //variaveis pro draw
+    var _x = 100;
+    var _y = 640;
+    
+    //desenhando fundo da sacola
+    draw_sprite_ext(spr_sacola, 1, _x, _y, escala, escala, 0, c_white, 1);
+    
+    //adicionando minerio de acordo com o peso
+    var _porc = (peso_atual / global.peso_max) * 100;
+    var _index = 0;
+    
+    //configurando porcentagem
+    if (_porc > 0 && _porc < 20)         _index = 2;
+    else if (_porc >= 20 && _porc < 40)  _index = 3;
+    else if (_porc >= 40 && _porc < 60)  _index = 4;
+    else if (_porc >= 60 && _porc < 80)  _index = 5;
+    else if (_porc >= 80 && _porc < 100) _index = 6;
+    else if (_porc >= 100)               _index = 7;
+    
+    //desenhando os drops caindo
+    sacola_drops(_x, _y);
+    
+    //desenhando os minerios no saquinho
+    draw_sprite_ext(spr_sacola, _index, _x, _y, escala, escala, 0, c_white, 1);
+    
+    //desenhando frente da sacola
+    draw_sprite_ext(spr_sacola, 0, _x, _y, escala, escala, 0, c_white, 1);
+    
+    //texto de peso
+    var _peso_atual = string_format(global.peso_atual / 1000, 1, 1);
+    var _peso_max = string_format(global.peso_max / 1000, 1, 1) + "kg";
+    
+    //mudando de cor quando chegar no maximo
+    var _cor = c_white;
+    if (global.peso_atual >= global.peso_max) _cor = c_red;
+    
+    draw_text_colour(_x + 80, _y + 20, _peso_atual + "/" + _peso_max, _cor, _cor, _cor, _cor, 1);
+    
+    //desenhando as infos da sacola
+    sacola_infos(_x, _y);
+    
+    draw_set_font(-1);
+}
+
 //desenhando o drop caindo na sacola
-desenha_drop = function(_xsacola, _ysacola)
+sacola_drops = function(_xsacola, _ysacola)
 {
     //rodando a lista de tras pra frente pra poder deletar mais facil
     for (var i = array_length(itens_caindo) - 1; i >= 0; i--)
@@ -124,6 +127,63 @@ desenha_drop = function(_xsacola, _ysacola)
         {
             peso_atual += _item.peso;
             array_delete(itens_caindo, i, 1);
+        }
+    }
+}
+
+//desenhando as infos da sacola
+sacola_infos = function(_xsacola, _ysacola)
+{
+    //só desenha se tiver algum item na sacola
+    if (global.peso_atual <= 0) exit;
+    
+    //mouse
+    var _mx = device_mouse_x_to_gui(0);
+    var _my = device_mouse_y_to_gui(0);
+    
+    //posição da sacola
+    var _x1 = _xsacola - (sprite_get_width(spr_sacola) / 2) * escala;
+    var _y1 = _ysacola - (sprite_get_height(spr_sacola) / 2) * escala;
+    var _x2 = _xsacola + (sprite_get_width(spr_sacola) / 2) * escala;
+    var _y2 = _ysacola + (sprite_get_height(spr_sacola) / 2) * escala;
+    var _rectangle = point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
+     
+    if (_rectangle)
+    {
+        //desenhando fundo
+        var _wfundo = 200;
+        var _hfundo = 300;
+        var _xfundo = max(0, _mx - _wfundo / 2);
+        var _yfundo = _my - _hfundo;
+        draw_sprite_stretched(spr_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
+        
+        //variaveis pro desenho do drop
+        var _wdrops = (sprite_get_width(spr_drops_sacola) * escala);
+        var _hdrops = (sprite_get_height(spr_drops_sacola) * escala);
+        var _margem = escala * 5;
+        var _desenhados = 0; //calcula a posição y dos itens
+        
+        //desenhando minérios
+        for (var i = 0; i < array_length(global.inventario); i++)
+        {
+            var _item = global.inventario[i];
+            
+            //se ja pegou o item
+            if (_item.quantidade <= 0) continue;
+            
+            //desenhando sprite dos minerios
+            var _xdrop = _xfundo + _wdrops;
+            var _ydrop = _yfundo + _hdrops + (_desenhados * (_hdrops + _margem));
+            draw_sprite_ext(spr_drops_sacola, i, _xdrop, _ydrop, escala, escala, 0, c_white, 1);
+            
+            //somando itens ja desenhados
+            _desenhados++;
+            
+            //desenhando texto do valor
+            var _xtxt = _xdrop + _wdrops;
+            var _ytxt = _ydrop - (_hdrops - 10);
+            draw_text(_xtxt, _ytxt, "=");
+            draw_text(_xdrop + _wdrops * 2, _ytxt, _item.quantidade);
         }
     }
 }

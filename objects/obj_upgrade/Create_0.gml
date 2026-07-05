@@ -39,7 +39,7 @@ desenha_botoes = function()
             var _y = ycentro + (_upgrade.linha * tamanho);   
             
             //desenhando os botões
-            draw_sprite_ext(spr_upgrade, 0, _x, _y, escala, escala, 0, c_white, 1);
+            draw_sprite_ext(spr_upgrade, _upgrade.index, _x, _y, escala, escala, 0, c_white, 1);
             
             //clicando nos botões
             var _mx = device_mouse_x_to_gui(0);
