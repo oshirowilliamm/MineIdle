@@ -15,17 +15,19 @@ global.biomas =
         nome: "Caverna",
         conteudo:
         [
-            {index: BLOCOS.pedra,   chance: 80, cresc: 0},
-            {index: BLOCOS.roxo,    chance: 10, cresc: 1 },
-            {index: BLOCOS.verde,   chance: 5, cresc: 2 }
+            {index: BLOCOS.pedra,   chance: 100, cresc: 0},
+            {index: BLOCOS.roxo,    chance: 5,   cresc: .5},
+            {index: BLOCOS.verde,   chance: 1,   cresc: .5},
+            {index: BLOCOS.azul,    chance: 0,   cresc: .3},
+            {index: BLOCOS.amarelo, chance: 0,   cresc: .2}
         ]
     },
     { 
         nome: "Deserto", 
         conteudo: [
-            {index: BLOCOS.pedra,   chance: 80, cresc: 0 },
-            {index: BLOCOS.azul,    chance: 10, cresc: 2 },
-            {index: BLOCOS.amarelo, chance: 5, cresc: 3 }
+            {index: BLOCOS.pedra,   chance: 80, cresc: 0},
+            {index: BLOCOS.azul,    chance: 10, cresc: 2},
+            {index: BLOCOS.amarelo, chance: 5,  cresc: 3}
         ] 
     }
 ]

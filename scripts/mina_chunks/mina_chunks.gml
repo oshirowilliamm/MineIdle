@@ -42,7 +42,7 @@ function mina_carrega_chunks()
     }
 }
 
-//controla a geração de blocos
+//controla a geração de blocos (define o tipo do bloco)
 function mina_gera_blocos(_chunk, _col)
 { 
     ////////////// COLUNAS INICIAIS DE PEDRA //////////////
@@ -132,10 +132,58 @@ function mina_preenche_minerios(_chunk)
                 var _tipo = mina_gera_blocos(_chunk, i);
                 
             	//setando a nova chunk com os blocos gerados
-                _chunk.blocos[_id] = mina_novo_bloco(_tipo);
+                //se o bloco for pedra, gera normalmente
+                if (_tipo == 1 )
+                {
+                    _chunk.blocos[_id] = mina_novo_bloco(_tipo);
+                }
+                //se for minérios, gera veias
+                else 
+                {
+                	_chunk.blocos[_id] = mina_minerios_veias(_chunk, i, j, _tipo);
+                }
             }
         }
     }
+}
+
+//espalhamento dos minérios
+function mina_minerios_veias(_chunk, i, j, _tipo)
+{
+    var _idir = [1, -1, 0, 0, 1, 1, -1, -1]; //direção coluna (i)
+    var _jdir = [0, 0, -1, 1, 1, -1, 1, -1]; //direção linha (j)
+    
+    //rodando a matriz
+    for (var k = 0; k < 8; k++)
+    {
+        //posição do vizinho
+        var _x = i + _idir[k];
+        var _y = j + _jdir[k];
+        
+        //validação se o vizinho esta nos limites da chunk
+        if (_x >= 0 && _x < MINA_CHUNK_W && _y >= 0 && _y < MINA_CHUNK_H)
+        {
+            var _vizinho_id = mina_get_bloco_id(_x, _y);
+            var _bloco      = _chunk.blocos[_vizinho_id];
+            
+            //validação se o bloco existe
+            if (!is_struct(_bloco)) continue;
+            
+            //validação de blocos vazios e borda
+            if (_bloco.index != BLOCOS.vazio && _bloco.index != BLOCOS.borda)
+            {
+                //chance de em % do vizinho virar o minério
+                if (irandom(99) < 20)
+                {
+                    _chunk.blocos[_vizinho_id] = mina_novo_bloco(_tipo);
+                    show_debug_message("Bloco: " + string(i, j) + "virou " + string(_tipo));
+                }
+            }
+        }
+    }
+    
+    //retornando o bloco atual tbm
+    return mina_novo_bloco(_tipo);
 }
 
 //fazendo as bordas

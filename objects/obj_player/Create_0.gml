@@ -235,7 +235,7 @@ stamina = function()
         if (global.stamina_atual <= 0)
         {
             //picareta lenta
-            global.picareta.dano = 1;
+            global.picareta.dano = .1;
             
             //resetando stamina atual
             global.stamina_atual = 0;
