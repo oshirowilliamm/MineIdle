@@ -54,40 +54,15 @@ function mina_gera_blocos(_chunk, _col)
         }
     }
     
-    //identificando o bioma
-    var _bioma_atual = floor((_chunk.index - 1) / global.bioma_chunks);   //pegando o bioma que estamos atualmente
-    var _bioma_chunk = (_chunk.index - 1) % global.bioma_chunks;          //pegando a chunk dentro de um bioma
     
-    var _chance_total = 0;
-    var _chances = [];
-    for (var i = 0; i < array_length(bloco_defs); i++)
-    {
-        var _bloco = bloco_defs[i];
-        
-        //se o bloco estiver no bioma atual
-        if (_bloco.bioma == _bioma_atual || _bloco.bioma == -1)
-        {
-            var _chance_bloco = _bloco.chance_spawn + (_bioma_chunk * _bloco.crescimento);
-            array_push(_chances, _chance_bloco);
-            _chance_total += _chance_bloco;
-        }
-        else
-        {
-            array_push(_chances, 0);
-        }
-    }
-    
-    //sorteando o bloco
-    var _random = irandom(_chance_total - 1);
+    var _random = irandom(99); //faz um irandom(99)
     var _acumulador = 0;
     
     //pega um bloco aleatorio e sua chance de spawn
     for (var i = 0; i < array_length(bloco_defs); i++)
     {
-        var _bloco = bloco_defs[i];
-        
         //bloco que nao foi escolhido para somar com a chance do proximo bloco
-        _acumulador += _chances[i];
+        _acumulador += bloco_defs[i].chance_spawn;
         //caso o bloco escolhido nao for menor que a porcentagem de aparecer
         if (_random < _acumulador) return i; //retorna o bloco escolhido
     }
@@ -110,13 +85,12 @@ function mina_preenche_minerios(_chunk)
             //pegando id do bloco
             var _id = mina_get_bloco_id(i, j);
             
-            ///////// CRIANDO CHECKPOINTS /////////
-            if (_chunk.index % global.bioma_chunks == 0)
+            //chunk inicial vazia
+            if (_chunk.index <= 0)
             {
                 _chunk.blocos[_id] = mina_bloco_vazio();
             }
-            
-            ///////// CRIANDO A MINA /////////
+            //resto das chunks da mina
             else 
             {
                 //pegando o tipo do bloco
@@ -175,7 +149,7 @@ function mina_chunks_camera()
     
     return
     {
-        inicio : _inicio,
-        fim    : _fim
+        inicio  : _inicio,
+        fim     : _fim
     }
 }

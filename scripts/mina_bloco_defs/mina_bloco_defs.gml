@@ -2,7 +2,7 @@
 function mina_ini_defs()
 {
     //metodo rapido pra adicionar uma nova definição de bloco
-    var _add_def = function(_id, _hp, _spr_drop, _qtd, _bioma, _spawn, _cresc)
+    var _add_def = function(_id, _hp, _spr_drop, _qtd, _spawn)
     {
         //atributos dos blocos
         bloco_defs[_id] =
@@ -10,19 +10,17 @@ function mina_ini_defs()
             hp: _hp, 
             sprite_drop: _spr_drop, 
             quantidade_drop: _qtd, 
-            bioma: _bioma,          //qual bioma o bloco pertence
-            chance_spawn: _spawn,   //tem a ver com chance de geração
-            crescimento: _cresc,    //taxa de crescimento dentro do bioma
+            chance_spawn: _spawn, //tem a ver com chance de geração
         }
     }
     
     //adicionando as definições dos blocos
-    _add_def(BLOCOS.borda,      0,  -1, 0, -1, 0,   0);
-    _add_def(BLOCOS.pedra,      10,  0, 1, -1, 100, 0);
-    _add_def(BLOCOS.roxo,       20,  1, 1,  0, 30,  1);
-    _add_def(BLOCOS.verde,      40,  2, 1,  0, 5,   2);
-    _add_def(BLOCOS.azul,       50,  3, 1,  0, 0,   5);
-    _add_def(BLOCOS.amarelo,    100, 4, 1,  0, 0,   10);
+    _add_def(BLOCOS.borda,      0,  -1, 0, 0);
+    _add_def(BLOCOS.pedra,      10,  0, 1, 50);
+    _add_def(BLOCOS.roxo,       20,  1, 1, 15);
+    _add_def(BLOCOS.verde,      40,  2, 1, 10);
+    _add_def(BLOCOS.azul,       50,  3, 1, 5);
+    _add_def(BLOCOS.amarelo,    100, 4, 1, 1);
 }
 
 //infos do bloco na mina

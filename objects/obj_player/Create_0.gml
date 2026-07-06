@@ -3,7 +3,7 @@
 debug = false;
 
 //variaveis de movimento
-spd_max = 20;
+spd_max = 200;
 spd = spd_max;
 hspd = 0;
 vspd = 0;
