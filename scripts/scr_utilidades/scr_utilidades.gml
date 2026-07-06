@@ -25,6 +25,28 @@ function debugs()
         global.inventario[3].quantidade++;
         global.inventario[4].quantidade++;
     }
+    
+    //mostrando linha de mineração
+    if (keyboard_check_pressed(ord("L")))
+    {
+        debug_linha = !debug_linha;
+    }
+    
+    //aumentando spd do player
+    if (keyboard_check_pressed(ord("V")))
+    {
+        debug_spd = !debug_spd;
+        
+        spd = debug_spd ? 20 : spd_max;
+    }
+    
+    //noclip
+    if (keyboard_check_pressed(ord("N")))
+    {
+        debug_noclip = !debug_noclip;
+        
+        colisores = debug_noclip ? [] : [tile_bordas, tile_minerios];
+    }
 }
 
 //sombra

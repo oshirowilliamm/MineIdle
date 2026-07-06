@@ -38,8 +38,8 @@
   },
   "name":"MineIdle",
   "resources":[
+    {"id":{"name":"fnt_debug","path":"fonts/fnt_debug/fnt_debug.yy",},},
     {"id":{"name":"fnt_itens","path":"fonts/fnt_itens/fnt_itens.yy",},},
-    {"id":{"name":"fnt_loja","path":"fonts/fnt_loja/fnt_loja.yy",},},
     {"id":{"name":"fnt_ui","path":"fonts/fnt_ui/fnt_ui.yy",},},
     {"id":{"name":"fnt_upgrades","path":"fonts/fnt_upgrades/fnt_upgrades.yy",},},
     {"id":{"name":"obj_drop","path":"objects/obj_drop/obj_drop.yy",},},

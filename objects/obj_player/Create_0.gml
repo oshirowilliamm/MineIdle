@@ -1,9 +1,12 @@
 #region Iniciando Variáveis
 
 debug = false;
+debug_spd = false;
+debug_noclip = false;
+debug_linha = false;
 
 //variaveis de movimento
-spd_max = 200;
+spd_max = 2;
 spd = spd_max;
 hspd = 0;
 vspd = 0;
