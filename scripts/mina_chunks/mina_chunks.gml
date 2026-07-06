@@ -42,11 +42,11 @@ function mina_carrega_chunks()
     }
 }
 
-//controla a geração de blocos conforme a chance de spawn
+//controla a geração de blocos
 function mina_gera_blocos(_chunk, _col)
-{
-    //colunas iniciais de pedra
-    if (_chunk.index % global.bioma_chunks == 0)
+{ 
+    ////////////// COLUNAS INICIAIS DE PEDRA //////////////
+    if (_chunk.index % global.bioma_chunks == 1)
     {
         if (_col <= 1)
         {
@@ -54,10 +54,21 @@ function mina_gera_blocos(_chunk, _col)
         }
     }
     
-    //identificando o bioma
-    var _bioma_atual = floor((_chunk.index - 1) / global.bioma_chunks);   //pegando o bioma que estamos atualmente
-    var _bioma_chunk = (_chunk.index - 1) % global.bioma_chunks;          //pegando a chunk dentro de um bioma
-    var _bioma_blocos = global.biomas[_bioma_atual]                       //pegando os minerios de cada bioma
+    ////////////// CHANCE POR BIOMA //////////////
+    //pegando o bioma que estamos atualmente
+    var _bioma_atual = floor((_chunk.index - 1) / global.bioma_chunks); 
+    
+    //se o bioma atual for inválido, retorna pedra
+    if (_bioma_atual < 0 || _bioma_atual >= array_length(global.biomas))
+    {
+        return BLOCOS.pedra;
+    }
+    
+    //pegando a chunk dentro de um bioma
+    var _bioma_chunk = (_chunk.index - 1) % global.bioma_chunks;    
+    
+    //pegando os minerios de cada bioma
+    var _bioma_blocos = global.biomas[_bioma_atual].conteudo        
     
     //acumulando as chances dos minerios
     var _chance_total = 0;  //chance total acumulada de todos os minérios
@@ -67,16 +78,16 @@ function mina_gera_blocos(_chunk, _col)
     for (var i = 0; i < array_length(_bioma_blocos); i++)
     {
         var _bloco = _bioma_blocos[i];
-        var _bloco_def = bloco_defs[_bloco];
         
         //pegando a chance de spawn do bloco multiplicado a taxa de crescimento
-        var _chance_bloco = _bloco_def.chance_spawn + (_bioma_chunk * _bloco_def.crescimento);
+        var _chance_bloco = _bloco.chance + (_bioma_chunk * _bloco.cresc);
         
         //colocando nas listas
         array_push(_chances, _chance_bloco);
         _chance_total += _chance_bloco;
     }
     
+    ////////////// CHANCE POR BLOCO //////////////
     //sorteando o bloco
     var _random = irandom(_chance_total - 1);
     var _acumulador = 0;
@@ -86,14 +97,14 @@ function mina_gera_blocos(_chunk, _col)
     {
         //bloco que nao foi escolhido para somar com a chance do proximo bloco
         _acumulador += _chances[i];
+        
         //caso o bloco escolhido nao for menor que a porcentagem de aparecer
-        if (_random < _acumulador) return _bioma_blocos[i]; //retorna o bloco escolhido
+        if (_random < _acumulador) 
+        {
+            return _bioma_blocos[i].index; //retorna o bloco escolhido
+        }
     }
-    
-    //retorna a pedra do bioma por segurança
-    return _bioma_blocos[0];
 }
-
 
 
 

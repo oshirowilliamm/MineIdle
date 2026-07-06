@@ -8,6 +8,28 @@ global.inventario =
     {nome: "Amarelo",   valor: 20, quantidade: 0, peso: 1000}
 ];
 
+//biomas
+global.biomas =
+[
+    {
+        nome: "Caverna",
+        conteudo:
+        [
+            {index: BLOCOS.pedra,   chance: 80, cresc: 0},
+            {index: BLOCOS.roxo,    chance: 10, cresc: 1 },
+            {index: BLOCOS.verde,   chance: 5, cresc: 2 }
+        ]
+    },
+    { 
+        nome: "Deserto", 
+        conteudo: [
+            {index: BLOCOS.pedra,   chance: 80, cresc: 0 },
+            {index: BLOCOS.azul,    chance: 10, cresc: 2 },
+            {index: BLOCOS.amarelo, chance: 5, cresc: 3 }
+        ] 
+    }
+]
+
 //picareta
 global.picareta = 
 {

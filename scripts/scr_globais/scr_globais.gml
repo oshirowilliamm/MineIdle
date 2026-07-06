@@ -22,11 +22,6 @@ enum ITENS
 
 //mina
 global.mina = noone;
-global.biomas =
-[
-    [BLOCOS.pedra, BLOCOS.roxo, BLOCOS.verde],
-    [BLOCOS.pedra, BLOCOS.azul, BLOCOS.amarelo]
-]
 global.bioma_chunks = 11; //quantidade de chunks por bioma
 
 //dinheiro
