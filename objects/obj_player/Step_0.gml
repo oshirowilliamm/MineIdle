@@ -58,13 +58,5 @@ roda_estado();
 segura_picareta();
 stamina();
 
-#region Debugs
-
-if (keyboard_check_pressed(vk_tab))
-{
-    debug = !debug;
-}
 
 debugs();
-
-#endregion

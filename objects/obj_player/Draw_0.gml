@@ -7,16 +7,15 @@ draw_sprite_ext(sprite_index, image_index, x, y, xscale, image_yscale, image_ang
 
 #region Debugs
 
-if (debug)
+//mostrando linha de mineração
+if (debug_linha)
 {
-    //desenhando a linha de mineração
     if (picareta != noone)
     {
         var _linha = picareta.linha_mineracao();
         
         draw_line(x, y - 15, _linha.x, _linha.y);
     }
-    
 }
 
 #endregion

@@ -144,3 +144,34 @@ function mina_regenera_bloco()
         }
     }
 }
+
+//iluminação do bloco
+function mina_iluminacao_bloco(_bloco, _x, _y)
+{
+    if (!instance_exists(obj_player)) exit;
+    
+    //distancia do player ate o bloco
+    var _dist = point_distance(obj_player.x, obj_player.yy, _x, _y);
+    
+    //variaveis que determinam onde começa e termina a escuridão
+    var _inicio = MINA_SIZE_W;
+    var _fim    = MINA_SIZE_W * 2;
+    
+    //se o player estiver muito perto
+    if (_dist <= _inicio)
+    {
+        return 1;
+    }
+    
+    //se o player estiver muito longe
+    else if (_dist >= _fim)
+    {
+        return 0;
+    }
+    
+    //se o player estiver no meio termo, faz o alfa em degrade
+    else 
+    {
+        return 1 - ((_dist - _inicio) / (_fim - _inicio));
+    }
+}

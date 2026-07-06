@@ -39,3 +39,34 @@ function mina_desenha_brilho(_bloco, _x, _y)
     draw_sprite(spr_brilho, brilho_frame, _x, _y);
 }
 
+//fazendo a escuridão
+function mina_desenha_escuridao(_bloco, _x, _y)
+{
+    //não desenhar:
+    if (_bloco.index == BLOCOS.vazio || _bloco.index == BLOCOS.borda) return false;
+    
+    //pegando a iluminação
+    var _luz = mina_iluminacao_bloco(_bloco, _x, _y);
+    
+    //se a iluminação for 1, não faz nada
+    if (_luz >= 1) return;
+    
+    //setando o alfa de acordo com a iluminação
+    draw_set_alpha(1 - _luz);
+    
+    //desenhando o quadrado preto
+    draw_rectangle_colour(
+        _x,
+        _y,
+        _x + MINA_SIZE_W,
+        _y + MINA_SIZE_H,
+        c_black,
+        c_black,
+        c_black,
+        c_black,
+        false
+    );
+    
+    //resetando o alpha
+    draw_set_alpha(1);
+}

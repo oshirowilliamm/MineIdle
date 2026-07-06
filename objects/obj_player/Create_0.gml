@@ -1,6 +1,9 @@
 #region Iniciando Variáveis
 
 debug = false;
+debug_spd = false;
+debug_noclip = false;
+debug_linha = false;
 
 //variaveis de movimento
 spd_max = 2;
@@ -232,7 +235,7 @@ stamina = function()
         if (global.stamina_atual <= 0)
         {
             //picareta lenta
-            global.picareta.dano = 1;
+            global.picareta.dano = .1;
             
             //resetando stamina atual
             global.stamina_atual = 0;
@@ -248,8 +251,6 @@ stamina = function()
         //resetando dano da picareta
         global.picareta.dano = picareta_dano_original;
     }
-    
-    
 }
 
 //iniciando estado padrao do player
