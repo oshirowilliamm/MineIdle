@@ -74,7 +74,6 @@
     {"id":{"name":"spr_colisao","path":"sprites/spr_colisao/spr_colisao.yy",},},
     {"id":{"name":"spr_drops_sacola","path":"sprites/spr_drops_sacola/spr_drops_sacola.yy",},},
     {"id":{"name":"spr_drops","path":"sprites/spr_drops/spr_drops.yy",},},
-    {"id":{"name":"spr_escuridao","path":"sprites/spr_escuridao/spr_escuridao.yy",},},
     {"id":{"name":"spr_fundo","path":"sprites/spr_fundo/spr_fundo.yy",},},
     {"id":{"name":"spr_item","path":"sprites/spr_item/spr_item.yy",},},
     {"id":{"name":"spr_linha","path":"sprites/spr_linha/spr_linha.yy",},},

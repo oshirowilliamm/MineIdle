@@ -22,6 +22,8 @@ enum ITENS
 
 //mina
 global.mina = noone;
+global.biomas = 10;
+global.bioma_chunks = 11; //quantidade de chunks por bioma
 
 //dinheiro
 global.moeda = 0;
