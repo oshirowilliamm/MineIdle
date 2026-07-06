@@ -155,7 +155,7 @@ function mina_iluminacao_bloco(_bloco, _x, _y)
     
     //variaveis que determinam onde começa e termina a escuridão
     var _inicio = MINA_SIZE_W;
-    var _fim    = MINA_SIZE_W * 3;
+    var _fim    = MINA_SIZE_W * 2;
     
     //se o player estiver muito perto
     if (_dist <= _inicio)

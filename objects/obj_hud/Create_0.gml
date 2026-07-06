@@ -55,6 +55,54 @@ desenha_moeda = function()
     draw_set_font(-1);
 }
 
+//desenhando botão pra ir para vila
+desenha_botao_voltar = function()
+{
+    //so desenha na mina
+    if (room != rm_mina) exit;
+        
+    //posição do botão
+    var _x = display_get_gui_width() - 100;
+    var _y = 640;
+    
+    //variaveis do retangulo e mouse
+    var _mx = device_mouse_x_to_gui(0);
+    var _my = device_mouse_y_to_gui(0);
+    var _x1 = _x - (sprite_get_width(spr_botao_voltar) * escala) / 2;
+    var _y1 = _y - (sprite_get_height(spr_botao_voltar) * escala / 2) / 2;
+    var _x2 = _x + (sprite_get_width(spr_botao_voltar) * escala) / 2;
+    var _y2 = _y + (sprite_get_height(spr_botao_voltar) * escala / 2) / 2;
+    var _rectangle = point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
+    
+    //seleção
+    var _index = 0;
+    
+    if (_rectangle)
+    {
+        _index = 1;
+        
+        //clicando
+        if (mouse_check_button_pressed(mb_left))
+        {
+            room_goto(rm_vila);
+        }
+    }
+    else
+    {
+        _index = 0;
+    }
+    
+    //desenhando botão
+    draw_sprite_ext(spr_botao_voltar, _index, _x, _y, escala, escala / 2, 0, c_white, 1); 
+    
+    //desenhando texto
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    draw_text(_x, _y, "Vila");
+    draw_set_halign(-1);
+    draw_set_valign(-1);
+}
+
 //desenhando a sacola que guarda os itens
 desenha_sacola = function()
 {

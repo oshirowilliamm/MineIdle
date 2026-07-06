@@ -251,8 +251,6 @@ stamina = function()
         //resetando dano da picareta
         global.picareta.dano = picareta_dano_original;
     }
-    
-    
 }
 
 //iniciando estado padrao do player

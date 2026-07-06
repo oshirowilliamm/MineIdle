@@ -79,10 +79,11 @@ if (debug)
 
 
 
-//desenhando as huds
+//desenhando as huds    
 desenha_sacola();
 desenha_stamina();
 desenha_moeda();
+desenha_botao_voltar();
 
 
 draw_set_font(-1);
