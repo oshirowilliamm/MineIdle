@@ -5,9 +5,9 @@ function mina_tile_tipo(_bloco_tipo)
     {
         case BLOCOS.pedra:      return 1;
         case BLOCOS.roxo:       return 2;
-        case BLOCOS.verde:      return 3;  
-        case BLOCOS.azul:       return 4;
-        case BLOCOS.amarelo:    return 5;  
+        case BLOCOS.laranja:    return 3;  
+        case BLOCOS.verde:      return 4;
+        case BLOCOS.rosa:       return 5;  
         default:                return 0;
     }
 }

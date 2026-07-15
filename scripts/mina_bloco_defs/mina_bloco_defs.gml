@@ -17,9 +17,9 @@ function mina_ini_defs()
     _add_def(BLOCOS.borda,      0,  -1, 0);
     _add_def(BLOCOS.pedra,      10,  0, 1);
     _add_def(BLOCOS.roxo,       20,  1, 1);
-    _add_def(BLOCOS.verde,      40,  2, 1);
-    _add_def(BLOCOS.azul,       50,  3, 1);
-    _add_def(BLOCOS.amarelo,    100, 4, 1);
+    _add_def(BLOCOS.laranja,      40,  2, 1);
+    _add_def(BLOCOS.verde,       50,  3, 1);
+    _add_def(BLOCOS.rosa,    100, 4, 1);
 }
 
 //infos do bloco na mina

@@ -19,11 +19,65 @@ function debugs()
     //ganhando itens
     if (keyboard_check_pressed(ord("I")))
     {
-        global.inventario[0].quantidade++;
-        global.inventario[1].quantidade++;
-        global.inventario[2].quantidade++;
-        global.inventario[3].quantidade++;
-        global.inventario[4].quantidade++;
+        //minerios
+        for (var i = 0; i < array_length(global.inventario.minerio); i++)
+        {
+            global.inventario.minerio[i].quantidade++;
+            global.inventario.minerio[i].descoberto = true;
+        }
+        
+        //refinados
+        for (var i = 0; i < array_length(global.inventario.refinado); i++)
+        {
+            global.inventario.refinado[i].quantidade++;
+            global.inventario.refinado[i].descoberto = true;
+        }
+    }
+    
+    //ganhando minerios um por um
+    static item_minerio = -1;
+    
+    if (keyboard_check_pressed(vk_up))
+    {
+        //indo pro proximo item
+        if (item_minerio < array_length(global.inventario.minerio) - 1)
+        {
+            item_minerio++;
+        }
+        //resetando a variavel
+        else
+        {
+            item_minerio = 0;
+        }
+        
+        global.inventario.minerio[item_minerio].quantidade++;
+        global.inventario.minerio[item_minerio].descoberto = true;
+    }
+    
+    //ganhando refinados um por um
+    static item_refinado = -1;
+    
+    if (keyboard_check_pressed(vk_down))
+    {
+        //indo pro proximo item
+        if (item_refinado < array_length(global.inventario.refinado) - 1)
+        {
+            item_refinado++;
+        }
+        //resetando a variavel
+        else
+        {
+            item_refinado = 0;
+        }
+        
+        global.inventario.refinado[item_refinado].quantidade++;
+        global.inventario.refinado[item_refinado].descoberto = true;
+    }
+    
+    if (keyboard_check_pressed(vk_right))
+    {
+        global.inventario.refinado[0].quantidade++;
+        global.inventario.refinado[0].descoberto = true;
     }
     
     //mostrando linha de mineração

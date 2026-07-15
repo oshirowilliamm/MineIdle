@@ -2,13 +2,7 @@
 enum BLOCOS 
 {
 	vazio = -1,
-    borda, pedra, roxo, verde, azul, amarelo
-}
-
-//itens / drops
-enum ITENS
-{
-    pedra, roxo, verde, azul, amarelo
+    borda, pedra, roxo, laranja, verde, rosa
 }
 
 //mina

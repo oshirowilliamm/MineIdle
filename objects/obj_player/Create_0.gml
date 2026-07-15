@@ -252,5 +252,11 @@ stamina = function()
     }
 }
 
+//iluminação do player
+iluminacao = function()
+{
+    
+}
+
 //iniciando estado padrao do player
 inicia_estado(estado_parado);

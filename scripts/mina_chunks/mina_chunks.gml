@@ -176,7 +176,6 @@ function mina_minerios_veias(_chunk, i, j, _tipo)
                 if (irandom(99) < 20)
                 {
                     _chunk.blocos[_vizinho_id] = mina_novo_bloco(_tipo);
-                    show_debug_message("Bloco: " + string(i, j) + "virou " + string(_tipo));
                 }
             }
         }
