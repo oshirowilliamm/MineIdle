@@ -84,6 +84,7 @@ desenha_sacola();
 desenha_stamina();
 desenha_moeda();
 desenha_botao_voltar();
+desenha_inventario();
 
 
 draw_set_font(-1);
