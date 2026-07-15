@@ -34,7 +34,7 @@ function mina_cria_tiles(_id, _chunk)
             mina_cria_tile_parede(_bloco, _x, _y);
             
             //bloco de borda
-            mina_cria_tile_borda(_id, _bloco, _x, _y, i, j);
+            mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y, i, j);
             mina_cria_tile_borda_parede(_id, _bloco, _x, _y, i, j);
         }
     }
@@ -90,30 +90,52 @@ function mina_cria_tile_parede(_bloco, _x, _y)
 }
 
 //tile da borda
-function mina_cria_tile_borda(_id, _bloco, _x, _y, _i, _j)
+function mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y, _i, _j)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
     
-    //tile
-    var _tile = 0;
+    var _top1 = false, _top2 = false;
+    var _left1 = false, _left2 = false;
+    var _bottom1 = false, _bottom2 = false;
+    var _right1 = false, _right2 = false;
     
-    //cantos da mina
-    var _top1 = _j == 1;
-    var _top2 = _j <= 0;
-    
-    var _left1 = _i == 1 && _id <= 0;
-    var _left2 = _i <= 0 && _id <= 0;
-    
-    var _bottom1 = _j == MINA_CHUNK_H - 2;
-    var _bottom2 = _j >= MINA_CHUNK_H - 1;
-    
-    var _right1 = _i == MINA_CHUNK_W - 2 && _id == MINA_TOTAL_CHUNKS - 1;
-    var _right2 = _i >= MINA_CHUNK_W - 1 && _id == MINA_TOTAL_CHUNKS - 1;
+    //se for a primeira chunk, as bordas são diferentes
+    if (_chunk.index == 0)
+    {
+        //checando se os vizinhos são bloco borda
+        _top1 = _j == 8;
+        _top2 = _j < 8;
+        
+        _left1 = _i == 1 && _id <= 0;
+        _left2 = _i <= 0 && _id <= 0;
+        
+        _bottom1 = _j == 15;
+        _bottom2 = _j > 15;
+    }
+    //todas as outras chunks
+    else
+    {
+        //checando se os vizinhos são bloco borda
+        _top1 = _j == 1;
+        _top2 = _j <= 0;
+        
+        _left1 = _i == 1 && _id <= 0;
+        _left2 = _i <= 0 && _id <= 0;
+        
+        _bottom1 = _j == MINA_CHUNK_H - 2;
+        _bottom2 = _j >= MINA_CHUNK_H - 1;
+        
+        _right1 = _i == MINA_CHUNK_W - 2 && _id == MINA_TOTAL_CHUNKS - 1;
+        _right2 = _i >= MINA_CHUNK_W - 1 && _id == MINA_TOTAL_CHUNKS - 1;
+    }
     
     //offsets
     var _woffset = _i % 12;
     var _hoffset = (_j % 8) * 49;
+    
+    //tile
+    var _tile = 0;
     
     //tile de acordo com canto horizontal
     if (_top1)          _tile = 50 + _woffset;
@@ -138,7 +160,7 @@ function mina_cria_tile_borda_parede(_id, _bloco, _x, _y, _i, _j)
     if (_bloco.index != BLOCOS.borda) exit;
     
     //se tiver na parede de cima
-    if (_j == 1)
+    if (_j == 1 || _j == 8)
     {
         var _tile = 99 + (_i % 12); //repetindo o tile
         

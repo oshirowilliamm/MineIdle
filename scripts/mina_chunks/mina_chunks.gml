@@ -8,9 +8,26 @@ function mina_cria_chunks(_id)
         blocos: array_create(MINA_CHUNK_W * MINA_CHUNK_H)
     };
     
-    //preenchendo a chunk
+    //preenchendo os minerios da chunk
     mina_preenche_minerios(_chunk);
-    mina_preenche_bordas(_chunk);
+    
+    //preenchendo as bordas da chunk
+    if (_chunk.index == 0)
+    {
+        //bordas da chunk inicial
+        mina_bordas_inicial(_chunk);
+    }
+    else 
+    {
+        //bordas da mina inteira
+    	mina_preenche_bordas(_chunk);
+    }
+    
+    //criando checkpoints
+    if (_chunk.index % global.bioma_chunks == 0)
+    {
+        mina_cria_checkpoint(_chunk);
+    }
     
     //colocando a nova chunk na struct
     chunks[$ _id] = _chunk;
@@ -21,6 +38,59 @@ function mina_cria_chunks(_id)
     show_debug_message("Chunk criada: " + string(_id));
     
     return _chunk;
+}
+
+//decorando chunks de checkpoint
+function mina_cria_checkpoint(_chunk)
+{
+    //posição inicial da chunk
+    var _x = _chunk.index * MINA_CHUNK_W * MINA_SIZE_W;
+    var _y = 0;
+    
+    //////////// CHECKPOINT INICIAL ////////////
+    if (_chunk.index == 0)
+    {
+        //criando transição de sala
+        var _xtrans = _x + MINA_SIZE_W * 3;
+        var _ytrans = _y + (MINA_CHUNK_H * MINA_SIZE_H) / 2;
+        var _trans = instance_create_layer(_xtrans, _ytrans, "Decoracoes", obj_transicao);
+        _trans.image_blend = c_maroon;
+        
+        //criando tochas
+        var _xtocha = _x + MINA_SIZE_W * 6;
+        var _ytocha = _ytrans - MINA_SIZE_H * 3;
+        instance_create_layer(_xtocha, _ytocha, "Decoracoes", obj_tocha);
+        instance_create_layer(_xtocha, _ytocha + MINA_SIZE_H * 6, "Decoracoes", obj_tocha);
+    }
+    
+    //////////// CHECKPOINTS ////////////
+}
+
+//bordas em formato de tunel na chunk inicial
+function mina_bordas_inicial(_chunk)
+{
+    for (var i = 0; i < MINA_CHUNK_W; i++)
+    {
+        for (var j = 0; j < MINA_CHUNK_H; j++)
+        {
+            //cantos da mina
+            //5 primeiras linhas
+            var _top = j < 9;    
+            //2 ultimas linhas                       
+            var _bottom = j > 14;       
+            //2 primeiras colunas e primeira chunk                                                  
+            var _left = i < 2 && _chunk.index <= 0;                   
+            
+            //verificando se o bloco esta nos cantos
+            if (_top || _left || _bottom)
+            {
+                var _id = mina_get_bloco_id(i, j);
+                
+                //setando os blocos como borda
+                _chunk.blocos[_id] = mina_novo_bloco(BLOCOS.borda);
+            }
+        }
+    }
 }
 
 //carregando as chunks na camera
@@ -119,7 +189,8 @@ function mina_preenche_minerios(_chunk)
             //pegando id do bloco
             var _id = mina_get_bloco_id(i, j);
             
-            ///////// CRIANDO CHECKPOINTS /////////
+            ///////// CRIANDO CHECKPOINTS (CHUNKS VAZIAS) /////////
+            //cria um checkpoint nas chunks (0, 11, 22, 33, etc)
             if (_chunk.index % global.bioma_chunks == 0)
             {
                 _chunk.blocos[_id] = mina_bloco_vazio();
@@ -213,6 +284,11 @@ function mina_preenche_bordas(_chunk)
         }
     }
 }
+
+
+
+
+
 
 //pegando as chunks que aparecem na camera
 function mina_chunks_camera()
