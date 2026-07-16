@@ -35,6 +35,12 @@ function mina_cria_chunks(_id)
     //criando os tiles
     mina_cria_tiles(_id, _chunk);
     
+    //atualizando os tiles (pro autotile)
+    if (_id > 0)
+    {
+        mina_cria_tiles(_id - 1, chunks[$ (_id - 1)]);
+    }
+    
     show_debug_message("Chunk criada: " + string(_id));
     
     return _chunk;
@@ -202,6 +208,9 @@ function mina_minerios_veias(_chunk, i, j, _tipo)
     //retornando o bloco atual tbm
     return mina_novo_bloco(_tipo);
 }
+
+
+
 
 //fazendo as bordas
 function mina_preenche_bordas(_chunk)

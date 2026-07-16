@@ -25,6 +25,7 @@ function mina_get_bloco(_x, _y)
     return _chunk_atual.blocos[_bloco_id];
 }
 
+
 //minerando
 function mina_minera_bloco(_x, _y, _dano)
 {

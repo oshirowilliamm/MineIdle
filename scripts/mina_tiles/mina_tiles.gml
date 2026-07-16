@@ -1,4 +1,3 @@
-
 //tile de acordo com o tipo de bloco
 function mina_tile_tipo(_bloco_tipo)
 {
@@ -35,7 +34,7 @@ function mina_cria_tiles(_id, _chunk)
             mina_cria_tile_parede(_bloco, _x, _y);
             
             //bloco de borda
-            mina_cria_tile_borda(_chunk, _bloco, _x, _y);
+            mina_cria_tile_borda(_chunk, _bloco, _x, _y, i, j);
             mina_cria_tile_borda_parede(_bloco, _x, _y);
         }
     }
@@ -52,17 +51,6 @@ function mina_atualiza_tiles(_x, _y)
     
     //atualiza bloco de cima
     mina_atualiza_cima(_x, _y);
-    
-    //atualizando borda
-    mina_atualiza_borda(_x, _y); //bloco principal
-    mina_atualiza_borda(_x, _y - MINA_SIZE_H); //vizinho cima
-    mina_atualiza_borda(_x + MINA_SIZE_W, _y); //vizinho direita
-    mina_atualiza_borda(_x, _y + MINA_SIZE_H); //vizinho baixo
-    mina_atualiza_borda(_x - MINA_SIZE_W, _y); //vizinho esquerda
-    mina_atualiza_borda(_x + MINA_SIZE_W, _y - MINA_SIZE_H); //vizinho cima direita
-    mina_atualiza_borda(_x - MINA_SIZE_W, _y - MINA_SIZE_H); //vizinho cima esquerda
-    mina_atualiza_borda(_x + MINA_SIZE_W, _y + MINA_SIZE_H); //vizinho baixo direita
-    mina_atualiza_borda(_x - MINA_SIZE_W, _y + MINA_SIZE_H); //vizinho baixo esquerda
 }
 
 
@@ -116,7 +104,7 @@ function mina_bloco_borda(_x, _y)
 }
 
 //tile da borda
-function mina_cria_tile_borda(_chunk, _bloco, _x, _y)
+function mina_cria_tile_borda(_chunk, _bloco, _x, _y, _i, _j)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
@@ -137,6 +125,10 @@ function mina_cria_tile_borda(_chunk, _bloco, _x, _y)
     if (_right)         _valor += 2;
     if (_bottom)        _valor += 4;
     if (_left)          _valor += 8;
+    
+    //offsets
+    var _woffset = _i % 12;
+    var _hoffset = (_j % 8) * 49;
     
     //variavel para guardar o tile id
     var _tile = 0;
@@ -233,24 +225,3 @@ function mina_atualiza_baixo(_x, _y)
         tilemap_set_at_pixel(global.tile_chao, 0, _x, _y + MINA_SIZE_H);
     }
 }
-
-//atualiza a borda
-function mina_atualiza_borda(_x, _y)
-{
-    //limpando os tiles desse bloco
-    tilemap_set_at_pixel(global.tile_bordas, 0, _x, _y);
-    tilemap_set_at_pixel(global.tile_paredes, 0, _x, _y + MINA_SIZE_H);
-    
-    //pegando o bloco
-    var _bloco = mina_get_bloco(_x, _y);
-    
-    //validação
-    if (_bloco.index != BLOCOS.borda) exit;
-    
-    //atualizando a borda e a parede
-    mina_cria_tile_borda(noone, noone, _bloco, _x, _y);
-    mina_cria_tile_borda_parede(noone, _bloco, _x, _y);
-}
-
-
-
