@@ -100,6 +100,7 @@
     {"id":{"name":"spr_sombra","path":"sprites/spr_sombra/spr_sombra.yy",},},
     {"id":{"name":"spr_tile_bordas_mina","path":"sprites/spr_tile_bordas_mina/spr_tile_bordas_mina.yy",},},
     {"id":{"name":"spr_tile_bordas","path":"sprites/spr_tile_bordas/spr_tile_bordas.yy",},},
+    {"id":{"name":"spr_tile_bordas2","path":"sprites/spr_tile_bordas2/spr_tile_bordas2.yy",},},
     {"id":{"name":"spr_tile_minerios","path":"sprites/spr_tile_minerios/spr_tile_minerios.yy",},},
     {"id":{"name":"spr_tile_parede_minerios","path":"sprites/spr_tile_parede_minerios/spr_tile_parede_minerios.yy",},},
     {"id":{"name":"spr_tocha","path":"sprites/spr_tocha/spr_tocha.yy",},},

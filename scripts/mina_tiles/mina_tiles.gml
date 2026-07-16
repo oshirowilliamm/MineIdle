@@ -1,3 +1,4 @@
+
 //tile de acordo com o tipo de bloco
 function mina_tile_tipo(_bloco_tipo)
 {
@@ -34,8 +35,8 @@ function mina_cria_tiles(_id, _chunk)
             mina_cria_tile_parede(_bloco, _x, _y);
             
             //bloco de borda
-            mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y, i, j);
-            mina_cria_tile_borda_parede(_id, _bloco, _x, _y, i, j);
+            mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y);
+            mina_cria_tile_borda_parede(_id, _bloco, _x, _y);
         }
     }
 }
@@ -51,6 +52,17 @@ function mina_atualiza_tiles(_x, _y)
     
     //atualiza bloco de cima
     mina_atualiza_cima(_x, _y);
+    
+    //atualizando borda
+    mina_atualiza_borda(_x, _y); //bloco principal
+    mina_atualiza_borda(_x, _y - MINA_SIZE_H); //vizinho cima
+    mina_atualiza_borda(_x + MINA_SIZE_W, _y); //vizinho direita
+    mina_atualiza_borda(_x, _y + MINA_SIZE_H); //vizinho baixo
+    mina_atualiza_borda(_x - MINA_SIZE_W, _y); //vizinho esquerda
+    mina_atualiza_borda(_x + MINA_SIZE_W, _y - MINA_SIZE_H); //vizinho cima direita
+    mina_atualiza_borda(_x - MINA_SIZE_W, _y - MINA_SIZE_H); //vizinho cima esquerda
+    mina_atualiza_borda(_x + MINA_SIZE_W, _y + MINA_SIZE_H); //vizinho baixo direita
+    mina_atualiza_borda(_x - MINA_SIZE_W, _y + MINA_SIZE_H); //vizinho baixo esquerda
 }
 
 
@@ -89,80 +101,98 @@ function mina_cria_tile_parede(_bloco, _x, _y)
     }
 }
 
+
+
+//checa se um bloco vizinho é borda ou não
+function mina_bloco_borda(_x, _y)
+{
+    var _bloco = mina_get_bloco(_x, _y);
+    
+    //se o bloco não for uma struct (for 0, false, noone, undefined ou fora do mapa), trata como borda
+    if (!is_struct(_bloco)) return true;
+    
+    //se o bloco for borda, retorna true
+    if (_bloco.index == BLOCOS.borda) return true;
+    
+    //se for outra coisa retorna falso
+    return false;
+}
+
 //tile da borda
-function mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y, _i, _j)
+function mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
     
-    var _top1 = false, _top2 = false;
-    var _left1 = false, _left2 = false;
-    var _bottom1 = false, _bottom2 = false;
-    var _right1 = false, _right2 = false;
+    //checando os vizinhos
+    var _top            = mina_bloco_borda(_x, _y - MINA_SIZE_H);
+    var _right          = mina_bloco_borda(_x + MINA_SIZE_W, _y);
+    var _bottom         = mina_bloco_borda(_x, _y + MINA_SIZE_H);
+    var _left           = mina_bloco_borda(_x - MINA_SIZE_W, _y);
+    var _top_right      = mina_bloco_borda(_x + MINA_SIZE_W, _y - MINA_SIZE_H);
+    var _top_left       = mina_bloco_borda(_x - MINA_SIZE_W, _y - MINA_SIZE_H); 
+    var _bottom_right   = mina_bloco_borda(_x + MINA_SIZE_W, _y + MINA_SIZE_H);
+    var _bottom_left    = mina_bloco_borda(_x - MINA_SIZE_W, _y + MINA_SIZE_H);
     
-    //se for a primeira chunk, as bordas são diferentes
-    if (_chunk.index == 0)
-    {
-        //checando se os vizinhos são bloco borda
-        _top1 = _j == 8;
-        _top2 = _j < 8;
-        
-        _left1 = _i == 1 && _id <= 0;
-        _left2 = _i <= 0 && _id <= 0;
-        
-        _bottom1 = _j == 15;
-        _bottom2 = _j > 15;
-    }
-    //todas as outras chunks
-    else
-    {
-        //checando se os vizinhos são bloco borda
-        _top1 = _j == 1;
-        _top2 = _j <= 0;
-        
-        _left1 = _i == 1 && _id <= 0;
-        _left2 = _i <= 0 && _id <= 0;
-        
-        _bottom1 = _j == MINA_CHUNK_H - 2;
-        _bottom2 = _j >= MINA_CHUNK_H - 1;
-        
-        _right1 = _i == MINA_CHUNK_W - 2 && _id == MINA_TOTAL_CHUNKS - 1;
-        _right2 = _i >= MINA_CHUNK_W - 1 && _id == MINA_TOTAL_CHUNKS - 1;
-    }
+    //calculando valor do bitmask (0 a 15)
+    var _valor = 0;
+    if (_top)           _valor += 1;
+    if (_right)         _valor += 2;
+    if (_bottom)        _valor += 4;
+    if (_left)          _valor += 8;
     
-    //offsets
-    var _woffset = _i % 12;
-    var _hoffset = (_j % 8) * 49;
-    
-    //tile
+    //variavel para guardar o tile id
     var _tile = 0;
     
-    //tile de acordo com canto horizontal
-    if (_top1)          _tile = 50 + _woffset;
-    else if (_top2)     _tile = 1 + _woffset;
-    else if (_bottom1)  _tile = 25 + _woffset;
-    else if (_bottom2)  _tile = 74 + _woffset;
-    
-    //tile de acordo com canto vertical
-    if (_left1)         _tile = 150 + _hoffset;
-    else if (_left2)    _tile = 149 + _hoffset;
-    else if (_right1)   _tile = 147 + _hoffset;
-    else if (_right2)   _tile = 148 + _hoffset;
+    //colocando as bordas para cada valor
+    switch (_valor) 
+    {
+        //bloco cercado por outros
+        case 0: _tile = 1; break;
+        
+        //bordas retas
+        case 14: _tile = 12; break; //superior
+        case 7:  _tile = 33; break; //esquerda
+        case 13: _tile = 39; break; //direita
+        case 11: _tile = 60; break; //inferior
+        
+        //bordas canto externo
+        case 12: _tile = 13; break; //superior direita
+        case 6:  _tile = 11; break; //superior esquerda
+        case 9:  _tile = 61; break; //inferior direita
+        case 3:  _tile = 59; break; //inferior esquerda
+        
+        //bordas canto interno
+        case 15:
+            if (!_top_right)         _tile = 29; //superior direita
+            else if (!_top_left)     _tile = 27; //superior esquerda
+            else if (!_bottom_right) _tile = 45; //inferior direita
+            else if (!_bottom_left)  _tile = 43; //inferior esquerda
+            else                     _tile = 1;  //padrão (parte escura)
+        break;
+        
+        //default
+        default: _tile = 1; break;
+    }
     
     //desenhando o tile da borda
     tilemap_set_at_pixel(global.tile_bordas, _tile, _x, _y);
 }
 
 //tile da parede da borda
-function mina_cria_tile_borda_parede(_id, _bloco, _x, _y, _i, _j)
+function mina_cria_tile_borda_parede(_id, _bloco, _x, _y)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
     
-    //se tiver na parede de cima
-    if (_j == 1 || _j == 8)
+    //pegando borda de cima
+    var _top    = mina_bloco_borda(_x, _y - MINA_SIZE_H);
+    var _bottom = mina_bloco_borda(_x, _y + MINA_SIZE_H);
+    
+    //se tiver borda em cima e n tiver borda em baixo
+    if (_top == true && _bottom == false)
     {
-        var _tile = 99 + (_i % 12); //repetindo o tile
+        var _tile = 68;
         
         //desenhando o tile da borda
         tilemap_set_at_pixel(global.tile_paredes, _tile, _x, _y + 32);
@@ -199,3 +229,24 @@ function mina_atualiza_baixo(_x, _y)
         tilemap_set_at_pixel(global.tile_chao, 0, _x, _y + MINA_SIZE_H);
     }
 }
+
+//atualiza a borda
+function mina_atualiza_borda(_x, _y)
+{
+    //limpando os tiles desse bloco
+    tilemap_set_at_pixel(global.tile_bordas, 0, _x, _y);
+    tilemap_set_at_pixel(global.tile_paredes, 0, _x, _y + MINA_SIZE_H);
+    
+    //pegando o bloco
+    var _bloco = mina_get_bloco(_x, _y);
+    
+    //validação
+    if (_bloco.index != BLOCOS.borda) exit;
+    
+    //atualizando a borda e a parede
+    mina_cria_tile_borda(noone, noone, _bloco, _x, _y);
+    mina_cria_tile_borda_parede(noone, _bloco, _x, _y);
+}
+
+
+
