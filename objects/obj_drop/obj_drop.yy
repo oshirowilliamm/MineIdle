@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_drops",
-    "path":"sprites/spr_drops/spr_drops.yy",
+    "name":"spr_minerios",
+    "path":"sprites/spr_minerios/spr_minerios.yy",
   },
   "spriteMaskId":null,
   "visible":true,

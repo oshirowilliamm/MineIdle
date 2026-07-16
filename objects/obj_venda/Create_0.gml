@@ -2,4 +2,4 @@
 infos = false;
 
 //texto do item
-texto = global.inventario[item].nome;
+texto = global.inventario.minerio[item].nome;

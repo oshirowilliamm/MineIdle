@@ -94,11 +94,16 @@ coletando = function(_dist)
     //encostando no player
     if (_dist < raio_coleta)
     {
-        //coletando item
-        global.inventario[item_tipo].quantidade++;
+        var _item = global.inventario.minerio[item_tipo];
+        
+        //coletando item na sacola
+        global.inventario_sacola.minerio[item_tipo]++;
+        
+        //falando que o item foi descoberto
+        if (_item.descoberto == false) _item.descoberto = true;
         
         //adicionando peso
-        global.peso_atual += global.inventario[item_tipo].peso;
+        global.peso_atual += _item.peso;
         
         //lista de itens para cair na sacola
         array_push(obj_hud.itens_caindo, 
@@ -106,7 +111,7 @@ coletando = function(_dist)
             vspd: 0,
             y: -5,
             frame: item_tipo,
-            peso: global.inventario[item_tipo].peso
+            peso: _item.peso
         });
         
         //destruindo

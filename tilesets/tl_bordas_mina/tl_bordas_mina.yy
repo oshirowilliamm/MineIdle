@@ -8,7 +8,7 @@
     "TileSerialiseData":[],
   },
   "name":"tl_bordas_mina",
-  "out_columns":55,
+  "out_columns":8,
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
@@ -18,8 +18,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"spr_tile_bordas_mina",
-    "path":"sprites/spr_tile_bordas_mina/spr_tile_bordas_mina.yy",
+    "name":"spr_tile_bordas2",
+    "path":"sprites/spr_tile_bordas2/spr_tile_bordas2.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{
@@ -34,5 +34,5 @@
   "tileWidth":32,
   "tilexoff":0,
   "tileyoff":0,
-  "tile_count":3038,
+  "tile_count":72,
 }

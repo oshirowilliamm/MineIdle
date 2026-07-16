@@ -245,13 +245,13 @@ stamina = function()
     else 
     {
         //resetando stamina
-        var _stamina = lerp(global.stamina_atual, global.stamina_max + global.stamina_max * .2, .05); 
-    	global.stamina_atual = min(_stamina, global.stamina_max);
+    	global.stamina_atual = global.stamina_max;
         
         //resetando dano da picareta
         global.picareta.dano = picareta_dano_original;
     }
 }
+
 
 //iniciando estado padrao do player
 inicia_estado(estado_parado);

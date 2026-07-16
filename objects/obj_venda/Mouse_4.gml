@@ -1,4 +1,4 @@
-var _item = global.inventario[item];
+var _item = global.inventario.minerio[item];
 
 if (_item.quantidade > 0)
 {

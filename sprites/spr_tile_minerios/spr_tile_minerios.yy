@@ -46,8 +46,8 @@
   },
   "origin":0,
   "parent":{
-    "name":"tiles",
-    "path":"folders/sprites/tiles.yy",
+    "name":"minerios",
+    "path":"folders/sprites/minerios.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

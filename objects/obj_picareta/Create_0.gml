@@ -59,6 +59,7 @@ golpe = function()
         
         //chamando o minera bloco
         global.mina.minera_bloco(_linha.x, _linha.y, global.picareta.dano);
+
     }
     
     //quando chegar no tempo limite do efeito, reseta tudo

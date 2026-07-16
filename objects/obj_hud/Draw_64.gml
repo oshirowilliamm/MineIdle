@@ -40,9 +40,9 @@ if (debug)
         draw_text(300, 10, "MINÉRIOS:");
         
         //desenhando os minerios
-        for (var i = 0; i < array_length(global.inventario); i++)
+        for (var i = 0; i < array_length(global.inventario.minerio); i++)
         {
-            var _txt = string(global.inventario[i].nome) + " = " + string(global.inventario[i].quantidade);
+            var _txt = string(global.inventario.minerio[i].nome) + " = " + string(global.inventario.minerio[i].quantidade);
             var _y = 50 + (i * 40);
             draw_text(300, _y, _txt);
         }
@@ -70,6 +70,9 @@ if (debug)
         
     #endregion
     
+    //linha no centro
+    draw_line(display_get_gui_width() / 2, 0, display_get_gui_width() / 2, room_height);
+    
     draw_set_alpha(1);
     draw_set_colour(-1);
     draw_set_font(-1);
@@ -84,6 +87,7 @@ desenha_sacola();
 desenha_stamina();
 desenha_moeda();
 desenha_botao_voltar();
+desenha_inventario();
 
 
 draw_set_font(-1);
