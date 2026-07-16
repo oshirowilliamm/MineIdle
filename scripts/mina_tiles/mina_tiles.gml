@@ -35,8 +35,8 @@ function mina_cria_tiles(_id, _chunk)
             mina_cria_tile_parede(_bloco, _x, _y);
             
             //bloco de borda
-            mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y);
-            mina_cria_tile_borda_parede(_id, _bloco, _x, _y);
+            mina_cria_tile_borda(_chunk, _bloco, _x, _y);
+            mina_cria_tile_borda_parede(_bloco, _x, _y);
         }
     }
 }
@@ -108,31 +108,28 @@ function mina_bloco_borda(_x, _y)
 {
     var _bloco = mina_get_bloco(_x, _y);
     
-    //se o bloco não for uma struct (for 0, false, noone, undefined ou fora do mapa), trata como borda
-    if (!is_struct(_bloco)) return true;
-    
-    //se o bloco for borda, retorna true
-    if (_bloco.index == BLOCOS.borda) return true;
+    //bloco existe e é borda
+    if (is_struct(_bloco) && _bloco.index == BLOCOS.borda) return true;
     
     //se for outra coisa retorna falso
     return false;
 }
 
 //tile da borda
-function mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y)
+function mina_cria_tile_borda(_chunk, _bloco, _x, _y)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
     
     //checando os vizinhos
-    var _top            = mina_bloco_borda(_x, _y - MINA_SIZE_H);
-    var _right          = mina_bloco_borda(_x + MINA_SIZE_W, _y);
-    var _bottom         = mina_bloco_borda(_x, _y + MINA_SIZE_H);
-    var _left           = mina_bloco_borda(_x - MINA_SIZE_W, _y);
-    var _top_right      = mina_bloco_borda(_x + MINA_SIZE_W, _y - MINA_SIZE_H);
-    var _top_left       = mina_bloco_borda(_x - MINA_SIZE_W, _y - MINA_SIZE_H); 
-    var _bottom_right   = mina_bloco_borda(_x + MINA_SIZE_W, _y + MINA_SIZE_H);
-    var _bottom_left    = mina_bloco_borda(_x - MINA_SIZE_W, _y + MINA_SIZE_H);
+    var _top          = mina_bloco_borda(_x, _y - MINA_SIZE_H);
+    var _right        = mina_bloco_borda(_x + MINA_SIZE_W, _y);
+    var _bottom       = mina_bloco_borda(_x, _y + MINA_SIZE_H);
+    var _left         = mina_bloco_borda(_x - MINA_SIZE_W, _y);
+    var _top_right    = mina_bloco_borda(_x + MINA_SIZE_W, _y - MINA_SIZE_H);
+    var _top_left     = mina_bloco_borda(_x - MINA_SIZE_W, _y - MINA_SIZE_H); 
+    var _bottom_right = mina_bloco_borda(_x + MINA_SIZE_W, _y + MINA_SIZE_H);
+    var _bottom_left  = mina_bloco_borda(_x - MINA_SIZE_W, _y + MINA_SIZE_H);
     
     //calculando valor do bitmask (0 a 15)
     var _valor = 0;
@@ -180,19 +177,26 @@ function mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y)
 }
 
 //tile da parede da borda
-function mina_cria_tile_borda_parede(_id, _bloco, _x, _y)
+function mina_cria_tile_borda_parede(_bloco, _x, _y)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
     
-    //pegando borda de cima
-    var _top    = mina_bloco_borda(_x, _y - MINA_SIZE_H);
-    var _bottom = mina_bloco_borda(_x, _y + MINA_SIZE_H);
+    //pegando bordas vizinha
+    var _top     = mina_bloco_borda(_x, _y - MINA_SIZE_H);
+    var _right   = mina_bloco_borda(_x + MINA_SIZE_W, _y);
+    var _bottom  = mina_bloco_borda(_x, _y + MINA_SIZE_H);
+    var _left    = mina_bloco_borda(_x - MINA_SIZE_W, _y);
     
     //se tiver borda em cima e n tiver borda em baixo
     if (_top == true && _bottom == false)
     {
-        var _tile = 68;
+        var _tile = 0;
+        
+        //pegando o tile
+        if (!_right)       _tile = 69; //se tiver borda na direita
+        else if (!_left)   _tile = 67; //se tiver borda na esquerda
+        else              _tile = 68; //se não tiver borda dos lados
         
         //desenhando o tile da borda
         tilemap_set_at_pixel(global.tile_paredes, _tile, _x, _y + 32);

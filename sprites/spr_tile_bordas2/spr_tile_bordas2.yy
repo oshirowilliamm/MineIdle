@@ -2,7 +2,7 @@
   "$GMSprite":"v2",
   "%Name":"spr_tile_bordas2",
   "bboxMode":0,
-  "bbox_bottom":272,
+  "bbox_bottom":271,
   "bbox_left":32,
   "bbox_right":255,
   "bbox_top":0,
