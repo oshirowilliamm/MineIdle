@@ -258,10 +258,12 @@ function mina_cria_checkpoint(_chunk)
         _trans.image_blend = c_maroon;
         
         //criando tochas
-        var _xtocha = _x + MINA_SIZE_W * 6;
-        var _ytocha = _ytrans - MINA_SIZE_H * 3;
+        var _xtocha = _x + MINA_SIZE_W * 4;
+        var _ytocha = _ytrans - MINA_SIZE_H * 2;
         instance_create_layer(_xtocha, _ytocha, "Decoracoes", obj_tocha);
-        instance_create_layer(_xtocha, _ytocha + MINA_SIZE_H * 6, "Decoracoes", obj_tocha);
+        instance_create_layer(_xtocha, _ytocha + MINA_SIZE_H * 4, "Decoracoes", obj_tocha);
+        instance_create_layer(_xtocha + MINA_SIZE_W * 6, _ytocha, "Decoracoes", obj_tocha);
+        instance_create_layer(_xtocha + MINA_SIZE_W * 6, _ytocha + MINA_SIZE_H * 4, "Decoracoes", obj_tocha);
     }
     
     //////////// CHECKPOINTS ////////////
