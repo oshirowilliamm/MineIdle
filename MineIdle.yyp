@@ -106,7 +106,6 @@
     {"id":{"name":"Sprite31","path":"sprites/Sprite31/Sprite31.yy",},},
     {"id":{"name":"tl_bordas","path":"tilesets/tl_bordas/tl_bordas.yy",},},
     {"id":{"name":"tl_colisao","path":"tilesets/tl_colisao/tl_colisao.yy",},},
-    {"id":{"name":"tl_minerios_paredes","path":"tilesets/tl_minerios_paredes/tl_minerios_paredes.yy",},},
     {"id":{"name":"tl_minerios","path":"tilesets/tl_minerios/tl_minerios.yy",},},
   ],
   "resourceType":"GMProject",
