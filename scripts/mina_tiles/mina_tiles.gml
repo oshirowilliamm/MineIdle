@@ -125,7 +125,7 @@ function mina_cria_tiles(_id, _chunk)
     }
 }
 
-//função para apagar ou atualizar os tiles
+//função para apagar ou atualizar os tilesd
 function mina_atualiza_tiles(_x, _y)
 {
     //apagando os tiles do bloco 
@@ -161,6 +161,7 @@ function mina_cria_tile_bloco(_bloco, _x, _y)
 {
     //se bloco existe
     if (_bloco.index == BLOCOS.vazio) exit;
+    if (mina_tile_tipo(_bloco.index) <= 0) exit;
     
     //pegando o indice da linha de acordo com o tipo do bloco
     var _linha = mina_tile_tipo(_bloco.index) - 1;

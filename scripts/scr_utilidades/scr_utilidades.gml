@@ -4,102 +4,99 @@ randomise();
 //debugs
 function debugs()
 {
+    if (!DEV_MODE) exit;
+    
+    //segura o ctrl
+    if (!keyboard_check(vk_lcontrol)) exit;
+    
+    //// CHEATS ////
+    
     //ganhando dinheiro
     if (keyboard_check_pressed(ord("G")))
     {
         global.moeda += 100;
+        show_debug_message("DEBUG: +100 Moedas (Total: " + string(global.moeda) + ")");
     }
     
     //reiniciando jogo
     if (keyboard_check_pressed(ord("R")))
     {
+        show_debug_message("DEBUG: Reiniciando Jogo...");
         game_restart();
     }
     
-    //ganhando itens
+    //ganhando todos os itens
     if (keyboard_check_pressed(ord("I")))
     {
-        //minerios
         for (var i = 0; i < array_length(global.inventario.minerio); i++)
         {
             global.inventario.minerio[i].quantidade++;
             global.inventario.minerio[i].descoberto = true;
         }
-        
-        //refinados
         for (var i = 0; i < array_length(global.inventario.refinado); i++)
         {
             global.inventario.refinado[i].quantidade++;
             global.inventario.refinado[i].descoberto = true;
         }
+        show_debug_message("DEBUG: +1 de todos os itens concedido.");
     }
     
     //ganhando minerios um por um
     static item_minerio = -1;
-    
     if (keyboard_check_pressed(vk_up))
     {
-        //indo pro proximo item
-        if (item_minerio < array_length(global.inventario.minerio) - 1)
-        {
-            item_minerio++;
-        }
-        //resetando a variavel
-        else
-        {
-            item_minerio = 0;
-        }
-        
+        item_minerio = (item_minerio + 1) % array_length(global.inventario.minerio);
         global.inventario.minerio[item_minerio].quantidade++;
         global.inventario.minerio[item_minerio].descoberto = true;
+        show_debug_message("DEBUG: +1 Minério (ID: " + string(item_minerio) + ")");
     }
     
     //ganhando refinados um por um
     static item_refinado = -1;
-    
     if (keyboard_check_pressed(vk_down))
     {
-        //indo pro proximo item
-        if (item_refinado < array_length(global.inventario.refinado) - 1)
-        {
-            item_refinado++;
-        }
-        //resetando a variavel
-        else
-        {
-            item_refinado = 0;
-        }
-        
+        item_refinado = (item_refinado + 1) % array_length(global.inventario.refinado);
         global.inventario.refinado[item_refinado].quantidade++;
         global.inventario.refinado[item_refinado].descoberto = true;
+        show_debug_message("DEBUG: +1 Refinado (ID: " + string(item_refinado) + ")");
     }
     
+    // ganha o primeiro refinado
     if (keyboard_check_pressed(vk_right))
     {
         global.inventario.refinado[0].quantidade++;
         global.inventario.refinado[0].descoberto = true;
+        show_debug_message("DEBUG: +1 Refinado Index 0");
     }
     
     //mostrando linha de mineração
     if (keyboard_check_pressed(ord("L")))
     {
         debug_linha = !debug_linha;
+        show_debug_message("DEBUG: Linha de mineração " + (debug_linha ? "ON" : "OFF"));
     }
     
     //aumentando spd do player
     if (keyboard_check_pressed(ord("V")))
     {
         debug_spd = !debug_spd;
-        
         spd = debug_spd ? 20 : spd_max;
+        show_debug_message("DEBUG: Super Velocidade " + (debug_spd ? "ON" : "OFF"));
     }
     
     //noclip
     if (keyboard_check_pressed(ord("N")))
     {
         debug_noclip = !debug_noclip;
-        
-        colisores = debug_noclip ? [] : [tile_bordas, tile_minerios];
+        colisores = debug_noclip ? [] : [tile_bordas, tile_minerios, tile_bordas_inicio];
+        show_debug_message("DEBUG: Noclip " + (debug_noclip ? "ON" : "OFF"));
+    }
+    
+    //ganha luz
+    if (keyboard_check_pressed(ord("B")))
+    {
+        global.alcance_lanterna += global.alcance_lanterna * .1;
+        show_debug_message("DEBUG: Luz aumentada em 10%");
     }
 }
 
