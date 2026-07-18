@@ -45,6 +45,7 @@
     {"id":{"name":"fnt_upgrades","path":"fonts/fnt_upgrades/fnt_upgrades.yy",},},
     {"id":{"name":"obj_drop","path":"objects/obj_drop/obj_drop.yy",},},
     {"id":{"name":"obj_hud","path":"objects/obj_hud/obj_hud.yy",},},
+    {"id":{"name":"obj_ilumina_checkpoint","path":"objects/obj_ilumina_checkpoint/obj_ilumina_checkpoint.yy",},},
     {"id":{"name":"obj_iluminacao","path":"objects/obj_iluminacao/obj_iluminacao.yy",},},
     {"id":{"name":"obj_mina","path":"objects/obj_mina/obj_mina.yy",},},
     {"id":{"name":"obj_picareta","path":"objects/obj_picareta/obj_picareta.yy",},},

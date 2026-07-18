@@ -21,11 +21,10 @@ if (surface_exists(sombra_surface))
     gpu_set_blendmode(bm_subtract);
     
     //iluminação da tocha
-    var _raio_tocha = 96;
-    
     if (instance_exists(obj_tocha))
     {
         var _num = instance_number(obj_tocha);
+        var _raio_tocha = 96;
         
         for (var i = 0; i < _num; i++)
         {
@@ -46,6 +45,39 @@ if (surface_exists(sombra_surface))
         } 
     }
     
+    //iluminação na chunk checkpoint
+    if (instance_exists(obj_ilumina_checkpoint))
+    {
+        var _num = instance_number(obj_ilumina_checkpoint);
+        var _raio_check = 510;
+        
+        for (var i = 0; i < _num; i++)
+        {
+            var _inst = instance_find(obj_ilumina_checkpoint, i);
+            
+            //posição da tocha
+            var _xcheck = (_inst.x - camera_get_view_x(_cam)) * _escala;
+            var _ycheck = (_inst.y - camera_get_view_y(_cam)) * _escala;
+            
+            //circulo 1
+            draw_set_alpha(1);
+            draw_circle(_xcheck, _ycheck, _raio_check + irandom(1), 0);
+            
+            //circulo 2
+            draw_set_alpha(.7)
+            draw_circle(_xcheck, _ycheck, (_raio_check * 1.3) + irandom(1), 0);
+            
+            //circulo 3
+            draw_set_alpha(.5)
+            draw_circle(_xcheck, _ycheck, (_raio_check * 1.5) + irandom(1), 0);
+            
+            //circulo 3
+            draw_set_alpha(.3)
+            draw_circle(_xcheck, _ycheck, (_raio_check * 1.6) + irandom(1), 0);
+            draw_set_alpha(1);
+        } 
+    }
+    
     //iluminação do player
     var _raio_player = 64;
     
@@ -53,7 +85,7 @@ if (surface_exists(sombra_surface))
     draw_set_alpha(.7);
     draw_circle(_xplayer, _yplayer, _raio_player + irandom(1), 0);
     
-    //circulo de iluminação 2
+    ////circulo de iluminação 2
     //draw_set_alpha(.5)
     //draw_circle(_xplayer, _yplayer, (_raio_player * 2) + irandom(1), 0);
     //
