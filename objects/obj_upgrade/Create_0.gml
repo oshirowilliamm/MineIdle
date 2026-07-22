@@ -18,47 +18,40 @@ ycentro = (display_get_gui_height() / 2) - margem / 2;
 
 desenha_botoes = function()
 {
-    //pegando a categoria dos upgrades
-    var _categoria = struct_get_names(global.upgrades);
+    //pegando a quantidade de upgrades
+    var _chaves = struct_get_names(global.upgrades);
     infos = false;
     
-    //rodando as categorias de upgrades
-    for (var i = 0; i < array_length(_categoria); i++)
+    //rodando os upgrades
+    for (var i = 0; i < array_length(_chaves); i++)
     {
         //pegando o tipo dos upgrades
-        var _tipo = global.upgrades[$ _categoria[i]];
+        var _upgrade = global.upgrades[$ _chaves[i]];
+
+        //posição do upgrade em grid
+        var _x = xcentro + (_upgrade.coluna * tamanho);
+        var _y = ycentro + (_upgrade.linha * tamanho);   
         
-        //rodando tipos de upgrades
-        for (var j = 0; j < array_length(_tipo); j++)
+        //desenhando os botões
+        draw_sprite_ext(spr_upgrade, _upgrade.index, _x, _y, escala, escala, 0, c_white, 1);
+        
+        //clicando nos botões
+        var _mx = device_mouse_x_to_gui(0);
+        var _my = device_mouse_y_to_gui(0);
+        var _x2 = _x - 32 * escala;
+        var _y2 = _y - 32 * escala;
+        var _rectangle = point_in_rectangle(_mx, _my, _x2, _y2, _x, _y);
+        
+        if (_rectangle)
         {
-            //upgrade
-            var _upgrade = _tipo[j];
+            //habilitando as infos
+            infos = true;
             
-            //posição do upgrade em grid
-            var _x = xcentro + (_upgrade.coluna * tamanho);
-            var _y = ycentro + (_upgrade.linha * tamanho);   
+            //guardando o upgrade selecionado
+            upgrade = _upgrade;
             
-            //desenhando os botões
-            draw_sprite_ext(spr_upgrade, _upgrade.index, _x, _y, escala, escala, 0, c_white, 1);
-            
-            //clicando nos botões
-            var _mx = device_mouse_x_to_gui(0);
-            var _my = device_mouse_y_to_gui(0);
-            var _x2 = _x - 32 * escala;
-            var _y2 = _y - 32 * escala;
-            var _rectangle = point_in_rectangle(_mx, _my, _x2, _y2, _x, _y);
-            
-            if (_rectangle)
-            {
-                //habilitando as infos
-                infos = true;
-                
-                //guardando o upgrade selecionado
-                upgrade = _upgrade;
-                
-                //comprando
-                comprando();
-            }
+            //comprando
+            comprando();
         }
     }
 }
@@ -86,7 +79,7 @@ desenha_infos = function()
     
     //altura do fundo
     var _hnome = string_height(upgrade.nome);
-    var _hcusto = string_height(string(upgrade.custo)) * 1.5;
+    var _hcusto = string_height(string(upgrade.custo_inicial)) * 1.5;
     var _espaco = 20; //entre os itens
     var _hfundo = _margem + (_hnome / 2) + _espaco + _htxt_ext + _espaco + _hcusto + _margem;
     
@@ -134,13 +127,13 @@ desenha_infos = function()
     
     //texto do custo
     draw_set_colour(c_yellow);
-    draw_text_transformed(_xvenda, _yvenda, upgrade.custo, 1.5, 1.5, 0);
+    draw_text_transformed(_xvenda, _yvenda, upgrade.custo_inicial, 1.5, 1.5, 0);
     draw_set_colour(c_white);
     
     
     
     /////////////// MOEDA ///////////////
-    var _xmoeda = _xvenda - string_width(upgrade.custo) - 25;
+    var _xmoeda = _xvenda - string_width(upgrade.custo_inicial) - 25;
     var _ymoeda = _yvenda;
     frame_moeda = draw_animation(frame_moeda, spr_moeda);
     
@@ -151,14 +144,22 @@ comprando = function()
 {
     if (mouse_check_button_pressed(mb_left))
     {
+        //calculando custo de acordo com o nivel do upgrade
+        var _custo = floor(upgrade.custo_inicial * power(upgrade.custo_aumento, upgrade.level - 1));
+        
         //aplicando upgrade
-        if (global.moeda >= upgrade.custo)
+        if (global.moeda >= _custo && upgrade.level < upgrade.level_max)
         {
             //tirando dinheiro
-            global.moeda -= upgrade.custo;
+            global.moeda -= _custo;
+            
+            //aumenta nivel
+            upgrade.level++;
             
             //efeito
-            upgrade.efeito();
+            upgrade.efeito(upgrade.level);
+            
+            show_debug_message(upgrade.level);
         }
     }
 }

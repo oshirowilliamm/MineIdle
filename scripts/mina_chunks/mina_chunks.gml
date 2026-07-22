@@ -8,32 +8,16 @@ function mina_cria_chunks(_id)
         blocos: array_create(MINA_CHUNK_W * MINA_CHUNK_H)
     };
     
-    //preenchendo os minerios da chunk
-    mina_preenche_minerios(_chunk);
-    
-    //preenchendo as bordas da chunk
-    if (_chunk.index == 0)
-    {
-        //bordas da chunk inicial
-        mina_bordas_inicial(_chunk);
-    }
-    else 
-    {
-        //bordas da mina inteira
-    	mina_preenche_bordas(_chunk);
-    }
-    
-    //criando checkpoints
-    if (_chunk.index % global.bioma_chunks == 0)
-    {
-        mina_cria_checkpoint(_chunk);
-    }
+    mina_preenche_minerios(_chunk); //preenchendo os minerios da chunk
+    mina_preenche_bordas(_chunk); //bordas da mina inteira
+    mina_cria_checkpoint(_chunk); //criando checkpoints
+    mina_cria_tiles(_id, _chunk); //criando os tiles
     
     //colocando a nova chunk na struct
     chunks[$ _id] = _chunk;
     
-    //criando os tiles
-    mina_cria_tiles(_id, _chunk);
+    //atualizando os tiles (pro autotile)
+    if (_id > 0) mina_cria_tiles(_id - 1, chunks[$ (_id - 1)]);
     
     show_debug_message("Chunk criada: " + string(_id));
     
@@ -123,6 +107,36 @@ function mina_gera_blocos(_chunk, _col)
     }
 }
 
+//decorando chunks de checkpoint
+function mina_cria_checkpoint(_chunk)
+{
+    if (_chunk.index % global.bioma_chunks == 0)
+    {
+        //posição inicial da chunk
+        var _x = _chunk.index * MINA_CHUNK_W * MINA_SIZE_W;
+        var _y = 0;
+        
+        //////////// CHECKPOINT INICIAL ////////////
+        //if (_chunk.index == 0)
+        //{
+            ////criando transição de sala
+            //var _xtrans = _x + MINA_SIZE_W;
+            //var _ytrans = _y + (MINA_CHUNK_H * MINA_SIZE_H) / 2;
+            //var _trans = instance_create_layer(_xtrans, _ytrans, "Decoracoes", obj_transicao);
+            //_trans.image_blend = c_maroon;
+            //
+            ////criando tochas
+            //var _xtocha = _x + MINA_SIZE_W * 4;
+            //var _ytocha = _ytrans - MINA_SIZE_H * 2;
+            //instance_create_layer(_xtocha, _ytocha, "Decoracoes", obj_tocha);
+            //instance_create_layer(_xtocha, _ytocha + MINA_SIZE_H * 4, "Decoracoes", obj_tocha);
+            //instance_create_layer(_xtocha + MINA_SIZE_W * 6, _ytocha, "Decoracoes", obj_tocha);
+            //instance_create_layer(_xtocha + MINA_SIZE_W * 6, _ytocha + MINA_SIZE_H * 4, "Decoracoes", obj_tocha);
+        //}
+        
+        //////////// CHECKPOINTS ////////////
+    }
+}
 
 
 
@@ -210,81 +224,62 @@ function mina_preenche_bordas(_chunk)
     {
         for (var j = 0; j < MINA_CHUNK_H; j++)
         {
-            //cantos da mina
-            //2 primeiras linhas
-            var _top = j < 2;    
-            //2 primeiras colunas e primeira chunk                                                  
-            var _left = i < 2 && _chunk.index <= 0;       
-            //2 ultimas linhas                       
-            var _bottom = j >= MINA_CHUNK_H - 2;                       
-            //2 ultimas colunas e ultima chunk             
-            var _right = i >= MINA_CHUNK_W - 2 && _chunk.index == MINA_TOTAL_CHUNKS -1;   
-            
-            //verificando se o bloco esta nos cantos
-            if (_top || _left || _bottom || _right)
+            //se a chunk for a primeira
+            if (_chunk.index == 0)
             {
-                var _id = mina_get_bloco_id(i, j);
+                ////cantos da mina
+                //var _top = j < 9;    
+                //var _bottom = j > 14;       
+                //
+                ////verificando se o bloco esta nos cantos
+                //if (_top || _bottom)
+                //{
+                    //var _id = mina_get_bloco_id(i, j);
+                    //
+                    ////setando os blocos como borda
+                    //_chunk.blocos[_id] = mina_novo_bloco(BLOCOS.borda);
+                //}
+                //
+                ////abertura na mina
+                //if (i < 2) //primeiras colunas
+                //{
+                    //_top = j < 11;
+                    //_bottom = j > 12;
+                    //
+                    //if (_top || _bottom)
+                    //{
+                        //var _id = mina_get_bloco_id(i, j);
+                        //
+                        ////setando os blocos como borda
+                        //_chunk.blocos[_id] = mina_novo_bloco(BLOCOS.borda);
+                    //}
+                //}
+            }
+            //todas as outras chunks
+            else
+            {
+                //cantos da mina
+                //2 primeiras linhas
+                var _top = j < 2;    
+                //2 primeiras colunas e primeira chunk                                                  
+                var _left = i < 2 && _chunk.index <= 0;       
+                //2 ultimas linhas                       
+                var _bottom = j >= MINA_CHUNK_H - 2;                       
+                //2 ultimas colunas e ultima chunk             
+                var _right = i >= MINA_CHUNK_W - 2 && _chunk.index == MINA_TOTAL_CHUNKS -1;   
                 
-                //setando os blocos como borda
-                _chunk.blocos[_id] = mina_novo_bloco(BLOCOS.borda);
+                //verificando se o bloco esta nos cantos
+                if (_top || _left || _bottom || _right)
+                {
+                    var _id = mina_get_bloco_id(i, j);
+                    
+                    //setando os blocos como borda
+                    _chunk.blocos[_id] = mina_novo_bloco(BLOCOS.borda);
+                }
             }
         }
     }
 }
-
-//decorando chunks de checkpoint
-function mina_cria_checkpoint(_chunk)
-{
-    //posição inicial da chunk
-    var _x = _chunk.index * MINA_CHUNK_W * MINA_SIZE_W;
-    var _y = 0;
-    
-    //////////// CHECKPOINT INICIAL ////////////
-    if (_chunk.index == 0)
-    {
-        //criando transição de sala
-        var _xtrans = _x + MINA_SIZE_W * 3;
-        var _ytrans = _y + (MINA_CHUNK_H * MINA_SIZE_H) / 2;
-        var _trans = instance_create_layer(_xtrans, _ytrans, "Decoracoes", obj_transicao);
-        _trans.image_blend = c_maroon;
-        
-        //criando tochas
-        var _xtocha = _x + MINA_SIZE_W * 6;
-        var _ytocha = _ytrans - MINA_SIZE_H * 3;
-        instance_create_layer(_xtocha, _ytocha, "Decoracoes", obj_tocha);
-        instance_create_layer(_xtocha, _ytocha + MINA_SIZE_H * 6, "Decoracoes", obj_tocha);
-    }
-    
-    //////////// CHECKPOINTS ////////////
-}
-
-//bordas em formato de tunel na chunk inicial
-function mina_bordas_inicial(_chunk)
-{
-    for (var i = 0; i < MINA_CHUNK_W; i++)
-    {
-        for (var j = 0; j < MINA_CHUNK_H; j++)
-        {
-            //cantos da mina
-            //5 primeiras linhas
-            var _top = j < 9;    
-            //2 ultimas linhas                       
-            var _bottom = j > 14;       
-            //2 primeiras colunas e primeira chunk                                                  
-            var _left = i < 2 && _chunk.index <= 0;                   
-            
-            //verificando se o bloco esta nos cantos
-            if (_top || _left || _bottom)
-            {
-                var _id = mina_get_bloco_id(i, j);
-                
-                //setando os blocos como borda
-                _chunk.blocos[_id] = mina_novo_bloco(BLOCOS.borda);
-            }
-        }
-    }
-}
-
 
 
 

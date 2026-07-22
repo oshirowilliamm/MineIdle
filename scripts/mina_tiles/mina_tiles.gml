@@ -1,17 +1,105 @@
-
 //tile de acordo com o tipo de bloco
 function mina_tile_tipo(_bloco_tipo)
 {
     switch (_bloco_tipo) 
     {
+        case BLOCOS.borda:      return 0;
         case BLOCOS.pedra:      return 1;
         case BLOCOS.roxo:       return 2;
         case BLOCOS.laranja:    return 3;  
         case BLOCOS.verde:      return 4;
         case BLOCOS.rosa:       return 5;  
-        default:                return 0;
+        default:                return -1;
     }
 }
+
+//checando conexão entre o bloco e o vizinho pro bitmask
+function mina_checa_conexao(_vizinho, _tipo)
+{
+    //se o vizinho n existe
+    if (!_vizinho) return false;
+    
+    //se for borda, conecta so com borda
+    if (_tipo == BLOCOS.borda)
+    {
+        return _vizinho.index == BLOCOS.borda;
+    }
+    
+    //se for minerio, conecta com minerios e borda
+    var _minerio = mina_tile_tipo(_tipo) > 0;
+    var _minerio_vizinho = mina_tile_tipo(_vizinho.index) > -1;
+    
+    if (_minerio && _minerio_vizinho)
+    {
+        return true;
+    }
+    
+    //se for outra coisa
+    return _vizinho.index == _tipo;
+}
+
+//pegando o bitmask do minerio
+function mina_get_bitmask(_x, _y, _tipo)
+{
+    //pegando os vizinhos
+    var _top    = mina_get_bloco(_x, _y - MINA_SIZE_H);
+    var _right  = mina_get_bloco(_x + MINA_SIZE_W, _y);
+    var _bottom = mina_get_bloco(_x, _y + MINA_SIZE_H);
+    var _left   = mina_get_bloco(_x - MINA_SIZE_W, _y);
+    
+    ////////////// BITMASK RETAS E DIAGONAIS EXTERNAS //////////////
+    var _valor = 0;
+    if (mina_checa_conexao(_top, _tipo))        _valor += 1; //topo
+    if (mina_checa_conexao(_right, _tipo))      _valor += 2; //direita
+    if (mina_checa_conexao(_bottom, _tipo))     _valor += 4; //baixo
+    if (mina_checa_conexao(_left, _tipo))       _valor += 8; //esquerda
+    
+    var _valor_final = _valor;
+    
+    ////////////// BITMASK DIAGONAIS INTERNAS //////////////
+    if (_valor == 15)
+    {
+        //pegando os vizinhos da diagonal
+        var _top_right    = mina_get_bloco(_x + MINA_SIZE_W, _y - MINA_SIZE_H);
+        var _top_left     = mina_get_bloco(_x - MINA_SIZE_W, _y - MINA_SIZE_H); 
+        var _bottom_right = mina_get_bloco(_x + MINA_SIZE_W, _y + MINA_SIZE_H);
+        var _bottom_left  = mina_get_bloco(_x - MINA_SIZE_W, _y + MINA_SIZE_H);
+        
+        //pegando o valor de acordo com a diagonal
+        
+        if (!mina_checa_conexao(_top_right, _tipo))             _valor_final = 16; //superior direita
+        else if (!mina_checa_conexao(_top_left, _tipo))         _valor_final = 17; //superior esquerda
+        else if (!mina_checa_conexao(_bottom_right, _tipo))     _valor_final = 18; //inferior direita
+        else if (!mina_checa_conexao(_bottom_left, _tipo))      _valor_final = 19; //inferior esquerda
+        else                                                    _valor_final = 15; //padrão (parte escura)
+    }
+    
+    ////////////// BITMASK PAREDE //////////////  
+    var _parede = false;
+    var _valor_parede = 22;
+    
+    //se n tem bloco em baixo, cria a pareded
+    if (!mina_checa_conexao(_bottom, _tipo)) 
+    { 
+        //setando que existe parede
+        _parede = true;
+        
+        //pegando o valor da parede
+        if (!mina_checa_conexao(_right, _tipo))         _valor_parede = 22; //parede com borda direita
+        else if (!mina_checa_conexao(_left, _tipo))     _valor_parede = 20; //parece com borda esquerda 
+        else                                            _valor_parede = 21; //padrão           
+    }
+    
+    //retornando o valor do bloco e da parede e se tem parede
+    return 
+    {
+        valor: _valor_final,
+        parede: _parede,
+        valor_parede: _valor_parede
+    }
+}
+
+
 
 //cria tiles
 function mina_cria_tiles(_id, _chunk)
@@ -31,41 +119,40 @@ function mina_cria_tiles(_id, _chunk)
             //bloco normal
             mina_cria_tile_bloco(_bloco, _x, _y);
             
-            //parede do bloco embaixo
-            mina_cria_tile_parede(_bloco, _x, _y);
-            
             //bloco de borda
-            mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y);
-            mina_cria_tile_borda_parede(_id, _bloco, _x, _y);
+            mina_cria_tile_borda(_bloco, _x, _y);
         }
     }
 }
 
-//função para apagar ou atualizar os tiles
+//função para apagar ou atualizar os tilesd
 function mina_atualiza_tiles(_x, _y)
 {
     //apagando os tiles do bloco 
-    tilemap_set_at_pixel(global.tile_minerio , 0, _x, _y);
+    tilemap_set_at_pixel(global.tile_minerio, 0, _x, _y);
+    tilemap_set_at_pixel(global.tile_paredes_minerio, 0, _x, _y + MINA_SIZE_H);
     
-    //atualizando bloco de baixo
-    mina_atualiza_baixo(_x, _y);
-    
-    //atualiza bloco de cima
-    mina_atualiza_cima(_x, _y);
-    
-    //atualizando borda
-    mina_atualiza_borda(_x, _y); //bloco principal
-    mina_atualiza_borda(_x, _y - MINA_SIZE_H); //vizinho cima
-    mina_atualiza_borda(_x + MINA_SIZE_W, _y); //vizinho direita
-    mina_atualiza_borda(_x, _y + MINA_SIZE_H); //vizinho baixo
-    mina_atualiza_borda(_x - MINA_SIZE_W, _y); //vizinho esquerda
-    mina_atualiza_borda(_x + MINA_SIZE_W, _y - MINA_SIZE_H); //vizinho cima direita
-    mina_atualiza_borda(_x - MINA_SIZE_W, _y - MINA_SIZE_H); //vizinho cima esquerda
-    mina_atualiza_borda(_x + MINA_SIZE_W, _y + MINA_SIZE_H); //vizinho baixo direita
-    mina_atualiza_borda(_x - MINA_SIZE_W, _y + MINA_SIZE_H); //vizinho baixo esquerda
+    //recalculando os 8 vizinhos (areas 3x3)
+    for (var i = -1; i <= 1; i++)
+    {
+        for (var j = -1; j <= 1; j++)
+        {
+            //ignorando o centro
+            if (i == 0 && j == 0) continue;
+            
+            //pegando posição do vizinho
+            var _xvizinho = _x + (i * MINA_SIZE_W);
+            var _yvizinho = _y + (j * MINA_SIZE_H);
+            var _vizinho = mina_get_bloco(_xvizinho, _yvizinho);
+            
+            //se o vizinho existe e n ta vazio
+            if (_vizinho && _vizinho.index != BLOCOS.vazio && _vizinho.index != BLOCOS.borda)
+            {
+                mina_cria_tile_bloco(_vizinho, _xvizinho, _yvizinho);
+            }
+        }
+    }
 }
-
-
 
 
 
@@ -74,179 +161,51 @@ function mina_cria_tile_bloco(_bloco, _x, _y)
 {
     //se bloco existe
     if (_bloco.index == BLOCOS.vazio) exit;
+    if (mina_tile_tipo(_bloco.index) <= 0) exit;
     
-    //pegando infos do tile do topo
-    var _tile = mina_tile_tipo(_bloco.index);
+    //pegando o indice da linha de acordo com o tipo do bloco
+    var _linha = mina_tile_tipo(_bloco.index) - 1;
+    var _bitmask = mina_get_bitmask(_x, _y, _bloco.index);
     
-    //desenhando o tile do topo
-    tilemap_set_at_pixel(global.tile_minerio, _tile, _x, _y);
-}
-
-//tile da parede
-function mina_cria_tile_parede(_bloco, _x, _y)
-{
-    //se bloco existe
-    if (_bloco.index == BLOCOS.vazio) exit;
+    //pegando o tile de acordo com o tipo
+    var _tile = (_linha * 24) + _bitmask.valor + 1;
+    var _tile_parede = (_linha * 24) + _bitmask.valor_parede + 1;
     
-    //bloco de baixo
-    var _baixo = mina_get_bloco(_x, _y + MINA_SIZE_H);
-    
-    if (_baixo && _baixo.index == BLOCOS.vazio)
+    if (_bitmask.parede)
     {
-        //pegando infos do tile do topo
-        var _tile = mina_tile_tipo(_bloco.index);
+        //desenhando o tile do bloco em cima
+        tilemap_set_at_pixel(global.tile_minerio, _tile, _x, _y);
         
-        //desenhando o tile do topo
-        tilemap_set_at_pixel(global.tile_chao, _tile, _x, _y + MINA_SIZE_H);
+        //desenhando o tile da parede
+        tilemap_set_at_pixel(global.tile_paredes_minerio, _tile_parede, _x, _y + MINA_SIZE_H);
     }
-}
-
-
-
-//checa se um bloco vizinho é borda ou não
-function mina_bloco_borda(_x, _y)
-{
-    var _bloco = mina_get_bloco(_x, _y);
-    
-    //se o bloco não for uma struct (for 0, false, noone, undefined ou fora do mapa), trata como borda
-    if (!is_struct(_bloco)) return true;
-    
-    //se o bloco for borda, retorna true
-    if (_bloco.index == BLOCOS.borda) return true;
-    
-    //se for outra coisa retorna falso
-    return false;
+    else
+    {
+        //desenhando o tile do bloco
+        tilemap_set_at_pixel(global.tile_minerio, _tile, _x, _y);
+    }
 }
 
 //tile da borda
-function mina_cria_tile_borda(_chunk, _id, _bloco, _x, _y)
+function mina_cria_tile_borda(_bloco, _x, _y)
 {
     //se o bloco é um bloco de borda
     if (_bloco.index != BLOCOS.borda) exit;
     
-    //checando os vizinhos
-    var _top            = mina_bloco_borda(_x, _y - MINA_SIZE_H);
-    var _right          = mina_bloco_borda(_x + MINA_SIZE_W, _y);
-    var _bottom         = mina_bloco_borda(_x, _y + MINA_SIZE_H);
-    var _left           = mina_bloco_borda(_x - MINA_SIZE_W, _y);
-    var _top_right      = mina_bloco_borda(_x + MINA_SIZE_W, _y - MINA_SIZE_H);
-    var _top_left       = mina_bloco_borda(_x - MINA_SIZE_W, _y - MINA_SIZE_H); 
-    var _bottom_right   = mina_bloco_borda(_x + MINA_SIZE_W, _y + MINA_SIZE_H);
-    var _bottom_left    = mina_bloco_borda(_x - MINA_SIZE_W, _y + MINA_SIZE_H);
+    //pegando o bitmask
+    var _bitmask = mina_get_bitmask(_x, _y, BLOCOS.borda);
     
-    //calculando valor do bitmask (0 a 15)
-    var _valor = 0;
-    if (_top)           _valor += 1;
-    if (_right)         _valor += 2;
-    if (_bottom)        _valor += 4;
-    if (_left)          _valor += 8;
-    
-    //variavel para guardar o tile id
-    var _tile = 0;
-    
-    //colocando as bordas para cada valor
-    switch (_valor) 
+    if (_bitmask.parede)
     {
-        //bloco cercado por outros
-        case 0: _tile = 1; break;
+        //desenhando o tile da borda em cima
+        tilemap_set_at_pixel(global.tile_bordas, _bitmask.valor + 1, _x, _y);
         
-        //bordas retas
-        case 14: _tile = 12; break; //superior
-        case 7:  _tile = 33; break; //esquerda
-        case 13: _tile = 39; break; //direita
-        case 11: _tile = 60; break; //inferior
-        
-        //bordas canto externo
-        case 12: _tile = 13; break; //superior direita
-        case 6:  _tile = 11; break; //superior esquerda
-        case 9:  _tile = 61; break; //inferior direita
-        case 3:  _tile = 59; break; //inferior esquerda
-        
-        //bordas canto interno
-        case 15:
-            if (!_top_right)         _tile = 29; //superior direita
-            else if (!_top_left)     _tile = 27; //superior esquerda
-            else if (!_bottom_right) _tile = 45; //inferior direita
-            else if (!_bottom_left)  _tile = 43; //inferior esquerda
-            else                     _tile = 1;  //padrão (parte escura)
-        break;
-        
-        //default
-        default: _tile = 1; break;
+        //desenhando o tile da parede da borda
+        tilemap_set_at_pixel(global.tile_paredes_borda, _bitmask.valor_parede + 1, _x, _y + MINA_SIZE_H);
     }
-    
-    //desenhando o tile da borda
-    tilemap_set_at_pixel(global.tile_bordas, _tile, _x, _y);
-}
-
-//tile da parede da borda
-function mina_cria_tile_borda_parede(_id, _bloco, _x, _y)
-{
-    //se o bloco é um bloco de borda
-    if (_bloco.index != BLOCOS.borda) exit;
-    
-    //pegando borda de cima
-    var _top    = mina_bloco_borda(_x, _y - MINA_SIZE_H);
-    var _bottom = mina_bloco_borda(_x, _y + MINA_SIZE_H);
-    
-    //se tiver borda em cima e n tiver borda em baixo
-    if (_top == true && _bottom == false)
+    else
     {
-        var _tile = 68;
-        
         //desenhando o tile da borda
-        tilemap_set_at_pixel(global.tile_paredes, _tile, _x, _y + 32);
-    } 
-}
-
-
-
-
-
-//atualiza o bloco de cima
-function mina_atualiza_cima(_x, _y)
-{
-    //criando a parede de cima
-    var _bloco = mina_get_bloco(_x, _y - MINA_SIZE_H);
-    
-    //se existe e não é vazio, cria a parede
-    if (_bloco && _bloco.index != BLOCOS.vazio)
-    {
-        var _tile_data = mina_tile_tipo(_bloco.index);
-        tilemap_set_at_pixel(global.tile_chao, _tile_data, _x, _y);
+        tilemap_set_at_pixel(global.tile_bordas, _bitmask.valor + 1, _x, _y);
     }
 }
-
-//atualiza o bloco de baixo
-function mina_atualiza_baixo(_x, _y)
-{
-    //apagando a parede de baixo
-    var _bloco= mina_get_bloco(_x, _y + MINA_SIZE_H);
-    
-    //se o bloco de baixo existe e esta vazio, apaga a parede
-    if (_bloco && _bloco.index == BLOCOS.vazio)
-    {
-        tilemap_set_at_pixel(global.tile_chao, 0, _x, _y + MINA_SIZE_H);
-    }
-}
-
-//atualiza a borda
-function mina_atualiza_borda(_x, _y)
-{
-    //limpando os tiles desse bloco
-    tilemap_set_at_pixel(global.tile_bordas, 0, _x, _y);
-    tilemap_set_at_pixel(global.tile_paredes, 0, _x, _y + MINA_SIZE_H);
-    
-    //pegando o bloco
-    var _bloco = mina_get_bloco(_x, _y);
-    
-    //validação
-    if (_bloco.index != BLOCOS.borda) exit;
-    
-    //atualizando a borda e a parede
-    mina_cria_tile_borda(noone, noone, _bloco, _x, _y);
-    mina_cria_tile_borda_parede(noone, _bloco, _x, _y);
-}
-
-
-

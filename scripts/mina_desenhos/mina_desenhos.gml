@@ -31,8 +31,10 @@ function mina_desenha_rachaduras(_bloco, _x, _y)
 //brilho 
 function mina_desenha_brilho(_bloco, _x, _y)
 {
+    var _b = _bloco.index;
+    
     //não desenhar:
-    if (_bloco.index == BLOCOS.vazio || _bloco.index == BLOCOS.borda || _bloco.index == BLOCOS.pedra) 
+    if (_b == BLOCOS.vazio || _b == BLOCOS.borda || _b == BLOCOS.pedra || _b == BLOCOS.roxo || _b == BLOCOS.laranja) 
         return;
     
     // Desenha o brilho por cima do bloco

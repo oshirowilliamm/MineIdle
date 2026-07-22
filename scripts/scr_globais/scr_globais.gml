@@ -1,3 +1,6 @@
+//ativa modo desenvolvimento
+#macro DEV_MODE true
+
 //blocos da mina
 enum BLOCOS 
 {
@@ -20,3 +23,7 @@ global.stamina_dano = 2;
 //peso do inventario
 global.peso_max = 5000;
 global.peso_atual = 0;
+
+//lanterna do player
+global.alcance_lanterna = .7;
+global.brilho_lanterna = 1;
