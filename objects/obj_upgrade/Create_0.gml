@@ -1,5 +1,5 @@
-//upgrade selecionado
-upgrade = 0;
+//upgrade selecionado (padrão stamina)
+upgrade = global.upgrades.stamina;
 
 //variavel de controle pra mostrar as infos
 infos = false;
@@ -114,9 +114,39 @@ desenha_infos = function()
     //texto da descricao
     draw_text_ext_transformed(_xtxt, _ytxt, upgrade.descricao, _htxt, _wfundo - _margem, .8, .8, 0);
     
+    
+    
+    /////////////// AUMENTO ///////////////
+    var _xaumento = _xnome;
+    var _yaumento = _ytxt + 20;
+    
+    //calculando o aumento
+    var _valor = upgrade.valor;
+    var _prox_valor = upgrade.valor + (upgrade.valor * .1);
+    
+    //texto do aumento
+    var _texto = string(_valor) + " -> " + string(_prox_valor);
+    draw_text(_xaumento, _yaumento, _texto);
+    
     //desenhando a linha de divisória
     var _ylinha2 = _ytxt + _htxt_ext / 2 + _espaco / 2
     draw_sprite_stretched(spr_linha, 0, _xfundo, _ylinha2, _wfundo, 1);
+    
+    
+    
+    /////////////// LEVEL ///////////////
+    var _xlevel = _xnome;
+    var _ylevel = _ylinha2;
+    
+    //texto do level
+    var _texto = "Lv. " + string(upgrade.level) + " / " + string(upgrade.level_max);
+    draw_text(_xlevel, _ylevel, _texto);
+    
+    //fundo do level
+    var _xfundo_level = _xlevel - string_width(_texto);
+    var _yfundo_level = _ylevel - string_height(_texto);
+    
+    draw_sprite_stretched(spr_fundo, 0, _xfundo_level, _yfundo_level, 50, 50);
     
     
     
@@ -158,8 +188,6 @@ comprando = function()
             
             //efeito
             upgrade.efeito(upgrade.level);
-            
-            show_debug_message(upgrade.level);
         }
     }
 }

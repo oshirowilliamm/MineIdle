@@ -30,8 +30,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"Picareta",
-    "path":"folders/sprites/player/Picareta.yy",
+    "name":"Idle",
+    "path":"folders/sprites/player/Picareta/Idle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

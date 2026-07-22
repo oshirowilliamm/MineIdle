@@ -51,12 +51,10 @@ switch (dir)
 yy = y - 15;
 
 
-
 //aplicando as funções
 controles();
+
 roda_estado();
-segura_picareta();
+usa_picareta();
+
 stamina();
-
-
-debugs();

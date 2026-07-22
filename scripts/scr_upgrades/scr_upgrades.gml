@@ -3,12 +3,20 @@ global.upgrades = {};
 //dano da picareta
 global.upgrades.dano_picareta =
 {
+    //dados
     nome: "Dano da Picareta",
     descricao: "Aumenta o dano da picareta em 10%", 
+    valor: global.picareta.dano,
+    
+    //level
     level: 1,
     level_max: 5,
+    
+    //custo
     custo_inicial: 20,
     custo_aumento: 1.5, //50%
+    
+    //efeito
     efeito: function(_lvl)
     {
         var _valor_base = global.picareta.dano;
@@ -16,6 +24,7 @@ global.upgrades.dano_picareta =
         //aumenta por nivel
         global.picareta.dano += _valor_base + (_valor_base * _lvl * .1);
     },
+    
     //posição
     coluna: 0,
     linha: 0,
@@ -27,11 +36,16 @@ global.upgrades.stamina =
 {
     nome: "Stamina",
     descricao: "Aumenta a stamina em 10%", 
-    custo_inicial: 10,
     level: 1,
-    efeito: function()
+    level_max: 5,
+    custo_inicial: 10,
+    custo_aumento: 1.5, //50%
+    efeito: function(_lvl)
     {
-        global.stamina_max += global.stamina_max * .1;
+        var _valor_base = global.stamina_max;
+        
+        //aumenta por nivel
+        global.stamina_max += _valor_base + (_valor_base * _lvl * .1);
     },
     //posição
     coluna: 1,
@@ -44,11 +58,16 @@ global.upgrades.capacidade =
 {
     nome: "Capacidade",
     descricao: "Aumenta a capacidade da bolsa de minérios em 10%", 
-    custo_inicial: 30,
     level: 1,
-    efeito: function()
+    level_max: 5,
+    custo_inicial: 30,
+    custo_aumento: 1.5, //50%
+    efeito: function(_lvl)
     {
-        global.peso_max += global.peso_max * .1;
+        var _valor_base = global.peso_max;
+        
+        //aumenta por nivel
+        global.peso_max += _valor_base + (_valor_base * _lvl * .1);
     },
     //posição
     coluna: 0,
@@ -61,11 +80,16 @@ global.upgrades.lanterna =
 {
     nome: "Alcance da Lanterna",
     descricao: "Aumenta o alcance da lanterna em 10%", 
-    custo_inicial: 20,
     level: 1,
-    efeito: function()
+    level_max: 5,
+    custo_inicial: 20,
+    custo_aumento: 1.5, //50%
+    efeito: function(_lvl)
     {
-        global.alcance_lanterna += global.alcance_lanterna * .1;
+        var _valor_base = global.alcance_lanterna;
+        
+        //aumenta por nivel
+        global.alcance_lanterna += _valor_base + (_valor_base * _lvl * .1);
     },
     //posição
     coluna: 1,
