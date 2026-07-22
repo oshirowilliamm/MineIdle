@@ -18,7 +18,7 @@ global.moeda = 0;
 //stamina
 global.stamina_max = 50;
 global.stamina_atual = global.stamina_max;
-global.stamina_dano = 2;
+global.stamina_dano = 1;
 
 //peso do inventario
 global.peso_max = 5000;

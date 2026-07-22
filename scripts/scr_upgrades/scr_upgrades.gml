@@ -3,12 +3,20 @@ global.upgrades = {};
 //dano da picareta
 global.upgrades.dano_picareta =
 {
+    //dados
     nome: "Dano da Picareta",
     descricao: "Aumenta o dano da picareta em 10%", 
+    valor: global.picareta.dano,
+    
+    //level
     level: 1,
     level_max: 5,
+    
+    //custo
     custo_inicial: 20,
     custo_aumento: 1.5, //50%
+    
+    //efeito
     efeito: function(_lvl)
     {
         var _valor_base = global.picareta.dano;
@@ -16,6 +24,7 @@ global.upgrades.dano_picareta =
         //aumenta por nivel
         global.picareta.dano += _valor_base + (_valor_base * _lvl * .1);
     },
+    
     //posição
     coluna: 0,
     linha: 0,

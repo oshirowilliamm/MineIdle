@@ -23,13 +23,3 @@ tile_bordas_inicio  = layer_exists("tl_bordas_inicio") ? layer_tilemap_get_id("t
 
 //criando colisao
 colisores = [tile_bordas, tile_bordas_inicio, tile_minerios];
-
-//criando a picareta so se estiver na mina
-if (!instance_exists(obj_picareta) && room == rm_mina) 
-{
-    picareta = instance_create_depth(x, y, depth, obj_picareta);
-}
-else 
-{
-	picareta = noone;
-}
