@@ -158,8 +158,6 @@ comprando = function()
             
             //efeito
             upgrade.efeito(upgrade.level);
-            
-            show_debug_message(upgrade.level);
         }
     }
 }
