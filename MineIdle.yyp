@@ -93,7 +93,6 @@
     {"id":{"name":"spr_minerios_pequenos","path":"sprites/spr_minerios_pequenos/spr_minerios_pequenos.yy",},},
     {"id":{"name":"spr_minerios","path":"sprites/spr_minerios/spr_minerios.yy",},},
     {"id":{"name":"spr_moeda","path":"sprites/spr_moeda/spr_moeda.yy",},},
-    {"id":{"name":"spr_picareta","path":"sprites/spr_picareta/spr_picareta.yy",},},
     {"id":{"name":"spr_player_idle_back","path":"sprites/spr_player_idle_back/spr_player_idle_back.yy",},},
     {"id":{"name":"spr_player_idle_front","path":"sprites/spr_player_idle_front/spr_player_idle_front.yy",},},
     {"id":{"name":"spr_player_idle_side","path":"sprites/spr_player_idle_side/spr_player_idle_side.yy",},},
