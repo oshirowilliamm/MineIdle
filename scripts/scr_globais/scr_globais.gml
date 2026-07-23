@@ -13,7 +13,7 @@ global.mina = noone;
 global.bioma_chunks = 11; //quantidade de chunks por bioma
 
 //dinheiro
-global.moeda = 0;
+global.moeda = 1000;
 
 //stamina
 global.stamina_max = 50;

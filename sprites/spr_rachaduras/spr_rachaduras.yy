@@ -29,8 +29,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"minerios",
-    "path":"folders/sprites/minerios.yy",
+    "name":"Minerios",
+    "path":"folders/sprites/Minerios.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

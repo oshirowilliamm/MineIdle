@@ -44,8 +44,8 @@
   },
   "origin":0,
   "parent":{
-    "name":"outros",
-    "path":"folders/sprites/outros.yy",
+    "name":"Outros",
+    "path":"folders/sprites/Outros.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
