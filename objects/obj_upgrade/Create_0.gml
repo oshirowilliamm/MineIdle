@@ -55,6 +55,9 @@ desbloqueia_upgrade = function(_compra)
 //desenhando as infos do upgrade
 desenha_infos = function()
 {
+    //só mostra se estiver desbloqueado
+    if (!upgrade.desbloqueado) exit;
+    
     var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
     
     //desenhando as infos
@@ -137,7 +140,38 @@ desenha_infos = function()
     //custo
     draw_set_halign(0);
     draw_set_valign(1);
+    draw_set_colour(c_yellow);
     draw_text_transformed(_xcusto + _wmoeda + 10, _yitens + 5, upgrade.custo, 1.5, 1.5, 0);
+    draw_set_colour(c_white);
     draw_set_halign(-1);
     draw_set_valign(-1);
+}
+
+//desenhando as conexões
+desenha_conexao = function()
+{
+    //so mostra se foi desbloqueado
+    if (!upgrade.desbloqueado) exit;
+    
+    //pegando quantidade de alvos
+    var _qtd = array_length(upgrade.alvos);
+    
+    //se tiver algum alvo
+    if (_qtd > 0)
+    {
+        for (var i = 0; i < _qtd; i++)
+        {
+            var _filho = upgrade.alvos[i];
+            
+            //desenhando a linha se o filho tiver desbloqueado
+            if (_filho.upgrade.desbloqueado)
+            {
+                var _dist   = point_distance(x, y, _filho.x, _filho.y);
+                var _dir    = point_direction(x, y, _filho.x, _filho.y);
+                var _xscale = _dist / sprite_get_width(spr_linha_conexao);
+                
+                draw_sprite_ext(spr_linha_conexao, 0, x, y, _xscale, 1, _dir, c_white, 1);
+            }
+        }
+    }
 }

@@ -418,9 +418,7 @@ peso_atual = global.peso_atual;
         var _x = display_get_gui_width() - (sprite_get_width(spr_voltar) * escala) / 2 - 20;
         var _y = sprite_get_height(spr_voltar) * escala;
         
-        draw_sprite_ext(spr_voltar, 0, _x, _y, escala, escala, 0, c_white, 1);
-        
-        //clicando
+        //interagindo
         var _mx = device_mouse_x_to_gui(0);
         var _my = device_mouse_y_to_gui(0);
         var _x1 = _x - (sprite_get_width(spr_voltar) * escala) / 2;
@@ -429,9 +427,21 @@ peso_atual = global.peso_atual;
         var _y2 = _y + (sprite_get_height(spr_voltar) * escala) / 2;
         var _rectangle = point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
         
-        if (_rectangle && mouse_check_button_pressed(mb_left))
+        if (_rectangle)
         {
-            room_goto(rm_vila);
+            //selecionado
+            draw_sprite_ext(spr_voltar, 1, _x, _y, escala, escala, 0, c_white, 1);
+            
+            //indo pra vila
+            if (mouse_check_button_pressed(mb_left))
+            {
+                room_goto(rm_vila);
+            }
+        }
+        else
+        {
+            //não selecionado
+            draw_sprite_ext(spr_voltar, 0, _x, _y, escala, escala, 0, c_white, 1);
         }
     }
     

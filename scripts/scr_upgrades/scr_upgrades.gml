@@ -19,6 +19,13 @@ global.upgrades.stamina =
     
     //custo
     custo: 10,
+    
+    //efeito
+    efeito: function()
+    {
+        //aumenta por nivel
+        global.stamina_max *= 1.1;
+    },
 }
 
 //teste
@@ -52,7 +59,7 @@ global.upgrades.capacidade =
     valor: global.peso_max,
     
     //nomes
-    nome: "Picareta",
+    nome: "Capacidade",
     descricao: "Aumenta a picareta em 10%",
     
     //level

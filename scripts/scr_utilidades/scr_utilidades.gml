@@ -7,7 +7,7 @@ function debugs()
     if (!DEV_MODE) exit;
     
     //segura o ctrl
-    if (!keyboard_check(vk_lcontrol)) exit;
+    if (!keyboard_check(vk_control)) exit;
     
     //// CHEATS ////
     

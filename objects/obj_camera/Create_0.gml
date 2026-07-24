@@ -5,15 +5,17 @@ largura = camera_get_view_width(cam);
 altura  = camera_get_view_height(cam);
 
 //zoom
-zoom_atual      = 1;
-zoom_destino    = 1;
-zoom_min        = .8;
-zoom_max        = 2.5;
-zoom_speed      = .1;
+zoom_niveis = [0.75, 1, 1.5, 1.75, 2, 3]; 
+zoom_indice = 1;                    
+
+zoom_atual   = zoom_niveis[zoom_indice];
+zoom_destino = zoom_atual;
+zoom_speed   = 0.2;
 
 //arrastar
 mouse_x_prev = 0;
 mouse_y_prev = 0;
+arrastando = false;
 
 //setando a camera no centro por padrão
 var _x = (room_width / 2) - (camera_get_view_width(cam) / 2);
