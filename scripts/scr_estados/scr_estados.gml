@@ -36,7 +36,7 @@ function troca_estado(_estado)
     estado_atual.inicia();
 }
 
-function define_sprite(_dir = 0, _spr_side, _spr_front, _spr_back)
+function define_sprite(_dir = 0, _spr_front, _spr_side, _spr_back)
 {
     var _sprite;
     

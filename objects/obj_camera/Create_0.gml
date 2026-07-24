@@ -7,8 +7,8 @@ altura  = camera_get_view_height(cam);
 //zoom
 zoom_atual      = 1;
 zoom_destino    = 1;
-zoom_min        = .5;
-zoom_max        = 3;
+zoom_min        = .8;
+zoom_max        = 2.5;
 zoom_speed      = .1;
 
 //arrastar

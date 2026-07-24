@@ -18,7 +18,7 @@ global.upgrades.stamina =
     level_max: 5,
     
     //custo
-    custo_inicial: 10,
+    custo: 10,
 }
 
 //teste
@@ -31,7 +31,7 @@ global.upgrades.picareta =
     
     //nomes
     nome: "Picareta",
-    descricao: "Aumenta a picareta em 10%",
+    descricao: "Aumenta o dano da picareta em 10%",
     valor: global.picareta.dano,
     
     //level
@@ -39,7 +39,7 @@ global.upgrades.picareta =
     level_max: 5,
     
     //custo
-    custo_inicial: 15,
+    custo: 15,
 }
 
 //teste2
@@ -60,7 +60,7 @@ global.upgrades.capacidade =
     level_max: 5,
     
     //custo
-    custo_inicial: 25,
+    custo: 25,
 }
 
 //capacidade de stamina
@@ -75,7 +75,7 @@ global.upgrades.capacidade =
     //level_max: 5,
     //
     ////custo
-    //custo_inicial: 10,
+    //custo: 10,
     //custo_aumento: 1.5, //50%
     //
     ////efeito
@@ -107,7 +107,7 @@ global.upgrades.dano_picareta =
     level_max: 5,
     
     //custo
-    custo_inicial: 20,
+    custo: 20,
     custo_aumento: 1.5, //50%
     
     //efeito
@@ -137,7 +137,7 @@ global.upgrades.capacidade =
     level_max: 5,
     
     //custo
-    custo_inicial: 30,
+    custo: 30,
     custo_aumento: 1.5, //50%
     
     //efeito
@@ -167,7 +167,7 @@ global.upgrades.lanterna =
     level_max: 5,
     
     //custo
-    custo_inicial: 20,
+    custo: 20,
     custo_aumento: 1.5, //50%
     
     //efeito

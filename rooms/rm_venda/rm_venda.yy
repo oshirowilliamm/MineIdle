@@ -11,7 +11,6 @@
     {"name":"inst_727BAAFE","path":"rooms/rm_venda/rm_venda.yy",},
     {"name":"inst_221E33EB","path":"rooms/rm_venda/rm_venda.yy",},
     {"name":"inst_46CA7607","path":"rooms/rm_venda/rm_venda.yy",},
-    {"name":"inst_3EAA979F","path":"rooms/rm_venda/rm_venda.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -30,7 +29,6 @@
         {"$GMRInstance":"v4","%Name":"inst_46CA7607","colour":4278237157,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_46CA7607","objectId":{"name":"obj_venda","path":"objects/obj_venda/obj_venda.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_venda","path":"objects/obj_venda/obj_venda.yy",},"propertyId":{"name":"item","path":"objects/obj_venda/obj_venda.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"4",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":2.0,"scaleY":1.0,"x":488.0,"y":286.0,},
-        {"$GMRInstance":"v4","%Name":"inst_3EAA979F","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_3EAA979F","objectId":{"name":"obj_voltar","path":"objects/obj_voltar/obj_voltar.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":608.0,"y":32.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_loja_bg","path":"sprites/spr_loja_bg/spr_loja_bg.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],
