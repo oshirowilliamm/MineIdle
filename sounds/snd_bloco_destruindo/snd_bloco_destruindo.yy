@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"snd_minerando",
+  "%Name":"snd_bloco_destruindo",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -10,9 +10,9 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.88816327,
+  "duration":0.12755102,
   "exportDir":"",
-  "name":"snd_minerando",
+  "name":"snd_bloco_destruindo",
   "parent":{
     "name":"sounds",
     "path":"folders/sounds.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_minerando.mp3",
-  "volume":1.0,
+  "soundFile":"snd_bloco_destruindo.wav",
+  "volume":0.5,
 }

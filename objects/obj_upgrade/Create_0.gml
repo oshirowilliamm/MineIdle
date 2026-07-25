@@ -1,12 +1,10 @@
-cor_texto = c_green;
-frame_moeda = 0;
-
-
 //comprando
 comprando_upgrade = function()
 {
+    var _custo = upgrade.custo();
+    
     //se tem dinheiro pra comprar
-    if (global.moeda >= upgrade.custo)
+    if (global.moeda >= _custo)
     {
         if (upgrade.level < upgrade.level_max) 
         {
@@ -14,7 +12,10 @@ comprando_upgrade = function()
             upgrade.level++; 
             
             //diminuindo dinheiro
-            global.moeda -= upgrade.custo;
+            global.moeda -= _custo;
+            
+            //aplicando efeito
+            upgrade.efeito();
             
             //falando que comprou
             return true;
@@ -68,18 +69,17 @@ desenha_infos = function()
     var _wfundo = 600 + _margem;
     
     //pegando os textos de aumento e level
-    var _valor = upgrade.valor;
-    var _prox_valor = _valor * 1.1;
-    var _texto_aum = string(_valor) + " -> " + string(_prox_valor);
+    var _texto_aum = string(upgrade.valor()) + " -> " + string(upgrade.prox_valor());
     var _texto_lvl = "Lv. " + string(upgrade.level) + " / " + string(upgrade.level_max);
+    var _texto_custo = string(upgrade.custo());
     
     //pegando altura dos conteudos
     var _hnome      = string_height(upgrade.nome);
     var _hdesc      = string_height(upgrade.descricao);
     var _hdesc_ext  = string_height_ext(upgrade.descricao, _hdesc, _wfundo - _margem);
-    var _haum       = string_height(string(upgrade.valor));
+    var _haum       = string_height(string(upgrade.valor()));
     var _hlvl       = string_height(string(upgrade.level));
-    var _hcusto     = string_height(string(upgrade.custo)) * 1.5;
+    var _hcusto     = string_height(string(upgrade.custo())) * 1.5;
     
     //pegando a altura do fundo
     var _hfundo = _margem;
@@ -129,7 +129,7 @@ desenha_infos = function()
     _yitens += _espaco + _hlvl + _espaco;
     
     //desenhando custo e moeda
-    var _wcusto = string_width(upgrade.custo) * 1.5;
+    var _wcusto = string_width(_texto_custo) * 1.5;
     var _wmoeda = sprite_get_width(spr_moeda_upgrade) * 4;
     var _wtotal = _wmoeda + 10 + _wcusto;
     var _xcusto = x - (_wtotal / 2);
@@ -141,7 +141,7 @@ desenha_infos = function()
     draw_set_halign(0);
     draw_set_valign(1);
     draw_set_colour(c_yellow);
-    draw_text_transformed(_xcusto + _wmoeda + 10, _yitens + 5, upgrade.custo, 1.5, 1.5, 0);
+    draw_text_transformed(_xcusto + _wmoeda + 10, _yitens + 5, _texto_custo, 1.5, 1.5, 0);
     draw_set_colour(c_white);
     draw_set_halign(-1);
     draw_set_valign(-1);
