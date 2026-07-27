@@ -2,7 +2,6 @@
   "$GMObject":"",
   "%Name":"obj_transicao",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"eventNum":0,"eventType":4,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
@@ -29,15 +28,14 @@
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"destino","filters":[
         "GMRoom",
-      ],"listItems":[],"multiselect":false,"name":"destino","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"rm_vila","varType":5,},
-    {"$GMObjectProperty":"v2","%Name":"nome","filters":[],"listItems":[],"multiselect":false,"name":"nome","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"\"Vila\"","varType":2,},
+      ],"listItems":[],"multiselect":false,"name":"destino","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"rm_mina","varType":5,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_item",
-    "path":"sprites/spr_item/spr_item.yy",
+    "name":"spr_colisao",
+    "path":"sprites/spr_colisao/spr_colisao.yy",
   },
   "spriteMaskId":null,
   "visible":true,

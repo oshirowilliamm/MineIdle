@@ -24,7 +24,7 @@
   "name":"spr_fundo",
   "nineSlice":{
     "$GMNineSliceData":"",
-    "bottom":16,
+    "bottom":8,
     "enabled":true,
     "guideColour":[4294902015,4294902015,4294902015,4294902015,],
     "highlightColour":1728023040,
@@ -40,7 +40,7 @@
       0,
       0,
     ],
-    "top":17,
+    "top":8,
   },
   "origin":0,
   "parent":{
