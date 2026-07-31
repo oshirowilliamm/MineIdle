@@ -12,8 +12,8 @@
   "name":"obj_venda",
   "overriddenProperties":[],
   "parent":{
-    "name":"loja",
-    "path":"folders/objects/loja.yy",
+    "name":"Vendas",
+    "path":"folders/objects/loja/Vendas.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -35,10 +35,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_item",
-    "path":"sprites/spr_item/spr_item.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

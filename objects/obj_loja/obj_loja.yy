@@ -2,7 +2,6 @@
   "$GMObject":"",
   "%Name":"obj_loja",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":73,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
@@ -10,8 +9,8 @@
   "name":"obj_loja",
   "overriddenProperties":[],
   "parent":{
-    "name":"loja",
-    "path":"folders/objects/loja.yy",
+    "name":"Vila",
+    "path":"folders/objects/loja/Vila.yy",
   },
   "parentObjectId":null,
   "persistent":false,

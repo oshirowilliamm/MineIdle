@@ -11,9 +11,6 @@ itens_caindo = [];
 peso_atual = global.peso_atual;
 
 
-//tocando soundtrack
-//audio_play_sound(snd_mina_soundtrack, 100, 1);
-
 #region Mina
     
     //desenhando a barra de stamina

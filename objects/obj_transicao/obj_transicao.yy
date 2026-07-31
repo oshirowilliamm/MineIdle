@@ -8,8 +8,8 @@
   "name":"obj_transicao",
   "overriddenProperties":[],
   "parent":{
-    "name":"loja",
-    "path":"folders/objects/loja.yy",
+    "name":"Vila",
+    "path":"folders/objects/loja/Vila.yy",
   },
   "parentObjectId":null,
   "persistent":false,

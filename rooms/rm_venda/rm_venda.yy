@@ -34,8 +34,8 @@
   ],
   "name":"rm_venda",
   "parent":{
-    "name":"rooms",
-    "path":"folders/rooms.yy",
+    "name":"Vila",
+    "path":"folders/rooms/Vila.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

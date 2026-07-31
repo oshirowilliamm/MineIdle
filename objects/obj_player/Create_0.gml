@@ -366,17 +366,7 @@ linha_mineracao = function()
     var _dist = 30;
     
     //pegando a direção da linha de acordo com a direção do player
-    switch (dir) 
-    {
-        //cima
-        case 1:
-            _dist -= 5;
-        break;
-        //baixo
-        case 3:
-            _dist += 7;
-        break;
-    } 
+
     
     //pegando direção do player pro mouse
     var _dir = point_direction(x, yy, mouse_x, mouse_y);
