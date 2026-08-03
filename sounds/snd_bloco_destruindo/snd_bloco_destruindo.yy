@@ -7,10 +7,10 @@
   },
   "bitDepth":1,
   "channelFormat":0,
-  "compression":0,
+  "compression":3,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.12755102,
+  "duration":0.1348526,
   "exportDir":"",
   "name":"snd_bloco_destruindo",
   "parent":{
@@ -22,5 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_bloco_destruindo.wav",
-  "volume":0.5,
+  "volume":0.24,
 }

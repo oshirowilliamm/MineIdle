@@ -1,4 +1,5 @@
 escala = 2;
+sprite_index = sprite;
 frame_tecla = 0;
 
 desenha_ir = function()

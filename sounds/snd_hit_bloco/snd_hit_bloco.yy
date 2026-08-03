@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.082789116,
+  "duration":0.72297055,
   "exportDir":"",
   "name":"snd_hit_bloco",
   "parent":{
@@ -22,5 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_hit_bloco.wav",
-  "volume":1.0,
+  "volume":0.21,
 }

@@ -73,7 +73,8 @@ controles = function()
     }
 
     //movendo e colidindo
-    move_and_collide(hspd, vspd, colisores, 12);
+    move_and_collide(hspd, 0, colisores, 4);
+    move_and_collide(0, vspd, colisores, 4);
 }
 
 //////// ESTADOS ////////
