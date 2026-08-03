@@ -2,9 +2,9 @@
   "$GMSprite":"v2",
   "%Name":"spr_linha",
   "bboxMode":0,
-  "bbox_bottom":0,
+  "bbox_bottom":3,
   "bbox_left":0,
-  "bbox_right":63,
+  "bbox_right":255,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -16,7 +16,7 @@
   ],
   "gridX":0,
   "gridY":0,
-  "height":1,
+  "height":4,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"336ba70f-98f9-4453-8a1c-9f301a26ae87","blendMode":0,"displayName":"default","isLocked":false,"name":"336ba70f-98f9-4453-8a1c-9f301a26ae87","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"loja",
-    "path":"folders/sprites/loja.yy",
+    "name":"Upgrades",
+    "path":"folders/sprites/Loja/Upgrades.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
@@ -86,5 +86,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":64,
+  "width":256,
 }

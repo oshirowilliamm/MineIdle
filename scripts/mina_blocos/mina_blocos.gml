@@ -52,6 +52,10 @@ function mina_dano_bloco(_bloco, _dano, _x, _y)
     //dano
     _bloco.hp -= _dano;
     
+    //som de hit do bloco
+    var _pitch = random_range(0.6, 1.4);
+    audio_play_sound(snd_hit_bloco, 10, 0, , , _pitch);
+    
     //tempo que foi aplicado esse dano, pra regeneração
     _bloco.tempo_dano = current_time;
     
@@ -74,6 +78,7 @@ function mina_quebra_bloco(_x, _y, _bloco)
     
     //criando drop
     mina_cria_drop(_xcentro, _ycentro, _bloco.index);
+    audio_play_sound(snd_bloco_destruindo, 10, 0);
     
     //zerando bloco
     _bloco.index = BLOCOS.vazio;

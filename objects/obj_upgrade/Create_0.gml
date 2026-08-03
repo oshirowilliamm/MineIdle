@@ -1,193 +1,177 @@
-//upgrade selecionado (padrão stamina)
-upgrade = global.upgrades.stamina;
-
-//variavel de controle pra mostrar as infos
-infos = false;
-
-//escala de desenho
-escala = 2;
-
-//frame de animação da moeda
-frame_moeda = 0;
-
-//pegando a posição central da grid
-margem = 20;
-tamanho = (32 * escala) + margem;
-xcentro = (display_get_gui_width() / 2) - margem / 2;
-ycentro = (display_get_gui_height() / 2) - margem / 2;
-
-desenha_botoes = function()
+//comprando
+comprando_upgrade = function()
 {
-    //pegando a quantidade de upgrades
-    var _chaves = struct_get_names(global.upgrades);
-    infos = false;
+    var _custo = upgrade.custo();
     
-    //rodando os upgrades
-    for (var i = 0; i < array_length(_chaves); i++)
+    //se tem dinheiro pra comprar
+    if (global.moeda >= _custo)
     {
-        //pegando o tipo dos upgrades
-        var _upgrade = global.upgrades[$ _chaves[i]];
-
-        //posição do upgrade em grid
-        var _x = xcentro + (_upgrade.coluna * tamanho);
-        var _y = ycentro + (_upgrade.linha * tamanho);   
-        
-        //desenhando os botões
-        draw_sprite_ext(spr_upgrade, _upgrade.index, _x, _y, escala, escala, 0, c_white, 1);
-        
-        //clicando nos botões
-        var _mx = device_mouse_x_to_gui(0);
-        var _my = device_mouse_y_to_gui(0);
-        var _x2 = _x - 32 * escala;
-        var _y2 = _y - 32 * escala;
-        var _rectangle = point_in_rectangle(_mx, _my, _x2, _y2, _x, _y);
-        
-        if (_rectangle)
+        if (upgrade.level < upgrade.level_max) 
         {
-            //habilitando as infos
-            infos = true;
+            //aumentando level
+            upgrade.level++; 
             
-            //guardando o upgrade selecionado
-            upgrade = _upgrade;
+            //diminuindo dinheiro
+            global.moeda -= _custo;
             
-            //comprando
-            comprando();
+            //aplicando efeito
+            upgrade.efeito();
+            
+            //falando que comprou
+            return true;
+        }
+        else 
+        {
+        	return false;
         }
     }
 }
 
-desenha_infos = function()
+//desbloqueia os proximos upgrades
+desbloqueia_upgrade = function(_compra)
 {
-    if (!infos) exit;
-    
-    //margem
-    var _margem = 20;
-    
-    //infos do botão de upgrade
-    var _wbotao = sprite_get_width(spr_upgrade) * escala;
-    var _hbotao = sprite_get_height(spr_upgrade) * escala;
-    var _xbotao = xcentro + (upgrade.coluna * tamanho) - (_wbotao / 2);
-    var _ybotao = ycentro + (upgrade.linha * tamanho) - (_hbotao / 2);
-
-    /////////////// FUNDO ///////////////
-    //largura do fundo
-    var _wfundo = 500 + _margem;
-    
-    //altura da descrição
-    var _htxt = string_height(upgrade.descricao);
-    var _htxt_ext = string_height_ext(upgrade.descricao, _htxt, _wfundo - _margem) * .8;
-    
-    //altura do fundo
-    var _hnome = string_height(upgrade.nome);
-    var _hcusto = string_height(string(upgrade.custo_inicial)) * 1.5;
-    var _espaco = 20; //entre os itens
-    var _hfundo = _margem + (_hnome / 2) + _espaco + _htxt_ext + _espaco + _hcusto + _margem;
-    
-    //posição do fundo
-    var _xfundo = _xbotao - _wfundo / 2;
-    var _yfundo = _ybotao - _hfundo - _hbotao / 2;
-    
-    //desenhando fundo
-    draw_sprite_stretched(spr_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
-    
-    
-    
-    /////////////// NOME ///////////////
-    //posição
-    var _xnome = _xfundo + _wfundo / 2;
-    var _ynome = _yfundo + _margem;
-    
-    //texto
-    draw_text(_xnome, _ynome, upgrade.nome);
-    
-    //desenhando a linha de divisória
-    var _ylinha = _ynome + _hnome / 2 + _espaco / 2;
-    draw_sprite_stretched(spr_linha, 0, _xfundo, _ylinha, _wfundo, 1);
-    
-    
-    
-    /////////////// DESCRIÇÃO ///////////////
-    //posição
-    var _xtxt = _xnome;
-    var _ytxt = _ylinha + _htxt_ext / 2 + _espaco / 2;
-    
-    //texto da descricao
-    draw_text_ext_transformed(_xtxt, _ytxt, upgrade.descricao, _htxt, _wfundo - _margem, .8, .8, 0);
-    
-    
-    
-    /////////////// AUMENTO ///////////////
-    var _xaumento = _xnome;
-    var _yaumento = _ytxt + 20;
-    
-    //calculando o aumento
-    var _valor = upgrade.valor;
-    var _prox_valor = upgrade.valor + (upgrade.valor * .1);
-    
-    //texto do aumento
-    var _texto = string(_valor) + " -> " + string(_prox_valor);
-    draw_text(_xaumento, _yaumento, _texto);
-    
-    //desenhando a linha de divisória
-    var _ylinha2 = _ytxt + _htxt_ext / 2 + _espaco / 2
-    draw_sprite_stretched(spr_linha, 0, _xfundo, _ylinha2, _wfundo, 1);
-    
-    
-    
-    /////////////// LEVEL ///////////////
-    var _xlevel = _xnome;
-    var _ylevel = _ylinha2;
-    
-    //texto do level
-    var _texto = "Lv. " + string(upgrade.level) + " / " + string(upgrade.level_max);
-    draw_text(_xlevel, _ylevel, _texto);
-    
-    //fundo do level
-    var _xfundo_level = _xlevel - string_width(_texto);
-    var _yfundo_level = _ylevel - string_height(_texto);
-    
-    draw_sprite_stretched(spr_fundo, 0, _xfundo_level, _yfundo_level, 50, 50);
-    
-    
-    
-    /////////////// VALOR DO UPGRADE ///////////////
-    //posição
-    var _xvenda = _xtxt + 25;
-    var _yvenda = _ylinha2 + _hcusto / 2 + _espaco / 2;
-    
-    //texto do custo
-    draw_set_colour(c_yellow);
-    draw_text_transformed(_xvenda, _yvenda, upgrade.custo_inicial, 1.5, 1.5, 0);
-    draw_set_colour(c_white);
-    
-    
-    
-    /////////////// MOEDA ///////////////
-    var _xmoeda = _xvenda - string_width(upgrade.custo_inicial) - 25;
-    var _ymoeda = _yvenda;
-    frame_moeda = draw_animation(frame_moeda, spr_moeda);
-    
-    draw_sprite_ext(spr_moeda, frame_moeda, _xmoeda, _ymoeda, 4, 4, 0, c_white, 1);
+    //se eu consegui comprar, pode desbloquar os outros
+    if (_compra)
+    {
+        //checando quantos alvos eu tenho
+        var _qtd = array_length(upgrade.alvos);
+        
+        //so vou fazer alguma coisa se eu tiver alvos
+        if (_qtd > 0)
+        {
+            for (var i = 0; i < _qtd; i++)
+            {
+                var _atual = upgrade.alvos[i];
+                
+                //desbloqueando o alvo
+                if (_atual.upgrade.desbloqueado == false)
+                {
+                    _atual.upgrade.desbloqueado = true;
+                }
+            }
+        }
+    }
 }
 
-comprando = function()
+//desenhando as infos do upgrade
+desenha_infos = function()
 {
-    if (mouse_check_button_pressed(mb_left))
+    //só mostra se estiver desbloqueado
+    if (!upgrade.desbloqueado) exit;
+    
+    var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
+    
+    //desenhando as infos
+    if (!_mouse_sobre) exit;
+    
+    var _margem = 15;
+    var _espaco = 20;
+    var _wfundo = 600 + _margem;
+    
+    //pegando os textos de aumento e level
+    var _texto_aum = string(upgrade.valor()) + " -> " + string(upgrade.prox_valor());
+    var _texto_lvl = "Lv. " + string(upgrade.level) + " / " + string(upgrade.level_max);
+    var _texto_custo = string(upgrade.custo());
+    
+    //pegando altura dos conteudos
+    var _hnome      = string_height(upgrade.nome);
+    var _hdesc      = string_height(upgrade.descricao);
+    var _hdesc_ext  = string_height_ext(upgrade.descricao, _hdesc, _wfundo - _margem);
+    var _haum       = string_height(string(upgrade.valor()));
+    var _hlvl       = string_height(string(upgrade.level));
+    var _hcusto     = string_height(string(upgrade.custo())) * 1.5;
+    
+    //pegando a altura do fundo
+    var _hfundo = _margem;
+    _hfundo += _hnome + _margem + (_espaco / 2);
+    _hfundo += _hdesc_ext + _espaco;
+    _hfundo += _haum + _espaco;
+    _hfundo += _hlvl + _espaco;
+    _hfundo += _espaco + _hcusto + _margem;
+    
+    //desenhando fundo
+    var _xfundo = x - (_wfundo / 2);
+    var _yfundo = y - _hfundo - sprite_height / 2;
+    draw_sprite_stretched(spr_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
+    
+    //y dos proximos itens
+    var _yitens = _yfundo + _margem;
+    
+    //desenhando nome
+    draw_text(x, _yitens, upgrade.nome);
+    _yitens += _hnome + _margem;
+    
+    //linha divisória
+    draw_sprite_stretched(spr_linha, 0, _xfundo, _yitens, _wfundo, 2);
+    _yitens += _espaco / 2;
+    
+    //desenhando descrição
+    draw_text_ext(x, _yitens, upgrade.descricao, -1, _wfundo - (_margem * 2));
+    _yitens += _hdesc_ext + _espaco;
+    
+    //desenhando aumento
+    draw_text(x, _yitens, _texto_aum);
+    _yitens += _haum + _espaco;
+    
+    //linha divisória
+    var _ylinha2 = _yitens + (_hlvl / 2);
+    draw_sprite_stretched(spr_linha, 0, _xfundo,_ylinha2, _wfundo, 2);
+    
+    //desenhando fundo do level
+    var _wfundo2 = string_width(_texto_lvl) + (_margem * 2);
+    var _hfundo2 = _hlvl + 20;
+    var _xfundo2 = x - (_wfundo2 / 2);
+    var _yfundo2 = _ylinha2 - (_hfundo2 / 2);
+    draw_sprite_stretched(spr_fundo, 0, _xfundo2, _yfundo2, _wfundo2, _hfundo2);
+    
+    //desenhando level
+    draw_text(x, _yitens, _texto_lvl);
+    _yitens += _espaco + _hlvl + _espaco;
+    
+    //desenhando custo e moeda
+    var _wcusto = string_width(_texto_custo) * 1.5;
+    var _wmoeda = sprite_get_width(spr_moeda_upgrade) * 4;
+    var _wtotal = _wmoeda + 10 + _wcusto;
+    var _xcusto = x - (_wtotal / 2);
+    
+    //moeda
+    draw_sprite_ext(spr_moeda_upgrade, 0, _xcusto + (_wmoeda / 2), _yitens, 4, 4, 0, c_white, 1);
+    
+    //custo
+    draw_set_halign(0);
+    draw_set_valign(1);
+    draw_set_colour(c_yellow);
+    draw_text_transformed(_xcusto + _wmoeda + 10, _yitens + 5, _texto_custo, 1.5, 1.5, 0);
+    draw_set_colour(c_white);
+    draw_set_halign(-1);
+    draw_set_valign(-1);
+}
+
+//desenhando as conexões
+desenha_conexao = function()
+{
+    //so mostra se foi desbloqueado
+    if (!upgrade.desbloqueado) exit;
+    
+    //pegando quantidade de alvos
+    var _qtd = array_length(upgrade.alvos);
+    
+    //se tiver algum alvo
+    if (_qtd > 0)
     {
-        //calculando custo de acordo com o nivel do upgrade
-        var _custo = floor(upgrade.custo_inicial * power(upgrade.custo_aumento, upgrade.level - 1));
-        
-        //aplicando upgrade
-        if (global.moeda >= _custo && upgrade.level < upgrade.level_max)
+        for (var i = 0; i < _qtd; i++)
         {
-            //tirando dinheiro
-            global.moeda -= _custo;
+            var _filho = upgrade.alvos[i];
             
-            //aumenta nivel
-            upgrade.level++;
-            
-            //efeito
-            upgrade.efeito(upgrade.level);
+            //desenhando a linha se o filho tiver desbloqueado
+            if (_filho.upgrade.desbloqueado)
+            {
+                var _dist   = point_distance(x, y, _filho.x, _filho.y);
+                var _dir    = point_direction(x, y, _filho.x, _filho.y);
+                var _xscale = _dist / sprite_get_width(spr_linha_conexao);
+                
+                draw_sprite_ext(spr_linha_conexao, 0, x, y, _xscale, 1, _dir, c_white, 1);
+            }
         }
     }
 }

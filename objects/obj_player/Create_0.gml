@@ -73,7 +73,8 @@ controles = function()
     }
 
     //movendo e colidindo
-    move_and_collide(hspd, vspd, colisores, 12);
+    move_and_collide(hspd, 0, colisores, 4);
+    move_and_collide(0, vspd, colisores, 4);
 }
 
 //////// ESTADOS ////////
@@ -93,9 +94,9 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
-                spr_player_pic_idle_side, 
                 spr_player_pic_idle_front, 
-                spr_player_idle_back
+                spr_player_pic_idle_side, 
+                spr_player_pic_idle_back
             );
         }
         else
@@ -104,8 +105,8 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
+                spr_player_idle_front,
                 spr_player_idle_side, 
-                spr_player_idle_front, 
                 spr_player_idle_back
             );
         }
@@ -123,9 +124,9 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
-                spr_player_pic_idle_side, 
                 spr_player_pic_idle_front, 
-                spr_player_idle_back
+                spr_player_pic_idle_side, 
+                spr_player_pic_idle_back
             );
         }
         else
@@ -134,8 +135,8 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
+                spr_player_idle_front,
                 spr_player_idle_side, 
-                spr_player_idle_front, 
                 spr_player_idle_back
             );
         }
@@ -163,9 +164,9 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
-                spr_player_pic_idle_side, 
-                spr_player_pic_idle_front, 
-                spr_player_idle_back
+                spr_player_pic_run_front,
+                spr_player_pic_run_side, 
+                spr_player_pic_run_back
             );
         }
         else
@@ -174,8 +175,8 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
-                spr_player_run_side, 
-                spr_player_run_front, 
+                spr_player_run_front,
+                spr_player_run_side,
                 spr_player_run_back
             );
         }
@@ -193,9 +194,9 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
-                spr_player_pic_idle_side, 
-                spr_player_pic_idle_front, 
-                spr_player_idle_back
+                spr_player_pic_run_front,
+                spr_player_pic_run_side, 
+                spr_player_pic_run_back
             );
         }
         else
@@ -204,8 +205,8 @@ xscale = 1; //muda entre esquerda e direita
             sprite = define_sprite
             (
                 dir, 
-                spr_player_run_side, 
-                spr_player_run_front, 
+                spr_player_run_front,
+                spr_player_run_side,
                 spr_player_run_back
             );
         }
@@ -226,14 +227,31 @@ xscale = 1; //muda entre esquerda e direita
     
     estado_atacando.inicia = function()
     {
-        //definindo a sprite do player de acordo com a direção
-        sprite = define_sprite
-        (
-            dir, 
-            spr_player_pic_idle_side, 
-            spr_player_pic_idle_side, 
-            spr_player_pic_idle_side
-        );
+        //verificando se esta andando
+        var _andando = hspd != 0 || vspd != 0;
+        
+        if (_andando)
+        {
+            //definindo a sprite do player de acordo com a direção
+            sprite = define_sprite
+            (
+                dir, 
+                spr_player_pic_atk_run_front, 
+                spr_player_pic_atk_run_side, 
+                spr_player_pic_atk_run_back
+            );
+        }
+        else
+        {
+            //definindo a sprite do player de acordo com a direção
+            sprite = define_sprite
+            (
+                dir, 
+                spr_player_pic_atk_idle_front, 
+                spr_player_pic_atk_idle_side, 
+                spr_player_pic_atk_idle_back
+            );
+        }
         
         //aplicando a sprite
         sprite_index = sprite;
@@ -247,14 +265,31 @@ xscale = 1; //muda entre esquerda e direita
     
     estado_atacando.roda = function()
     {
-        //definindo a sprite do player de acordo com a direção
-        sprite = define_sprite
-        (
-            dir, 
-            spr_player_pic_atk_side, 
-            spr_player_pic_atk_side, 
-            spr_player_pic_atk_side
-        );
+        //verificando se esta andando
+        var _andando = hspd != 0 || vspd != 0;
+        
+        if (_andando)
+        {
+            //definindo a sprite do player de acordo com a direção
+            sprite = define_sprite
+            (
+                dir, 
+                spr_player_pic_atk_run_front, 
+                spr_player_pic_atk_run_side, 
+                spr_player_pic_atk_run_back
+            );
+        }
+        else
+        {
+            //definindo a sprite do player de acordo com a direção
+            sprite = define_sprite
+            (
+                dir, 
+                spr_player_pic_atk_idle_front, 
+                spr_player_pic_atk_idle_side, 
+                spr_player_pic_atk_idle_back
+            );
+        }
         
         //aplicando a sprite
         sprite_index = sprite;
@@ -332,17 +367,7 @@ linha_mineracao = function()
     var _dist = 30;
     
     //pegando a direção da linha de acordo com a direção do player
-    switch (dir) 
-    {
-        //cima
-        case 1:
-            _dist -= 5;
-        break;
-        //baixo
-        case 3:
-            _dist += 7;
-        break;
-    } 
+
     
     //pegando direção do player pro mouse
     var _dir = point_direction(x, yy, mouse_x, mouse_y);

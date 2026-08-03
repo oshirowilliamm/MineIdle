@@ -58,3 +58,5 @@ roda_estado();
 usa_picareta();
 
 stamina();
+
+debugs();

@@ -6,22 +6,47 @@
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_75878328","path":"rooms/rm_upgrade/rm_upgrade.yy",},
-    {"name":"inst_2BFB4CF9","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"Stamina","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"inst_BA89F90","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"Picareta","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"Capacidade","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"Lanterna","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"Stamina1","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"Stamina3","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"Stamina2","path":"rooms/rm_upgrade/rm_upgrade.yy",},
   ],
   "isDnd":false,
   "layers":[
-    {"$GMRInstanceLayer":"","%Name":"UI","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"UI","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRInstanceLayer":"","%Name":"Instances","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_75878328","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_75878328","objectId":{"name":"obj_voltar","path":"objects/obj_voltar/obj_voltar.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":608.0,"y":32.0,},
-        {"$GMRInstance":"v4","%Name":"inst_2BFB4CF9","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_2BFB4CF9","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":96.0,"y":-32.0,},
-      ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":1.0,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_background","path":"sprites/spr_background/spr_background.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":1.0,"vtiled":true,"x":0,"y":0,},
+    {"$GMRInstanceLayer":"","%Name":"UI","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
+        {"$GMRInstance":"v4","%Name":"inst_BA89F90","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_BA89F90","objectId":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":-32.0,"y":-32.0,},
+      ],"layers":[],"name":"UI","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+    {"$GMRInstanceLayer":"","%Name":"Upgrades","depth":100,"effectEnabled":true,"effectType":null,"gridX":16,"gridY":16,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
+        {"$GMRInstance":"v4","%Name":"Stamina","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"Stamina","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3792.0,"y":2160.0,},
+        {"$GMRInstance":"v4","%Name":"Picareta","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"Picareta","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"global.upgrades.dano_picareta",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3888.0,"y":2160.0,},
+        {"$GMRInstance":"v4","%Name":"Capacidade","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"Capacidade","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"global.upgrades.capacidade",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3792.0,"y":2256.0,},
+        {"$GMRInstance":"v4","%Name":"Lanterna","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"Lanterna","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"global.upgrades.lanterna",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3888.0,"y":2256.0,},
+        {"$GMRInstance":"v4","%Name":"Stamina1","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"Stamina1","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"global.upgrades.teste",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3792.0,"y":2064.0,},
+        {"$GMRInstance":"v4","%Name":"Stamina3","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"Stamina3","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"global.upgrades.teste",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3696.0,"y":2160.0,},
+        {"$GMRInstance":"v4","%Name":"Stamina2","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"Stamina2","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"global.upgrades.teste",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3696.0,"y":2064.0,},
+      ],"layers":[],"name":"Upgrades","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+    {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.5,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_background","path":"sprites/spr_background/spr_background.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.5,"vtiled":true,"x":0,"y":0,},
   ],
   "name":"rm_upgrade",
   "parent":{
-    "name":"rooms",
-    "path":"folders/rooms.yy",
+    "name":"Vila",
+    "path":"folders/rooms/Vila.yy",
   },
   "parentRoom":null,
   "physicsSettings":{
@@ -34,14 +59,14 @@
   "resourceType":"GMRoom",
   "resourceVersion":"2.0",
   "roomSettings":{
-    "Height":360,
+    "Height":4320,
     "inheritRoomSettings":false,
     "persistent":false,
-    "Width":640,
+    "Width":7680,
   },
   "sequenceId":null,
   "views":[
-    {"hborder":300,"hport":720,"hspeed":-1,"hview":360,"inherit":false,"objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"vborder":160,"visible":true,"vspeed":-1,"wport":1280,"wview":640,"xport":0,"xview":0,"yport":0,"yview":0,},
+    {"hborder":300,"hport":720,"hspeed":-1,"hview":720,"inherit":false,"objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"vborder":160,"visible":true,"vspeed":-1,"wport":1280,"wview":1280,"xport":0,"xview":0,"yport":0,"yview":0,},
     {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
     {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},
     {"hborder":32,"hport":768,"hspeed":-1,"hview":768,"inherit":false,"objectId":null,"vborder":32,"visible":false,"vspeed":-1,"wport":1366,"wview":1366,"xport":0,"xview":0,"yport":0,"yview":0,},

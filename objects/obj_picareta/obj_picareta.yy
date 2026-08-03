@@ -29,10 +29,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_picareta",
-    "path":"sprites/spr_picareta/spr_picareta.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

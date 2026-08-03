@@ -70,8 +70,10 @@ if (debug)
         
     #endregion
     
-    //linha no centro
+    //linha vertical no centro
     draw_line(display_get_gui_width() / 2, 0, display_get_gui_width() / 2, room_height);
+    //linha horizontal no centro
+    draw_line(0, display_get_gui_height() / 2, room_width, display_get_gui_height() / 2);
     
     draw_set_alpha(1);
     draw_set_colour(-1);
@@ -82,12 +84,15 @@ if (debug)
 
 
 
-//desenhando as huds    
+//huds mina   
 desenha_sacola();
 desenha_stamina();
-desenha_moeda();
 desenha_botao_voltar();
+
+//huds vila
+desenha_moeda();
 desenha_inventario();
+desenha_voltar();
 
 
 draw_set_font(-1);

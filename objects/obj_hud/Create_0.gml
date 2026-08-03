@@ -11,9 +11,6 @@ itens_caindo = [];
 peso_atual = global.peso_atual;
 
 
-//tocando soundtrack
-//audio_play_sound(snd_mina_soundtrack, 100, 1);
-
 #region Mina
     
     //desenhando a barra de stamina
@@ -266,11 +263,13 @@ peso_atual = global.peso_atual;
         draw_sprite_ext(spr_moeda, frame, _x, _y, escala, escala, 0, c_white, 1);
         
         //texto da moeda
-        draw_set_valign(fa_middle);
+        draw_set_halign(0);
+        draw_set_valign(1);
         
         draw_text(_x + 40, _y, global.moeda);
         
         draw_set_valign(-1);
+        draw_set_halign(-1);
         draw_set_font(-1);
     }
     
@@ -406,6 +405,41 @@ peso_atual = global.peso_atual;
         }
         
         draw_set_font(-1);
+    }
+    
+    //desenhando o botao de voltar
+    desenha_voltar = function()
+    {
+        if (room == rm_vila || room == rm_mina) exit;
+        
+        var _x = display_get_gui_width() - (sprite_get_width(spr_voltar) * escala) / 2 - 20;
+        var _y = sprite_get_height(spr_voltar) * escala;
+        
+        //interagindo
+        var _mx = device_mouse_x_to_gui(0);
+        var _my = device_mouse_y_to_gui(0);
+        var _x1 = _x - (sprite_get_width(spr_voltar) * escala) / 2;
+        var _y1 = _y - (sprite_get_height(spr_voltar) * escala) / 2;
+        var _x2 = _x + (sprite_get_width(spr_voltar) * escala) / 2;
+        var _y2 = _y + (sprite_get_height(spr_voltar) * escala) / 2;
+        var _rectangle = point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
+        
+        if (_rectangle)
+        {
+            //selecionado
+            draw_sprite_ext(spr_voltar, 1, _x, _y, escala, escala, 0, c_white, 1);
+            
+            //indo pra vila
+            if (mouse_check_button_pressed(mb_left))
+            {
+                room_goto(rm_vila);
+            }
+        }
+        else
+        {
+            //não selecionado
+            draw_sprite_ext(spr_voltar, 0, _x, _y, escala, escala, 0, c_white, 1);
+        }
     }
     
 #endregion
