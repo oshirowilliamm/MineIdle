@@ -8,8 +8,8 @@
   "name":"obj_colisao",
   "overriddenProperties":[],
   "parent":{
-    "name":"Vila",
-    "path":"folders/Objects/Loja/Vila.yy",
+    "name":"Objects",
+    "path":"folders/Objects.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -33,7 +33,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_colisao",
+    "path":"sprites/spr_colisao/spr_colisao.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

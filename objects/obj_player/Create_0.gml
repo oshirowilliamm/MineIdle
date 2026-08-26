@@ -1,11 +1,12 @@
 //variaveis de movimento
-spd_max = 2
-spd = spd_max;
+spd = 2;
 hspd = 0;
 vspd = 0;
 
 //variaveis pra colisao
-colisoes = [obj_colisao, layer_tilemap_get_id("Tile_Parede")];
+colisoes_originais = [obj_colisao, layer_tilemap_get_id("Tile_Parede")];
+colisoes = colisoes_originais;
+noclip = false;
 
 //variaveis de estado
 estado = noone;
@@ -17,7 +18,7 @@ xscale = 1;
 controla_player = function()
 {
     inputs();
-    movimento();
+    aplica_velocidade();
     ajusta_escala();
 }
 
@@ -30,7 +31,7 @@ inputs = function()
     click   = mouse_check_button_pressed(mb_left);
 }
 
-movimento = function()
+aplica_velocidade = function()
 {
     //descobrindo direção (-1, 0, 1)
     var _xaxis = right - left;
@@ -52,7 +53,10 @@ movimento = function()
         hspd = 0;
         vspd = 0;
     }
-    
+}
+
+movimento = function()
+{
     //movendo e colisão
     move_and_collide(hspd, 0, colisoes, 12); //horizontal
     move_and_collide(0, vspd, colisoes, 12); //vertical
@@ -114,7 +118,20 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
 //metodos de estado
 estado_parado = function()
 {
+    controla_player();
     define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
+    
+    //mudando pro estado andando
+    if (right xor left || up xor down) estado = estado_andando;
+}
+
+estado_andando = function()
+{
+    controla_player();
+    define_sprite(spr_player_run_front, spr_player_run_side, spr_player_run_back);
+    
+    //mudando pro estado parado
+    if (hspd == 0 && vspd == 0) estado = estado_parado;
 }
 
 
@@ -135,7 +152,12 @@ estado = estado_parado;
         view_player = dbg_view("Player", true, 20, 80);
         
         //debugs 
-        dbg_watch(ref_create(id, "dir"), "dir");
+        dbg_slider(ref_create(id, "spd"), 2, 20, "Velocidade", 1);
+        dbg_button("NoClip", function()
+        {
+            noclip = !noclip;
+            colisoes = noclip ? [] : colisoes_originais;
+        })
     }
     
     ativa_debug = function()

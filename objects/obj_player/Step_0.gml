@@ -1,4 +1,4 @@
-controla_player();
+movimento();
 estado();
 
 
