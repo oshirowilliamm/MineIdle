@@ -13,7 +13,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Vendas",
-    "path":"folders/objects/loja/Vendas.yy",
+    "path":"folders/Objects/Loja/Vendas.yy",
   },
   "parentObjectId":null,
   "persistent":false,

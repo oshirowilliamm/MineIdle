@@ -23,7 +23,7 @@
   "name":"rm_refinacao",
   "parent":{
     "name":"Vila",
-    "path":"folders/rooms/Vila.yy",
+    "path":"folders/Rooms/Vila.yy",
   },
   "parentRoom":null,
   "physicsSettings":{

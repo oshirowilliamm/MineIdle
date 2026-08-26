@@ -10,8 +10,8 @@
   "name":"obj_mina",
   "overriddenProperties":[],
   "parent":{
-    "name":"mina",
-    "path":"folders/objects/mina.yy",
+    "name":"Mina",
+    "path":"folders/Objects/Mina.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -11,7 +11,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Refinacao",
-    "path":"folders/objects/loja/Refinacao.yy",
+    "path":"folders/Objects/Loja/Refinacao.yy",
   },
   "parentObjectId":null,
   "persistent":false,

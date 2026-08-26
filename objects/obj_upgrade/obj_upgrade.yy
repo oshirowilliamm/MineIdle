@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Upgrades",
-    "path":"folders/objects/loja/Upgrades.yy",
+    "path":"folders/Objects/Loja/Upgrades.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_mina_soundtrack",
   "parent":{
-    "name":"sounds",
-    "path":"folders/sounds.yy",
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

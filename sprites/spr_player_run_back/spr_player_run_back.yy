@@ -33,7 +33,7 @@
   "origin":7,
   "parent":{
     "name":"Run",
-    "path":"folders/sprites/Player/Run.yy",
+    "path":"folders/Sprites/Player/Run.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

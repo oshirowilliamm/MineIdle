@@ -31,7 +31,7 @@
   "origin":9,
   "parent":{
     "name":"Idle",
-    "path":"folders/sprites/Player/Idle.yy",
+    "path":"folders/Sprites/Player/Idle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

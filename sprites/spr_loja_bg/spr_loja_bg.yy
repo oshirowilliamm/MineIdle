@@ -42,7 +42,7 @@
   "origin":0,
   "parent":{
     "name":"Vendas",
-    "path":"folders/sprites/Loja/Vendas.yy",
+    "path":"folders/Sprites/Loja/Vendas.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

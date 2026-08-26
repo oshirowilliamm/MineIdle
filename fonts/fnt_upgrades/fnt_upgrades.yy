@@ -216,8 +216,8 @@
   "maintainGms1Font":false,
   "name":"fnt_upgrades",
   "parent":{
-    "name":"fontes",
-    "path":"folders/fontes.yy",
+    "name":"Fonts",
+    "path":"folders/Fonts.yy",
   },
   "pointRounding":0,
   "ranges":[

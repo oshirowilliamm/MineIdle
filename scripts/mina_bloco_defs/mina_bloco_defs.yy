@@ -6,7 +6,7 @@
   "name":"mina_bloco_defs",
   "parent":{
     "name":"Mina",
-    "path":"folders/scripts/Mina.yy",
+    "path":"folders/Scripts/Mina.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

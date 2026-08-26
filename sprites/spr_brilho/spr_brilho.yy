@@ -41,7 +41,7 @@
   "origin":0,
   "parent":{
     "name":"Minerios",
-    "path":"folders/sprites/Minerios.yy",
+    "path":"folders/Sprites/Minerios.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

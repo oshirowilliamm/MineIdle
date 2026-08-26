@@ -31,7 +31,7 @@
   "origin":9,
   "parent":{
     "name":"Normal",
-    "path":"folders/sprites/Player/Picareta/Idle/Normal.yy",
+    "path":"folders/Sprites/Player/Picareta/Idle/Normal.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

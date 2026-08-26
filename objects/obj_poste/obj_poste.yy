@@ -1,15 +1,13 @@
 {
   "$GMObject":"",
   "%Name":"obj_poste",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "eventList":[],
   "managed":true,
   "name":"obj_poste",
   "overriddenProperties":[],
   "parent":{
     "name":"Vila",
-    "path":"folders/objects/loja/Vila.yy",
+    "path":"folders/Objects/Loja/Vila.yy",
   },
   "parentObjectId":{
     "name":"obj_colisao",

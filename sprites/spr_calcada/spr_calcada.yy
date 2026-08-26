@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Vila",
-    "path":"folders/sprites/Loja/Vila.yy",
+    "path":"folders/Sprites/Loja/Vila.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -26,7 +26,7 @@
   "origin":4,
   "parent":{
     "name":"Mina",
-    "path":"folders/sprites/Mina.yy",
+    "path":"folders/Sprites/Mina.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

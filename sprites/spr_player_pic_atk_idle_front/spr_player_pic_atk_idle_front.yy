@@ -32,7 +32,7 @@
   "origin":9,
   "parent":{
     "name":"Atacando",
-    "path":"folders/sprites/Player/Picareta/Idle/Atacando.yy",
+    "path":"folders/Sprites/Player/Picareta/Idle/Atacando.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

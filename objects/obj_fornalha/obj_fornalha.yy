@@ -9,7 +9,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Refinacao",
-    "path":"folders/objects/loja/Refinacao.yy",
+    "path":"folders/Objects/Loja/Refinacao.yy",
   },
   "parentObjectId":{
     "name":"obj_par_refina",

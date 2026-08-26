@@ -6,8 +6,8 @@
   "name":"obj_tocha",
   "overriddenProperties":[],
   "parent":{
-    "name":"mina",
-    "path":"folders/objects/mina.yy",
+    "name":"Mina",
+    "path":"folders/Objects/Mina.yy",
   },
   "parentObjectId":null,
   "persistent":false,
