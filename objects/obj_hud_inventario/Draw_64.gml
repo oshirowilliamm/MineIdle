@@ -1,2 +1,2 @@
-desenha_mochila();
+desenha_livro();
 abre_inventario();

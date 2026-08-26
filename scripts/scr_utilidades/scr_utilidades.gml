@@ -190,6 +190,14 @@ function draw_animation(_frame, _sprite)
     return _frame
 }
 
-
-
-
+//fonte com sombra
+function texto_sombra(_x, _y, _texto, _escala, _espacamento = 2)
+{
+    //sombra
+    draw_set_colour(c_black);
+    draw_text_transformed(_x + _espacamento, _y + _espacamento, _texto, _escala, _escala, 0); 
+    draw_set_colour(-1);
+    
+    //texto
+    draw_text_transformed(_x, _y, _texto, _escala, _escala, 0); 
+}
