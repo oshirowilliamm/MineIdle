@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_debug_mode",
+  "%Name":"scr_macros",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_debug_mode",
+  "name":"scr_macros",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

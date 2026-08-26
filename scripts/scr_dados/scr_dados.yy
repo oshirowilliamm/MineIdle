@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_dados",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Dados",
+    "path":"folders/Scripts/Dados.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

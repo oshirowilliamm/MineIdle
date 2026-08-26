@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"teste",
+  "%Name":"scr_minerios",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"teste",
+  "name":"scr_minerios",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Dados",
+    "path":"folders/Scripts/Dados.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

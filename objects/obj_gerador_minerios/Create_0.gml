@@ -10,16 +10,18 @@ bloco_height = sprite_get_height(spr_minerios_blocos);
 
 
 
-
 gerador = function()
 {
     for (var i = 0; i < linhas; i++)
     {
         for (var j = 0; j < colunas; j++)
         {
+            //posição dos blocos
             var _x = x_inicial + (j * bloco_width);
             var _y = y_inicial + (i * bloco_height);
-            instance_create_layer(_x, _y, layer, obj_minerio);
+            
+            //criando o bloco
+            var _bloco = instance_create_layer(_x, _y, layer, obj_minerio, {tipo_bloco: "rocha1"});
         }
     }
 }

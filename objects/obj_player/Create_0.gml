@@ -20,6 +20,7 @@ cooldown_max = global.picareta.cooldown;
 cooldown_atual = 0;
 
 
+
 //metodos de movimento
 controla_player = function()
 {
@@ -77,6 +78,93 @@ ajusta_escala = function()
     dir = round(_dir / 90) % 4;
 }
 
+outras_funcoes = function()
+{
+    depth = -y;
+    
+    //y com offset
+    yy = y - 15;
+    
+    //voltando cooldown de mineração
+    if (cooldown_atual > 0) cooldown_atual--;
+}
+
+
+
+//metodos de mineração
+usa_equipamento = function()
+{
+    if (click)
+    {
+        //se o equip ainda n ta sendo usado e o cooldown deixar
+        if (!usando_equip && cooldown_atual <= 0)
+        {
+            usando_equip = true; //avisando que to usando o equip
+            cooldown_atual = cooldown_max;
+            estado = estado_minerando;
+            image_index = 0;
+        }
+    }
+}
+
+linha_mineracao = function()
+{
+    var _dist = 30; //distancia da linha
+    var _dir = point_direction(x, yy, mouse_x, mouse_y);
+    
+    var _x = x + lengthdir_x(_dist, _dir);
+    var _y = yy + lengthdir_y(_dist, _dir);
+    
+    return
+    {
+        x: _x,
+        y: _y
+    }
+}
+
+quebra_bloco = function()
+{
+    //quebra quando chegar no frame certo
+    if (image_index >= 2 && !golpe_aplicado)
+    {
+        //pegando a linha de mineração
+        var _linha = linha_mineracao();
+        
+        //se tem um bloco na minha visão
+        var _bloco = instance_position(_linha.x, _linha.y, obj_minerio);
+        
+        //dando dano
+        if (_bloco)
+        {
+            _bloco.recebe_dano(global.picareta.dano);
+        }
+        
+        //aplicando golpe
+        golpe_aplicado = true;
+    }
+}
+
+fim_animacao_minerar = function()
+{
+    if (image_index >= image_number - 1)
+    {
+        golpe_aplicado = false;
+        
+        //se continuar minerando
+        if (click && cooldown_atual <= 0)
+        {
+            image_index = 0;
+            cooldown_atual = cooldown_max;
+        }
+        //se parar de minerar
+        else
+        {
+            usando_equip = false;
+            estado = estado_andando;
+        }
+    }
+}
+
 
 
 //metodos de auxilio pro estado
@@ -127,36 +215,6 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
     }
 }
 
-usa_equipamento = function()
-{
-    if (click)
-    {
-        //se o equip ainda n ta sendo usado e o cooldown deixar
-        if (!usando_equip && cooldown_atual <= 0)
-        {
-            usando_equip = true; //avisando que to usando o equip
-            cooldown_atual = cooldown_max;
-            estado = estado_minerando;
-            image_index = 0;
-        }
-    }
-}
-
-linha_mineracao = function()
-{
-    var _dist = 30; //distancia da linha
-    var _dir = point_direction(x, yy, mouse_x, mouse_y);
-    
-    var _x = x + lengthdir_x(_dist, _dir);
-    var _y = yy + lengthdir_y(_dist, _dir);
-    
-    return
-    {
-        x: _x,
-        y: _y
-    }
-}
-
 
 
 //metodos de estado
@@ -200,38 +258,13 @@ estado_minerando = function()
         define_sprite(spr_player_pic_atk_idle_front, spr_player_pic_atk_idle_side, spr_player_pic_atk_idle_back);
     }
     
-    //golpe
-    if (image_index >= 2 && !golpe_aplicado)
-    {
-        //pegando a linha de mineração
-        var _linha = linha_mineracao();
-        
-        
-        
-        //aplicando golpe
-        golpe_aplicado = true;
-    }
+    //quebrando o bloco
+    quebra_bloco();
     
-    //fim da animação
-    if (image_index >= image_number - 1)
-    {
-        golpe_aplicado = false;
-        
-        //se continuar minerando
-        if (click && cooldown_atual <= 0)
-        {
-            image_index = 0;
-            cooldown_atual = cooldown_max;
-        }
-        //se parar de minerar
-        else
-        {
-            usando_equip = false;
-            estado = estado_andando;
-        }
-    }
+    //no fim da animação, sai do estado
+    fim_animacao_minerar();
 }
-
+ 
 
 
 //aplicamendo meu estado
