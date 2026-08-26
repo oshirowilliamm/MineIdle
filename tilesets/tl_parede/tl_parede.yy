@@ -1,18 +1,15 @@
 {
   "$GMTileSet":"v1",
-  "%Name":"tl_bordas",
+  "%Name":"tl_parede",
   "autoTileSets":[
     {"$GMAutoTileSet":"","%Name":"autotile_1","closed_edge":false,"name":"autotile_1","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[1,99,101,52,147,121,0,51,149,0,127,53,196,195,197,0,],},
-    {"$GMAutoTileSet":"","%Name":"autotile_2","closed_edge":false,"name":"autotile_2","resourceType":"GMAutoTileSet","resourceVersion":"2.0","tiles":[
-        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-      ],},
   ],
   "macroPageTiles":{
     "SerialiseHeight":0,
     "SerialiseWidth":0,
     "TileSerialiseData":[],
   },
-  "name":"tl_bordas",
+  "name":"tl_parede",
   "out_columns":15,
   "out_tilehborder":2,
   "out_tilevborder":2,
@@ -23,8 +20,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"spr_tile_bordas",
-    "path":"sprites/spr_tile_bordas/spr_tile_bordas.yy",
+    "name":"spr_tile_parede",
+    "path":"sprites/spr_tile_parede/spr_tile_parede.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{
