@@ -5,7 +5,10 @@
     {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
-    "children":[],
+    "children":[
+      {"children":[],"name":"normal",},
+      {"children":[],"name":"debug",},
+    ],
     "name":"Default",
   },
   "defaultScriptType":1,
@@ -176,7 +179,7 @@
     {"id":{"name":"mina_desenhos","path":"scripts/mina_desenhos/mina_desenhos.yy",},},
     {"id":{"name":"mina_tiles","path":"scripts/mina_tiles/mina_tiles.yy",},},
     {"id":{"name":"scr_dados","path":"scripts/scr_dados/scr_dados.yy",},},
-    {"id":{"name":"scr_estados","path":"scripts/scr_estados/scr_estados.yy",},},
+    {"id":{"name":"scr_debug_mode","path":"scripts/scr_debug_mode/scr_debug_mode.yy",},},
     {"id":{"name":"scr_globais","path":"scripts/scr_globais/scr_globais.yy",},},
     {"id":{"name":"scr_screenshake","path":"scripts/scr_screenshake/scr_screenshake.yy",},},
     {"id":{"name":"scr_tween","path":"scripts/scr_tween/scr_tween.yy",},},

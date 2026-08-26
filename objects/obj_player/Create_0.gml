@@ -7,11 +7,18 @@ vspd = 0;
 //variaveis pra colisao
 colisoes = [obj_colisao, layer_tilemap_get_id("Tile_Parede")];
 
+//variaveis de estado
+estado = noone;
+dir = 1;
+xscale = 1;
 
+
+//metodos de movimento
 controla_player = function()
 {
     inputs();
     movimento();
+    ajusta_escala();
 }
 
 inputs = function()
@@ -50,3 +57,112 @@ movimento = function()
     move_and_collide(hspd, 0, colisoes, 12); //horizontal
     move_and_collide(0, vspd, colisoes, 12); //vertical
 }
+
+ajusta_escala = function()
+{
+    //pegando a direção do mouse
+    var _dir = point_direction(x, y, mouse_x, mouse_y);
+    
+    //aplicando na direção do player
+    dir = round(_dir / 90) % 4;
+}
+
+
+
+//metodos de auxilio pro estado
+define_sprite = function(_spr_front, _spr_side, _spr_back)
+{
+    //definindo as sprites de acordo com a direção
+    switch (dir) 
+    {
+        //direita
+    	case 0: 
+        {
+            sprite_index = _spr_side; 
+            xscale = 1;
+            break;
+        }
+        
+        //cima
+        case 1: 
+        {
+            sprite_index = _spr_back; 
+            xscale = 1;
+            break;
+        }
+        
+        //esquerda
+        case 2: 
+        {
+            sprite_index = _spr_side; 
+            xscale = -1;
+            break;
+        }
+        
+        //baixo
+        case 3: 
+        {
+            sprite_index = _spr_front; 
+            xscale = 1;
+            break;
+        }
+    }
+}
+
+
+
+//metodos de estado
+estado_parado = function()
+{
+    define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
+}
+
+
+
+//aplicamendo meu estado
+estado = estado_parado;
+
+
+#region DEBUG
+    
+    view_player = false;
+    
+    roda_debug = function()
+    {
+        show_debug_overlay(1);
+        
+        //configurando view
+        view_player = dbg_view("Player", true, 20, 80);
+        
+        //debugs 
+        dbg_watch(ref_create(id, "dir"), "dir");
+    }
+    
+    ativa_debug = function()
+    {
+        //se n ta no modo debug, desativa 
+        if (!DEBUG_MODE) return;
+        
+        if (keyboard_check_pressed(vk_tab))
+        {
+            //alterando o valor do global.debug
+            global.debug = !global.debug;
+            
+            if (global.debug)
+            {
+                //rodando o debug do player
+                roda_debug();
+            }
+            else
+            {
+                show_debug_overlay(0);
+                //se o view ta ativo, deleta
+                if (dbg_view_exists(view_player))
+                {
+                    dbg_view_delete(view_player);
+                }
+            }
+        }
+    }
+    
+#endregion

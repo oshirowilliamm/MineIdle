@@ -1,6 +1,3 @@
-//ativa modo desenvolvimento
-#macro DEV_MODE true
-
 //blocos da mina
 enum BLOCOS 
 {
