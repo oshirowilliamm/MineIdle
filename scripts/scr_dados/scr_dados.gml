@@ -25,30 +25,6 @@ global.inventario_sacola =
     refinado: [0, 0, 0, 0]
 };
 
-//biomas
-global.biomas =
-[
-    {
-        nome: "Caverna",
-        conteudo:
-        [
-            {index: BLOCOS.pedra,   chance: 100, cresc: 0},
-            {index: BLOCOS.roxo,    chance: 5,   cresc: .5},
-            {index: BLOCOS.laranja,   chance: 1,   cresc: .5},
-            {index: BLOCOS.verde,    chance: 0,   cresc: .3},
-            {index: BLOCOS.rosa, chance: 0,   cresc: .2}
-        ]
-    },
-    { 
-        nome: "Deserto", 
-        conteudo: [
-            {index: BLOCOS.pedra,   chance: 80, cresc: 0},
-            {index: BLOCOS.laranja,    chance: 10, cresc: 2},
-            {index: BLOCOS.rosa, chance: 5,  cresc: 3}
-        ] 
-    }
-]
-
 //picareta
 global.picareta = 
 {

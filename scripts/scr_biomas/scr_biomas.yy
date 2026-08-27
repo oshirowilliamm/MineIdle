@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_macros",
+  "%Name":"scr_biomas",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_macros",
+  "name":"scr_biomas",
   "parent":{
     "name":"Dados",
     "path":"folders/Scripts/Dados.yy",

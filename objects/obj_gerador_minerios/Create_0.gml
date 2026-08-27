@@ -23,6 +23,7 @@ for (var i = 0; i < MAX_COLUNAS; i++)
 
 
 
+//metodos
 atualiza_blocos_visiveis = function()
 {
     //informações da camera
@@ -71,6 +72,12 @@ gera_colunas = function(_col)
         var _bloco = instance_create_layer(_x, _y, layer, obj_minerio, {tipo_bloco: _estado});
     }
 }
+
+gera_tipo_blocos = function()
+{
+    
+}
+
 
 
 #region DEBUG

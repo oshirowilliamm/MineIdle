@@ -1,13 +1,13 @@
 {
   "$GMRoom":"v1",
-  "%Name":"rm_mina",
+  "%Name":"rm_caverna1",
   "creationCodeFile":"",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_78DF0F07","path":"rooms/rm_mina/rm_mina.yy",},
-    {"name":"inst_78D90E56","path":"rooms/rm_mina/rm_mina.yy",},
+    {"name":"inst_78DF0F07","path":"rooms/rm_caverna1/rm_caverna1.yy",},
+    {"name":"inst_78D90E56","path":"rooms/rm_caverna1/rm_caverna1.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -27,7 +27,7 @@
     {"$GMRTileLayer":"","%Name":"Tile_Parede_Frente","depth":300,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Tile_Parede_Frente","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":12,"SerialiseWidth":110,"TileCompressedData":[-130,-2147483648,-10,220,-81,-2147483648,1,219,-107,220,-221,-2147483648,2,220,221,-768,-2147483648,],"TileDataFormat":1,},"tilesetId":{"name":"tl_parede","path":"tilesets/tl_parede/tl_parede.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"$GMRBackgroundLayer":"","%Name":"Chao","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":400,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Chao","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_chao","path":"sprites/spr_chao/spr_chao.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":true,"x":0,"y":0,},
   ],
-  "name":"rm_mina",
+  "name":"rm_caverna1",
   "parent":{
     "name":"Rooms",
     "path":"folders/Rooms.yy",
