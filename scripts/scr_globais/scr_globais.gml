@@ -34,3 +34,6 @@ global.picareta =
     dano: 5,
     cooldown: 15
 };
+
+//escala da hud
+global.escala_hud = 4;

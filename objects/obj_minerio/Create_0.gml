@@ -1,5 +1,9 @@
 depth = -y;
 
+//efeitos
+inicia_efeito_squash();
+inicia_efeito_brilho();
+
 //se o gerador n passou o tipo_bloco, coloca o padrão como a pedra 1
 if (!variable_instance_exists(id, "tipo_bloco")) tipo_bloco = "pedra1";
 
@@ -44,7 +48,15 @@ recebe_dano = function(_dano)
     {
         vida -= _dano;
         timer = tempo;
-        toca_som(snd_hit_bloco, .4);
+        
+        //efeitos
+        if (vida > 0)
+        {
+            toca_som(snd_hit_bloco, .4);
+            screenshake(2);
+            efeito_squash(.8, .8);
+            aplica_efeito_brilho();
+        }
     }
 }
 
@@ -53,7 +65,10 @@ morre = function()
     if (vida <= 0)
     {
         instance_destroy();
+        
+        //efeitos
         toca_som(snd_bloco_destruindo);
+        screenshake(5);
         
         //mudando o estado na struct
         var _col   = floor((x - X_INICIAL) / BLOCO_WIDTH);
@@ -68,11 +83,7 @@ morre = function()
 
 cria_drop = function(_minerio)
 {
-    //pegando o centro do bloco
-    var _x = x + BLOCO_WIDTH / 2;
-    var _y = y + BLOCO_HEIGHT / 2;
-    
-    //indos pra mandar pro drop
+    //infos pra mandar pro drop
     var _infos =
     {
         index: global.minerios[$ tipo_bloco].sprite,
@@ -80,7 +91,7 @@ cria_drop = function(_minerio)
     }
     
     //criando o drop
-    instance_create_layer(_x, _y, "Drops", obj_drop, _infos);
+    instance_create_layer(x, y, "Drops", obj_drop, _infos);
 }
 
 desenha_rachaduras = function()
@@ -102,7 +113,7 @@ desenha_rachaduras = function()
     else if (_porc <= _4)               _index = 4; //20% da vida
     
     //desenhando as rachaduras
-    draw_sprite(spr_rachaduras, _index, x, y);
+    draw_sprite_ext(spr_rachaduras, _index, x, y, xscale, yscale, 0, c_white, 1);
 }
 
 regenera_vida = function()

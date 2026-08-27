@@ -1,3 +1,7 @@
+//efeitos
+inicia_efeito_squash();
+inicia_efeito_brilho();
+
 //variaveis de movimento
 spd = 2;
 hspd = 0;
@@ -10,8 +14,8 @@ colisoes = colisoes_originais;
 
 //variaveis de estado
 estado = noone;
+direcao = 1;
 dir = 1;
-xscale = 1;
 
 //variaveis para minerar
 usando_equip = false;
@@ -75,7 +79,7 @@ ajusta_escala = function()
     var _dir = point_direction(x, y, mouse_x, mouse_y);
     
     //aplicando na direção do player
-    dir = round(_dir / 90) % 4;
+    direcao = round(_dir / 90) % 4;
 }
 
 outras_funcoes = function()
@@ -90,12 +94,15 @@ outras_funcoes = function()
         depth = layer_get_depth("Tile_Parede") - 10;
     }
     
-    
     //y com offset
     yy = y - 15;
     
     //voltando cooldown de mineração
     if (cooldown_atual > 0) cooldown_atual--;
+    
+    //efeitos
+    retorna_squash();
+    retorna_efeito_brilho();
 }
 
 
@@ -182,13 +189,13 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
     var _sprite = sprite_index;
     
     //definindo as sprites de acordo com a direção
-    switch (dir) 
+    switch (direcao) 
     {
         //direita
     	case 0: 
         {
             _sprite = _spr_side; 
-            xscale = 1;
+            dir = 1;
             break;
         }
         
@@ -196,7 +203,7 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
         case 1: 
         {
             _sprite = _spr_back; 
-            xscale = 1;
+            dir = 1;
             break;
         }
         
@@ -204,7 +211,7 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
         case 2: 
         {
             _sprite = _spr_side; 
-            xscale = -1;
+            dir = -1;
             break;
         }
         
@@ -212,7 +219,7 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
         case 3: 
         {
             _sprite = _spr_front; 
-            xscale = 1;
+            dir = 1;
             break;
         }
     }

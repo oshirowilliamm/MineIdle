@@ -1,6 +1,6 @@
 global.sacola = 
 {
-    max_peso: 1000,
+    max_peso: 5000,
     peso_atual: 0,
     
     itens: {},

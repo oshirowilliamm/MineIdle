@@ -10,8 +10,8 @@
   "name":"obj_debug",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Controladores",
+    "path":"folders/Objects/Controladores.yy",
   },
   "parentObjectId":null,
   "persistent":false,

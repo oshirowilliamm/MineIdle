@@ -120,6 +120,18 @@ coleta = function(_dist)
         //adicionando peso
         global.sacola.peso_atual += global.minerios[$ tipo_item].peso;
         
+        //lista de itens para cair na sacola
+        if (instance_exists(obj_hud))
+        {
+            array_push(obj_hud.itens_caindo, 
+            {
+                vspd: 0,
+                y: -5,
+                frame: global.minerios[$ tipo_item].sprite,
+                peso: global.minerios[$ tipo_item].peso,
+            });
+        }
+        
         //destruindo o drop
         instance_destroy();
     }

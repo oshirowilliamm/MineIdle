@@ -8,8 +8,8 @@
   "name":"obj_colisao",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Outros",
+    "path":"folders/Objects/Outros.yy",
   },
   "parentObjectId":null,
   "persistent":false,
