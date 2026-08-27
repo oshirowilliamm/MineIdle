@@ -1,1 +1,1 @@
-//define_room_width();
+atualiza_blocos_visiveis();

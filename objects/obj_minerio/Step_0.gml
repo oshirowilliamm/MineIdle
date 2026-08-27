@@ -1,4 +1,4 @@
-// Inherit the parent event
-event_inherited();
 
+
+descarrega_bloco();
 regenera_vida();

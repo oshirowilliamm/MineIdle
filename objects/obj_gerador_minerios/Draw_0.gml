@@ -1,1 +1,1 @@
-//desenha_numero_blocos();
+//desenha_numero_struct();

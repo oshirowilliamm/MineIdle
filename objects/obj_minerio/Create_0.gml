@@ -17,6 +17,24 @@ timer = tempo;
 
 
 
+descarrega_bloco = function()
+{
+    //informações da camera
+    var _vx = camera_get_view_x(view_camera[0]);
+    var _vw = camera_get_view_width(view_camera[0]);
+    
+    //pegando inicio e fim da camera
+    var _margem = sprite_width * 2;
+    var _inicio = _vx - _margem;
+    var _fim    = _vx + _vw + _margem;
+    
+    //se ficar fora da camera, se destroi
+    if (x < _inicio || x > _fim)
+    {
+        instance_destroy();
+    }
+}
+
 recebe_dano = function(_dano)
 {
     //morrendo
@@ -24,6 +42,12 @@ recebe_dano = function(_dano)
     {
         instance_destroy();
         toca_som(snd_bloco_destruindo);
+        
+        //mudando o estado na struct
+        var _col   = floor((x - X_INICIAL) / sprite_width);
+        var _linha = floor((y - Y_INICIAL) / sprite_height);
+        
+        global.blocos_struct[_col][_linha] = "vazio";
     }
     //tomando dano
     else

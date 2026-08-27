@@ -9,6 +9,9 @@ enum BLOCOS
 global.mina = noone;
 global.bioma_chunks = 11; //quantidade de chunks por bioma
 
+//mina
+global.blocos_struct = [];
+
 //dinheiro
 global.moeda = 50;
 

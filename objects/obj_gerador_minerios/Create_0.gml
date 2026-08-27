@@ -1,51 +1,107 @@
-linhas  = 8;
-colunas = 100;
+//posição inicial da primeira colunas
+#macro X_INICIAL 256
+#macro Y_INICIAL 64
 
-x_inicial = 256;
-y_inicial = 64;
+//colunas e linhas
+#macro MAX_COLUNAS 100 
+#macro MAX_LINHAS 8 
+
+//margem de visualização dos blocos
+#macro MARGEM 2 
 
 //variaveis do bloco
-bloco_width = sprite_get_width(spr_minerios_blocos);
+bloco_width  = sprite_get_width(spr_minerios_blocos);
 bloco_height = sprite_get_height(spr_minerios_blocos);
 
+//inicializando o blocos pos
+global.blocos_struct = array_create(MAX_COLUNAS);
 
-
-gerador = function()
+for (var i = 0; i < MAX_COLUNAS; i++)
 {
-    for (var i = 0; i < linhas; i++)
+    global.blocos_struct[i] = array_create(MAX_LINHAS, undefined);
+}
+
+
+
+atualiza_blocos_visiveis = function()
+{
+    //informações da camera
+    var _vx = camera_get_view_x(view_camera[0]);
+    var _vw = camera_get_view_width(view_camera[0]);
+    
+    //pegando colunas iniciais de finai
+    var _inicio = floor((_vx - X_INICIAL) / bloco_width) - MARGEM;
+    var _fim    = ceil(((_vx + _vw) - X_INICIAL) / bloco_width) + MARGEM;
+    
+    //travando as colunas
+    _inicio = max(0, _inicio);
+    _fim    = min(MAX_COLUNAS - 1, _fim);
+    
+    //gerando as colunas no range
+    for (var i = _inicio; i <= _fim; i++)
     {
-        for (var j = 0; j < colunas; j++)
-        {
-            //posição dos blocos
-            var _x = x_inicial + (j * bloco_width);
-            var _y = y_inicial + (i * bloco_height);
-            
-            //criando o bloco
-            var _bloco = instance_create_layer(_x, _y, layer, obj_minerio, {tipo_bloco: "rocha1"});
-        }
+        gera_colunas(i)
     }
 }
 
-gerador();
+gera_colunas = function(_col)
+{
+    for (var i = 0; i < MAX_LINHAS; i++)
+    {
+        //posição dos blocos
+        var _x = X_INICIAL + (_col * bloco_width);
+        var _y = Y_INICIAL + (i * bloco_height);
+        
+        //se o bloco ja foi criado, n faz nada
+        if (position_meeting(_x, _y, obj_minerio)) continue;
+        
+        //se o bloco foi quebrado, n faz nada
+        var _estado = global.blocos_struct[_col][i];
+        
+        if (_estado == "vazio") continue;
+        
+        //adicionando o bloco na estrutura
+        if (_estado == undefined)
+        {
+            _estado = "pedra1";
+            global.blocos_struct[_col][i] = _estado;
+        }
+        
+        //criando o bloco
+        var _bloco = instance_create_layer(_x, _y, layer, obj_minerio, {tipo_bloco: _estado});
+    }
+}
 
 
 #region DEBUG
     
-    define_room_width = function()
+    desenha_numero_struct = function()
     {
-        room_width = x_inicial + (colunas * bloco_width) + 64;
-    }
-    
-    desenha_numero_blocos = function()
-    {
-        for (var i = 0; i < linhas; i++)
+        //informações da camera
+        var _vx = camera_get_view_x(view_camera[0]);
+        var _vw = camera_get_view_width(view_camera[0]);
+        
+        //pegando colunas iniciais de finais
+        var _margem = 2;
+        var _inicio = floor((_vx - X_INICIAL) / bloco_width) - _margem;
+        var _fim    = ceil(((_vx + _vw) - X_INICIAL) / bloco_width) + _margem;
+        
+        //travando as colunas
+        _inicio = max(0, _inicio);
+        _fim    = min(MAX_COLUNAS - 1, _fim);
+        
+        //gerando as colunas no range
+        for (var i = _inicio; i <= _fim; i++)
         {
-            for (var j = 0; j < colunas; j++)
+            var _x = X_INICIAL + (i * bloco_width);
+            
+            for (var j = 0; j < MAX_LINHAS; j++)
             {
-                var _x = x_inicial + (j * bloco_width);
-                var _y = y_inicial + (i * bloco_height);
+                var _y = Y_INICIAL + (j * bloco_height);
                 
-                draw_text(_x, _y, j);
+                var _texto = string(global.blocos_struct[i][j]);
+                
+                draw_text_transformed(_x, _y, _texto, .5, .5, 0);
             }
         }
     }
