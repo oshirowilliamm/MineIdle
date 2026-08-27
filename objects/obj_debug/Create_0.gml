@@ -1,0 +1,146 @@
+depth = -99999;
+
+//janelas
+view_player = false;
+view_bloco = false;
+
+//controle de funções
+//player
+draw_mask_player = false;
+draw_linha = false;
+noclip = false;
+
+//bloco
+draw_vida_bloco = false;
+draw_regenera_bloco = false;
+
+
+
+cria_painel = function()
+{
+    show_debug_overlay(1);
+    
+    //player
+    if (instance_exists(obj_player))
+    {
+        view_player = dbg_view("Player", true, 20, 80);
+        
+        //debugs
+        dbg_watch(ref_create(obj_player, "image_index"), "image_index");
+        dbg_slider(ref_create(obj_player, "spd"), 2, 20, "Velocidade", 1);
+        dbg_checkbox(ref_create(id, "noclip"), "NoClip");
+        dbg_checkbox(ref_create(id, "draw_linha"), "Linha de Mineração");
+        dbg_checkbox(ref_create(id, "draw_mask_player"), "Máscara de Colisão");
+        
+        
+        //outros
+        dbg_watch(ref_create(obj_player, "usando_equip"), "usando_equip");
+        dbg_watch(ref_create(obj_player, "cooldown_atual"), "cooldown_atual");
+        dbg_watch(ref_create(obj_player, "golpe_aplicado"), "golpe_aplicado");
+    }
+    
+    //blocos
+    view_bloco = dbg_view("Bloco", true, 520, 80);
+    
+    //debugs
+    dbg_checkbox(ref_create(id, "draw_vida_bloco"), "Vida");
+    dbg_checkbox(ref_create(id, "draw_regenera_bloco"), "Regeneração");
+}
+
+deleta_painel = function()
+{
+    show_debug_overlay(0);
+    
+    if (dbg_view_exists(view_player)) dbg_view_delete(view_player);
+    if (dbg_view_exists(view_bloco)) dbg_view_delete(view_bloco);
+}
+
+ativa_painel = function()
+{
+    if (!DEBUG_MODE) return;
+    
+    if (keyboard_check_pressed(vk_tab))
+    {
+        //alterando o valor do global.debug
+        global.debug = !global.debug;
+        
+        if (global.debug)
+        {
+            cria_painel();
+        }
+        else
+        {
+            deleta_painel();
+        }
+    }
+}
+
+
+//funções
+#region Player
+    
+    ativa_noclip = function()
+    {
+        if (!instance_exists(obj_player)) return;
+        
+        obj_player.colisoes = noclip ? [] : obj_player.colisoes_originais;
+    }
+    
+    desenha_linha_mineracao = function()
+    {
+        if (!draw_linha || !instance_exists(obj_player)) return;
+        
+        var _linha = obj_player.linha_mineracao();
+        
+        draw_line(obj_player.x, obj_player.yy, _linha.x, _linha.y);
+    }
+    
+    desenha_mascara_player = function()
+    {
+        if (!draw_mask_player || !instance_exists(obj_player)) return;
+        
+        with (obj_player) 
+        {
+        	draw_set_colour(c_fuchsia);
+            
+            //fundo
+            draw_set_alpha(.2);
+            draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, 0);
+            
+            //out
+            draw_set_alpha(1);
+            draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, 1);
+            
+            draw_set_colour(-1);
+        }
+    }
+    
+#endregion
+
+#region Bloco
+    
+    desenha_vida_bloco = function()
+    {
+        if (!draw_vida_bloco || !instance_exists(obj_minerio)) return;
+        
+        with (obj_minerio) 
+        {
+        	draw_set_font(fnt_debug);
+            draw_text_transformed(x, y, string("Vida: {0}\nMax: {1}", vida, max_vida), .1, .1, 0)
+            draw_set_font(-1);
+        }
+    }
+    
+    desenha_regenera_bloco = function()
+    {
+        if (!draw_regenera_bloco || !instance_exists(obj_minerio)) return;
+        
+        with (obj_minerio) 
+        {
+        	draw_set_font(fnt_debug);
+            draw_text_transformed(x, y + 10, string(timer), .1, .1, 0)
+            draw_set_font(-1);
+        }
+    }
+    
+#endregion

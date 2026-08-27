@@ -40,7 +40,16 @@ descarrega_bloco = function()
 
 recebe_dano = function(_dano)
 {
-    //morrendo
+    if (vida > 0)
+    {
+        vida -= _dano;
+        timer = tempo;
+        toca_som(snd_hit_bloco, .4);
+    }
+}
+
+morre = function()
+{
     if (vida <= 0)
     {
         instance_destroy();
@@ -54,12 +63,6 @@ recebe_dano = function(_dano)
         
         //dropando item
         cria_drop(tipo_bloco);
-    }
-    //tomando dano
-    else
-    {
-        vida -= _dano;
-        toca_som(snd_hit_bloco, .4);
     }
 }
 

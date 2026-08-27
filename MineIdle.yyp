@@ -97,6 +97,7 @@
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
     {"id":{"name":"obj_colisao","path":"objects/obj_colisao/obj_colisao.yy",},},
     {"id":{"name":"obj_controller","path":"objects/obj_controller/obj_controller.yy",},},
+    {"id":{"name":"obj_debug","path":"objects/obj_debug/obj_debug.yy",},},
     {"id":{"name":"obj_drop_velho","path":"objects/obj_drop_velho/obj_drop_velho.yy",},},
     {"id":{"name":"obj_drop","path":"objects/obj_drop/obj_drop.yy",},},
     {"id":{"name":"obj_fonte_sapo","path":"objects/obj_fonte_sapo/obj_fonte_sapo.yy",},},

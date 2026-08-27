@@ -23,6 +23,8 @@ for (var i = 0; i < MAX_COLUNAS; i++)
 
 
 
+
+
 //metodos
 atualiza_blocos_visiveis = function()
 {
@@ -64,7 +66,7 @@ gera_colunas = function(_col)
         //adicionando o bloco na estrutura
         if (_estado == undefined)
         {
-            _estado = "b1_pedra";
+            _estado = gera_tipo_blocos();
             global.blocos_struct[_col][i] = _estado;
         }
         
@@ -75,7 +77,44 @@ gera_colunas = function(_col)
 
 gera_tipo_blocos = function()
 {
+    //var _chaves = struct_get_names(global.minerios);
+    //var _index = irandom(array_length(_chaves) - 1);
+       //
+    //return _chaves[_index];
     
+    var _room = room_get_name(room);
+    
+    //verificando o bioma que minha sala pertence
+    if (variable_struct_exists(global.biomas, _room))
+    {
+        var _bioma = global.biomas[$ _room];
+        var _blocos = _bioma.minerios;
+        
+        //somando as chances de todos os blocos
+        var _chances = 0;
+        for (var i = 0; i < array_length(_blocos); i++)
+        {
+            _chances += _blocos[i].chance;
+        }
+        
+        //sorteando um numero
+        var _sorteio = irandom(_chances - 1);
+        var _acumulado = 0;
+        
+        //verificando o bloco sorteado
+        for (var i = 0; i < array_length(_blocos); i++)
+        {
+            _acumulado += _blocos[i].chance;
+            
+            if (_sorteio <= _acumulado)
+            {
+                return _blocos[i].nome;
+            }
+        }
+    }
+    
+    //retorno de segurança
+    return "b1_pedra";
 }
 
 

@@ -33,6 +33,13 @@ controla_drop = function()
     y += vspd;
 }
 
+desacelera = function()
+{
+    hspd = lerp(hspd, 0, .1);
+    vspd = lerp(vspd, 0, .1);
+    spd  = lerp(spd, 0, .1);
+}
+
 pula = function()
 {
     //se ta no chão
@@ -55,12 +62,8 @@ pula = function()
     //caindo
     z += zspd;
     
-    //zerando movimentação
-    if (timer_andar > 0) 
-    {
-        hspd = lerp(hspd, 0, .1);
-        vspd = lerp(vspd, 0, .1);
-    }
+    //se n comecou a andar, desacelera
+    if (timer_andar > 0) desacelera();
 }
 
 //se atrai até o player
@@ -91,15 +94,11 @@ atrai = function()
                 
                 coleta(_dist);
             }
-            //se estiver fora do alcance
-            else
-            {
-                //zerando movimentação
-                hspd = lerp(hspd, 0, .1);
-                vspd = lerp(vspd, 0, .1);   
-            }
+            else desacelera();
         }
+        else desacelera();
     }
+    else desacelera();
 }
 
 coleta = function(_dist)
