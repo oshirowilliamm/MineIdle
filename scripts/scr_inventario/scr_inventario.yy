@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_dados",
+  "%Name":"scr_inventario",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_dados",
+  "name":"scr_inventario",
   "parent":{
     "name":"Dados",
     "path":"folders/Scripts/Dados.yy",

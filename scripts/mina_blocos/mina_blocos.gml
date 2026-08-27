@@ -108,7 +108,7 @@ function mina_cria_drop(_x, _y, _bloco_id)
     repeat (_bloco_def.quantidade_drop) 
     {
         //criando o drop
-        var _drop = instance_create_layer(_x, _y, "Drops", obj_drop, _drop_infos);
+        var _drop = instance_create_layer(_x, _y, "Drops", obj_drop_velho, _drop_infos);
     }
 }
 

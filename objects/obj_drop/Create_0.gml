@@ -1,32 +1,39 @@
-//variaveis de infos do bloco
-image_index = index //image_index de acordo com o tipo do bloco
-item_tipo = item; //tipo do bloco pra eu saber onde encaixar o drop
+//aplicando as infos que veio do bloco
+image_index = index;
+tipo_item = tipo;
 
-//variaveis de movimentacao, começa andando um pouco
-spd = 0;
-hspd = lengthdir_x(2, random(359)); //anda um pouco
-vspd = lengthdir_y(2, random(359));
-
-//variaveis de coleta
-pode_andar = false;
-raio_atracao = 96;
-raio_coleta = 30;
-alarm[0] = 30;
+//variaveis de movimentação
+spd  = 0;
+var _random = random(359);
+hspd = lengthdir_x(2, _random); //anda um pouco
+vspd = lengthdir_y(2, _random);
 
 //variaveis de gravidade
-z = -1; 
+z    = -1;
 zspd = -3; 
 grav = .3;
 
-//variaveis de colisao
-tile_minerios   = layer_exists("tl_minerios") ? layer_tilemap_get_id("tl_minerios") : -1;
-tile_bordas     = layer_exists("tl_bordas") ? layer_tilemap_get_id("tl_bordas") : -1;
+//variaveis de coleta
+raio_atracao = 96;
+raio_coleta = 10;
+tempo_andar = 30;
+timer_andar = tempo_andar;
 
-//criando colisao
-colisores = [tile_bordas, tile_minerios];
 
-//fazendo o drop pular do bloco
-pulando = function(_dist)
+
+controla_drop = function()
+{
+    depth = -y;
+    
+    pula();
+    atrai();
+    
+    //movendo
+    x += hspd;
+    y += vspd;
+}
+
+pula = function()
 {
     //se ta no chão
     if (z >= 0) 
@@ -34,6 +41,9 @@ pulando = function(_dist)
         //zero o zspd
         zspd = 0;
         z = 0;
+        
+        //abaixando o timer
+        if (timer_andar > 0) timer_andar--;
     }
     //se ta no ar
     else 
@@ -46,75 +56,72 @@ pulando = function(_dist)
     z += zspd;
     
     //zerando movimentação
-    if (!pode_andar) 
+    if (timer_andar > 0) 
     {
         hspd = lerp(hspd, 0, .1);
         vspd = lerp(vspd, 0, .1);
     }
 }
 
-//fazendo o drop ir ate o player
-sugando = function(_dist)
+//se atrai até o player
+atrai = function()
 {
-    //checando peso maximo
-    if (global.peso_atual < global.peso_max)
+    //só funciona se o player existir
+    if (!instance_exists(obj_player)) return;
+    
+    //verificando o peso
+    if (global.sacola.peso_atual < global.sacola.max_peso)
     {
-        //se estiver no raio de atração e poder andar
-        if (_dist <= raio_atracao && pode_andar)
-        {  
-            //direção do drop pro player
-            var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
-            
-            //definindo movimentação
-            spd = lerp(spd, 10, .01);
-            hspd = lengthdir_x(spd, _dir);
-            vspd = lengthdir_y(spd, _dir);
-            
-            coletando(_dist);
-        }
-        //se estiver fora do alcance
-        else
+        //se o timer acabou
+        if (timer_andar <= 0)
         {
-            //zerando movimentação
-            hspd = lerp(hspd, 0, .1);
-            vspd = lerp(vspd, 0, .1);   
+            //pegando a distancia entre eu e o player
+            var _dist = point_distance(x, y, obj_player.x, obj_player.yy);
+            
+            //se estiver no raio de atração
+            if (_dist <= raio_atracao)
+            {  
+                //direção do drop pro player
+                var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
+                
+                //definindo movimentação
+                spd  = lerp(spd, 10, .01);
+                hspd = lengthdir_x(spd, _dir);
+                vspd = lengthdir_y(spd, _dir);
+                
+                coleta(_dist);
+            }
+            //se estiver fora do alcance
+            else
+            {
+                //zerando movimentação
+                hspd = lerp(hspd, 0, .1);
+                vspd = lerp(vspd, 0, .1);   
+            }
         }
-    }
-    else
-    {
-        //zerando movimentação
-        hspd = lerp(hspd, 0, .1);
-        vspd = lerp(vspd, 0, .1);   
     }
 }
 
-//coletando drop
-coletando = function(_dist)
+coleta = function(_dist)
 {
-    //encostando no player
-    if (_dist < raio_coleta)
+    //se o drop ta no raio da coleta
+    if (_dist <= raio_coleta)
     {
-        var _item = global.inventario.minerio[item_tipo];
-        
-        //coletando item na sacola
-        global.inventario_sacola.minerio[item_tipo]++;
-        
-        //falando que o item foi descoberto
-        if (_item.descoberto == false) _item.descoberto = true;
+        //criando a chave
+        if (global.sacola.itens[$ tipo_item] == undefined)
+        {
+            global.sacola.itens[$ tipo_item] = 1;
+        }
+        //se ja existe, adiciona
+        else
+        {
+            global.sacola.itens[$ tipo_item]++;
+        }
         
         //adicionando peso
-        global.peso_atual += _item.peso;
+        global.sacola.peso_atual += global.minerios[$ tipo_item].peso;
         
-        //lista de itens para cair na sacola
-        array_push(obj_hud.itens_caindo, 
-        {
-            vspd: 0,
-            y: -5,
-            frame: item_tipo,
-            peso: _item.peso
-        });
-        
-        //destruindo
+        //destruindo o drop
         instance_destroy();
     }
 }

@@ -4,3 +4,5 @@ draw_sprite_ext(sprite_index, image_index, x, y, xscale, image_yscale, image_ang
 
 //debug
 desenha_linha_mineracao();
+desenha_mascara_colisao();
+desenha_mascara_colisao_bloco();

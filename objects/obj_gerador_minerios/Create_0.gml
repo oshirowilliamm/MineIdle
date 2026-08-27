@@ -3,15 +3,15 @@
 #macro Y_INICIAL 64
 
 //colunas e linhas
-#macro MAX_COLUNAS 100 
+#macro MAX_COLUNAS 50 
 #macro MAX_LINHAS 8 
 
 //margem de visualização dos blocos
 #macro MARGEM 2 
 
-//variaveis do bloco
-bloco_width  = sprite_get_width(spr_minerios_blocos);
-bloco_height = sprite_get_height(spr_minerios_blocos);
+//tamanho do bloco
+#macro BLOCO_WIDTH  32
+#macro BLOCO_HEIGHT 32
 
 //inicializando o blocos pos
 global.blocos_struct = array_create(MAX_COLUNAS);
@@ -31,8 +31,8 @@ atualiza_blocos_visiveis = function()
     var _vw = camera_get_view_width(view_camera[0]);
     
     //pegando colunas iniciais de finai
-    var _inicio = floor((_vx - X_INICIAL) / bloco_width) - MARGEM;
-    var _fim    = ceil(((_vx + _vw) - X_INICIAL) / bloco_width) + MARGEM;
+    var _inicio = floor((_vx - X_INICIAL) / BLOCO_WIDTH) - MARGEM;
+    var _fim    = ceil(((_vx + _vw) - X_INICIAL) / BLOCO_WIDTH) + MARGEM;
     
     //travando as colunas
     _inicio = max(0, _inicio);
@@ -50,8 +50,8 @@ gera_colunas = function(_col)
     for (var i = 0; i < MAX_LINHAS; i++)
     {
         //posição dos blocos
-        var _x = X_INICIAL + (_col * bloco_width);
-        var _y = Y_INICIAL + (i * bloco_height);
+        var _x = X_INICIAL + (_col * BLOCO_WIDTH);
+        var _y = Y_INICIAL + (i * BLOCO_HEIGHT);
         
         //se o bloco ja foi criado, n faz nada
         if (position_meeting(_x, _y, obj_minerio)) continue;
@@ -64,7 +64,7 @@ gera_colunas = function(_col)
         //adicionando o bloco na estrutura
         if (_estado == undefined)
         {
-            _estado = "pedra1";
+            _estado = "b1_pedra";
             global.blocos_struct[_col][i] = _estado;
         }
         
@@ -90,8 +90,8 @@ gera_tipo_blocos = function()
         
         //pegando colunas iniciais de finais
         var _margem = 2;
-        var _inicio = floor((_vx - X_INICIAL) / bloco_width) - _margem;
-        var _fim    = ceil(((_vx + _vw) - X_INICIAL) / bloco_width) + _margem;
+        var _inicio = floor((_vx - X_INICIAL) / BLOCO_WIDTH) - _margem;
+        var _fim    = ceil(((_vx + _vw) - X_INICIAL) / BLOCO_WIDTH) + _margem;
         
         //travando as colunas
         _inicio = max(0, _inicio);
@@ -100,11 +100,11 @@ gera_tipo_blocos = function()
         //gerando as colunas no range
         for (var i = _inicio; i <= _fim; i++)
         {
-            var _x = X_INICIAL + (i * bloco_width);
+            var _x = X_INICIAL + (i * BLOCO_WIDTH);
             
             for (var j = 0; j < MAX_LINHAS; j++)
             {
-                var _y = Y_INICIAL + (j * bloco_height);
+                var _y = Y_INICIAL + (j * BLOCO_HEIGHT);
                 
                 var _texto = string(global.blocos_struct[i][j]);
                 

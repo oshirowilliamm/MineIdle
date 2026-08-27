@@ -80,7 +80,16 @@ ajusta_escala = function()
 
 outras_funcoes = function()
 {
-    depth = -y;
+    //ajustando o depth de acordo com a room
+    if (room != rm_caverna1)
+    {
+        depth = -y;
+    }
+    else
+    {
+        depth = layer_get_depth("Tile_Parede") - 10;
+    }
+    
     
     //y com offset
     yy = y - 15;
@@ -289,6 +298,8 @@ estado = estado_parado;
         dbg_slider(ref_create(id, "spd"), 2, 20, "Velocidade", 1);
         dbg_checkbox(ref_create(id, "noclip"), "NoClip");
         dbg_checkbox(ref_create(id, "desenha_linha"), "Linha de Mineração");
+        dbg_checkbox(ref_create(id, "desenha_mask"), "Máscara de Colisão");
+        dbg_checkbox(ref_create(id, "desenha_mask_bloco"), "Máscara de Colisão do Bloco");
         
         
         //outros
@@ -342,6 +353,42 @@ estado = estado_parado;
         var _linha = linha_mineracao();
         
         draw_line(x, yy, _linha.x, _linha.y);
+    }
+    
+    desenha_mask = false
+    desenha_mascara_colisao = function()
+    {
+        if (!desenha_mask) return;
+        
+        draw_set_colour(c_fuchsia);
+        
+        //fundo
+        draw_set_alpha(.2);
+        draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, 0);
+        
+        //out
+        draw_set_alpha(1);
+        draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, 1);
+        
+        draw_set_colour(-1);
+    }
+    
+    desenha_mask_bloco = false
+    desenha_mascara_colisao_bloco = function()
+    {
+        if (!desenha_mask_bloco) return;
+        
+        draw_set_colour(c_fuchsia);
+        
+        //fundo
+        draw_set_alpha(.2);
+        draw_rectangle(obj_minerio.bbox_left, obj_minerio.bbox_top, obj_minerio.bbox_right, obj_minerio.bbox_bottom, 0);
+        
+        //out
+        draw_set_alpha(1);
+        draw_rectangle(obj_minerio.bbox_left, obj_minerio.bbox_top, obj_minerio.bbox_right, obj_minerio.bbox_bottom, 1);
+        
+        draw_set_colour(-1);
     }
     
 #endregion

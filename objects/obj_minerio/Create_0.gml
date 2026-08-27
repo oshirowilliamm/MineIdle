@@ -1,3 +1,5 @@
+depth = -y;
+
 //se o gerador n passou o tipo_bloco, coloca o padrão como a pedra 1
 if (!variable_instance_exists(id, "tipo_bloco")) tipo_bloco = "pedra1";
 
@@ -17,6 +19,7 @@ timer = tempo;
 
 
 
+
 descarrega_bloco = function()
 {
     //informações da camera
@@ -24,7 +27,7 @@ descarrega_bloco = function()
     var _vw = camera_get_view_width(view_camera[0]);
     
     //pegando inicio e fim da camera
-    var _margem = sprite_width * 2;
+    var _margem = BLOCO_WIDTH * 2;
     var _inicio = _vx - _margem;
     var _fim    = _vx + _vw + _margem;
     
@@ -44,10 +47,13 @@ recebe_dano = function(_dano)
         toca_som(snd_bloco_destruindo);
         
         //mudando o estado na struct
-        var _col   = floor((x - X_INICIAL) / sprite_width);
-        var _linha = floor((y - Y_INICIAL) / sprite_height);
+        var _col   = floor((x - X_INICIAL) / BLOCO_WIDTH);
+        var _linha = floor((y - Y_INICIAL) / BLOCO_HEIGHT);
         
         global.blocos_struct[_col][_linha] = "vazio";
+        
+        //dropando item
+        cria_drop(tipo_bloco);
     }
     //tomando dano
     else
@@ -55,6 +61,23 @@ recebe_dano = function(_dano)
         vida -= _dano;
         toca_som(snd_hit_bloco, .4);
     }
+}
+
+cria_drop = function(_minerio)
+{
+    //pegando o centro do bloco
+    var _x = x + BLOCO_WIDTH / 2;
+    var _y = y + BLOCO_HEIGHT / 2;
+    
+    //indos pra mandar pro drop
+    var _infos =
+    {
+        index: global.minerios[$ tipo_bloco].sprite,
+        tipo: tipo_bloco
+    }
+    
+    //criando o drop
+    instance_create_layer(_x, _y, "Drops", obj_drop, _infos);
 }
 
 desenha_rachaduras = function()

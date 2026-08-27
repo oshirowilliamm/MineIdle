@@ -27,3 +27,10 @@ global.peso_atual = 0;
 //lanterna do player
 global.alcance_lanterna = .7;
 global.brilho_lanterna = 1;
+
+//picareta
+global.picareta = 
+{
+    dano: 5,
+    cooldown: 15
+};
