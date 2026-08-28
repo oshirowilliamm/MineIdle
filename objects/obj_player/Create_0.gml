@@ -155,6 +155,8 @@ quebra_bloco = function()
             _bloco.recebe_dano(global.picareta.dano);
         }
         
+        efeito_squash(1.5, .8);
+        
         //aplicando golpe
         golpe_aplicado = true;
     }
@@ -285,3 +287,8 @@ estado_minerando = function()
 
 //aplicamendo meu estado
 estado = estado_parado;
+
+//criando minha sombra
+sombra = instance_create_depth(x, y, 1, obj_sombra);
+sombra.dono = id;
+sombra.escala = .7;

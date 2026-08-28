@@ -38,7 +38,7 @@ peso_atual = global.peso_atual;
     //desenhando botão pra ir para vila
     desenha_botao_voltar = function()
     {
-        draw_set_font(fnt_ui);
+        draw_set_font(fnt_game);
         
         //so desenha na mina
         if (room != rm_mina) exit;
@@ -99,7 +99,7 @@ peso_atual = global.peso_atual;
     //desenhando a sacola que guarda os itens
     desenha_sacola = function()
     {
-        draw_set_font(fnt_ui);
+        draw_set_font(fnt_game);
         
         //só desenha na mina
         if (room == rm_mina) 
@@ -245,7 +245,7 @@ peso_atual = global.peso_atual;
     //desenhando a moeda
     desenha_moeda = function()
     {
-        draw_set_font(fnt_ui);
+        draw_set_font(fnt_game);
         
         //não desenha a moeda na mina
         if (room == rm_mina) exit;
@@ -272,7 +272,7 @@ peso_atual = global.peso_atual;
     //desenhando o inventario
     desenha_inventario = function()
     {
-        draw_set_font(fnt_ui);
+        draw_set_font(fnt_game);
         
         //não desenha na mina nem no upgrades
         if (room == rm_mina || room == rm_upgrade) exit;

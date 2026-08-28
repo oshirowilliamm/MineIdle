@@ -1,0 +1,1 @@
+texto_sombra(xtxt, ytxt, texto, 0, .4, .4, , , , alpha);

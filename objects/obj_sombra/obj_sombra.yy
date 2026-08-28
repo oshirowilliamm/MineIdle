@@ -1,19 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_drop_velho",
+  "%Name":"obj_sombra",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":5,"eventType":7,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_drop_velho",
+  "name":"obj_sombra",
   "overriddenProperties":[],
   "parent":{
-    "name":"Mina",
-    "path":"folders/Objects/Mina.yy",
+    "name":"Outros",
+    "path":"folders/Objects/Outros.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -33,10 +31,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_minerios",
-    "path":"sprites/spr_minerios/spr_minerios.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

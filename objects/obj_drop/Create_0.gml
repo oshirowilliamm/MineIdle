@@ -12,6 +12,7 @@ vspd = lengthdir_y(2, _random);
 z    = -1;
 zspd = -3; 
 grav = .3;
+flutuando = false;
 
 //variaveis de coleta
 raio_atracao = 96;
@@ -42,25 +43,29 @@ desacelera = function()
 
 pula = function()
 {
-    //se ta no chão
-    if (z >= 0) 
+    //no ar, caindo
+    if (!flutuando)
     {
-        //zero o zspd
-        zspd = 0;
-        z = 0;
+        //aplicando a gravidade
+        zspd += grav;
+        z += zspd;
+        
+        //se bateu no chão, avisa q ta flutuando
+        if (z >= 0)
+        {
+            z = 0;
+            flutuando = true;
+        }
+    }
+    //no chão, flutuando
+    else
+    {
+        var _z_flutuando = sin(current_time / 300) - 4;
+        z = lerp(z, _z_flutuando, .2);
         
         //abaixando o timer
         if (timer_andar > 0) timer_andar--;
     }
-    //se ta no ar
-    else 
-    {
-        //aplica gravidade
-        zspd += grav;
-    }
-    
-    //caindo
-    z += zspd;
     
     //se n comecou a andar, desacelera
     if (timer_andar > 0) desacelera();
@@ -132,7 +137,19 @@ coleta = function(_dist)
             });
         }
         
+        //efeito no player
+        with (obj_player) 
+        {
+        	var _escala = random_range(.1, .3);
+            efeito_squash(1 + _escala, 1 + _escala);
+            aplica_efeito_brilho(global.minerios[$ other.tipo_item].cor);
+        }
+        
         //destruindo o drop
         instance_destroy();
     }
 }
+
+//criando minha sombra
+sombra = instance_create_depth(x, y, depth, obj_sombra);
+sombra.dono = id;

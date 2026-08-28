@@ -1,6 +1,33 @@
 //deixando jogo aleatorio
 randomise();
 
+//fonte com sombra
+function texto_sombra(_x, _y, _texto, _espacamento = 2, _xscale = 1, _yscale = 1, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
+{
+    //texto
+    var _txt = scribble(_texto)
+        .starting_format(_font, c_white)
+        .align(_halign, _valign)
+        .transform(_xscale, _yscale);
+    
+    //sombra
+    _txt.blend(c_black, _alpha)
+        .draw(_x + _espacamento, _y + _espacamento);
+    
+    //normal
+    _txt.blend(_cor, _alpha)
+        .draw(_x, _y);
+}
+
+
+//toca audio
+function toca_som(_snd, _pitch = .1)
+{
+    var _p = random_range(1 - _pitch, 1 + _pitch);
+    audio_play_sound(_snd, 0, 0, , , _p);
+}
+
+
 //sombra
 function desenha_sombra(_scale = .5)
 {
@@ -8,6 +35,7 @@ function desenha_sombra(_scale = .5)
 	var _y = y - sprite_yoffset + sprite_height; 
 	draw_sprite_ext(spr_sombra, 0, x, _y, _scale, _scale, 0, c_white, .25);
 }
+
 
 //seleção
 function selecao()
@@ -21,6 +49,7 @@ function selecao()
         image_index = 0;
     }
 }
+
 
 //infos de loja
 function info_loja(_valor)
@@ -73,6 +102,7 @@ function info_loja(_valor)
     draw_set_font(-1);
 }
 
+
 //animação em draw_sprite
 function draw_animation(_frame, _sprite)
 {
@@ -90,34 +120,6 @@ function draw_animation(_frame, _sprite)
     
     return _frame
 }
-
-//fonte com sombra
-function texto_sombra(_x, _y, _texto, _escala, _espacamento = 2)
-{
-    //sombra
-    draw_set_colour(c_black);
-    draw_text_transformed(_x + _espacamento, _y + _espacamento, _texto, _escala, _escala, 0); 
-    draw_set_colour(-1);
-    
-    //texto
-    draw_text_transformed(_x, _y, _texto, _escala, _escala, 0); 
-}
-
-//toca audio
-function toca_som(_snd, _pitch = .1)
-{
-    var _p = random_range(1 - _pitch, 1 + _pitch);
-    audio_play_sound(_snd, 0, 0, , , _p);
-}
-
-
-
-
-
-
-
-
-
 
 
 
