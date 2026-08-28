@@ -3,7 +3,7 @@
 #macro Y_INICIAL 79
 
 //colunas e linhas
-#macro MAX_COLUNAS 50 
+#macro MAX_COLUNAS 100 
 #macro MAX_LINHAS 8
 
 //margem de visualização dos blocos

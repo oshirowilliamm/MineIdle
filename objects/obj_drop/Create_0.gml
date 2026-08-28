@@ -111,27 +111,14 @@ coleta = function(_dist)
     //se o drop ta no raio da coleta
     if (_dist <= raio_coleta)
     {
-        //criando a chave
-        if (global.sacola.itens[$ tipo_item] == undefined)
-        {
-            global.sacola.itens[$ tipo_item] = 1;
-        }
-        //se ja existe, adiciona
-        else
-        {
-            global.sacola.itens[$ tipo_item]++;
-        }
-        
-        //adicionando peso
-        global.sacola.peso_atual += global.minerios[$ tipo_item].peso;
-        
-        //lista de itens para cair na sacola
+        //mandando o drop pra sacola
         if (instance_exists(obj_hud))
         {
             array_push(obj_hud.itens_caindo, 
             {
                 vspd: 0,
                 y: -5,
+                tipo: tipo_item,
                 frame: global.minerios[$ tipo_item].sprite,
                 peso: global.minerios[$ tipo_item].peso,
             });

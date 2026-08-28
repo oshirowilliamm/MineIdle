@@ -5,12 +5,12 @@ inicia_efeito_squash();
 desenha_hud = function()
 {
     desenha_sacola();
+    desenha_stamina();
 }
 
 #region Sacola
     
     itens_caindo = [];
-    peso_atual = global.sacola.peso_atual;
     peso_desenhado = 0;
     escala_sacola = global.escala_hud;
     
@@ -29,7 +29,7 @@ desenha_hud = function()
         draw_sprite_ext(spr_sacola, 1, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
         
         //adicionando os minerios na sacola de acordo com o peso
-        var _porc = (peso_atual / global.sacola.max_peso) * 100;
+        var _porc = (global.sacola.peso_atual / global.sacola.max_peso) * 100;
         var _index = 0;
         
         //se tiver em 100%, a sacola treme
@@ -65,24 +65,34 @@ desenha_hud = function()
         //rodando a lista de tras pra frente pra poder deletar mais facil
         for (var i = array_length(itens_caindo) - 1; i >= 0; i--)
         {
-            var _atual = itens_caindo[i];
+            var _item = itens_caindo[i];
             
             //aplicando velocidade
-            _atual.vspd += .5;
-            _atual.y += _atual.vspd;
+            _item.vspd += .5;
+            _item.y += _item.vspd;
             
             //desenhando a sprite
-            draw_sprite_ext(spr_minerios_pequenos, _atual.frame, _xsacola, _atual.y, escala_sacola, escala_sacola, 0, c_white, 1);
+            draw_sprite_ext(spr_minerios_pequenos, _item.frame, _xsacola, _item.y, escala_sacola, escala_sacola, 0, c_white, 1);
             
             //apagando se chegou na sacola
-            if (_atual.y >= _ysacola)
+            if (_item.y >= _ysacola)
             {
-                peso_atual += _atual.peso;
+                //criando a chave
+                if (global.sacola.itens[$ _item.tipo] == undefined)
+                {
+                    global.sacola.itens[$ _item.tipo] = 0;
+                }
+                
+                //adicionando minerio
+                global.sacola.itens[$ _item.tipo]++;
+                
+                //adicionando peso
+                global.sacola.peso_atual += _item.peso;
                 
                 //efeito
                 efeito_squash(1.5, .5);
                 var _txt = instance_create_depth(0, 0, -9999, obj_texto_voador, {xx: _xsacola, yy: _ysacola});
-                _txt.texto = "[wave]+" + string(_atual.peso) + "kg[/]";
+                _txt.texto = "[wave]+" + string(_item.peso) + "kg[/]";
                 
                 //deletando o item da array
                 array_delete(itens_caindo, i, 1);
@@ -100,7 +110,7 @@ desenha_hud = function()
         var _cor = c_white;
         
         //porcentagem
-        peso_desenhado = lerp(peso_desenhado, peso_atual, .1);
+        peso_desenhado = lerp(peso_desenhado, global.sacola.peso_atual, .1);
         var _porc = string(round((peso_desenhado / global.sacola.max_peso) * 100));
         var _texto = "";
         
@@ -121,58 +131,91 @@ desenha_hud = function()
     
     sacola_infos = function(_xsacola, _ysacola)
     {
-        //so desenha se tiver algum item na sacola
+        //só desenha se tiver algum item na sacola
         if (global.sacola.peso_atual <= 0) return;
         
-        //mouse
-        var _mx = device_mouse_x_to_gui(0);
-        var _my = device_mouse_y_to_gui(0);
-        
-        //posição da sacola
-        var _x1 = _xsacola - (sprite_get_width(spr_sacola) / 2) * escala_sacola;
-        var _y1 = _ysacola - (sprite_get_height(spr_sacola) / 2) * escala_sacola;
-        var _x2 = _xsacola + (sprite_get_width(spr_sacola) / 2) * escala_sacola;
-        var _y2 = _ysacola + (sprite_get_height(spr_sacola) / 2) * escala_sacola;
-        var _rectangle = point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
+        var _mouse_sobre = mouse_sobre_ui(_xsacola, _ysacola, spr_sacola, escala_sacola);
          
-        if (_rectangle)
+        if (_mouse_sobre)
         {
             //desenhando fundo
-            var _wfundo = 200;
-            var _hfundo = 300;
-            var _xfundo = max(0, _mx - _wfundo / 2);
-            var _yfundo = _my - _hfundo;
-            draw_sprite_stretched(spr_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
+            var _mx = device_mouse_x_to_gui(0);
+            var _my = device_mouse_y_to_gui(0);   
+            var _wfundo = 400;
+            var _hfundo = 350;
+            var _xfundo = _xsacola + 80;
+            var _min = display_get_gui_height() - _hfundo;
+            var _max = _my - _hfundo / 1.5;
+            var _yfundo = min(_min, _max);
             
-            //variaveis pro desenho do drop
-            var _wdrops = (sprite_get_width(spr_minerios_pequenos) * escala_sacola);
-            var _hdrops = (sprite_get_height(spr_minerios_pequenos) * escala_sacola);
-            var _margem = escala_sacola * 5;
-            var _desenhados = 0; //calcula a posição y dos itens
+            draw_sprite_stretched(spr_fundo_infos, 0, _xfundo, _yfundo, _wfundo, _hfundo);
             
-            //desenhando minérios
-            for (var i = 0; i < array_length(global.sacola.itens); i++)
+            //desenhando a barra
+            var _xbar = _xfundo + 20;
+            var _ybar = _yfundo + 20;
+            var _wbar = sprite_get_width(spr_barra) + 40;
+            var _hbar = sprite_get_height(spr_barra) + 8;
+            
+            var _porc = clamp(peso_desenhado / global.sacola.max_peso, 0, 1);
+            
+            draw_sprite_stretched(spr_barra, 1, _xbar, _ybar, _wbar, _hbar);
+            draw_sprite_stretched(spr_barra, 2, _xbar, _ybar, _wbar * _porc, _hbar);
+            draw_sprite_stretched(spr_barra, 0, _xbar, _ybar, _wbar, _hbar);
+            
+            //desenhando o texto da capacidade
+            var _xcap = _xfundo + _wfundo / 2;
+            var _ycap = _ybar - 5;
+            
+            if (_porc < .99)
             {
-                var _item = global.sacola.itens[i];
+                texto_sombra(_xcap - 20, _ycap, string("{0}kg", round(peso_desenhado)), 2, .3, , 2); //capacidade atual
+                texto_sombra(_xcap, _ycap, " / ", 2, .3, , 1); // "/"
+                texto_sombra(_xcap + 20, _ycap, string("{0}kg", global.sacola.max_peso), 2, .3); //capacidade maxima
+            }
+            else
+            {
+                texto_sombra(_xcap, _ycap, "[shake][pulse]FULL[/]", 2, .3, , 1, , c_red);
+            }
+            
+            //variaveis pro desenho dos minerios
+            var _colunas = 4;
+            var _espaco_x = 100;
+            var _espaco_y = 70;
+            var _x_inicial = _xfundo + 40;
+            var _y_inicial = _ybar + 90;
+            
+            draw_line_width_color(_xfundo + 20, _y_inicial - 30, _xfundo + _wfundo - 20, _y_inicial - 30, 4, #190606, #190606);
+            
+            //rodando meus itens
+            var _chaves = struct_get_names(global.sacola.itens);
+            for (var i = 0; i < array_length(_chaves); i++)
+            {
+                var _item   = _chaves[i];
+                var _qtd    = global.sacola.itens[$ _item];
+                var _dados  = global.minerios[$ _item];
                 
-                //se ja pegou o item
-                if (_item <= 0) continue;
+                //pegando a posição em grid
+                var _coluna = i % _colunas;
+                var _linha  = floor(i / _colunas);
+                var _x = _x_inicial + (_coluna * _espaco_x);
+                var _y = _y_inicial + (_linha * _espaco_y);
                 
-                //desenhando sprite dos minerios
-                var _xdrop = _xfundo + _wdrops;
-                var _ydrop = _yfundo + _hdrops + (_desenhados * (_hdrops + _margem));
-                draw_sprite_ext(spr_minerios_pequenos, i, _xdrop, _ydrop, escala_sacola, escala_sacola, 0, c_white, 1);
+                //sprite
+                draw_sprite_ext(spr_minerios_pequenos, _dados.sprite, _x, _y, escala_sacola, escala_sacola, 0, c_white, 1);
                 
-                //somando itens ja desenhados
-                _desenhados++;
-                
-                //desenhando texto do valor
-                var _xtxt = _xdrop + _wdrops;
-                var _ytxt = _ydrop - (_hdrops - 10);
-                draw_text(_xtxt, _ytxt, "=");
-                draw_text(_xdrop + _wdrops * 2, _ytxt, _item);
+                //quantidade
+                texto_sombra(_x + 20, _y - 10, "x" + string(_qtd), 2, .3);
             }
         }
     }
      
+#endregion
+
+#region Stamina
+    
+    desenha_stamina = function()
+    {
+        
+    }
+    
 #endregion

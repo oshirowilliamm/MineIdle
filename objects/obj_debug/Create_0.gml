@@ -31,6 +31,7 @@ cria_painel = function()
         dbg_checkbox(ref_create(id, "noclip"), "NoClip");
         dbg_checkbox(ref_create(id, "draw_linha"), "Linha de Mineração");
         dbg_checkbox(ref_create(id, "draw_mask_player"), "Máscara de Colisão");
+        dbg_slider(ref_create(global.picareta, "dano"), 5, 100, "Dano Picareta", 1);
         
         
         //outros

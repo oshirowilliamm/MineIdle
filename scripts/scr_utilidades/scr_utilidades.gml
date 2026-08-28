@@ -1,8 +1,32 @@
 //deixando jogo aleatorio
 randomise();
 
+function restart()
+{
+    if (keyboard_check_pressed(ord("R"))) 
+    {
+        global.sacola = 
+        {
+            max_peso: 50,
+            peso_atual: 0,
+            
+            itens: {},
+        };
+        
+        global.inventario_global =
+        {
+            minerios: {},
+            limpos: {},
+            refinados: {},
+        }
+        
+        room_restart();
+    }
+}
+
+
 //fonte com sombra
-function texto_sombra(_x, _y, _texto, _espacamento = 2, _xscale = 1, _yscale = 1, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
+function texto_sombra(_x, _y, _texto, _espacamento = 2, _xscale = 1, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
 {
     //texto
     var _txt = scribble(_texto)
@@ -37,69 +61,26 @@ function desenha_sombra(_scale = .5)
 }
 
 
-//seleção
-function selecao()
+function mouse_sobre_ui(_x, _y, _sprite, _escala_x = 1, _escala_y = _escala_x)
 {
-    if (position_meeting(mouse_x, mouse_y, id))
-    {
-        image_index = 1;
-    }
-    else
-    {
-        image_index = 0;
-    }
-}
-
-
-//infos de loja
-function info_loja(_valor)
-{
-    draw_set_font(fnt_itens);
-    draw_set_halign(fa_center);
+    //mouse
+    var _mx = device_mouse_x_to_gui(0);
+    var _my = device_mouse_y_to_gui(0);    
     
-    //variaveis do mouse
-    var _x = device_mouse_x_to_gui(0);
-    var _y = device_mouse_y_to_gui(0);
+    //tamanho da sprite
+    var _w  = sprite_get_width(_sprite) * _escala_x;
+    var _h  = sprite_get_height(_sprite) * _escala_y;
+    var _ox = sprite_get_xoffset(_sprite) * _escala_x;
+    var _oy = sprite_get_yoffset(_sprite) * _escala_y;
     
-    //margem do fundo
-    var _margem = 40;
+    //posição
+    var _x1 = _x - _ox;
+    var _y1 = _y - _oy;
+    var _x2 = _x1 + _w;
+    var _y2 = _y1 + _h;
     
-    //largura do fundo
-    var _wnome = string_width(texto);
-    var _wvenda = string_width(_valor) + sprite_get_width(spr_moeda);
-    var _wfundo = max(_wnome, _wvenda) + _margem;
-    
-    //altura do fundo
-    var _hnome = string_height(texto);
-    var _hvenda = max(string_height(_valor), sprite_get_height(spr_moeda));
-    var _espaco = 20; //espaço entre nome e venda
-    var _hfundo = _hnome + _hvenda + _espaco + _margem;
-    
-    //posição do fundo
-    var _xfundo = _x;
-    var _yfundo = _y - _hfundo;
-    
-    //desenhando fundo
-    draw_sprite_stretched(spr_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
-    
-    //variaveis das infos
-    var _xnome = _xfundo + _wfundo / 2;
-    var _ynome = _yfundo + _margem / 2;
-    var _xvenda = _xnome + 10;
-    var _yvenda = _ynome + _hnome + _espaco;
-    
-    //nome
-    draw_text(_xnome, _ynome, texto);
-    //venda
-    draw_set_colour(c_lime);
-    draw_text(_xvenda, _yvenda, _valor);
-    draw_set_colour(c_white);
-    //moeda
-    var _xmoeda = _xvenda - string_width(_valor) - 18;
-    draw_sprite(spr_moeda, 0, _xmoeda, _yvenda);
-    
-    draw_set_halign(-1);
-    draw_set_font(-1);
+    //retangulo
+    return point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
 }
 
 
