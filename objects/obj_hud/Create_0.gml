@@ -158,9 +158,8 @@ desenha_hud = function()
             
             var _porc = clamp(peso_desenhado / global.sacola.max_peso, 0, 1);
             
-            draw_sprite_stretched(spr_barra, 1, _xbar, _ybar, _wbar, _hbar);
-            draw_sprite_stretched(spr_barra, 2, _xbar, _ybar, _wbar * _porc, _hbar);
             draw_sprite_stretched(spr_barra, 0, _xbar, _ybar, _wbar, _hbar);
+            draw_sprite_stretched(spr_barra, 1, _xbar, _ybar, _wbar * _porc, _hbar);
             
             //desenhando o texto da capacidade
             var _xcap = _xfundo + _wfundo / 2;
@@ -213,9 +212,25 @@ desenha_hud = function()
 
 #region Stamina
     
+    stamina_desenho = 0;
+    
     desenha_stamina = function()
     {
+        var _width  = sprite_get_width(spr_barra_stamina);
+        var _height = sprite_get_height(spr_barra_stamina) + 5;
+        var _x = (display_get_gui_width() / 2) - (_width / 2);
+        var _y = 30;
         
+        //pegando valor da stamina
+        var _porc = (global.stamina_atual / global.stamina_max);
+        stamina_desenho = lerp(stamina_desenho, _porc, .1);
+        
+        //cor da stamina
+        var _cor = merge_colour(#d50000, #4dcb1f, stamina_desenho);
+        
+        draw_sprite_stretched(spr_barra_stamina, 1, _x, _y, _width, _height);
+        draw_sprite_stretched_ext(spr_barra_stamina, 2, _x, _y, _width * stamina_desenho, _height, _cor, 1);
+        draw_sprite_stretched(spr_barra_stamina, 0, _x, _y, _width, _height); 
     }
     
 #endregion

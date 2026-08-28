@@ -10,8 +10,8 @@
   "name":"obj_hud_inventario",
   "overriddenProperties":[],
   "parent":{
-    "name":"Huds",
-    "path":"folders/Objects/Huds.yy",
+    "name":"Controladores",
+    "path":"folders/Objects/Controladores.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -25,6 +25,8 @@ cooldown_atual = 0;
 
 
 
+
+
 //metodos de movimento
 controla_player = function()
 {
@@ -152,7 +154,10 @@ quebra_bloco = function()
         //dando dano
         if (_bloco)
         {
-            _bloco.recebe_dano(global.picareta.dano);
+            _bloco.recebe_dano(dano_picareta());
+            
+            //perdendo stamina
+            perde_stamina();
         }
         
         efeito_squash(1.5, .8);
@@ -180,6 +185,43 @@ fim_animacao_minerar = function()
             usando_equip = false;
             estado = estado_andando;
         }
+    }
+}
+
+
+
+//metodos de stamina
+perde_stamina = function()
+{
+    global.stamina_atual -= 5;
+}
+
+efeito_stamina = function()
+{
+    //se estiver fora da mina, recarrega a stamina
+    if (room != rm_caverna1)
+    {
+        global.stamina_atual = global.stamina_max;
+    }
+    
+    //garatindo que a stamina zere
+    if (global.stamina_atual < 0)
+    {
+        global.stamina_atual = 0;
+    }
+}
+
+dano_picareta = function()
+{
+    //se tiver stamina, tem o dano normal
+    if (global.stamina_atual > 0)
+    {
+        return global.picareta.dano;
+    }
+    //se n tiver stamina, fica fraco
+    else
+    {
+        return 0;
     }
 }
 

@@ -44,19 +44,28 @@ descarrega_bloco = function()
 
 recebe_dano = function(_dano)
 {
-    if (vida > 0)
+    //se tiver dano, executa o dano
+    if (_dano > 0)
     {
-        vida -= _dano;
-        timer = tempo;
-        
-        //efeitos
         if (vida > 0)
         {
-            toca_som(snd_hit_bloco, .4);
-            screenshake(2);
-            efeito_squash(.8, .8);
-            aplica_efeito_brilho();
+            vida -= _dano;
+            timer = tempo;
+            
+            //efeitos
+            if (vida > 0)
+            {
+                toca_som(snd_hit_bloco, .4);
+                screenshake(2);
+                efeito_squash(.8, .8);
+                aplica_efeito_brilho();
+            }
         }
+    }
+    //se n tiver dano
+    else
+    {
+        toca_som(snd_hit_bloco_errado, .2);
     }
 }
 

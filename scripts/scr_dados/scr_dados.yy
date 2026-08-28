@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_globais",
+  "%Name":"scr_dados",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_globais",
+  "name":"scr_dados",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Dados",
+    "path":"folders/Scripts/Dados.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

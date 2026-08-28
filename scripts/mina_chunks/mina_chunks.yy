@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"mina_chunks",
   "parent":{
-    "name":"Mina",
-    "path":"folders/Scripts/Mina.yy",
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

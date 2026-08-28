@@ -6,8 +6,8 @@
   "name":"obj_ilumina_checkpoint",
   "overriddenProperties":[],
   "parent":{
-    "name":"Mina",
-    "path":"folders/Objects/Mina.yy",
+    "name":"Outros",
+    "path":"folders/Objects/Outros.yy",
   },
   "parentObjectId":null,
   "persistent":false,

@@ -2,9 +2,9 @@
   "$GMSprite":"v2",
   "%Name":"spr_barra_stamina",
   "bboxMode":0,
-  "bbox_bottom":9,
+  "bbox_bottom":39,
   "bbox_left":0,
-  "bbox_right":153,
+  "bbox_right":615,
   "bbox_top":0,
   "collisionKind":1,
   "collisionTolerance":0,
@@ -12,12 +12,13 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"v1","%Name":"3a45fd08-339f-4be8-96ad-6409ae25403c","name":"3a45fd08-339f-4be8-96ad-6409ae25403c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"a2fab2c6-d707-46b7-a56c-adf7d5135b7f","name":"a2fab2c6-d707-46b7-a56c-adf7d5135b7f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f5d8b571-2a0d-4767-999a-dc1868ab8b21","name":"f5d8b571-2a0d-4767-999a-dc1868ab8b21","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"3a45fd08-339f-4be8-96ad-6409ae25403c","name":"3a45fd08-339f-4be8-96ad-6409ae25403c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
-  "gridX":3,
-  "gridY":3,
-  "height":10,
+  "gridX":4,
+  "gridY":4,
+  "height":40,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"b61590bb-72a1-446f-88fc-ee119e95f8e0","blendMode":0,"displayName":"default","isLocked":false,"name":"b61590bb-72a1-446f-88fc-ee119e95f8e0","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
@@ -25,15 +26,15 @@
   "name":"spr_barra_stamina",
   "nineSlice":{
     "$GMNineSliceData":"",
-    "bottom":0,
+    "bottom":15,
     "enabled":true,
     "guideColour":[4294902015,4294902015,4294902015,4294902015,],
     "highlightColour":1728023040,
     "highlightStyle":0,
-    "left":3,
+    "left":12,
     "resourceType":"GMNineSliceData",
     "resourceVersion":"2.0",
-    "right":3,
+    "right":16,
     "tileMode":[
       0,
       0,
@@ -41,7 +42,7 @@
       0,
       0,
     ],
-    "top":0,
+    "top":13,
   },
   "origin":0,
   "parent":{
@@ -69,7 +70,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":2.0,
+    "length":3.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -89,11 +90,14 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"3a45fd08-339f-4be8-96ad-6409ae25403c","path":"sprites/spr_barra_stamina/spr_barra_stamina.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"37b1b312-3cf1-41a0-8092-756f569448d2","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"a2fab2c6-d707-46b7-a56c-adf7d5135b7f","path":"sprites/spr_barra_stamina/spr_barra_stamina.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3e9a1ebc-49cd-4ad8-b0da-89bdf0843972","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+              },"Disabled":false,"id":"3e9a1ebc-49cd-4ad8-b0da-89bdf0843972","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f5d8b571-2a0d-4767-999a-dc1868ab8b21","path":"sprites/spr_barra_stamina/spr_barra_stamina.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"013c92fd-75db-4155-a23d-27fb86d9435f","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"3a45fd08-339f-4be8-96ad-6409ae25403c","path":"sprites/spr_barra_stamina/spr_barra_stamina.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"37b1b312-3cf1-41a0-8092-756f569448d2","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
@@ -109,5 +113,5 @@
   },
   "type":0,
   "VTile":false,
-  "width":154,
+  "width":616,
 }

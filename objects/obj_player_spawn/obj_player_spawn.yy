@@ -8,8 +8,8 @@
   "name":"obj_player_spawn",
   "overriddenProperties":[],
   "parent":{
-    "name":"Player",
-    "path":"folders/Objects/Player.yy",
+    "name":"Outros",
+    "path":"folders/Objects/Outros.yy",
   },
   "parentObjectId":null,
   "persistent":false,
