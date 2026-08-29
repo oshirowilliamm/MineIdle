@@ -1,5 +1,5 @@
 //posição inicial da primeira colunas
-#macro X_INICIAL 256
+#macro X_INICIAL 336
 #macro Y_INICIAL 79
 
 //colunas e linhas

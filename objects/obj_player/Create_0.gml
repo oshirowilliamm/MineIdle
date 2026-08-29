@@ -75,37 +75,6 @@ movimento = function()
     move_and_collide(0, vspd, colisoes, 12); //vertical
 }
 
-ajusta_escala = function()
-{
-    //pegando a direção do mouse
-    var _dir = point_direction(x, y, mouse_x, mouse_y);
-    
-    //aplicando na direção do player
-    direcao = round(_dir / 90) % 4;
-}
-
-outras_funcoes = function()
-{
-    //ajustando o depth de acordo com a room
-    if (room != rm_caverna1)
-    {
-        depth = -y;
-    }
-    else
-    {
-        depth = layer_get_depth("Tile_Parede") - 10;
-    }
-    
-    //y com offset
-    yy = y - 15;
-    
-    //voltando cooldown de mineração
-    if (cooldown_atual > 0) cooldown_atual--;
-    
-    //efeitos
-    retorna_squash();
-    retorna_efeito_brilho();
-}
 
 
 
@@ -325,10 +294,59 @@ estado_minerando = function()
     fim_animacao_minerar();
 }
  
-
-
 //aplicamendo meu estado
 estado = estado_parado;
+
+
+
+//outras funções
+ajusta_escala = function()
+{
+    //pegando a direção do mouse
+    var _dir = point_direction(x, y, mouse_x, mouse_y);
+    
+    //aplicando na direção do player
+    direcao = round(_dir / 90) % 4;
+}
+
+outras_funcoes = function()
+{
+    //ajustando o depth de acordo com a room
+    if (room != rm_caverna1)
+    {
+        depth = -y;
+    }
+    else
+    {
+        depth = layer_get_depth("Tile_Parede") - 10;
+    }
+    
+    //y com offset
+    yy = y - 15;
+    
+    //voltando cooldown de mineração
+    if (cooldown_atual > 0) cooldown_atual--;
+    
+    //efeitos
+    retorna_squash();
+    retorna_efeito_brilho();
+}
+
+player_spawn_posicao = function()
+{
+    if (global.spawn_x != -1 && global.spawn_y != -1)
+    {
+        //colocando a posição do player na posição do spawn
+        x = global.spawn_x;
+        y = global.spawn_y;
+        
+        //resetando o valor do spawn
+        global.spawn_x = -1;
+        global.spawn_y = -1;
+    }
+}
+
+
 
 //criando minha sombra
 sombra = instance_create_depth(x, y, 1, obj_sombra);

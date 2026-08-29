@@ -26,8 +26,8 @@ desenha_escuridao = function()
         gpu_set_blendmode(bm_add);
         
         luz_player(_cam_x, _cam_y);
+        luz_checkpoint(_cam_x, _cam_y);
         //luz_tocha();
-        //luz_checkpoint();
         
         gpu_set_blendmode(bm_normal);
         
@@ -62,52 +62,50 @@ luz_player = function(_cam_x, _cam_y)
 }
 
 //luz da tocha
-luz_tocha = function()
+luz_tocha = function(_cam_x, _cam_y)
 {
     //iluminação da tocha
-    if (instance_exists(obj_tocha))
+    if (!instance_exists(obj_tocha)) return
+    
+    var _num = instance_number(obj_tocha);
+    
+    for (var i = 0; i < _num; i++)
     {
-        var _num = instance_number(obj_tocha);
+        var _inst = instance_find(obj_tocha, i);
         
-        for (var i = 0; i < _num; i++)
-        {
-            var _inst = instance_find(obj_tocha, i);
-            
-            //posição da tocha
-            var _xtocha = (_inst.x - camera_get_view_x(camera)) * escala;
-            var _ytocha = (_inst.y - camera_get_view_y(camera)) * escala;
-            
-            var _flick = random_range(-0.01, 0.01); //flick
-            var _escala = 2 + _flick; //escala da lanterna (alcance)
-            var _brilho = 2 + (_flick * 2); //brilho
-            
-            //desenhando a luz
-            draw_sprite_ext(spr_circulo_luz, 0, _xtocha, _ytocha, _escala, _escala, 0, c_white, _brilho);
-        } 
-    }
+        //posição da tocha
+        var _xtocha = _inst.x - _cam_x;
+        var _ytocha = _inst.y - _cam_y;
+        
+        var _flick = random_range(-0.01, 0.01); //flick
+        var _escala = 2 + _flick; //escala da lanterna (alcance)
+        var _brilho = 1 + (_flick * 2); //brilho
+        
+        //desenhando a luz
+        draw_sprite_ext(spr_circulo_luz, 0, _xtocha, _ytocha, _escala, _escala, 0, c_white, _brilho);
+    } 
 }
 
 //luz do checkpoint
-luz_checkpoint = function()
+luz_checkpoint = function(_cam_x, _cam_y)
 {
-    if (instance_exists(obj_ilumina_checkpoint))
+    if (!instance_exists(obj_ilumina_checkpoint)) return
+    
+    var _num = instance_number(obj_ilumina_checkpoint);
+    
+    for (var i = 0; i < _num; i++)
     {
-        var _num = instance_number(obj_ilumina_checkpoint);
+        var _inst = instance_find(obj_ilumina_checkpoint, i);
         
-        for (var i = 0; i < _num; i++)
-        {
-            var _inst = instance_find(obj_ilumina_checkpoint, i);
-            
-            //posição da tocha
-            var _xcheck = (_inst.x - camera_get_view_x(camera)) * escala;
-            var _ycheck = (_inst.y - camera_get_view_y(camera)) * escala;
-            
-            var _flick = random_range(-0.01, 0.01); //flick
-            var _escala = 7 + _flick; //escala da lanterna (alcance)
-            var _brilho = 7 + (_flick * 2); //brilho
-            
-            //desenhando a luz
-            draw_sprite_ext(spr_circulo_luz, 0, _xcheck, _ycheck, _escala, _escala, 0, c_white, _brilho);
-        } 
-    }
+        //posição da tocha
+        var _xcheck = _inst.x - _cam_x;
+        var _ycheck = _inst.y - _cam_y;
+        
+        var _flick = random_range(-0.01, 0.01); //flick
+        var _escala = 4 + _flick; //escala da lanterna (alcance)
+        var _brilho = 1 + (_flick * 2); //brilho
+        
+        //desenhando a luz
+        draw_sprite_ext(spr_circulo_luz, 0, _xcheck, _ycheck, _escala, _escala, 0, c_white, _brilho);
+    } 
 }

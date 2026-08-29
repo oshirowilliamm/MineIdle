@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_inicia_scribble",
+  "%Name":"scr_transicao",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_inicia_scribble",
+  "name":"scr_transicao",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Scritpts",
+    "path":"folders/Transicao/Scritpts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

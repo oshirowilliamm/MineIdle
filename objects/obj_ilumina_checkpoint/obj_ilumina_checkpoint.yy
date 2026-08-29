@@ -6,8 +6,8 @@
   "name":"obj_ilumina_checkpoint",
   "overriddenProperties":[],
   "parent":{
-    "name":"Outros",
-    "path":"folders/Objects/Outros.yy",
+    "name":"Iluminacao",
+    "path":"folders/Objects/Iluminacao.yy",
   },
   "parentObjectId":null,
   "persistent":false,
