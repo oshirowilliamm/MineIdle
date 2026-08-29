@@ -23,8 +23,7 @@ global.stamina_max = 50;
 global.stamina_atual = global.stamina_max;
 
 //lanterna do player
-global.alcance_lanterna = .7;
-global.brilho_lanterna = 1;
+global.alcance_lanterna = .3;
 
 //picareta
 global.picareta = 

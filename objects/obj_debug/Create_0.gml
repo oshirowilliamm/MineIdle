@@ -30,11 +30,12 @@ cria_painel = function()
         //debugs
         dbg_watch(ref_create(obj_player, "image_index"), "image_index");
         dbg_slider(ref_create(obj_player, "spd"), 2, 20, "Velocidade", 1);
+        dbg_checkbox(ref_create(id, "draw_depth_player"), "Depth");
         dbg_checkbox(ref_create(id, "noclip"), "NoClip");
         dbg_checkbox(ref_create(id, "draw_linha"), "Linha de Mineração");
         dbg_checkbox(ref_create(id, "draw_mask_player"), "Máscara de Colisão");
         dbg_slider(ref_create(global.picareta, "dano"), 5, 100, "Dano Picareta", 1);
-        dbg_checkbox(ref_create(id, "draw_depth_player"), "Depth");
+        dbg_slider(ref_create(global, "alcance_lanterna"), .3, 5, "Alcance Lanterna", .1);
         
         
         //outros

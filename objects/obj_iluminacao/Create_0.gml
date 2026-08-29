@@ -1,13 +1,16 @@
-debug = false;
-sombra_surface = surface_create(display_get_gui_width(), display_get_gui_height());
+depth = -999;
 
-//infos pro desenho
-camera = view_camera[0];
-escala = 2;
+cam = view_camera[0];
+sombra_surface = surface_create(camera_get_view_width(cam), camera_get_view_height(cam));
 
 //escuridão (sombra)
 desenha_escuridao = function()
 {
+    var _cam_x = camera_get_view_x(cam);
+    var _cam_y = camera_get_view_y(cam);
+    var _cam_w = camera_get_view_width(cam);
+    var _cam_h = camera_get_view_height(cam);
+    
     if (surface_exists(sombra_surface))
     {
         //desenhando na surface
@@ -16,19 +19,15 @@ desenha_escuridao = function()
         var _cam = view_camera[0];
         var _escala = 2;
         
-        //desenhando o retangulo preto
-        draw_set_colour(c_black);
-        draw_set_alpha(.99);
-        draw_rectangle(0, 0, display_get_gui_width(), display_get_gui_height(), 0);
-        draw_set_alpha(1);
-        draw_set_colour(c_white);
+        //desenhando a escuridao
+        draw_clear(#040404);
         
         //iluminação
-        gpu_set_blendmode(bm_subtract);
+        gpu_set_blendmode(bm_add);
         
-        luz_player();
-        luz_tocha();
-        luz_checkpoint();
+        luz_player(_cam_x, _cam_y);
+        //luz_tocha();
+        //luz_checkpoint();
         
         gpu_set_blendmode(bm_normal);
         
@@ -37,26 +36,29 @@ desenha_escuridao = function()
     //cria a surface se n foi criada
     else
     {
-        sombra_surface = surface_create(display_get_gui_width(), display_get_gui_height());
+        sombra_surface = surface_create(_cam_w, _cam_h);
     }
     
-    draw_surface(sombra_surface, 0, 0);
+    gpu_set_blendmode_ext(bm_dest_colour, bm_zero);
+    draw_surface(sombra_surface, _cam_x, _cam_y);
+    gpu_set_blendmode(bm_normal);
 }
 
 //luz do player
-luz_player = function()
+luz_player = function(_cam_x, _cam_y)
 {
+    if (!instance_exists(obj_player)) return;
+    
     //pegando posição do player
-    if (!instance_exists(obj_player)) exit;
-    var _xplayer = (obj_player.x - camera_get_view_x(camera)) * escala;
-    var _yplayer = (obj_player.yy - camera_get_view_y(camera)) * escala;
+    var _xplayer = obj_player.x - _cam_x;
+    var _yplayer = obj_player.yy - _cam_y;
     
     var _flick = random_range(-0.01, 0.01); //flick
     var _escala = global.alcance_lanterna + _flick; //escala da lanterna (alcance)
-    var _brilho = global.brilho_lanterna + (_flick * 2); //brilho
+    var _brilho = (global.alcance_lanterna * 2) + (_flick * 2);
     
     //desenhando a luz
-    draw_sprite_ext(spr_circulo_luz, 0, _xplayer, _yplayer, _escala, _escala, 0, c_yellow, _brilho);
+    draw_sprite_ext(spr_circulo_luz, 0, _xplayer, _yplayer, _escala, _escala, 0, #f0eca4, _brilho);
 }
 
 //luz da tocha
