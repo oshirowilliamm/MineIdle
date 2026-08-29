@@ -33,7 +33,7 @@ desenha_livro = function()
     draw_set_font(fnt_ui);
     draw_set_valign(1);
     
-    texto_sombra(x_geral + 10, y_geral, "Inventario", escala_texto);
+    texto_scribble(x_geral + 10, y_geral, "Inventario", escala_texto);
     
     draw_set_font(-1);
     draw_set_valign(-1);
@@ -98,7 +98,7 @@ desenha_itens = function()
         var _escala = .6;
         var _yqtd = _y1 + 50;
         
-        texto_sombra(_x, _yqtd, _texto, _escala);
+        texto_scribble(_x, _yqtd, _texto, _escala);
     }
     
     //desenhando os minérios refinados
@@ -117,7 +117,7 @@ desenha_itens = function()
         var _escala = .6;
         var _yqtd = _y2 + 50;
         
-        texto_sombra(_x2, _yqtd, _texto, _escala);
+        texto_scribble(_x2, _yqtd, _texto, _escala);
     }
     
     draw_set_font(-1);

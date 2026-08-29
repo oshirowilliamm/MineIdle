@@ -1,1 +1,1 @@
-texto_sombra(xtxt, ytxt, texto, 0, .4, .4, , , , alpha);
+texto_scribble(xtxt, ytxt, texto, .4, .4, , , , alpha, , false);

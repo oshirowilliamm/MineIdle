@@ -4,7 +4,7 @@ global.moeda = 50;
 //inventario da sacola
 global.sacola = 
 {
-    max_peso: 50,
+    max_peso: 20,
     peso_atual: 0,
     
     itens: {},

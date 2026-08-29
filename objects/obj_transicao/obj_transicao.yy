@@ -2,14 +2,14 @@
   "$GMObject":"",
   "%Name":"obj_transicao",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":{"name":"obj_player_velho","path":"objects/obj_player_velho/obj_player_velho.yy",},"eventNum":0,"eventType":4,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"eventNum":0,"eventType":4,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"obj_transicao",
   "overriddenProperties":[],
   "parent":{
-    "name":"Vila",
-    "path":"folders/Objects/Loja/Vila.yy",
+    "name":"Loja",
+    "path":"folders/Objects/Loja.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -28,7 +28,7 @@
   "properties":[
     {"$GMObjectProperty":"v2","%Name":"destino","filters":[
         "GMRoom",
-      ],"listItems":[],"multiselect":false,"name":"destino","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"rm_mina_velha","varType":5,},
+      ],"listItems":[],"multiselect":false,"name":"destino","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"rm_caverna1","path":"rooms/rm_caverna1/rm_caverna1.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"rm_caverna1","varType":5,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
@@ -38,5 +38,5 @@
     "path":"sprites/spr_colisao/spr_colisao.yy",
   },
   "spriteMaskId":null,
-  "visible":true,
+  "visible":false,
 }

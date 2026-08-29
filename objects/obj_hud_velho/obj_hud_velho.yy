@@ -10,8 +10,8 @@
   "name":"obj_hud_velho",
   "overriddenProperties":[],
   "parent":{
-    "name":"Controladores",
-    "path":"folders/Objects/Controladores.yy",
+    "name":"HUD",
+    "path":"folders/Objects/HUD.yy",
   },
   "parentObjectId":null,
   "persistent":true,

@@ -45,22 +45,33 @@ function restart()
 }
 
 
-//fonte com sombra
-function texto_sombra(_x, _y, _texto, _espacamento = 2, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
+//texto com scribble
+function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _outline = true)
 {
+    //definindo tamanho do outline
+    var _espaco = 10 * _xscale;
+    
+    if (!_outline)
+    {
+        _espaco = 0;
+    }
+    
     //texto
     var _txt = scribble(_texto)
         .starting_format(_font, c_white)
         .align(_halign, _valign)
-        .transform(_xscale, _yscale);
+        .scale(_xscale, _yscale);
     
-    //sombra
+    //outline
     _txt.blend(c_black, _alpha)
-        .draw(_x + _espacamento, _y + _espacamento);
+    _txt.draw(_x, _y + _espaco)
+    _txt.draw(_x, _y - _espaco)
+    _txt.draw(_x + _espaco, _y)
+    _txt.draw(_x - _espaco, _y);
     
     //normal
     _txt.blend(_cor, _alpha)
-        .draw(_x, _y);
+    _txt.draw(_x, _y);
 }
 
 

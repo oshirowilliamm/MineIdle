@@ -8,11 +8,13 @@ view_bloco = false;
 //player
 draw_mask_player = false;
 draw_linha = false;
+draw_depth_player = false;
 noclip = false;
 
 //bloco
 draw_vida_bloco = false;
 draw_regenera_bloco = false;
+draw_depth_bloco = false;
 
 
 
@@ -32,6 +34,7 @@ cria_painel = function()
         dbg_checkbox(ref_create(id, "draw_linha"), "Linha de Mineração");
         dbg_checkbox(ref_create(id, "draw_mask_player"), "Máscara de Colisão");
         dbg_slider(ref_create(global.picareta, "dano"), 5, 100, "Dano Picareta", 1);
+        dbg_checkbox(ref_create(id, "draw_depth_player"), "Depth");
         
         
         //outros
@@ -46,6 +49,7 @@ cria_painel = function()
     //debugs
     dbg_checkbox(ref_create(id, "draw_vida_bloco"), "Vida");
     dbg_checkbox(ref_create(id, "draw_regenera_bloco"), "Regeneração");
+    dbg_checkbox(ref_create(id, "draw_depth_bloco"), "Depth");
 }
 
 deleta_painel = function()
@@ -79,6 +83,13 @@ ativa_painel = function()
 
 //funções
 #region Player
+    
+    funcoes_player = function()
+    {
+        desenha_linha_mineracao();
+        desenha_mascara_player();
+        desenha_depth_player();
+    }
     
     ativa_noclip = function()
     {
@@ -116,9 +127,26 @@ ativa_painel = function()
         }
     }
     
+    desenha_depth_player = function()
+    {
+        if (!draw_depth_player || !instance_exists(obj_player)) return;
+        
+        with (obj_player) 
+        {
+        	draw_text(x, y, depth);
+        }
+    }
+    
 #endregion
 
 #region Bloco
+    
+    funcoes_bloco = function()
+    {
+        desenha_vida_bloco();
+        desenha_regenera_bloco();
+        desenha_depth_bloco();
+    }
     
     desenha_vida_bloco = function()
     {
@@ -141,6 +169,16 @@ ativa_painel = function()
         	draw_set_font(fnt_debug);
             draw_text_transformed(x, y + 10, string(timer), .1, .1, 0)
             draw_set_font(-1);
+        }
+    }
+    
+    desenha_depth_bloco = function()
+    {
+        if (!draw_depth_bloco || !instance_exists(obj_minerio)) return;
+        
+        with (obj_minerio) 
+        {
+        	draw_text(x, y, depth);
         }
     }
     

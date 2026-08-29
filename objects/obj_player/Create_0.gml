@@ -193,7 +193,7 @@ fim_animacao_minerar = function()
 //metodos de stamina
 perde_stamina = function()
 {
-    global.stamina_atual -= 5;
+    global.stamina_atual--;
 }
 
 efeito_stamina = function()

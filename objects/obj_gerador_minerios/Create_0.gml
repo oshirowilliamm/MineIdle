@@ -4,7 +4,7 @@
 
 //colunas e linhas
 #macro MAX_COLUNAS 100 
-#macro MAX_LINHAS 8
+#macro MAX_LINHAS 12
 
 //margem de visualização dos blocos
 #macro MARGEM 2 
@@ -77,11 +77,6 @@ gera_colunas = function(_col)
 
 gera_tipo_blocos = function()
 {
-    //var _chaves = struct_get_names(global.minerios);
-    //var _index = irandom(array_length(_chaves) - 1);
-       //
-    //return _chaves[_index];
-    
     var _room = room_get_name(room);
     
     //verificando o bioma que minha sala pertence
@@ -106,7 +101,7 @@ gera_tipo_blocos = function()
         {
             _acumulado += _blocos[i].chance;
             
-            if (_sorteio <= _acumulado)
+            if (_sorteio < _acumulado)
             {
                 return _blocos[i].nome;
             }
