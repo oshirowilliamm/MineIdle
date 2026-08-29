@@ -16,6 +16,9 @@ desenha_hud = function()
     
     desenha_sacola = function()
     {
+        //so desenha na mina
+        if (!array_contains(global.rooms_mina, room)) return;
+            
         //efeito de se mexer
         var _mexe_y = sin(current_time / 300) * 3;
         var _x = 100;
@@ -207,7 +210,7 @@ desenha_hud = function()
             }
         }
     }
-     
+    
 #endregion
 
 #region Stamina
@@ -219,6 +222,9 @@ desenha_hud = function()
     
     desenha_stamina = function()
     {
+        //so desenha na mina
+        if (!array_contains(global.rooms_mina, room)) return;
+        
         //pegando valor da stamina e dividindo em blocos
         var _porc = clamp(global.stamina_atual / global.stamina_max, 0, 1);
         var _porc_blocos = ceil(_porc * 9) / 9;

@@ -113,8 +113,6 @@
     {"id":{"name":"obj_fornalha","path":"objects/obj_fornalha/obj_fornalha.yy",},},
     {"id":{"name":"obj_gerador_minerios","path":"objects/obj_gerador_minerios/obj_gerador_minerios.yy",},},
     {"id":{"name":"obj_hud_inventario","path":"objects/obj_hud_inventario/obj_hud_inventario.yy",},},
-    {"id":{"name":"obj_hud_sacola","path":"objects/obj_hud_sacola/obj_hud_sacola.yy",},},
-    {"id":{"name":"obj_hud_stamina","path":"objects/obj_hud_stamina/obj_hud_stamina.yy",},},
     {"id":{"name":"obj_hud_velho","path":"objects/obj_hud_velho/obj_hud_velho.yy",},},
     {"id":{"name":"obj_hud","path":"objects/obj_hud/obj_hud.yy",},},
     {"id":{"name":"obj_ilumina_checkpoint","path":"objects/obj_ilumina_checkpoint/obj_ilumina_checkpoint.yy",},},

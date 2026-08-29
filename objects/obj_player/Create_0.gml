@@ -168,7 +168,7 @@ perde_stamina = function()
 efeito_stamina = function()
 {
     //se estiver fora da mina, recarrega a stamina
-    if (room != rm_caverna1)
+    if (!array_contains(global.rooms_mina, room))
     {
         global.stamina_atual = global.stamina_max;
     }
@@ -312,7 +312,7 @@ ajusta_escala = function()
 outras_funcoes = function()
 {
     //ajustando o depth de acordo com a room
-    if (room != rm_caverna1)
+    if (!array_contains(global.rooms_mina, room))
     {
         depth = -y;
     }
@@ -344,6 +344,32 @@ player_spawn_posicao = function()
         global.spawn_x = -1;
         global.spawn_y = -1;
     }
+}
+
+descarrega_sacola = function()
+{
+    if (room != rm_vila) return;
+    
+    var _chaves = struct_get_names(global.sacola.itens);
+    
+    for (var i = 0; i < array_length(_chaves); i++)
+    {
+        var _item = _chaves[i];
+        var _qtd  = global.sacola.itens[$ _item];
+        
+        //criando a chave
+        if (global.inventario_global.minerios[$ _item] == undefined)
+        {
+            global.inventario_global.minerios[$ _item] = 0;
+        }
+        
+        //adicionando os itens no inventario global
+        global.inventario_global.minerios[$ _item] += _qtd;
+    }
+    
+    //zerando a sacola
+    global.sacola.itens = {};
+    global.sacola.peso_atual = 0;
 }
 
 
