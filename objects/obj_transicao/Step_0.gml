@@ -1,6 +1,17 @@
 /// @description Inserir descrição aqui
 // Você pode escrever seu código neste editor
 
+//seguindo o player
+if (variable_instance_exists(id, "seq") && layer_sequence_exists("transicao", seq))
+{
+    if (instance_exists(obj_player))
+    {
+        layer_sequence_x(seq, obj_player.x);
+        layer_sequence_y(seq, obj_player.yy);
+    }
+}
+
+
 //Decidindo se eu posso começar a segunda transição
 if (comecar_transicao_2)
 {

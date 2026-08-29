@@ -27,7 +27,7 @@
   "name":"sq_transicao_1",
   "parent":{
     "name":"Sequencias",
-    "path":"folders/Transicao/Sequencias.yy",
+    "path":"folders/Efeitos/Transicao/Sequencias.yy",
   },
   "playback":0,
   "playbackSpeed":60.0,

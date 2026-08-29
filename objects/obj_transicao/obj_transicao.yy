@@ -14,7 +14,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Objeto",
-    "path":"folders/Transicao/Objeto.yy",
+    "path":"folders/Efeitos/Transicao/Objeto.yy",
   },
   "parentObjectId":null,
   "persistent":false,

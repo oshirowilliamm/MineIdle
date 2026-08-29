@@ -31,7 +31,7 @@
   "origin":0,
   "parent":{
     "name":"Sprites",
-    "path":"folders/Transicao/Sprites.yy",
+    "path":"folders/Efeitos/Transicao/Sprites.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

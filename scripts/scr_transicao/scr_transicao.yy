@@ -6,7 +6,7 @@
   "name":"scr_transicao",
   "parent":{
     "name":"Scritpts",
-    "path":"folders/Transicao/Scritpts.yy",
+    "path":"folders/Efeitos/Transicao/Scritpts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

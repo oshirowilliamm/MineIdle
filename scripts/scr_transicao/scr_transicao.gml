@@ -39,7 +39,7 @@ function fazendo_transicao(_sq = sq_transicao_1)
         _cam_y = obj_player.yy;
     }
     
-    layer_sequence_create("transicao", _cam_x, _cam_y, _sq);
+    seq = layer_sequence_create("transicao", _cam_x, _cam_y, _sq);
 }
 
 
