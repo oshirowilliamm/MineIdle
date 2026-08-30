@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_inventario",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_inventario",
+  "parent":{
+    "name":"Dados",
+    "path":"folders/Scripts/Dados.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

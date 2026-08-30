@@ -16,6 +16,8 @@ draw_vida_bloco = false;
 draw_regenera_bloco = false;
 draw_depth_bloco = false;
 
+item_ganha = false;
+
 
 
 cria_painel = function()
@@ -36,12 +38,8 @@ cria_painel = function()
         dbg_checkbox(ref_create(id, "draw_mask_player"), "Máscara de Colisão");
         dbg_slider(ref_create(global.picareta, "dano"), 5, 100, "Dano Picareta", 1);
         dbg_slider(ref_create(global, "alcance_lanterna"), .3, 5, "Alcance Lanterna", .1);
-        
-        
-        //outros
-        dbg_watch(ref_create(obj_player, "usando_equip"), "usando_equip");
-        dbg_watch(ref_create(obj_player, "cooldown_atual"), "cooldown_atual");
-        dbg_watch(ref_create(obj_player, "golpe_aplicado"), "golpe_aplicado");
+        dbg_slider(ref_create(global, "moeda"), 0, 1000, "Moeda", 1);
+        dbg_button("Ganhar Itens", ganha_itens);
     }
     
     //blocos
@@ -97,6 +95,30 @@ ativa_painel = function()
         if (!instance_exists(obj_player)) return;
         
         obj_player.colisoes = noclip ? [] : obj_player.colisoes_originais;
+    }
+    
+    ganha_itens = function()
+    {
+        var _chaves = struct_get_names(global.minerios);
+        for (var i = 0; i < array_length(_chaves); i++)
+        {
+            var _item = _chaves[i];
+            
+            //brutos
+            if (global.inventario_global.minerios[$ _item] == undefined) global.inventario_global.minerios[$ _item] = 0;
+            
+            global.inventario_global.minerios[$ _item] += 100;
+            
+            //limpos
+            if (global.inventario_global.limpos[$ _item] == undefined) global.inventario_global.limpos[$ _item] = 0;
+            
+            global.inventario_global.limpos[$ _item] += 100;
+            
+            //refinados
+            if (global.inventario_global.refinados[$ _item] == undefined) global.inventario_global.refinados[$ _item] = 0;
+            
+            global.inventario_global.refinados[$ _item] += 100;
+        }
     }
     
     desenha_linha_mineracao = function()

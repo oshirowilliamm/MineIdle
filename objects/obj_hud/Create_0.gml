@@ -6,6 +6,7 @@ desenha_hud = function()
 {
     desenha_sacola();
     desenha_stamina();
+    desenha_moeda();
 }
 
 #region Sacola
@@ -18,7 +19,7 @@ desenha_hud = function()
     {
         //so desenha na mina
         if (!array_contains(global.rooms_mina, room)) return;
-            
+        
         //efeito de se mexer
         var _mexe_y = sin(current_time / 300) * 3;
         var _x = 100;
@@ -298,6 +299,28 @@ desenha_hud = function()
             
             texto_scribble(_x - 20, _y, _texto, .3, , 1, 1);
         }
+    }
+    
+#endregion
+
+#region Moeda
+    
+    frame_moeda = 0;
+    moeda_desenhada = 0;
+    
+    desenha_moeda = function()
+    {
+        if (room != rm_vila) return;
+        
+        //desenhando moeda
+        var _x = display_get_gui_width() / 2 - sprite_get_width(spr_moeda) - 20;
+        var _y = 60;
+        
+        draw_sprite_ext(spr_moeda, 0, _x, _y, global.escala_hud, global.escala_hud, 0, c_white, 1);
+        
+        //texto dinheiro
+        moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
+        texto_scribble(_x + 50, _y, round(moeda_desenhada), .3, , , 1);
     }
     
 #endregion

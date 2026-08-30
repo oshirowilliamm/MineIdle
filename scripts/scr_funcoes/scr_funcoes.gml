@@ -46,7 +46,7 @@ function restart()
 
 
 //texto com scribble
-function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _outline = true)
+function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _outline = true, _cor_sombra = c_black)
 {
     //definindo tamanho do outline
     var _espaco = 10 * _xscale;
@@ -63,7 +63,7 @@ function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign
         .scale(_xscale, _yscale);
     
     //outline
-    _txt.blend(c_black, _alpha)
+    _txt.blend(_cor_sombra, _alpha)
     _txt.draw(_x, _y + _espaco)
     _txt.draw(_x, _y - _espaco)
     _txt.draw(_x + _espaco, _y)
@@ -134,8 +134,44 @@ function draw_animation(_frame, _sprite)
 }
 
 
-
-
+function cria_persistentes(_player = true, _controller = true, _hud = true, _debug = true)
+{
+    //player
+    if (!instance_exists(obj_player) && _player) 
+    {
+        //definindo posição do player
+        if (array_contains(global.rooms_mina, room))
+        {
+            global.spawn_x = 20;
+            global.spawn_y = 270;
+        }
+        else
+        {
+            global.spawn_x = 928;
+            global.spawn_y = 530;
+        }
+        
+        instance_create_layer(global.spawn_x, global.spawn_y, "Player", obj_player);
+    }
+    
+    //controller
+    if (!instance_exists(obj_controller) && _controller) 
+    {
+        instance_create_layer(0, 0, "HUD", obj_controller);
+    }
+    
+    //hud
+    if (!instance_exists(obj_hud) && _hud) 
+    {
+        instance_create_layer(0, 0, "HUD", obj_hud);
+    }
+    
+    //debug
+    if (!instance_exists(obj_debug) && _debug) 
+    {
+        instance_create_layer(0, 0, "HUD", obj_debug);
+    }
+}
 
 
 
