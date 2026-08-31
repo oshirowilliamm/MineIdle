@@ -81,7 +81,7 @@ movimento = function()
 //metodos de mineração
 usa_equipamento = function()
 {
-    if (click)
+    if (click && array_contains(global.rooms_mina, room))
     {
         //se o equip ainda n ta sendo usado e o cooldown deixar
         if (!usando_equip && cooldown_atual <= 0)
@@ -250,7 +250,18 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
 estado_parado = function()
 {
     controla_player();
-    define_sprite(spr_player_pic_idle_front, spr_player_pic_idle_side, spr_player_pic_idle_back);
+    
+    //definindo sprite da mina
+    if (array_contains(global.rooms_mina, room))
+    {
+        define_sprite(spr_player_pic_idle_front, spr_player_pic_idle_side, spr_player_pic_idle_back);
+    }
+    //definindo sprite da vila
+    else
+    {
+        define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
+    }
+    
     
     //mudando pro estado andando
     if (right xor left || up xor down) estado = estado_andando;
@@ -262,7 +273,17 @@ estado_parado = function()
 estado_andando = function()
 {
     controla_player();
-    define_sprite(spr_player_pic_run_front, spr_player_pic_run_side, spr_player_pic_run_back);
+    
+    //definindo sprite da mina
+    if (array_contains(global.rooms_mina, room))
+    {
+        define_sprite(spr_player_pic_run_front, spr_player_pic_run_side, spr_player_pic_run_back);
+    }
+    //definindo sprite da vila
+    else
+    {
+        define_sprite(spr_player_run_front, spr_player_run_side, spr_player_run_back);
+    }
     
     //mudando pro estado parado
     if (hspd == 0 && vspd == 0) estado = estado_parado;

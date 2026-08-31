@@ -23,7 +23,26 @@ inventario = false;
 desenhar = false;
 pagina_atual = 0;
 
+info = noone;
 
+
+
+abre_inventario = function()
+{
+    if (inventario)
+    {
+        //puxando o livro
+        x_geral = lerp(x_geral, 450, .1);
+    }
+    else
+    {
+        //devolvendo o livro
+        x_geral = lerp(x_geral, 0, .1);
+        
+        //esconde os itens
+        if (x_geral <= 0.5) desenhar = false;
+    }
+}
 
 desenha_inventario = function()
 {
@@ -62,10 +81,17 @@ desenha_pagina = function()
 {
     if (!desenhar) return;
     
+    //posição dos minerios
     var _xbruto     = x_livro + 75;
     var _xlimpo     = _xbruto + 130;
     var _xrefinado  = _xlimpo + 130;
     var _yinicial   = y_livro - 250;
+    
+    //posição da info do item
+    var _info = noone;
+    var _categoria = noone;
+    var _xinfo = 0;
+    var _yinfo = 0;
     
     //desenhando todos os minerios
     var _minerios_bioma = global.paginas_livro[pagina_atual];
@@ -77,14 +103,30 @@ desenha_pagina = function()
         //desenhando os minerios brutos
         var _item_bruto = _minerios_bioma[i];
         
-        desenha_itens(_item_bruto, "minerios", _xbruto, _yatual, spr_minerios);
+        var _item = desenha_itens(_item_bruto, "minerios", _xbruto, _yatual, spr_minerios);
+        
+        if (_item != noone)
+        {
+            _info = _item;
+            _categoria = "minerios";
+            _xinfo = _xbruto;
+            _yinfo = _yatual;
+        }
         
         //desenhando os minerios limpos
         var _item_limpo = _item_bruto + "_limpo";
         
         if (global.minerios[$ _item_limpo] != undefined)
         {
-            desenha_itens(_item_limpo, "limpos", _xlimpo, _yatual, spr_limpos);
+            _item = desenha_itens(_item_limpo, "limpos", _xlimpo, _yatual, spr_limpos);
+            
+            if (_item != noone)
+            {
+                _info = _item;
+                _categoria = "limpos";
+                _xinfo = _xlimpo;
+                _yinfo = _yatual;
+            }
         }
         
         //desenhando os minerios refinados         
@@ -92,9 +134,20 @@ desenha_pagina = function()
         
         if (global.minerios[$ _item_refinado] != undefined)
         {
-            desenha_itens(_item_refinado, "refinados", _xrefinado, _yatual, spr_refinados);
+            _item = desenha_itens(_item_refinado, "refinados", _xrefinado, _yatual, spr_refinados);
+            
+            if (_item != noone)
+            {
+                _info = _item;
+                _categoria = "refinados";
+                _xinfo = _xrefinado;
+                _yinfo = _yatual;
+            }
         }
     }
+    
+    //desenhando as infos
+    desenha_infos(_info, _categoria, _xinfo, _yinfo);
 }
 
 desenha_itens = function(_minerio, _categoria, _x, _y, _sprite)
@@ -107,12 +160,20 @@ desenha_itens = function(_minerio, _categoria, _x, _y, _sprite)
     //pegando a quantidade do minério e vendo se ele existe
     var _qtd = _inventario[$ _minerio];
     
+    var _item_info = noone;
+    
     //se existir
     if (_qtd != undefined)
     {
         draw_sprite_ext(_sprite, _item.sprite, _x, _y, escala, escala, 0, c_white, 1);
         var _texto = "x" + string(_qtd);
         texto_scribble(_x + 10, _y, _texto, .3);
+        
+        //avisando que o mouse esta em cima do item
+        if (mouse_sobre_ui(_x, _y, _sprite, escala))
+        {
+            _item_info = _item;
+        }
     }
     //se n existir
     else
@@ -120,21 +181,44 @@ desenha_itens = function(_minerio, _categoria, _x, _y, _sprite)
         draw_sprite_ext(_sprite, _item.sprite, _x, _y, escala, escala, 0, c_black, 1);
         texto_scribble(_x + 10, _y, "???", .3);
     }
+    
+    //retornando o mouse sobre
+    return _item_info;
 }
 
-abre_inventario = function()
+desenha_infos = function(_item, _categoria, _x, _y)
 {
-    if (inventario)
+    //mouse em cima
+    if (_item != noone)
     {
-        //puxando o livro
-        x_geral = lerp(x_geral, 450, .1);
+        var _texto = string("[wave]{0}[/]", _item.nome);
+        
+        //mudando texto de acordo com a categoria
+        if (_categoria == "limpos")
+        {
+            _texto = string("[wave][c_red]{0}[/]", _item.nome);
+        }
+        else if (_categoria == "refinados")
+        {
+            _texto = string("[wave][rainbow]{0}[/]", _item.nome);
+        }
+        
+        //colocando custo
+        _texto += string("\nPreço: {0} Moedas", _item.valor)
+        
+        //criando o obj info
+        if (!instance_exists(info))
+        {
+            info = instance_create_depth(_x, _y, -999, obj_info_inventario); 
+            info.texto = _texto;
+        }
     }
+    //mouse fora
     else
     {
-        //devolvendo o livro
-        x_geral = lerp(x_geral, 0, .1);
-        
-        //esconde os itens
-        if (x_geral <= 0.5) desenhar = false;
+        if (instance_exists(info))
+        {
+            info.destroi = true;
+        }
     }
 }
