@@ -293,7 +293,14 @@ estado_minerando = function()
     //no fim da animação, sai do estado
     fim_animacao_minerar();
 }
+
+estado_transicao = function()
+{
+    //se acabou a transicao, sai do estado
+    if (!instance_exists(obj_transicao)) estado = estado_parado;
+}
  
+
 //aplicamendo meu estado
 estado = estado_parado;
 
@@ -326,6 +333,10 @@ outras_funcoes = function()
     
     //voltando cooldown de mineração
     if (cooldown_atual > 0) cooldown_atual--;
+    
+    //se tiver tendo transicao, n pode andar
+    if (instance_exists(obj_transicao)) estado = estado_transicao;
+    
     
     //efeitos
     retorna_squash();

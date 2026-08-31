@@ -1,6 +1,6 @@
 global.biomas =
 {
-    rm_caverna1:
+    rm_mina:
     {
         nome: "Caverna",
         minerios:

@@ -9,4 +9,4 @@ global.spawn_x = -1;
 global.spawn_y = -1;
 
 //rooms da mina
-global.rooms_mina = [rm_caverna1];
+global.rooms_mina = [rm_mina];

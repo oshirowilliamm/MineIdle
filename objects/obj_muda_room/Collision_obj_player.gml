@@ -1,3 +1,11 @@
-global.spawn_x = destino_x;
-global.spawn_y = destino_y;
-cria_transicao_inicia(destino);
+if (pode_ir)
+{
+    //definindo o spawn do player
+    global.spawn_x = destino_x;
+    global.spawn_y = destino_y;
+    
+    //criando a transicao
+    cria_transicao_inicia(destino);
+    
+    pode_ir = false
+}

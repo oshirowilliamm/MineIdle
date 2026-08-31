@@ -1,16 +1,16 @@
 {
   "$GMRoom":"v1",
-  "%Name":"rm_caverna1",
-  "creationCodeFile":"rooms/rm_caverna1/RoomCreationCode.gml",
+  "%Name":"rm_mina",
+  "creationCodeFile":"rooms/rm_mina/RoomCreationCode.gml",
   "inheritCode":false,
   "inheritCreationOrder":false,
   "inheritLayers":false,
   "instanceCreationOrder":[
-    {"name":"inst_78D90E56","path":"rooms/rm_caverna1/rm_caverna1.yy",},
-    {"name":"inst_58881D38","path":"rooms/rm_caverna1/rm_caverna1.yy",},
-    {"name":"inst_672F659F","path":"rooms/rm_caverna1/rm_caverna1.yy",},
-    {"name":"inst_32E801F1","path":"rooms/rm_caverna1/rm_caverna1.yy",},
-    {"name":"inst_58327A7E","path":"rooms/rm_caverna1/rm_caverna1.yy",},
+    {"name":"inst_78D90E56","path":"rooms/rm_mina/rm_mina.yy",},
+    {"name":"inst_58881D38","path":"rooms/rm_mina/rm_mina.yy",},
+    {"name":"inst_672F659F","path":"rooms/rm_mina/rm_mina.yy",},
+    {"name":"inst_32E801F1","path":"rooms/rm_mina/rm_mina.yy",},
+    {"name":"inst_58327A7E","path":"rooms/rm_mina/rm_mina.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -48,7 +48,7 @@
         ],"TileDataFormat":1,},"tilesetId":{"name":"tl_parede","path":"tilesets/tl_parede/tl_parede.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
     {"$GMRBackgroundLayer":"","%Name":"Chao","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":300,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Chao","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_bg_chao","path":"sprites/spr_bg_chao/spr_bg_chao.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":true,"x":0,"y":0,},
   ],
-  "name":"rm_caverna1",
+  "name":"rm_mina",
   "parent":{
     "name":"Rooms",
     "path":"folders/Rooms.yy",
