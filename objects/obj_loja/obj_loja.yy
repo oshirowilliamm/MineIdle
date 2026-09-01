@@ -3,14 +3,15 @@
   "%Name":"obj_loja",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":73,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
   "name":"obj_loja",
   "overriddenProperties":[],
   "parent":{
     "name":"Vila",
-    "path":"folders/Objects/Loja/Vila.yy",
+    "path":"folders/Objects/Vila.yy",
   },
   "parentObjectId":{
     "name":"obj_colisao",
@@ -33,10 +34,10 @@
     {"$GMObjectProperty":"v2","%Name":"destino","filters":[
         "GMRoom",
       ],"listItems":[],"multiselect":false,"name":"destino","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"rm_vila","varType":5,},
-    {"$GMObjectProperty":"v2","%Name":"nome","filters":[],"listItems":[],"multiselect":false,"name":"nome","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"\"Vila\"","varType":2,},
     {"$GMObjectProperty":"v2","%Name":"sprite","filters":[
         "GMSprite",
       ],"listItems":[],"multiselect":false,"name":"sprite","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"spr_loja","path":"sprites/spr_loja/spr_loja.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"spr_loja","varType":5,},
+    {"$GMObjectProperty":"v2","%Name":"y_origem","filters":[],"listItems":[],"multiselect":false,"name":"y_origem","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"y","varType":0,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",

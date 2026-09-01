@@ -1,1 +1,0 @@
-desenha_ir();

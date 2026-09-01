@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Vila",
-    "path":"folders/Sprites/Loja/Vila.yy",
+    "name":"Decoracoes",
+    "path":"folders/Sprites/Vila/Decoracoes.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -26,8 +26,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Vila",
-    "path":"folders/Sprites/Loja/Vila.yy",
+    "name":"Outros",
+    "path":"folders/Sprites/Vila/Outros.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

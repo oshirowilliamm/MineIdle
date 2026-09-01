@@ -29,8 +29,8 @@ function fazendo_transicao(_sq = sq_transicao_1)
     }
     
     //Pegando a posição da câmera para criar a transição no local correto
-    var _cam_x = camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]);
-    var _cam_y = camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]);
+    var _cam_x = camera_get_view_x(view_camera[0]) + camera_get_view_width(view_camera[0]) / 2;
+    var _cam_y = camera_get_view_y(view_camera[0]) + camera_get_view_height(view_camera[0]) / 2;
     
     //seguindo o player
     if (instance_exists(obj_player))

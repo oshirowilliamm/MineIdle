@@ -8,5 +8,6 @@ global.escala_hud = 4;
 global.spawn_x = -1;
 global.spawn_y = -1;
 
-//rooms da mina
+//rooms
 global.rooms_mina = [rm_mina];
+global.rooms_vila = [rm_shop, rm_upgrade, rm_refinacao];

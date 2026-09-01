@@ -6,8 +6,8 @@
   "name":"obj_calcada",
   "overriddenProperties":[],
   "parent":{
-    "name":"Vila",
-    "path":"folders/Objects/Loja/Vila.yy",
+    "name":"Decoracoes",
+    "path":"folders/Objects/Vila/Decoracoes.yy",
   },
   "parentObjectId":null,
   "persistent":false,

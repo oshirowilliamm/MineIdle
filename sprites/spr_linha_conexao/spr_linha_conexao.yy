@@ -26,7 +26,7 @@
   "origin":3,
   "parent":{
     "name":"Upgrades",
-    "path":"folders/Sprites/Loja/Upgrades.yy",
+    "path":"folders/Sprites/Vila/Upgrades.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

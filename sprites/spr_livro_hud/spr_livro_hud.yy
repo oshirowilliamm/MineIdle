@@ -26,7 +26,7 @@
   "origin":3,
   "parent":{
     "name":"HUD",
-    "path":"folders/Sprites/Loja/HUD.yy",
+    "path":"folders/Sprites/HUD.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

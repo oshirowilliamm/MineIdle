@@ -315,12 +315,40 @@ estado_minerando = function()
     fim_animacao_minerar();
 }
 
-estado_transicao = function()
+estado_desativado = function()
 {
-    //se acabou a transicao, sai do estado
-    if (!instance_exists(obj_transicao)) estado = estado_parado;
+    define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
+    
+    //fica parado
+    hspd = 0;
+    vspd = 0;
+    
+    
+    //so sai do estado se n tiver em room de loja
+    if (!array_contains(global.rooms_vila, room))
+    {
+        visible = true;
+        
+        //se acabou a transicao, sai do estado
+        if (!instance_exists(obj_transicao)) 
+        {
+            estado = estado_parado;
+        }
+    }
+    
+    //se ele esta em room de vila
+    else
+    {
+        //fica invisivel
+        visible = false;
+        
+        //vai pro meio da tela
+        x = room_width / 2;
+        y = room_height / 2;
+    }
 }
  
+
 
 //aplicamendo meu estado
 estado = estado_parado;
@@ -354,9 +382,6 @@ outras_funcoes = function()
     
     //voltando cooldown de mineração
     if (cooldown_atual > 0) cooldown_atual--;
-    
-    //se tiver tendo transicao, n pode andar
-    if (instance_exists(obj_transicao)) estado = estado_transicao;
     
     
     //efeitos

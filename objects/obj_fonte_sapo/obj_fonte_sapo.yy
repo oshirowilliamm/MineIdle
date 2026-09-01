@@ -6,8 +6,8 @@
   "name":"obj_fonte_sapo",
   "overriddenProperties":[],
   "parent":{
-    "name":"Vila",
-    "path":"folders/Objects/Loja/Vila.yy",
+    "name":"Decoracoes",
+    "path":"folders/Objects/Vila/Decoracoes.yy",
   },
   "parentObjectId":{
     "name":"obj_colisao",

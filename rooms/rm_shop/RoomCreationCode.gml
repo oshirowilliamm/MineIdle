@@ -1,0 +1,1 @@
+cria_persistentes(false);
