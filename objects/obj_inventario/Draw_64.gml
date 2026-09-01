@@ -1,4 +1,3 @@
-//se existir transicao, n desenha a hud
-if (instance_exists(obj_transicao)) exit;
+EM_TRANSICAO
 
 desenha_inventario();

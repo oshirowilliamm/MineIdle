@@ -107,8 +107,8 @@ desenha_hud = function()
     sacola_porcentagem = function(_xsacola, _ysacola)
     {
         //posição do texto
-        var _xscale = .5 * xscale;
-        var _yscale = .5 * yscale;
+        var _xscale = .4 * xscale;
+        var _yscale = .4 * yscale;
         var _x = _xsacola + 5;
         var _y = _ysacola - 20;
         var _cor = c_white;
@@ -171,13 +171,13 @@ desenha_hud = function()
             
             if (_porc < .99)
             {
-                texto_scribble(_xcap - 20, _ycap, string("{0}kg", round(peso_desenhado)), .3, , 2); //capacidade atual
+                texto_scribble(_xcap - 20, _ycap, string("{0}kg", round(peso_desenhado)), .2, , 2); //capacidade atual
                 texto_scribble(_xcap, _ycap, " / ", .3, , 1); // "/"
-                texto_scribble(_xcap + 20, _ycap, string("{0}kg", global.sacola.max_peso), .3); //capacidade maxima
+                texto_scribble(_xcap + 20, _ycap, string("{0}kg", global.sacola.max_peso), .2); //capacidade maxima
             }
             else
             {
-                texto_scribble(_xcap, _ycap, "[shake][pulse]FULL[/]", .3, , 1, , #e41818);
+                texto_scribble(_xcap, _ycap, "[shake][pulse]FULL[/]", .2, , 1, , #e41818);
             }
             
             //variaveis pro desenho dos minerios
@@ -207,7 +207,7 @@ desenha_hud = function()
                 draw_sprite_ext(spr_minerios_pequenos, _dados.sprite, _x, _y, escala_sacola, escala_sacola, 0, c_white, 1);
                 
                 //quantidade
-                texto_scribble(_x + 20, _y - 10, "x" + string(_qtd), .3);
+                texto_scribble(_x + 20, _y - 10, "x" + string(_qtd), .2);
             }
         }
     }
@@ -269,7 +269,7 @@ desenha_hud = function()
         if (_porc <= 0)
         {
             var _xtxt = display_get_gui_width() / 2;
-            texto_scribble(_xtxt, _y + 13, "[shake][wave]EMPTY[/]", .4, , 1, 1, #e41818);
+            texto_scribble(_xtxt, _y + 13, "[shake][wave]EMPTY[/]", .3, , 1, 1, #e41818);
         }
         
         stamina_info(_x, _y)
@@ -297,7 +297,7 @@ desenha_hud = function()
             var _y = 90;
             var _texto = string("[wheel]{0} / {1}[/]", global.stamina_atual, global.stamina_max)
             
-            texto_scribble(_x - 20, _y, _texto, .3, , 1, 1);
+            texto_scribble(_x - 20, _y, _texto, .2, , 1, 1);
         }
     }
     

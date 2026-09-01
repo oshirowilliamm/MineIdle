@@ -46,32 +46,24 @@ function restart()
 
 
 //texto com scribble
-function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _outline = true, _cor_sombra = c_black)
+function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
 {
-    //definindo tamanho do outline
-    var _espaco = 10 * _xscale;
-    
-    if (!_outline)
-    {
-        _espaco = 0;
-    }
-    
-    //texto
-    var _txt = scribble(_texto)
+    scribble(_texto)
         .starting_format(_font, c_white)
         .align(_halign, _valign)
-        .scale(_xscale, _yscale);
-    
-    //outline
-    _txt.blend(_cor_sombra, _alpha)
-    _txt.draw(_x, _y + _espaco)
-    _txt.draw(_x, _y - _espaco)
-    _txt.draw(_x + _espaco, _y)
-    _txt.draw(_x - _espaco, _y);
-    
-    //normal
-    _txt.blend(_cor, _alpha)
-    _txt.draw(_x, _y);
+        .scale(_xscale, _yscale)
+        .blend(_cor, _alpha)
+        .draw(_x, _y);
+}
+
+function texto_scribble_typist(_typist, _x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
+{
+    scribble(_texto)
+        .starting_format(_font, c_white)
+        .align(_halign, _valign)
+        .scale(_xscale, _yscale)
+        .blend(_cor, _alpha)
+        .draw(_x, _y, _typist);
 }
 
 
@@ -149,6 +141,12 @@ function cria_persistentes(_player = true, _controller = true, _hud = true, _deb
         {
             global.spawn_x = 928;
             global.spawn_y = 530;
+        }
+        
+        //criando a layer
+        if (!layer_exists("Player"))
+        {
+            layer_create(0, "Player");
         }
         
         instance_create_layer(global.spawn_x, global.spawn_y, "Player", obj_player);

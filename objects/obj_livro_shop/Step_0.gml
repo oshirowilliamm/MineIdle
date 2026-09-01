@@ -1,3 +1,3 @@
 EM_TRANSICAO
 
-desenha_hud();
+cria_pagina();

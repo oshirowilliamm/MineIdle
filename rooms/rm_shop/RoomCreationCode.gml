@@ -1,1 +1,1 @@
-cria_persistentes(false);
+cria_persistentes();

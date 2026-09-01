@@ -13,9 +13,10 @@ function cria_transicao_inicia(_destino = noone)
         return;
     }
     
+    global.transicao = true;
+    
     //Criando o objeto transição
     var _transicao = instance_create_depth(0, 0, 0, obj_transicao, { destino: _destino});
-    
 }
 
 //Função de transição
@@ -46,6 +47,8 @@ function fazendo_transicao(_sq = sq_transicao_1)
 //Destruindo a sequencia da transição no final dela
 function destruindo_layer_transicao()
 {
+    global.transicao = false;
+    
     if (layer_exists("transicao"))
     {
         layer_destroy("transicao");

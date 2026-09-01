@@ -21,6 +21,8 @@ texto_yscale = .2;
 //variaveis de controle
 inventario = false;
 desenhar = false;
+
+//pagina que muda o bioma
 pagina_atual = 0;
 
 info = noone;
@@ -94,14 +96,14 @@ desenha_pagina = function()
     var _yinfo = 0;
     
     //desenhando todos os minerios
-    var _minerios_bioma = global.paginas_livro[pagina_atual];
+    var _pagina = global.paginas_livro[pagina_atual];
     
-    for (var i = 0; i < array_length(_minerios_bioma); i++)
+    for (var i = 0; i < array_length(_pagina); i++)
     {
         var _yatual = _yinicial + (i * 120);
         
         //desenhando os minerios brutos
-        var _item_bruto = _minerios_bioma[i];
+        var _item_bruto = _pagina[i];
         
         var _item = desenha_itens(_item_bruto, "minerios", _xbruto, _yatual, spr_minerios);
         

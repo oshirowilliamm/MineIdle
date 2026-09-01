@@ -1,1 +1,0 @@
-item = global.minerios[$ nome];
