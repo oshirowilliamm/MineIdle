@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"mina_chunks",
+  "%Name":"scr_cores",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"mina_chunks",
+  "name":"scr_cores",
   "parent":{
     "name":"Scripts",
     "path":"folders/Scripts.yy",

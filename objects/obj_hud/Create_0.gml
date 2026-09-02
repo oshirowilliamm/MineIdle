@@ -79,7 +79,7 @@ desenha_hud = function()
         else
         {
             _texto = "[shake][wheel]FULL[/]";
-            _cor = #e41818;
+            _cor = cor_negativo;
         }  
         
         //texto
@@ -129,7 +129,7 @@ desenha_hud = function()
             }
             else
             {
-                texto_scribble(_xcap, _ycap, "[shake][wheel]FULL[/]", .2, , 1, , #e41818);
+                texto_scribble(_xcap, _ycap, "[shake][wheel]FULL[/]", .2, , 1, , cor_negativo);
             }
             
             //variaveis pro desenho dos minerios
@@ -271,7 +271,7 @@ desenha_hud = function()
         stamina_desenhada = lerp(stamina_desenhada, _porc_blocos, .1);
         
         //cor da stamina
-        var _cor = merge_colour(#d50000, #4dcb1f, stamina_desenhada);
+        var _cor = merge_colour(cor_negativo, cor_positivo, stamina_desenhada);
         
         //efeitos
         var _shake = stamina_efeito(_porc_blocos);
@@ -295,7 +295,7 @@ desenha_hud = function()
         if (_porc <= 0)
         {
             var _xtxt = display_get_gui_width() / 2;
-            texto_scribble(_xtxt, _y + 13, "[shake][wave]EMPTY[/]", .3, , 1, 1, #e41818);
+            texto_scribble(_xtxt, _y + 13, "[shake][wave]EMPTY[/]", .3, , 1, 1, cor_negativo);
         }
         
         stamina_info(_x, _y)
@@ -322,7 +322,7 @@ desenha_hud = function()
             moeda_yscale = lerp(moeda_yscale, 10, .1);
             
             //efeito da cor
-            moeda_cor = c_lime;
+            moeda_cor = cor_positivo;
             
             moeda_atual = global.moeda;
         }

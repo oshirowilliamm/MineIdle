@@ -8,7 +8,7 @@ global.minerios =
             {
                 nome: "Pedra",
                 sprite: 0,
-                cor: #292961,
+                cor: cor_b1_pedra,
                 vida: 10,
                 drop_qtd: 1,
                 valor: 10,
@@ -19,7 +19,7 @@ global.minerios =
                 nome: "Ametilita",
                 sprite: 1,
                 vida: 20,
-                cor: #68377B,
+                cor: cor_b1_rocha1,
                 drop_qtd: 1,
                 valor: 20,
                 peso: 4,
@@ -28,7 +28,7 @@ global.minerios =
             {
                 nome: "Malacuru",
                 sprite: 2,
-                cor: #D7897A,
+                cor: cor_b1_rocha2,
                 vida: 40,
                 drop_qtd: 1,
                 valor: 30,
@@ -38,7 +38,7 @@ global.minerios =
             {
                 nome: "Pererita",
                 sprite: 3,
-                cor: #4B8623,
+                cor: cor_b1_cristal1,
                 vida: 50,
                 drop_qtd: 1,
                 valor: 40,
@@ -48,7 +48,7 @@ global.minerios =
             {
                 nome: "Diarã",
                 sprite: 4,
-                cor: #D259AC,
+                cor: cor_b1_cristal2,
                 vida: 100,
                 drop_qtd: 1,
                 valor: 50,
@@ -67,7 +67,7 @@ global.minerios =
             {
                 nome: "Ametilita Limpa",
                 sprite: 0,
-                cor: #68377B,
+                cor: cor_b1_rocha1,
                 drop_qtd: 1,
                 valor: 100,
                 peso: 4,
@@ -76,7 +76,7 @@ global.minerios =
             {
                 nome: "Malacuru Limpa",
                 sprite: 1,
-                cor: #D7897A,
+                cor: cor_b1_rocha2,
                 drop_qtd: 1,
                 valor: 150,
                 peso: 6,
@@ -85,7 +85,7 @@ global.minerios =
             {
                 nome: "Pererita Limpa",
                 sprite: 2,
-                cor: #4B8623,
+                cor: cor_b1_cristal1,
                 drop_qtd: 1,
                 valor: 200,
                 peso: 8,
@@ -94,7 +94,7 @@ global.minerios =
             {
                 nome: "Diarã Limpa",
                 sprite: 3,
-                cor: #D259AC,
+                cor: cor_b1_cristal2,
                 drop_qtd: 1,
                 valor: 250,
                 peso: 10,
@@ -112,7 +112,7 @@ global.minerios =
             {
                 nome: "Barra de Ametilita",
                 sprite: 0,
-                cor: #68377B,
+                cor: cor_b1_rocha1,
                 drop_qtd: 1,
                 valor: 200,
                 peso: 4,
@@ -121,7 +121,7 @@ global.minerios =
             {
                 nome: "Barra de Malacuru",
                 sprite: 1,
-                cor: #D7897A,
+                cor: cor_b1_rocha2,
                 drop_qtd: 1,
                 valor: 300,
                 peso: 6,
@@ -130,16 +130,16 @@ global.minerios =
             {
                 nome: "Joia de Pererita",
                 sprite: 2,
-                cor: #4B8623,
+                cor: cor_b1_cristal1,
                 drop_qtd: 1,
                 valor: 400,
                 peso: 8,
             },
-            b1_cristal2_refinado:
+            b1_cristal2_refinado:   
             {
                 nome: "Joia de Diarã",
                 sprite: 3,
-                cor: #D259AC,
+                cor: cor_b1_cristal2,
                 drop_qtd: 1,
                 valor: 500,
                 peso: 10,

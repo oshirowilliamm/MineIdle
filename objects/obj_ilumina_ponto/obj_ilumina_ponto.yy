@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_ilumina_checkpoint",
+  "%Name":"obj_ilumina_ponto",
   "eventList":[],
   "managed":true,
-  "name":"obj_ilumina_checkpoint",
+  "name":"obj_ilumina_ponto",
   "overriddenProperties":[],
   "parent":{
     "name":"Iluminacao",
@@ -23,7 +23,10 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[],
+  "properties":[
+    {"$GMObjectProperty":"v2","%Name":"alcance","filters":[],"listItems":[],"multiselect":false,"name":"alcance","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"brilho","filters":[],"listItems":[],"multiselect":false,"name":"brilho","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"1","varType":0,},
+  ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,

@@ -37,7 +37,7 @@ aplica_efeitos = function()
 {
     efeito_squash(1.2, 1.2);
     escala_valor = 1.8;
-    cor_valor = c_lime
+    cor_valor = cor_positivo
 }
 
 retorna_efeitos = function()
