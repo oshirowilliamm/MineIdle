@@ -69,7 +69,7 @@ global.minerios =
                 sprite: 0,
                 cor: #68377B,
                 drop_qtd: 1,
-                valor: 20,
+                valor: 100,
                 peso: 4,
             },
             b1_rocha2_limpo:
@@ -78,7 +78,7 @@ global.minerios =
                 sprite: 1,
                 cor: #D7897A,
                 drop_qtd: 1,
-                valor: 30,
+                valor: 150,
                 peso: 6,
             },
             b1_cristal1_limpo:
@@ -87,7 +87,7 @@ global.minerios =
                 sprite: 2,
                 cor: #4B8623,
                 drop_qtd: 1,
-                valor: 40,
+                valor: 200,
                 peso: 8,
             },
             b1_cristal2_limpo:
@@ -96,7 +96,7 @@ global.minerios =
                 sprite: 3,
                 cor: #D259AC,
                 drop_qtd: 1,
-                valor: 50,
+                valor: 250,
                 peso: 10,
             },
             
@@ -114,7 +114,7 @@ global.minerios =
                 sprite: 0,
                 cor: #68377B,
                 drop_qtd: 1,
-                valor: 20,
+                valor: 200,
                 peso: 4,
             },
             b1_rocha2_refinado:
@@ -123,7 +123,7 @@ global.minerios =
                 sprite: 1,
                 cor: #D7897A,
                 drop_qtd: 1,
-                valor: 30,
+                valor: 300,
                 peso: 6,
             },
             b1_cristal1_refinado:
@@ -132,7 +132,7 @@ global.minerios =
                 sprite: 2,
                 cor: #4B8623,
                 drop_qtd: 1,
-                valor: 40,
+                valor: 400,
                 peso: 8,
             },
             b1_cristal2_refinado:
@@ -141,7 +141,7 @@ global.minerios =
                 sprite: 3,
                 cor: #D259AC,
                 drop_qtd: 1,
-                valor: 50,
+                valor: 500,
                 peso: 10,
             },
             

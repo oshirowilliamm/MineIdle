@@ -20,7 +20,7 @@ cria_pagina = function()
     
     var _pagina = global.paginas_livro[pagina_atual];
     
-    //desenhando todos os minerios  
+    //desenhando todos os minerios
     for (var i = 0; i < array_length(_pagina); i++)
     {
         //definindo o y
@@ -54,60 +54,4 @@ cria_pagina = function()
     }
     
     pagina_criada = true;
-}
-
-desenha_itens = function(_minerio, _categoria, _x, _y, _sprite)
-{
-    var _item = global.minerios[$ _minerio];
-    
-    var _inventario = global.inventario_global[$ _categoria]; //pegando a categoria pelo inventario
-    var _qtd = _inventario[$ _minerio]; //pegando a quantidade do minério e vendo se ele existe
-    var _mouse_sobre_item = noone; //pegando se o item esta com mouse em cima ou não
-    
-    //mouse em cima do item
-    if (mouse_sobre_ui(_x, _y, _sprite, escala))
-    {
-        //fazendo o efeito squash nesse minerio em especifico
-        xscale = lerp(xscale, 1.5, .1);
-        yscale = lerp(yscale, 1.5, .1);
-        
-        //se o item existir, eu aviso 
-        if (_qtd != undefined) _mouse_sobre_item = _item;
-    }
-    
-    //escala do item
-    var _xscale = escala * xscale;
-    var _yscale = escala * yscale;
-    
-    //se existir
-    if (_qtd != undefined)
-    {
-        draw_sprite_ext(_sprite, _item.sprite, _x, _y, _xscale, _yscale, 0, c_white, 1);
-        var _texto = "x" + string(_qtd);
-        texto_scribble(_x + 10, _y, _texto, .3);
-    }
-    //se n existir
-    else
-    {
-        draw_sprite_ext(_sprite, _item.sprite, _x, _y, escala, escala, 0, c_black, 1);
-        texto_scribble(_x + 10, _y, "???", .3);
-    }
-    
-    //retornando o mouse sobre
-    return _mouse_sobre_item;
-}
-
-item_sobre = function(_item, _categoria, _x, _y)
-{
-    //mouse em cima
-    if (_item != noone)
-    {
-        texto_scribble(_x, _y, "ok");
-    }
-    //mouse fora
-    else
-    {
-        xscale = lerp(xscale, 1, .1);
-        yscale = lerp(yscale, 1, .1);
-    }
 }

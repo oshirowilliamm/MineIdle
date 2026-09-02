@@ -310,17 +310,28 @@ desenha_hud = function()
     
     desenha_moeda = function()
     {
-        if (room != rm_vila) return;
+        if (array_contains(global.rooms_mina, room)) return;
+        
+        //desenhando fundo
+        var _margem = 10;
+        var _w = 250;
+        var _h = 120;
+        var _x = display_get_gui_width() - _w - _margem;
+        var _y = _margem;
+        
+        draw_sprite_stretched(spr_caixa_fundo, 0, _x, _y, _w, _h);
         
         //desenhando moeda
-        var _x = display_get_gui_width() / 2 - sprite_get_width(spr_moeda) - 20;
-        var _y = 60;
+        var _xmoeda = _x + 55;
+        var _ymoeda = _y + (_h / 2) - 10;
         
-        draw_sprite_ext(spr_moeda, 0, _x, _y, global.escala_hud, global.escala_hud, 0, c_white, 1);
+        draw_sprite_ext(spr_moeda, 0, _xmoeda, _ymoeda, global.escala_hud, global.escala_hud, 0, c_white, 1);
         
         //texto dinheiro
         moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
-        texto_scribble(_x + 50, _y, round(moeda_desenhada), .3, , , 1);
+        var _texto = string("${0}", round(moeda_desenhada))
+        
+        texto_scribble(_xmoeda + 40, _ymoeda, _texto, .2, , , 1);
     }
     
 #endregion

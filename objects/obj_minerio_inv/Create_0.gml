@@ -3,57 +3,128 @@ inicia_efeito_squash();
 escala = global.escala_hud;
 minerio = global.minerios[$ item];
 
+//posicao inicial
+if (room == rm_vila)
+{
+    x_inicial = x - obj_inventario.x_livro;
+    y_inicial = y - obj_inventario.y_livro;
+}
 
+//efeito de shakes
+shake = false;
+shake_timer = 10;
+shake_x = 0;
+
+
+
+segue_inventario = function()
+{
+    if (room != rm_vila) return;
+    
+    x = obj_inventario.x_livro + x_inicial;
+    y = obj_inventario.y_livro + y_inicial;
+}
 
 selecao = function()
 {
     //pegando a quantidade do item
     var _qtd = global.inventario_global[$ categoria][$item];
     
-    //se existe
-    if (_qtd != undefined)
+    //verifica se o mouse esta em cima
+    if (mouse_sobre_ui(x, y, sprite, escala))
     {
-        //verifica se o mouse esta em cima
-        if (mouse_sobre_ui(x, y, sprite, escala))
+        //se foi descoberto
+        if (_qtd != undefined)
         {
-            xscale = lerp(xscale, 1.5, .1);
-            yscale = lerp(yscale, 1.5, .1);
-            
-            //mostrando as infos dos itens na balança
-            with (obj_balanca) 
+            //efeito squash apenas se tem mais que 0
+            if (_qtd > 0)
             {
-                desenho = true;
-                
-            	item        = other.item;
-                categoria   = other.categoria;
-                sprite      = other.sprite;
-                minerio     = other.minerio;
+                xscale = lerp(xscale, 1.5, .1);
+                yscale = lerp(yscale, 1.5, .1);
             }
+            else
+            {
+                retorna_squash();
+            }
+            
+            //função de venda
+            interage_shop();
         }
+        //se n foi descoberto
         else
         {
-            retorna_squash();
+            //efeito de shake
+            if (mouse_check_button_pressed(mb_left))
+            {
+                shake = true;
+            }
+        }
+    }
+    else
+    {
+        retorna_squash();
+    }
+}
+
+interage_shop = function()
+{
+    if (room != rm_shop) return;
+    
+    //mostrando as infos dos itens na balança
+    with (obj_balanca) 
+    {
+        desenho = true;
+        
+        item        = other.item;
+        categoria   = other.categoria;
+        sprite      = other.sprite;
+        minerio     = other.minerio;
+    }
+    
+    //vendendo minerio
+    if (mouse_check_button_pressed(mb_left))
+    {
+        var _qtd = global.inventario_global[$ categoria][$item];
+        
+        if (_qtd > 0) 
+        {
+            //tirando o minerio
+            global.inventario_global[$ categoria][$item]--;
+            
+            //ganhando dinheiro
+            global.moeda += minerio.valor;
+            
+            efeito_squash(1, 1);
         }
     }
 }
 
 desenha_minerio = function()
 {
-    EM_TRANSICAO
-    
     //pegando a quantidade do item
     var _qtd = global.inventario_global[$ categoria][$item];
     
     //se existe
     if (_qtd != undefined)
     {
-        draw_sprite_ext(sprite, minerio.sprite, x, y, escala * xscale, escala * yscale, 0, c_white, 1);
-        texto_scribble(x + 15, y + 5, string("x{0}", _qtd), .2);
+        //se tem mais que 0
+        if (_qtd > 0)
+        {
+            draw_sprite_ext(sprite, minerio.sprite, x, y, escala * xscale, escala * yscale, 0, c_white, 1);
+            texto_scribble(x + 15, y + 5, string("x{0}", _qtd), .2);
+        }
+        //se n tem
+        else
+        {
+            draw_sprite_ext(sprite, minerio.sprite, x, y, escala * xscale, escala * yscale, 0, c_gray, .5);
+            texto_scribble(x + 15, y + 5, string("x{0}", _qtd), .2, , , , c_gray, .5);
+        }
+        
     }
     //se ainda não existe
     else
     {
-        draw_sprite_ext(sprite, minerio.sprite, x, y, escala, escala, 0, c_black, 1);
-        texto_scribble(x + 15, y + 5, "???", .2);
+        draw_sprite_ext(sprite, minerio.sprite, x + shake_x, y + shake_x, escala, escala, 0, c_black, 1);
+        texto_scribble(x + 15 + shake_x, y + 5 + shake_x, "???", .2);
     }
 }

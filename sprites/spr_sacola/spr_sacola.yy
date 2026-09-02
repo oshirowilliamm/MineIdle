@@ -32,8 +32,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"HUD",
-    "path":"folders/Sprites/HUD.yy",
+    "name":"Mina",
+    "path":"folders/Sprites/HUD/Mina.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

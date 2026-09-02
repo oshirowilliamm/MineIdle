@@ -107,17 +107,17 @@ ativa_painel = function()
             //brutos
             if (global.inventario_global.minerios[$ _item] == undefined) global.inventario_global.minerios[$ _item] = 0;
             
-            global.inventario_global.minerios[$ _item] += 100;
+            global.inventario_global.minerios[$ _item] += 5;
             
             //limpos
             if (global.inventario_global.limpos[$ _item] == undefined) global.inventario_global.limpos[$ _item] = 0;
             
-            global.inventario_global.limpos[$ _item] += 100;
+            global.inventario_global.limpos[$ _item] += 5;
             
             //refinados
             if (global.inventario_global.refinados[$ _item] == undefined) global.inventario_global.refinados[$ _item] = 0;
             
-            global.inventario_global.refinados[$ _item] += 100;
+            global.inventario_global.refinados[$ _item] += 5;
         }
     }
     
