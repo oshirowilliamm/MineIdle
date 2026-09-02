@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_funcoes",
+  "%Name":"scr_upgrades_novo",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_funcoes",
+  "name":"scr_upgrades_novo",
   "parent":{
-    "name":"Geral",
-    "path":"folders/Scripts/Geral.yy",
+    "name":"Dados",
+    "path":"folders/Scripts/Dados.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

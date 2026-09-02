@@ -37,6 +37,8 @@
     {"$GMObjectProperty":"v2","%Name":"sprite","filters":[
         "GMSprite",
       ],"listItems":[],"multiselect":false,"name":"sprite","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"spr_loja","path":"sprites/spr_loja/spr_loja.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"spr_loja","varType":5,},
+    {"$GMObjectProperty":"v2","%Name":"dest_x","filters":[],"listItems":[],"multiselect":false,"name":"dest_x","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0.0","varType":0,},
+    {"$GMObjectProperty":"v2","%Name":"dest_y","filters":[],"listItems":[],"multiselect":false,"name":"dest_y","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0.0","varType":0,},
     {"$GMObjectProperty":"v2","%Name":"y_origem","filters":[],"listItems":[],"multiselect":false,"name":"y_origem","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"y","varType":0,},
   ],
   "resourceType":"GMObject",

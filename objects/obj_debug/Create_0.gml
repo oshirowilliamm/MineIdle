@@ -19,7 +19,6 @@ draw_depth_bloco = false;
 item_ganha = false;
 
 
-
 cria_painel = function()
 {
     show_debug_overlay(1);

@@ -400,7 +400,6 @@ estado_desativado = function()
     hspd = 0;
     vspd = 0;
     
-    
     //so sai do estado se n tiver em room de loja
     if (!array_contains(global.rooms_vila, room))
     {

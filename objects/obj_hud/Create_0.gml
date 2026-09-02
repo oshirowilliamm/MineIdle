@@ -1,19 +1,15 @@
 //efeitos
-inicia_efeito_squash();
+escala_sacola = new efeito_escala();
+escala_stamina = new efeito_escala();
+escala_moeda = new efeito_escala();
+escala_voltar = new efeito_escala();
 
 
-desenha_hud = function()
-{
-    desenha_sacola();
-    desenha_stamina();
-    desenha_moeda();
-}
 
 #region Sacola
     
     itens_caindo = [];
     peso_desenhado = 0;
-    escala_sacola = global.escala_hud;
     
     sacola_drops_caindo = function(_xsacola, _ysacola)
     {
@@ -27,7 +23,7 @@ desenha_hud = function()
             _item.y += _item.vspd;
             
             //desenhando a sprite
-            draw_sprite_ext(spr_minerios_pequenos, _item.frame, _xsacola, _item.y, escala_sacola, escala_sacola, 0, c_white, 1);
+            draw_sprite_ext(spr_minerios_pequenos, _item.frame, _xsacola, _item.y, global.escala_hud, global.escala_hud, 0, c_white, 1);
             
             //apagando se chegou na sacola
             if (_item.y >= _ysacola)
@@ -45,7 +41,9 @@ desenha_hud = function()
                 global.sacola.peso_atual += _item.peso;
                 
                 //efeito
-                efeito_squash(1.5, .5);
+                escala_sacola.squash(1.5, .5);
+                
+                //efeito de texto voador
                 var _txt = instance_create_depth(0, 0, -9999, obj_texto_voador, {xx: _xsacola, yy: _ysacola});
                 _txt.texto = "[wave]+" + string(_item.peso) + "kg[/]";
                 
@@ -60,8 +58,8 @@ desenha_hud = function()
         scribble_anim_wave(3, .1, .1)
         
         //posição do texto
-        var _xscale = .3 * xscale;
-        var _yscale = .3 * yscale;
+        var _xscale = .3 * escala_sacola.xscale;
+        var _yscale = .3 * escala_sacola.yscale;
         var _x = _xsacola + 5;
         var _y = _ysacola - 10;
         var _cor = c_white;
@@ -91,7 +89,7 @@ desenha_hud = function()
         //só desenha se tiver algum item na sacola
         if (global.sacola.peso_atual <= 0) return;
         
-        var _mouse_sobre = mouse_sobre_ui(_xsacola, _ysacola, spr_sacola, escala_sacola);
+        var _mouse_sobre = mouse_sobre_ui(_xsacola, _ysacola, spr_sacola, global.escala_hud);
          
         if (_mouse_sobre)
         {
@@ -156,7 +154,7 @@ desenha_hud = function()
                 var _y = _y_inicial + (_linha * _espaco_y);
                 
                 //sprite
-                draw_sprite_ext(spr_minerios_pequenos, _dados.sprite, _x, _y, escala_sacola, escala_sacola, 0, c_white, 1);
+                draw_sprite_ext(spr_minerios_pequenos, _dados.sprite, _x, _y, global.escala_hud, global.escala_hud, 0, c_white, 1);
                 
                 //quantidade
                 texto_scribble(_x + 20, _y, "x" + string(_qtd), .15);
@@ -175,8 +173,9 @@ desenha_hud = function()
         var _y = 620 + _mexe_y;
         
         //escalas
-        var _escala_x = (escala_sacola * xscale);
-        var _escala_y = (escala_sacola * yscale);
+        var _escala_x = (global.escala_hud * escala_sacola.xscale);
+        var _escala_y = (global.escala_hud * escala_sacola.yscale);
+        escala_sacola.retorna(); // Processa a suavização para voltar a 1
         
         //fundo da sacola
         draw_sprite_ext(spr_sacola, 1, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
@@ -219,22 +218,18 @@ desenha_hud = function()
     
     stamina_desenhada = 0;
     bloco_atual = 9;
-    stamina_xscale = 1;
-    stamina_yscale = 1;
     
     stamina_efeito = function(_porc_blocos)
     {
         //efeito de squash
         if (_porc_blocos < bloco_atual)
         {
-            stamina_xscale = 1.2;
-            stamina_yscale = .8;
+            escala_stamina.squash(1.2, .8);
         }
         
         bloco_atual = _porc_blocos;
         
-        stamina_xscale = lerp(stamina_xscale, 1, .1);
-        stamina_yscale = lerp(stamina_yscale, 1, .1);
+        escala_stamina.retorna();
         
         //efeito de tremer
         var _shake = 0;
@@ -279,8 +274,8 @@ desenha_hud = function()
         //aplicando a escala na largura
         var _base_w = sprite_get_width(spr_barra_stamina);
         var _base_h = sprite_get_height(spr_barra_stamina) + 5;
-        var _width  = _base_w * stamina_xscale;
-        var _height = _base_h * stamina_yscale;
+        var _width  = _base_w * escala_stamina.xscale;
+        var _height = _base_h * escala_stamina.yscale;
         
         //posição
         var _x = (display_get_gui_width() / 2) - (_width / 2) + _shake;
@@ -307,10 +302,6 @@ desenha_hud = function()
     
     moeda_desenhada = global.moeda;
     moeda_atual = global.moeda;
-    
-    moeda_xscale = 1;
-    moeda_yscale = 1;
-    
     moeda_cor = c_white;
     
     moeda_efeito = function()
@@ -318,8 +309,7 @@ desenha_hud = function()
         if (global.moeda > moeda_atual)
         {
             //efeito squash
-            moeda_xscale = lerp(moeda_xscale, 10, .1);
-            moeda_yscale = lerp(moeda_yscale, 10, .1);
+            escala_moeda.squash(2, 2);
             
             //efeito da cor
             moeda_cor = cor_positivo;
@@ -327,10 +317,9 @@ desenha_hud = function()
             moeda_atual = global.moeda;
         }
         
-        //retornando o squash
-        moeda_xscale = lerp(moeda_xscale, 1, .1);
-        moeda_yscale = lerp(moeda_yscale, 1, .1);
-        moeda_cor    = merge_colour(moeda_cor, c_white, .07);
+        //retornando os efeitos
+        escala_moeda.retorna();
+        moeda_cor = merge_colour(moeda_cor, c_white, .07);
     }
     
     desenha_moeda = function()
@@ -359,7 +348,55 @@ desenha_hud = function()
         moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
         var _texto = string("${0}", formata_moeda(moeda_desenhada))
         
-        texto_scribble(_xmoeda + 40, _ymoeda, _texto, .2 * moeda_xscale, .2 * moeda_yscale, , 1, moeda_cor);
+        texto_scribble(_xmoeda + 40, _ymoeda, _texto, .2 * escala_moeda.xscale, .2 * escala_moeda.yscale, , 1, moeda_cor);
     }
     
 #endregion
+
+#region Voltar
+    
+    selecao_voltar = function(_x, _y)
+    {
+        if (mouse_sobre_ui(_x, _y, spr_voltar, global.escala_hud))
+        {
+            //efeito squash
+            escala_voltar.atualiza(1.5, 1.5, .1);
+            
+            //indo pra vila
+            if (mouse_check_button_pressed(mb_left))
+            {
+                cria_transicao_inicia(rm_vila);
+                global.spawn_x = global.dest_x;
+                global.spawn_y = global.dest_y;
+            }
+        }
+        else
+        {
+            //retorna squash
+            escala_voltar.retorna(.1);
+        }
+    }
+    
+    desenha_voltar = function()
+    {
+        if (!array_contains(global.rooms_vila, room)) return;
+        
+        var _xscale = global.escala_hud * escala_voltar.xscale;
+        var _yscale = global.escala_hud * escala_voltar.yscale
+        var _x = display_get_gui_width() - sprite_get_width(spr_voltar) * global.escala_hud;
+        var _y = display_get_gui_height() - sprite_get_height(spr_voltar) * global.escala_hud;
+        
+        draw_sprite_ext(spr_voltar, 0, _x, _y, _xscale, _yscale, 0, c_white, 1);
+        
+        selecao_voltar(_x, _y);
+    }
+    
+#endregion
+
+desenha_hud = function()
+{
+    desenha_sacola();
+    desenha_stamina();
+    desenha_moeda();
+    desenha_voltar();
+}

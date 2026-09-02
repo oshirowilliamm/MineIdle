@@ -51,7 +51,7 @@ var _janela_my = window_mouse_get_y();
 //se clicar esta arrastando
 if (mouse_check_button_pressed(mb_left)) 
 {
-    if (!position_meeting(mouse_x, mouse_y, obj_upgrade))
+    if (!position_meeting(mouse_x, mouse_y, obj_upgrade_velho))
     {
         arrastando = true;
         mouse_x_prev = _janela_mx;

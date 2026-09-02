@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_cores",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Outros",
+    "path":"folders/Scripts/Outros.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
