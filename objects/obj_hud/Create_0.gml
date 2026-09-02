@@ -105,7 +105,7 @@ desenha_hud = function()
             var _max = _my - _hfundo / 1.5;
             var _yfundo = min(_min, _max);
             
-            draw_sprite_stretched(spr_fundo_infos, 0, _xfundo, _yfundo, _wfundo, _hfundo);
+            draw_sprite_stretched(spr_caixa_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
             
             //desenhando a barra
             var _xbar = _xfundo + 20;
@@ -139,7 +139,7 @@ desenha_hud = function()
             var _x_inicial = _xfundo + 40;
             var _y_inicial = _ybar + 90;
             
-            draw_line_width_color(_xfundo + 20, _y_inicial - 30, _xfundo + _wfundo - 20, _y_inicial - 30, 4, #190606, #190606);
+            draw_line_width_color(_xfundo + 20, _y_inicial - 30, _xfundo + _wfundo - 20, _y_inicial - 30, 4, #1C1C33, #1C1C33);
             
             //rodando meus itens
             var _chaves = struct_get_names(global.sacola.itens);
