@@ -15,6 +15,155 @@ desenha_hud = function()
     peso_desenhado = 0;
     escala_sacola = global.escala_hud;
     
+    sacola_drops_caindo = function(_xsacola, _ysacola)
+    {
+        //rodando a lista de tras pra frente pra poder deletar mais facil
+        for (var i = array_length(itens_caindo) - 1; i >= 0; i--)
+        {
+            var _item = itens_caindo[i];
+            
+            //aplicando velocidade
+            _item.vspd += .5;
+            _item.y += _item.vspd;
+            
+            //desenhando a sprite
+            draw_sprite_ext(spr_minerios_pequenos, _item.frame, _xsacola, _item.y, escala_sacola, escala_sacola, 0, c_white, 1);
+            
+            //apagando se chegou na sacola
+            if (_item.y >= _ysacola)
+            {
+                //criando a chave
+                if (global.sacola.itens[$ _item.tipo] == undefined)
+                {
+                    global.sacola.itens[$ _item.tipo] = 0;
+                }
+                
+                //adicionando minerio
+                global.sacola.itens[$ _item.tipo]++;
+                
+                //adicionando peso
+                global.sacola.peso_atual += _item.peso;
+                
+                //efeito
+                efeito_squash(1.5, .5);
+                var _txt = instance_create_depth(0, 0, -9999, obj_texto_voador, {xx: _xsacola, yy: _ysacola});
+                _txt.texto = "[wave]+" + string(_item.peso) + "kg[/]";
+                
+                //deletando o item da array
+                array_delete(itens_caindo, i, 1);
+            }
+        }
+    }
+    
+    sacola_porcentagem = function(_xsacola, _ysacola)
+    {
+        scribble_anim_wave(3, .1, .1)
+        
+        //posição do texto
+        var _xscale = .3 * xscale;
+        var _yscale = .3 * yscale;
+        var _x = _xsacola + 5;
+        var _y = _ysacola - 10;
+        var _cor = c_white;
+        
+        //porcentagem
+        peso_desenhado = lerp(peso_desenhado, global.sacola.peso_atual, .1);
+        var _porc = string(round((peso_desenhado / global.sacola.max_peso) * 100));
+        var _texto = "";
+        
+        if (_porc < 100)
+        {
+            _texto = "[wave]" + string(_porc) + "%[/]";
+            _cor = c_white;
+        }
+        else
+        {
+            _texto = "[shake][wheel]FULL[/]";
+            _cor = #e41818;
+        }  
+        
+        //texto
+        texto_scribble(_x, _y, _texto, _xscale, _yscale, 1, , _cor);
+    }
+    
+    sacola_infos = function(_xsacola, _ysacola)
+    {
+        //só desenha se tiver algum item na sacola
+        if (global.sacola.peso_atual <= 0) return;
+        
+        var _mouse_sobre = mouse_sobre_ui(_xsacola, _ysacola, spr_sacola, escala_sacola);
+         
+        if (_mouse_sobre)
+        {
+            //desenhando fundo
+            var _mx = device_mouse_x_to_gui(0);
+            var _my = device_mouse_y_to_gui(0);   
+            var _wfundo = 400;
+            var _hfundo = 350;
+            var _xfundo = _xsacola + 80;
+            var _min = display_get_gui_height() - _hfundo;
+            var _max = _my - _hfundo / 1.5;
+            var _yfundo = min(_min, _max);
+            
+            draw_sprite_stretched(spr_fundo_infos, 0, _xfundo, _yfundo, _wfundo, _hfundo);
+            
+            //desenhando a barra
+            var _xbar = _xfundo + 20;
+            var _ybar = _yfundo + 20;
+            var _wbar = sprite_get_width(spr_barra) + 40;
+            var _hbar = sprite_get_height(spr_barra) + 8;
+            
+            var _porc = clamp(peso_desenhado / global.sacola.max_peso, 0, 1);
+            
+            draw_sprite_stretched(spr_barra, 0, _xbar, _ybar, _wbar, _hbar);
+            draw_sprite_stretched(spr_barra, 1, _xbar, _ybar, _wbar * _porc, _hbar);
+            
+            //desenhando o texto da capacidade
+            var _xcap = _xfundo + _wfundo / 2;
+            var _ycap = _ybar + 5;
+            
+            if (_porc < .99)
+            {
+                var _texto = string("{0}kg / {1}kg", round(peso_desenhado), global.sacola.max_peso)
+                texto_scribble(_xcap, _ycap, _texto, .2, , 1);
+            }
+            else
+            {
+                texto_scribble(_xcap, _ycap, "[shake][wheel]FULL[/]", .2, , 1, , #e41818);
+            }
+            
+            //variaveis pro desenho dos minerios
+            var _colunas = 4;
+            var _espaco_x = 100;
+            var _espaco_y = 70;
+            var _x_inicial = _xfundo + 40;
+            var _y_inicial = _ybar + 90;
+            
+            draw_line_width_color(_xfundo + 20, _y_inicial - 30, _xfundo + _wfundo - 20, _y_inicial - 30, 4, #190606, #190606);
+            
+            //rodando meus itens
+            var _chaves = struct_get_names(global.sacola.itens);
+            for (var i = 0; i < array_length(_chaves); i++)
+            {
+                var _item   = _chaves[i];
+                var _qtd    = global.sacola.itens[$ _item];
+                var _dados  = global.minerios[$ _item];
+                
+                //pegando a posição em grid
+                var _coluna = i % _colunas;
+                var _linha  = floor(i / _colunas);
+                var _x = _x_inicial + (_coluna * _espaco_x);
+                var _y = _y_inicial + (_linha * _espaco_y);
+                
+                //sprite
+                draw_sprite_ext(spr_minerios_pequenos, _dados.sprite, _x, _y, escala_sacola, escala_sacola, 0, c_white, 1);
+                
+                //quantidade
+                texto_scribble(_x + 20, _y, "x" + string(_qtd), .15);
+            }
+        }
+    }
+    
     desenha_sacola = function()
     {
         //so desenha na mina
@@ -64,154 +213,6 @@ desenha_hud = function()
         sacola_infos(_x, _y);
     }
     
-    sacola_drops_caindo = function(_xsacola, _ysacola)
-    {
-        //rodando a lista de tras pra frente pra poder deletar mais facil
-        for (var i = array_length(itens_caindo) - 1; i >= 0; i--)
-        {
-            var _item = itens_caindo[i];
-            
-            //aplicando velocidade
-            _item.vspd += .5;
-            _item.y += _item.vspd;
-            
-            //desenhando a sprite
-            draw_sprite_ext(spr_minerios_pequenos, _item.frame, _xsacola, _item.y, escala_sacola, escala_sacola, 0, c_white, 1);
-            
-            //apagando se chegou na sacola
-            if (_item.y >= _ysacola)
-            {
-                //criando a chave
-                if (global.sacola.itens[$ _item.tipo] == undefined)
-                {
-                    global.sacola.itens[$ _item.tipo] = 0;
-                }
-                
-                //adicionando minerio
-                global.sacola.itens[$ _item.tipo]++;
-                
-                //adicionando peso
-                global.sacola.peso_atual += _item.peso;
-                
-                //efeito
-                efeito_squash(1.5, .5);
-                var _txt = instance_create_depth(0, 0, -9999, obj_texto_voador, {xx: _xsacola, yy: _ysacola});
-                _txt.texto = "[wave]+" + string(_item.peso) + "kg[/]";
-                
-                //deletando o item da array
-                array_delete(itens_caindo, i, 1);
-            }
-        }
-    }
-    
-    sacola_porcentagem = function(_xsacola, _ysacola)
-    {
-        //posição do texto
-        var _xscale = .4 * xscale;
-        var _yscale = .4 * yscale;
-        var _x = _xsacola + 5;
-        var _y = _ysacola - 20;
-        var _cor = c_white;
-        
-        //porcentagem
-        peso_desenhado = lerp(peso_desenhado, global.sacola.peso_atual, .1);
-        var _porc = string(round((peso_desenhado / global.sacola.max_peso) * 100));
-        var _texto = "";
-        
-        if (_porc < 100)
-        {
-            _texto = "[wheel]" + string(_porc) + "%[/]";
-            _cor = c_white;
-        }
-        else
-        {
-            _texto = "[shake][pulse]FULL[/]";
-            _cor = #e41818;
-        }  
-        
-        //texto
-        texto_scribble(_x, _y, _texto, _xscale, _yscale, 1, , _cor);
-    }
-    
-    sacola_infos = function(_xsacola, _ysacola)
-    {
-        //só desenha se tiver algum item na sacola
-        if (global.sacola.peso_atual <= 0) return;
-        
-        var _mouse_sobre = mouse_sobre_ui(_xsacola, _ysacola, spr_sacola, escala_sacola);
-         
-        if (_mouse_sobre)
-        {
-            //desenhando fundo
-            var _mx = device_mouse_x_to_gui(0);
-            var _my = device_mouse_y_to_gui(0);   
-            var _wfundo = 400;
-            var _hfundo = 350;
-            var _xfundo = _xsacola + 80;
-            var _min = display_get_gui_height() - _hfundo;
-            var _max = _my - _hfundo / 1.5;
-            var _yfundo = min(_min, _max);
-            
-            draw_sprite_stretched(spr_fundo_infos, 0, _xfundo, _yfundo, _wfundo, _hfundo);
-            
-            //desenhando a barra
-            var _xbar = _xfundo + 20;
-            var _ybar = _yfundo + 20;
-            var _wbar = sprite_get_width(spr_barra) + 40;
-            var _hbar = sprite_get_height(spr_barra) + 8;
-            
-            var _porc = clamp(peso_desenhado / global.sacola.max_peso, 0, 1);
-            
-            draw_sprite_stretched(spr_barra, 0, _xbar, _ybar, _wbar, _hbar);
-            draw_sprite_stretched(spr_barra, 1, _xbar, _ybar, _wbar * _porc, _hbar);
-            
-            //desenhando o texto da capacidade
-            var _xcap = _xfundo + _wfundo / 2;
-            var _ycap = _ybar - 5;
-            
-            if (_porc < .99)
-            {
-                texto_scribble(_xcap - 20, _ycap, string("{0}kg", round(peso_desenhado)), .2, , 2); //capacidade atual
-                texto_scribble(_xcap, _ycap, " / ", .3, , 1); // "/"
-                texto_scribble(_xcap + 20, _ycap, string("{0}kg", global.sacola.max_peso), .2); //capacidade maxima
-            }
-            else
-            {
-                texto_scribble(_xcap, _ycap, "[shake][pulse]FULL[/]", .2, , 1, , #e41818);
-            }
-            
-            //variaveis pro desenho dos minerios
-            var _colunas = 4;
-            var _espaco_x = 100;
-            var _espaco_y = 70;
-            var _x_inicial = _xfundo + 40;
-            var _y_inicial = _ybar + 90;
-            
-            draw_line_width_color(_xfundo + 20, _y_inicial - 30, _xfundo + _wfundo - 20, _y_inicial - 30, 4, #190606, #190606);
-            
-            //rodando meus itens
-            var _chaves = struct_get_names(global.sacola.itens);
-            for (var i = 0; i < array_length(_chaves); i++)
-            {
-                var _item   = _chaves[i];
-                var _qtd    = global.sacola.itens[$ _item];
-                var _dados  = global.minerios[$ _item];
-                
-                //pegando a posição em grid
-                var _coluna = i % _colunas;
-                var _linha  = floor(i / _colunas);
-                var _x = _x_inicial + (_coluna * _espaco_x);
-                var _y = _y_inicial + (_linha * _espaco_y);
-                
-                //sprite
-                draw_sprite_ext(spr_minerios_pequenos, _dados.sprite, _x, _y, escala_sacola, escala_sacola, 0, c_white, 1);
-                
-                //quantidade
-                texto_scribble(_x + 20, _y - 10, "x" + string(_qtd), .2);
-            }
-        }
-    }
-    
 #endregion
 
 #region Stamina
@@ -220,6 +221,44 @@ desenha_hud = function()
     bloco_atual = 9;
     stamina_xscale = 1;
     stamina_yscale = 1;
+    
+    stamina_efeito = function(_porc_blocos)
+    {
+        //efeito de squash
+        if (_porc_blocos < bloco_atual)
+        {
+            stamina_xscale = 1.2;
+            stamina_yscale = .8;
+        }
+        
+        bloco_atual = _porc_blocos;
+        
+        stamina_xscale = lerp(stamina_xscale, 1, .1);
+        stamina_yscale = lerp(stamina_yscale, 1, .1);
+        
+        //efeito de tremer
+        var _shake = 0;
+        if (_porc_blocos < .4)
+        {
+            _shake = random_range(-2, 2);
+        }
+        
+        return _shake;
+    }
+    
+    stamina_info = function(_xbar, _ybar)
+    {
+        var _mouse_sobre = mouse_sobre_ui(_xbar, _ybar, spr_barra_stamina);
+        
+        if (_mouse_sobre)
+        {
+            var _x = device_mouse_x_to_gui(0) + 25;
+            var _y = 90;
+            var _texto = string("[wheel]{0} / {1}[/]", global.stamina_atual, global.stamina_max)
+            
+            texto_scribble(_x - 20, _y, _texto, .2, , 1, 1);
+        }
+    }
     
     desenha_stamina = function()
     {
@@ -234,21 +273,8 @@ desenha_hud = function()
         //cor da stamina
         var _cor = merge_colour(#d50000, #4dcb1f, stamina_desenhada);
         
-        //efeito de squash
-        if (_porc_blocos < bloco_atual)
-        {
-            stamina_efeito_squash(1.2, .8);
-        }
-        
-        bloco_atual = _porc_blocos;
-        stamina_retorna_squash(.1);
-        
-        //efeito de tremer
-        var _shake = 0;
-        if (_porc_blocos < .4)
-        {
-            _shake = random_range(-2, 2);
-        }
+        //efeitos
+        var _shake = stamina_efeito(_porc_blocos);
         
         //aplicando a escala na largura
         var _base_w = sprite_get_width(spr_barra_stamina);
@@ -275,42 +301,44 @@ desenha_hud = function()
         stamina_info(_x, _y)
     }
     
-    stamina_efeito_squash = function(_xscale, _yscale)
-    {
-        stamina_xscale = _xscale;
-        stamina_yscale = _yscale;
-    }
-    
-    stamina_retorna_squash = function(_qtd)
-    {
-        stamina_xscale = lerp(stamina_xscale, 1, _qtd);
-        stamina_yscale = lerp(stamina_yscale, 1, _qtd);
-    }    
-    
-    stamina_info = function(_xbar, _ybar)
-    {
-        var _mouse_sobre = mouse_sobre_ui(_xbar, _ybar, spr_barra_stamina);
-        
-        if (_mouse_sobre)
-        {
-            var _x = device_mouse_x_to_gui(0) + 25;
-            var _y = 90;
-            var _texto = string("[wheel]{0} / {1}[/]", global.stamina_atual, global.stamina_max)
-            
-            texto_scribble(_x - 20, _y, _texto, .2, , 1, 1);
-        }
-    }
-    
 #endregion
 
 #region Moeda
     
-    frame_moeda = 0;
-    moeda_desenhada = 0;
+    moeda_desenhada = global.moeda;
+    moeda_atual = global.moeda;
+    
+    moeda_xscale = 1;
+    moeda_yscale = 1;
+    
+    moeda_cor = c_white;
+    
+    moeda_efeito = function()
+    {
+        if (global.moeda > moeda_atual)
+        {
+            //efeito squash
+            moeda_xscale = lerp(moeda_xscale, 10, .1);
+            moeda_yscale = lerp(moeda_yscale, 10, .1);
+            
+            //efeito da cor
+            moeda_cor = c_lime;
+            
+            moeda_atual = global.moeda;
+        }
+        
+        //retornando o squash
+        moeda_xscale = lerp(moeda_xscale, 1, .1);
+        moeda_yscale = lerp(moeda_yscale, 1, .1);
+        moeda_cor    = merge_colour(moeda_cor, c_white, .07);
+    }
     
     desenha_moeda = function()
     {
         if (array_contains(global.rooms_mina, room)) return;
+        
+        //efeitos
+        moeda_efeito();
         
         //desenhando fundo
         var _margem = 10;
@@ -329,9 +357,9 @@ desenha_hud = function()
         
         //texto dinheiro
         moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
-        var _texto = string("${0}", round(moeda_desenhada))
+        var _texto = string("${0}", formata_moeda(moeda_desenhada))
         
-        texto_scribble(_xmoeda + 40, _ymoeda, _texto, .2, , , 1);
+        texto_scribble(_xmoeda + 40, _ymoeda, _texto, .2 * moeda_xscale, .2 * moeda_yscale, , 1, moeda_cor);
     }
     
 #endregion

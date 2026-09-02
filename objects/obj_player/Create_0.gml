@@ -26,15 +26,85 @@ cooldown_atual = 0;
 
 
 
-
-//metodos de movimento
-controla_player = function()
+//outras funções
+ajusta_escala = function()
 {
-    inputs();
-    aplica_velocidade();
-    ajusta_escala();
+    //pegando a direção do mouse
+    var _dir = point_direction(x, y, mouse_x, mouse_y);
+    
+    //aplicando na direção do player
+    direcao = round(_dir / 90) % 4;
 }
 
+outras_funcoes = function()
+{
+    //ajustando o depth de acordo com a room
+    if (!array_contains(global.rooms_mina, room))
+    {
+        depth = -y;
+    }
+    else
+    {
+        depth = layer_get_depth("Tile_Parede") - 10;
+    }
+    
+    //y com offset
+    yy = y - 15;
+    
+    //voltando cooldown de mineração
+    if (cooldown_atual > 0) cooldown_atual--;
+    
+    
+    //efeitos
+    retorna_squash();
+    retorna_efeito_brilho();
+}
+
+player_spawn_posicao = function()
+{
+    if (global.spawn_x != -1 && global.spawn_y != -1)
+    {
+        //colocando a posição do player na posição do spawn
+        x = global.spawn_x;
+        y = global.spawn_y;
+        
+        //resetando o valor do spawn
+        global.spawn_x = -1;
+        global.spawn_y = -1;
+    }
+}
+
+descarrega_sacola = function()
+{
+    if (room != rm_vila) return;
+    
+    var _chaves = struct_get_names(global.sacola.itens);
+    
+    for (var i = 0; i < array_length(_chaves); i++)
+    {
+        var _item = _chaves[i];
+        var _qtd  = global.sacola.itens[$ _item];
+        
+        //criando a chave
+        if (global.inventario_global.minerios[$ _item] == undefined)
+        {
+            global.inventario_global.minerios[$ _item] = 0;
+        }
+        
+        //adicionando os itens no inventario global
+        global.inventario_global.minerios[$ _item] += _qtd;
+    }
+    
+    //zerando a sacola
+    global.sacola.itens = {};
+    global.sacola.peso_atual = 0;
+}
+
+
+
+
+
+//metodos de movimento
 inputs = function()
 {
     left    = keyboard_check(ord("A"));
@@ -75,10 +145,38 @@ movimento = function()
     move_and_collide(0, vspd, colisoes, 12); //vertical
 }
 
+controla_player = function()
+{
+    inputs();
+    aplica_velocidade();
+    ajusta_escala();
+}
+
 
 
 
 //metodos de mineração
+fim_animacao_minerar = function()
+{
+    if (image_index >= image_number - 1)
+    {
+        golpe_aplicado = false;
+        
+        //se continuar minerando
+        if (click && cooldown_atual <= 0)
+        {
+            image_index = 0;
+            cooldown_atual = cooldown_max;
+        }
+        //se parar de minerar
+        else
+        {
+            usando_equip = false;
+            estado = estado_andando;
+        }
+    }
+}
+
 usa_equipamento = function()
 {
     if (click && array_contains(global.rooms_mina, room))
@@ -133,27 +231,6 @@ quebra_bloco = function()
         
         //aplicando golpe
         golpe_aplicado = true;
-    }
-}
-
-fim_animacao_minerar = function()
-{
-    if (image_index >= image_number - 1)
-    {
-        golpe_aplicado = false;
-        
-        //se continuar minerando
-        if (click && cooldown_atual <= 0)
-        {
-            image_index = 0;
-            cooldown_atual = cooldown_max;
-        }
-        //se parar de minerar
-        else
-        {
-            usando_equip = false;
-            estado = estado_andando;
-        }
     }
 }
 
@@ -352,82 +429,6 @@ estado_desativado = function()
 
 //aplicamendo meu estado
 estado = estado_parado;
-
-
-
-//outras funções
-ajusta_escala = function()
-{
-    //pegando a direção do mouse
-    var _dir = point_direction(x, y, mouse_x, mouse_y);
-    
-    //aplicando na direção do player
-    direcao = round(_dir / 90) % 4;
-}
-
-outras_funcoes = function()
-{
-    //ajustando o depth de acordo com a room
-    if (!array_contains(global.rooms_mina, room))
-    {
-        depth = -y;
-    }
-    else
-    {
-        depth = layer_get_depth("Tile_Parede") - 10;
-    }
-    
-    //y com offset
-    yy = y - 15;
-    
-    //voltando cooldown de mineração
-    if (cooldown_atual > 0) cooldown_atual--;
-    
-    
-    //efeitos
-    retorna_squash();
-    retorna_efeito_brilho();
-}
-
-player_spawn_posicao = function()
-{
-    if (global.spawn_x != -1 && global.spawn_y != -1)
-    {
-        //colocando a posição do player na posição do spawn
-        x = global.spawn_x;
-        y = global.spawn_y;
-        
-        //resetando o valor do spawn
-        global.spawn_x = -1;
-        global.spawn_y = -1;
-    }
-}
-
-descarrega_sacola = function()
-{
-    if (room != rm_vila) return;
-    
-    var _chaves = struct_get_names(global.sacola.itens);
-    
-    for (var i = 0; i < array_length(_chaves); i++)
-    {
-        var _item = _chaves[i];
-        var _qtd  = global.sacola.itens[$ _item];
-        
-        //criando a chave
-        if (global.inventario_global.minerios[$ _item] == undefined)
-        {
-            global.inventario_global.minerios[$ _item] = 0;
-        }
-        
-        //adicionando os itens no inventario global
-        global.inventario_global.minerios[$ _item] += _qtd;
-    }
-    
-    //zerando a sacola
-    global.sacola.itens = {};
-    global.sacola.peso_atual = 0;
-}
 
 
 

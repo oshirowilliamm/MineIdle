@@ -1,1 +1,2 @@
 flutuando();
+retorna_efeitos();

@@ -45,28 +45,6 @@ function restart()
 }
 
 
-//texto com scribble
-function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
-{
-    scribble(_texto)
-        .starting_format(_font, c_white)
-        .align(_halign, _valign)
-        .scale(_xscale, _yscale)
-        .blend(_cor, _alpha)
-        .draw(_x, _y);
-}
-
-function texto_scribble_typist(_typist, _x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
-{
-    scribble(_texto)
-        .starting_format(_font, c_white)
-        .align(_halign, _valign)
-        .scale(_xscale, _yscale)
-        .blend(_cor, _alpha)
-        .draw(_x, _y, _typist);
-}
-
-
 //toca audio
 function toca_som(_snd, _pitch = .1)
 {
@@ -104,25 +82,6 @@ function mouse_sobre_ui(_x, _y, _sprite, _escala_x = 1, _escala_y = _escala_x)
     
     //retangulo
     return point_in_rectangle(_mx, _my, _x1, _y1, _x2, _y2);
-}
-
-
-//animação em draw_sprite
-function draw_animation(_frame, _sprite)
-{
-    //velocidade de acordo com o editor
-    var _spd = sprite_get_speed(_sprite) / game_get_speed(gamespeed_fps);
-    
-    //adicionando frames
-    _frame += _spd;
-    
-    //zerando se passar do numero de frames do sprite
-    if (_frame >= sprite_get_number(_sprite))
-    {
-        return 0
-    }   
-    
-    return _frame
 }
 
 

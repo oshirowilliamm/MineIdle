@@ -17,6 +17,7 @@ shake_x = 0;
 
 
 
+
 segue_inventario = function()
 {
     if (room != rm_vila) return;
@@ -66,6 +67,29 @@ selecao = function()
     }
 }
 
+efeito_shake = function()
+{
+    //efeito de shake no item não descoberto
+    if (shake)
+    {
+        //diminuindo o timer
+        shake_timer--;
+        
+        //efeito de tremer
+        if (shake_timer > 0)
+        {
+            shake_x = dsin(shake_timer * 50) * 3;
+        }
+        //resetando o shake
+        else
+        {
+            shake_timer = 10;
+            shake = false;
+            shake_x = 0;
+        }
+    }
+}
+
 interage_shop = function()
 {
     if (room != rm_shop) return;
@@ -94,7 +118,9 @@ interage_shop = function()
             //ganhando dinheiro
             global.moeda += minerio.valor;
             
+            //efeitos
             efeito_squash(1, 1);
+            obj_balanca.aplica_efeitos();
         }
     }
 }
