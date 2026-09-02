@@ -15,7 +15,6 @@
 
 //inicializando o a struct dos blocos
 global.blocos_struct = array_create(MAX_COLUNAS);
-
 for (var i = 0; i < MAX_COLUNAS; i++)
 {
     global.blocos_struct[i] = array_create(MAX_LINHAS, undefined);
@@ -39,13 +38,70 @@ minerios_veias = function(_col, _linha)
     }
     
     //se o minerio de cima for do mesmo tipo, copia ele
-    if (_vizinho_cima != undefined && _vizinho_cima != "vazio" && string_pos("_pedra", _vizinho_esq) == 0)
+    if (_vizinho_cima != undefined && _vizinho_cima != "vazio" && string_pos("_pedra", _vizinho_cima) == 0)
     {
         if (random(99) < 20) return _vizinho_cima;
     }
     
     //se n encontrou nada
     return undefined;
+}
+
+calcula_chance_minerio = function(_nome, _chance_base, _profundidade, _col)
+{
+    //se for pedra
+    if (string_pos("_pedra", _nome) != 0)
+    {
+        //perde chance quanto mais profundo
+        return max(10, _chance_base - (_profundidade * 40))
+    }
+    
+    //se for cristal
+    if (string_pos("_cristal", _nome) != 0)
+    {
+        //ganha chance
+        return _chance_base + (_profundidade * (_chance_base * 6));
+    }
+    
+    //se for rocha
+    if (string_pos("_rocha", _nome) != 0)
+    {
+        if (_col < MAX_COLUNAS / 2)
+        {
+            //ganha chance
+            return _chance_base + (_profundidade * (_chance_base * 3));
+        }
+        else
+        {
+            //perde chance quanto mais profundo
+            var _chance_atual = _chance_base + (.5 * (_chance_base * 3));
+            var _profundidade_atual = _profundidade * .5;
+            
+            return max(2, _chance_atual - (_profundidade_atual * 40));
+        }
+        
+    }
+}
+
+sorteia_minerio = function(_blocos, _chances_blocos, _chances_totais)
+{
+    //sorteando um numero
+    var _sorteio = random(_chances_totais);
+    var _acumulado = 0;
+    
+    //verificando o bloco sorteado
+    for (var i = 0; i < array_length(_blocos); i++)
+    {
+        _acumulado += _chances_blocos[i];
+        
+        if (_sorteio < _acumulado)
+        {
+            return _blocos[i].nome;
+        }
+    }
+    
+    //retorno de segurança (bloco de pedra do bioma)
+    return _blocos[0].nome;
 }
 
 gera_tipo_blocos = function(_col, _linha)
@@ -59,111 +115,68 @@ gera_tipo_blocos = function(_col, _linha)
         var _veia = minerios_veias(_col, _linha);
         if (_veia != undefined) return _veia;
         
-        //fazendo o sorteio de acordo com o bioma
+        //pegando os blocos do bioma
         var _bioma = global.biomas[$ _room];
         var _blocos = _bioma.minerios;
         
         //fator de profundidade
         var _profundidade = _col / max(1, MAX_COLUNAS - 1);
         
-        //somando as chances de todos os blocos
+        //variaveis para as chances de cada minerio
         var _chances_totais = 0;
         var _chances_blocos  = array_create(array_length(_blocos));
         
+        //calculando os pesos de cada bloco
         for (var i = 0; i < array_length(_blocos); i++)
         {
-            var _chance_base  = _blocos[i].chance;
-            var _chance_final = 0;
-            var _camada = _blocos[i].camada;
-            var _nome = _blocos[i].nome;
+            var _atual  = _blocos[i];
+            var _camada = _atual.camada;
             
-            //checando se o minerio ja esta na camada dele
             if (_col >= _camada)
             {
-                //se for pedra
-                if (string_pos("_pedra", _nome) != 0)
-                {
-                    //perde chance quanto mais profundo
-                    _chance_final = max(10, _chance_base - (_profundidade * 40))
-                }
-                //se for cristal
-                else if (string_pos("_cristal", _nome) != 0)
-                {
-                    //ganha chance
-                    _chance_final = _chance_base + (_profundidade * (_chance_base * 6));
-                }
-                //se for rocha
-                else
-                {
-                    if (_col < MAX_COLUNAS / 2)
-                    {
-                        //ganha chance
-                        _chance_final = _chance_base + (_profundidade * (_chance_base * 3));
-                    }
-                    else
-                    {
-                        //perde chance quanto mais profundo
-                        var _chance_atual = _chance_base + (.5 * (_chance_base * 3));
-                        var _profundidade_atual = _profundidade * .5;
-                        
-                        _chance_final = max(2, _chance_atual - (_profundidade_atual * 40));
-                    }
-                    
-                }
-            }
-            
-            _chances_blocos[i] = _chance_final;
-            _chances_totais   += _chance_final;
-        }
-        
-        //sorteando um numero
-        var _sorteio = random(_chances_totais);
-        var _acumulado = 0;
-        
-        //verificando o bloco sorteado
-        for (var i = 0; i < array_length(_blocos); i++)
-        {
-            _acumulado += _chances_blocos[i];
-            
-            if (_sorteio < _acumulado)
-            {
-                return _blocos[i].nome;
+                var _peso = calcula_chance_minerio(_atual.nome, _atual.chance, _profundidade, _col);
+                _chances_blocos[i] = _peso;
+                _chances_totais   += _peso;
             }
         }
         
-        //retorno de segurança (bloco de pedra do bioma)
-        return _blocos[0].nome;
+        //retornando o sorteio do bloco
+        return sorteia_minerio(_blocos, _chances_blocos, _chances_totais);
+    }
+}
+
+gera_blocos = function(_col, _linha)
+{
+    //posição dos blocos
+    var _x = X_INICIAL + (_col * BLOCO_WIDTH);
+    var _y = Y_INICIAL + (_linha * BLOCO_HEIGHT);
+    
+    //se o bloco ja foi criado, n faz nada
+    if (position_meeting(_x, _y, obj_minerio)) return;
+    
+    //se o bloco foi quebrado, n faz nada
+    var _estado = global.blocos_struct[_col][_linha];
+    if (_estado == "vazio") return;
+    
+    //adicionando o bloco na estrutura
+    if (_estado == undefined)
+    {
+        //escolhendo o tipo do bloco
+        _estado = gera_tipo_blocos(_col, _linha);
+        
+        //adicionando ele na estrutura
+        global.blocos_struct[_col][_linha] = _estado;
     }
     
-    //retorno de segurança
-    return "vazio";
+    //criando o bloco
+    instance_create_layer(_x, _y, layer, obj_minerio, {tipo_bloco: _estado});
 }
 
 gera_colunas = function(_col)
 {
     for (var i = 0; i < MAX_LINHAS; i++)
     {
-        //posição dos blocos
-        var _x = X_INICIAL + (_col * BLOCO_WIDTH);
-        var _y = Y_INICIAL + (i * BLOCO_HEIGHT);
-        
-        //se o bloco ja foi criado, n faz nada
-        if (position_meeting(_x, _y, obj_minerio)) continue;
-        
-        //se o bloco foi quebrado, n faz nada
-        var _estado = global.blocos_struct[_col][i];
-        
-        if (_estado == "vazio") continue;
-        
-        //adicionando o bloco na estrutura
-        if (_estado == undefined)
-        {
-            _estado = gera_tipo_blocos(_col, i);
-            global.blocos_struct[_col][i] = _estado;
-        }
-        
-        //criando o bloco
-        var _bloco = instance_create_layer(_x, _y, layer, obj_minerio, {tipo_bloco: _estado});
+        gera_blocos(_col, i);
     }
 }
 
