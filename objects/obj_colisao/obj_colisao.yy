@@ -25,11 +25,7 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[
-    {"$GMObjectProperty":"v2","%Name":"sprite","filters":[
-        "GMSprite",
-      ],"listItems":[],"multiselect":false,"name":"sprite","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"spr_poste","path":"sprites/spr_poste/spr_poste.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"spr_poste","varType":5,},
-  ],
+  "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,

@@ -1,0 +1,2 @@
+checa_estado();
+selecao();

@@ -100,6 +100,18 @@ descarrega_sacola = function()
     global.sacola.peso_atual = 0;
 }
 
+atualiza_colisao = function()
+{
+    var _tile = noone;
+    
+    if (layer_exists("Tile_Parede"))
+    {
+        _tile = layer_tilemap_get_id("Tile_Parede");
+    }
+    
+    colisoes_originais = [obj_colisao, _tile];
+}
+
 
 
 

@@ -40,6 +40,24 @@ function restart()
             cooldown: 15
         };
         
+        global.upgrades =
+        {
+            stamina_max: new cria_upgrade("Stamina", "Aumenta a stamina em 10", 0, 10, function()
+            {
+                global.stamina_max += 10;
+            }),
+            
+            capacidade_max: new cria_upgrade("Capacidade", "Aumenta a capacidade em 10", 1, 20, function()
+            {
+                global.sacola.max_peso += 10;
+            }),
+            
+            alcance_lanterna: new cria_upgrade("Alcance da Lanterna", "Aumenta o alcance da lanterna em 1", 2, 30, function()
+            {
+                global.alcance_lanterna += .1;
+            }),
+        }
+        
         room_restart();
     }
 }

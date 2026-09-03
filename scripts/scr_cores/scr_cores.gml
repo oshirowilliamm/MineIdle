@@ -7,6 +7,11 @@
 #macro cor_sombra #040404
 #macro cor_poste #99E550
 
+//upgrade
+#macro cor_upgrade_verde c_lime
+#macro cor_upgrade_amarelo c_yellow
+#macro cor_upgrade_vermelho c_red
+
 //minerios
 #macro cor_b1_pedra     #292961
 #macro cor_b1_rocha1    #68377B

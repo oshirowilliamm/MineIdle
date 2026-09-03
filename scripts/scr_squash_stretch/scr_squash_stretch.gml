@@ -30,14 +30,14 @@ function efeito_escala() constructor
     yscale = 1;
     
     //squash
-    static squash = function(_xscale = 1.5, _yscale = 1.5)
+    static squash = function(_xscale = 1.5, _yscale = _xscale)
     {
         xscale = _xscale;
         yscale = _yscale;
     }
     
     //suave
-    static atualiza = function(_xscale = 1.5, _yscale = 1.5, _qtd = .1)
+    static atualiza = function(_xscale = 1.5, _yscale = _xscale, _qtd = .1)
     {
         xscale = lerp(xscale, _xscale, _qtd);
         yscale = lerp(yscale, _yscale, _qtd);
