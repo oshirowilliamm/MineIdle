@@ -109,13 +109,12 @@ desenha_upgrade = function()
     //se tiver bloqueado,  n mostra nada
     if (estado == "bloqueado") return;
     
-    var _cor = c_white;
+    var _cor = cor_upgrade_verde;
     var _alpha = 1;
     
-    //cor quando ainda n foi comprado
+    //alpha quando ainda n foi comprado
     if (dados.level_atual <= 0)
     {
-        _cor = cor_upgrade_verde;
         _alpha = .5;
     }
     
