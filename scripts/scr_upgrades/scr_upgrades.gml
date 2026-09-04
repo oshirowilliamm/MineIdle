@@ -9,7 +9,7 @@ function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo,
     aumento_custo   = _aumento_custo;   //porcentagem
     valor_base      = _valor;           //valor que vai aumentar no efeito
     incremento      = _incremento;      //incremento do prox valor
-    efeito          = _efeito;
+    efeito          = method(self,_efeito);
     
     //calcula o custo do prox nivel
     static get_custo = function()
@@ -18,7 +18,7 @@ function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo,
     }
     
     //calcula o prox valor do efeito
-    static get_valor = function(_level = _level_atual)
+    static get_valor = function(_level = level_atual)
     {
         return valor_base + (_level * incremento);
     }
@@ -28,7 +28,7 @@ global.upgrades =
 {
     stamina_max: new cria_upgrade("Stamina", //nome
     "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
-    0, 10, 1, 1.5, global.stamina_max, 50, //valores
+    0, 10, 1, 1.5, global.stamina_max, 50, //valoresa
     function()
     {   
         global.stamina_max = get_valor(level_atual);

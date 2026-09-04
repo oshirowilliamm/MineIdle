@@ -1,67 +1,6 @@
 //deixando jogo aleatorio
 randomise();
 
-function restart()
-{
-    if (keyboard_check_pressed(ord("R"))) 
-    {
-        //moeda
-        global.moeda = 50;
-        
-        //inventario da sacola
-        global.sacola = 
-        {
-            max_peso: 50,
-            peso_atual: 0,
-            
-            itens: {},
-        };
-        
-        //inventario global (da vila)
-        global.inventario_global =
-        {
-            minerios: {},
-            limpos: {},
-            refinados: {},
-        }
-        
-        //stamina
-        global.stamina_max = 50;
-        global.stamina_atual = global.stamina_max;
-        
-        //lanterna do player
-        global.alcance_lanterna = .3;
-        global.brilho_lanterna = 1;
-        
-        //picareta
-        global.picareta = 
-        {
-            dano: 5,
-            cooldown: 15
-        };
-        
-        global.upgrades =
-        {
-            stamina_max: new cria_upgrade("Stamina", "Aumenta a stamina em 10", 0, 10, function()
-            {
-                global.stamina_max += 10;
-            }),
-            
-            capacidade_max: new cria_upgrade("Capacidade", "Aumenta a capacidade em 10", 1, 20, function()
-            {
-                global.sacola.max_peso += 10;
-            }),
-            
-            alcance_lanterna: new cria_upgrade("Alcance da Lanterna", "Aumenta o alcance da lanterna em 1", 2, 30, function()
-            {
-                global.alcance_lanterna += .1;
-            }),
-        }
-        
-        room_restart();
-    }
-}
-
 
 //toca audio
 function toca_som(_snd, _pitch = .1)
@@ -170,3 +109,89 @@ function room_to_gui(_x, _y, _cam = view_camera[0])
         y: _ygui
     }
 }
+
+
+function reseta_globais()
+{
+    #region Dados
+        
+        //moeda
+        global.moeda = 50;
+        
+        //inventario da sacola
+        global.sacola = 
+        {
+            max_peso: 50,
+            peso_atual: 0,
+            
+            itens: {},
+        };
+        
+        //inventario global (da vila)
+        global.inventario_global =
+        {
+            minerios: {},
+            limpos: {},
+            refinados: {},
+        }
+        
+        //stamina
+        global.stamina_max = 50;
+        global.stamina_atual = global.stamina_max;
+        
+        //lanterna do player
+        global.alcance_lanterna = .3;
+        global.brilho_lanterna = 1;
+        
+        //picareta
+        global.picareta = 
+        {
+            dano: 5,
+            cooldown: 15
+        };
+        
+    #endregion
+    
+    #region Upgrades
+        
+        global.upgrades =
+        {
+            stamina_max: new cria_upgrade("Stamina", //nome
+            "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
+            0, 10, 1, 1.5, global.stamina_max, 50, //valores
+            function()
+            {   
+                global.stamina_max = get_valor(level_atual);
+            }),
+            
+            capacidade_max: new cria_upgrade("Capacidade", //nome
+            "Aumenta a capacidade em [cor_upgrade_verde]20[/]", //descrição
+            1, 20, 3, 1.5, global.sacola.max_peso, 20, //valores
+            function()
+            {
+                global.sacola.max_peso = get_valor(level_atual);
+            }),
+            
+            alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
+            "Aumenta o alcance da lanterna em [cor_upgrade_verde]1[/]", //descrição
+            2, 30, 2, 1.5, global.alcance_lanterna, .1, //valores
+            function()
+            {
+                global.alcance_lanterna = get_valor(level_atual);
+            }),
+        }
+        
+    #endregion
+}
+
+
+function restart()
+{
+    if (keyboard_check_pressed(ord("R"))) 
+    {
+        reseta_globais();
+        room_restart();
+    }
+}
+
+

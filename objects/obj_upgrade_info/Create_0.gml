@@ -20,7 +20,7 @@ y_geral = 0;
 //variaveis de typist
 typist_nome = scribble_typist().in(1, 5);
 typist_desc = scribble_typist().in(.7, 5);
-typist_valor = scribble_typist().in(1, 5);
+typist_valor = scribble_typist().in(.5, 5);
 typist_custo = scribble_typist().in(1, 5);
 typist_level = scribble_typist().in(1, 5);
 
@@ -142,8 +142,8 @@ desenha_valor = function(_x, _y)
     
     //setando o valor de acordo com o level
     var _valor = (dados.level_atual >= dados.level_max)
-        ? string("{0} -> [cor_upgrade_verde]MAX[/]", _valor_atual) 
-        : string("{0} -> [cor_upgrade_verde]{1}[/]", _valor_atual, _prox_valor); 
+        ? string("[delay, 500]{0} -> [cor_upgrade_verde]MAX[/]", _valor_atual) 
+        : string("[delay, 500]{0} -> [cor_upgrade_verde]{1}[/]", _valor_atual, _prox_valor); 
     
     texto_scribble_ext(_x, _y, _valor, _xscale, _yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_valor);
 }
@@ -174,10 +174,7 @@ desenha_level = function(_x, _y)
     //sprite da caixa do level
     draw_sprite_ext(spr_caixa_upgrade_level, 0, _x, _y, _xscale, _yscale, 0, c_white, alpha);
     
-    //setando o level de acordo com o level
-    var _level = (dados.level_atual >= dados.level_max)
-        ? "Lv. MAX"
-        : string("[cor_upgrade_amarelo]Lv. {0}/{1}[/]", dados.level_atual, dados.level_max);
+    var _level = string("[cor_upgrade_amarelo]Lv. {0}/{1}[/]", dados.level_atual, dados.level_max);
     
     texto_scribble_ext(_x, _y, _level, _txt_xscale, _txt_yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_level);
 }
@@ -186,20 +183,31 @@ desenha_custo = function(_x, _y)
 {
     var _xscale = 3 * escala_efeito.xscale;
     var _yscale = 3 * escala_efeito.yscale;
-    var _txt_xscale = escala_txt * escala_efeito.xscale;
-    var _txt_yscale = escala_txt * escala_efeito.yscale;
+    var _txt_xscale = .4 * escala_efeito.xscale;
+    var _txt_yscale = .4 * escala_efeito.yscale;
     
-    //setando o custo de acordo com o dinheiro q eu tenho
-    var _custo = (global.moeda >= dados.get_custo())
-        ? string("[cor_upgrade_verde]${0}[/]", dados.get_custo())
-        : string("[cor_upgrade_vermelho]${0}[/]", dados.get_custo());
-    
-    //sprite da moeda
-    var _xmoeda = _x - (30 * escala_efeito.xscale);
-    draw_sprite_ext(spr_moeda, 0, _xmoeda, _y, _xscale, _yscale, 0, c_white, alpha);
-    
-    //texto do custo
-    texto_scribble_ext(_x, _y, _custo, _txt_xscale, _txt_yscale,, 1,, alpha, "fnt_upgrade_info", typist_custo);
+    //se está no level maximo
+    if (dados.level_atual >= dados.level_max)
+    {
+        //desenhando MAX
+        var _custo = "[cor_upgrade_verde]MAX![/]";
+        texto_scribble_ext(_x, _y, _custo, _txt_xscale, _txt_yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_custo);
+    }
+    //se n esta no level maximo
+    else
+    {
+        //desenhando a moeda
+        var _xmoeda = _x - (30 * escala_efeito.xscale);
+        draw_sprite_ext(spr_moeda, 0, _xmoeda, _y, _xscale, _yscale, 0, c_white, alpha);
+        
+        //pegando a cor de acordo com o dinheiro q tenho
+        var _custo = (global.moeda >= dados.get_custo())
+            ? string("[cor_upgrade_verde]${0}", dados.get_custo())
+            : string("[cor_upgrade_vermelho]${0}", dados.get_custo());
+        
+        //texto do custo
+        texto_scribble_ext(_x, _y, _custo, _txt_xscale, _txt_yscale,, 1,, alpha, "fnt_upgrade_info", typist_custo);
+    }
 }
 
 desenha_conteudo = function()

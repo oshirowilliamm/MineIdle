@@ -7,6 +7,9 @@ dados = global.upgrades[$ upgrade];
 
 info = noone;
 
+//y para o efeito de subir
+y_efeito = y;
+
 
 
 
@@ -82,9 +85,12 @@ comprando = function()
             //atualizando o estado, pra verificar o level
             checa_estado();
             
+            //efeito
+            dados.efeito();
+            
             //efeitos
             escala.squash(.6, 1.5);
-            y = ystart - 25;
+            y_efeito = ystart - 25;
         }
     }
 }
@@ -106,7 +112,7 @@ selecao = function()
     {
         //efeitos
         escala.atualiza(1.2);
-        y = lerp(y, ystart - 10, .1);
+        y_efeito = lerp(y_efeito, ystart - 15, .1);
         
         //evento de compra do upgrade
         if (_mouse_click) comprando();
@@ -126,7 +132,7 @@ selecao = function()
     {
         //retornando efeitos
         escala.retorna();
-        y = lerp(y, ystart, .2);
+        y_efeito = lerp(y_efeito, ystart, .1);
         
         //destruindo a info
         if (instance_exists(info))
@@ -191,7 +197,7 @@ cor_linha = function(_filho)
         _cor = c_white;
         _tracejado = true;
         
-        //cor quando ainda n foi comprado
+        //cor quando foi comprado   
         if (_filho.dados.level_atual > 0)
         {
             _cor = cor_upgrade_verde;
@@ -245,8 +251,8 @@ desenha_conexao = function()
         var _tam = 15;
         
         //distancia e direção do pai pro filho
-        var _dist = point_distance(x, y, _filho.x, _filho.y);
-        var _dir = point_direction(x, y, _filho.x, _filho.y);
+        var _dist = point_distance(x, y_efeito, _filho.x, _filho.y_efeito);
+        var _dir = point_direction(x, y_efeito, _filho.x, _filho.y_efeito);
         
         //calculando raio com base na escala
         var _base       = sprite_get_width(spr_upgrade_borda) / 2;
@@ -255,12 +261,12 @@ desenha_conexao = function()
         
         //posição inicial
         var _xinicial = x + lengthdir_x(_raio_pai, _dir);
-        var _yinicial = y + lengthdir_y(_raio_pai, _dir);
+        var _yinicial = y_efeito + lengthdir_y(_raio_pai, _dir);
         
         //posição final
         var _dist_final = max(0, _dist - _raio_filho);
         var _xfinal = x + lengthdir_x(_dist_final, _dir);
-        var _yfinal = y + lengthdir_y(_dist_final, _dir);
+        var _yfinal = y_efeito + lengthdir_y(_dist_final, _dir);
         
         //linha tracejada
         if (_tracejado)
@@ -291,17 +297,11 @@ desenha_upgrade = function()
     var _cor = cor_upgrade_verde;
     var _alpha = 1;
     
-    //alpha quando ainda n foi comprado
+    //cor quando ainda n foi comprado
     if (dados.level_atual <= 0)
     {
         _cor = c_ltgray;
         _alpha = .5;
-    }
-    
-    //cor quando n tem dinheiro suficiente
-    if (global.moeda < dados.get_custo())
-    {
-        _cor = cor_upgrade_vermelho;
     }
     
     //cor do level max
@@ -309,14 +309,22 @@ desenha_upgrade = function()
     {
         _cor = cor_upgrade_amarelo;
     }
+    else
+    {
+        //cor quando n tem dinheiro suficiente
+        if (global.moeda < dados.get_custo())
+        {
+            _cor = cor_upgrade_vermelho;
+        }
+    }
     
     var _xscale = image_xscale * escala.xscale;
     var _yscale = image_yscale * escala.yscale;
     
     //desenhando o upgrade
-    draw_sprite_ext(spr_upgrade_tras, 0, x, y, _xscale, _yscale, 0, c_white, _alpha);
-    draw_sprite_ext(spr_upgrade_borda, 0, x, y, _xscale, _yscale, 0, _cor, _alpha);
-    draw_sprite_ext(spr_upgrade, dados.sprite, x, y, _xscale, _yscale, 0, c_white, _alpha);
+    draw_sprite_ext(spr_upgrade_tras, 0, x, y_efeito, _xscale, _yscale, 0, c_white, _alpha);
+    draw_sprite_ext(spr_upgrade_borda, 0, x, y_efeito, _xscale, _yscale, 0, _cor, _alpha);
+    draw_sprite_ext(spr_upgrade, dados.sprite, x, y_efeito, _xscale, _yscale, 0, c_white, _alpha);
 }
 
 
