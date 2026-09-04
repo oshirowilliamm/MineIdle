@@ -61,7 +61,7 @@ desenha_minerio = function()
     
     //nome
     var _nome = string("[wave]{0}[/]", minerio.nome);
-    texto_scribble_typist(typist_nome, x, y_minerio - 80, _nome, .2,, 1, 1);
+    texto_scribble_ext(x, y_minerio - 80, _nome, .2,, 1, 1,,,, typist_nome);
     
     //moeda
     var _escala_moeda = 2 * escala_valor;
@@ -69,5 +69,5 @@ desenha_minerio = function()
     
     //valor
     var _valor = string("${0}", formata_moeda(minerio.valor));
-    texto_scribble_typist(typist_valor, x - 62, y_minerio + 77, _valor, .1 * escala_valor, .1 * escala_valor,, 1, cor_valor);
+    texto_scribble_ext(x - 62, y_minerio + 77, _valor, .1 * escala_valor, .1 * escala_valor,, 1, cor_valor,,, typist_valor);
 }

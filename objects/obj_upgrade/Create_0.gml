@@ -5,10 +5,12 @@ estado = "bloqueado"; //bloqueado / disponivel / comprado
 pais = [];
 dados = global.upgrades[$ upgrade];
 
+info = noone;
 
 
 
 
+//metodos de inicializacao
 busca_pai = function()
 {
     //rodando os meus filhos
@@ -58,26 +60,9 @@ checa_estado = function()
     }
 }
 
-selecao = function()
-{
-    var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
-    var _mouse_click = mouse_check_button_pressed(mb_left);
-    
-    if (_mouse_sobre)
-    {
-        escala.atualiza(1.2);
-        
-        if (_mouse_click) comprando();
-    }
-    else
-    {
-        escala.retorna();
-    }
-    
-    //voltando o efeito do y
-    y = lerp(y, ystart, .05);
-}
 
+
+//metodos de interação
 comprando = function()
 {
     //se esta disponivel
@@ -99,46 +84,61 @@ comprando = function()
             
             //efeitos
             escala.squash(.6, 1.5);
-            y = ystart - 15;
+            y = ystart - 25;
         }
     }
 }
 
-desenha_upgrade = function()
+cria_info = function()
 {
-    //se tiver bloqueado,  n mostra nada
+    //so mostra se n esta bloqueado
     if (estado == "bloqueado") return;
     
-    var _cor = cor_upgrade_verde;
-    var _alpha = 1;
-    
-    //alpha quando ainda n foi comprado
-    if (dados.level_atual <= 0)
-    {
-        _alpha = .5;
-    }
-    
-    //cor quando n tem dinheiro suficiente
-    if (global.moeda < dados.get_custo())
-    {
-        _cor = cor_upgrade_vermelho;
-    }
-    
-    //cor do level max
-    if (dados.level_atual >= dados.level_max)
-    {
-        _cor = cor_upgrade_amarelo;
-    }
-    
-    var _xscale = image_xscale * escala.xscale;
-    var _yscale = image_yscale * escala.yscale;
-    
-    //desenhando o upgrade
-    draw_sprite_ext(spr_upgrade_tras, 0, x, y, _xscale, _yscale, 0, c_white, _alpha);
-    draw_sprite_ext(spr_upgrade_borda, 0, x, y, _xscale, _yscale, 0, _cor, _alpha);
-    draw_sprite_ext(spr_upgrade, dados.sprite, x, y, _xscale, _yscale, 0, c_white, _alpha);
+    info = instance_create_depth(x, y, -999, obj_upgrade_info, {dados_upgrade: dados});
 }
 
+selecao = function()
+{
+    var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
+    var _mouse_click = mouse_check_button_pressed(mb_left);
+    
+    if (_mouse_sobre)
+    {
+        //efeitos
+        escala.atualiza(1.2);
+        y = lerp(y, ystart - 10, .1);
+        
+        //evento de compra do upgrade
+        if (_mouse_click) comprando();
+        
+        //criando a info do upgrade
+        if (!instance_exists(info))
+        {
+            cria_info();
+        }
+        //se eu voltar com o mouse, ele para de se destruir
+        else
+        {
+            info.destroi = false;
+        }
+    }
+    else
+    {
+        //retornando efeitos
+        escala.retorna();
+        y = lerp(y, ystart, .2);
+        
+        //destruindo a info
+        if (instance_exists(info))
+        {
+            info.destroi = true;
+        }
+    }
+}
+
+
+
+//metodos de desenho
 desenha_linha_tracejada = function(_x1, _y1, _x2, _y2, _grossura, _cor, _tam = 1)
 {
     var _dist = point_distance(_x1, _y1, _x2, _y2);
@@ -196,13 +196,13 @@ cor_linha = function(_filho)
         {
             _cor = cor_upgrade_verde;
             _tracejado = false;
-        }
-        
-        //cor quando n tem dinheiro suficiente
-        if (global.moeda < _filho.dados.get_custo())
-        {
-            _cor = cor_upgrade_vermelho;
-            _tracejado = false;
+            
+            //cor quando n tem dinheiro suficiente
+            if (global.moeda < _filho.dados.get_custo())
+            {
+                _cor = cor_upgrade_vermelho;
+                _tracejado = false;
+            }
         }
         
         //cor do level max
@@ -235,11 +235,12 @@ desenha_conexao = function()
         if (!instance_exists(_filho)) continue;
         
         //cores
-        var _cor = cor_linha(_filho).cor;
-        var _cor_borda = cor_linha(_filho).cor_borda;
+        var _linha = cor_linha(_filho);
+        var _cor = _linha.cor;
+        var _cor_borda = _linha.cor_borda;
         
         //variaveis da linha
-        var _tracejado = cor_linha(_filho).tracejado;
+        var _tracejado = _linha.tracejado;
         var _grossura = 4;
         var _tam = 15;
         
@@ -282,10 +283,46 @@ desenha_conexao = function()
     }
 }
 
+desenha_upgrade = function()
+{
+    //se tiver bloqueado,  n mostra nada
+    if (estado == "bloqueado") return;
+    
+    var _cor = cor_upgrade_verde;
+    var _alpha = 1;
+    
+    //alpha quando ainda n foi comprado
+    if (dados.level_atual <= 0)
+    {
+        _cor = c_ltgray;
+        _alpha = .5;
+    }
+    
+    //cor quando n tem dinheiro suficiente
+    if (global.moeda < dados.get_custo())
+    {
+        _cor = cor_upgrade_vermelho;
+    }
+    
+    //cor do level max
+    if (dados.level_atual >= dados.level_max)
+    {
+        _cor = cor_upgrade_amarelo;
+    }
+    
+    var _xscale = image_xscale * escala.xscale;
+    var _yscale = image_yscale * escala.yscale;
+    
+    //desenhando o upgrade
+    draw_sprite_ext(spr_upgrade_tras, 0, x, y, _xscale, _yscale, 0, c_white, _alpha);
+    draw_sprite_ext(spr_upgrade_borda, 0, x, y, _xscale, _yscale, 0, _cor, _alpha);
+    draw_sprite_ext(spr_upgrade, dados.sprite, x, y, _xscale, _yscale, 0, c_white, _alpha);
+}
 
 
 
 
+//DEBUG
 debug_linha_tela = function()
 {
     var _w = display_get_gui_width();

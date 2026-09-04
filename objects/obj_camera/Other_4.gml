@@ -1,0 +1,1 @@
+centraliza_camera();

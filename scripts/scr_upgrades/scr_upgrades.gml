@@ -1,106 +1,52 @@
-////construtor dos upgrades
-//function upgrade_defs(_params) constructor 
-//{
-    ////infos de parentes
-    //desbloqueado    = false;
-    //alvos           = _params.alvos;
-    //
-    ////index da sprite
-    //sprite          = _params.sprite; 
-    //
-    ////nomes
-    //nome            = _params.nome;
-    //descricao       = _params.descricao;
-    //
-    ////multiplicador de valor
-    //multiplicador   = _params.multiplicador;
-    //
-    ////level
-    //level           = 1;
-    //level_max       = _params.level_max;
-    //
-    ////pegando o seu valor (variavel global)
-    //valor           = _params.valor;
-    //prox_valor      = function() { return valor() * multiplicador; }
-    //
-    ////custo base
-    //custo_base      = _params.custo_base;
-    //custo           = function() { return round(custo_base * power(1.5, level - 1)); }
-    //
-    ////efeito
-    //efeito          = _params.efeito;
-//}
-//
-//global.upgrades = {};
-//
-////stamina
-//global.upgrades.stamina = new upgrade_defs({
-    //nome:          "Stamina",
-    //descricao:     "Aumenta a stamina em 10%",
-    //custo_base:    10,
-    //level_max:     5,
-    //multiplicador: 1.1,
-    //alvos:         [Stamina1, Stamina2, Stamina3],
-    //sprite:        0,
-    //valor:         function() { return global.stamina_max; },
-    //efeito:        function() { global.stamina_max *= self.multiplicador; }
-//})
-//global.upgrades.stamina.desbloqueado = true;
-//
-////dano da picareta
-//global.upgrades.dano_picareta = new upgrade_defs({
-    //nome:          "Dano da Picareta",
-    //descricao:     "Aumenta o dano da picareta em 10%",
-    //custo_base:    20,
-    //level_max:     5,
-    //multiplicador: 1.1,
-    //alvos:         [],
-    //sprite:        1,
-    //valor:         function() { return global.picareta.dano; },
-    //efeito:        function() { global.picareta.dano *= self.multiplicador; }
-//})
-//global.upgrades.dano_picareta.desbloqueado = true;
-//
-////capacidade da sacola
-//global.upgrades.capacidade = new upgrade_defs({
-    //nome:          "Capacidade",
-    //descricao:     "Aumenta a capacidade da bolsa de minérios em 10%",
-    //custo_base:    30,
-    //level_max:     5,
-    //multiplicador: 1.1,
-    //alvos:         [],
-    //sprite:        2,
-    //valor:         function() { return global.peso_max; },
-    //efeito:        function() { global.peso_max *= self.multiplicador; },
-//})
-//global.upgrades.capacidade.desbloqueado = true;
-//
-////alcance da lanterna
-//global.upgrades.lanterna = new upgrade_defs({
-    //nome:          "Alcance da Lanterna",
-    //descricao:     "Aumenta o alcance da lanterna em 10%",
-    //custo_base:    20,
-    //level_max:     5,
-    //multiplicador: 1.1,
-    //alvos:         [],
-    //sprite:        3,
-    //valor:         function() { return global.alcance_lanterna; },
-    //efeito:        function() { global.alcance_lanterna *= self.multiplicador; }
-//})
-//global.upgrades.lanterna.desbloqueado = true;
-//
-//
-//
-//
-////teste
-//global.upgrades.teste = new upgrade_defs({
-    //nome:          "Teste",
-    //descricao:     "Teste",
-    //custo_base:    0,
-    //level_max:     0,
-    //multiplicador: 0,
-    //alvos:         [],
-    //sprite:        0,
-    //valor:         function() { return 0 },
-    //efeito:        function() {}
-//})
+function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo, _valor, _incremento, _efeito) constructor
+{
+    nome            = _nome;
+    descricao       = _desc;
+    sprite          = _sprite;
+    custo_base      = _custo;
+    level_max       = _level_max;
+    level_atual     = 0;
+    aumento_custo   = _aumento_custo;   //porcentagem
+    valor_base      = _valor;           //valor que vai aumentar no efeito
+    incremento      = _incremento;      //incremento do prox valor
+    efeito          = _efeito;
+    
+    //calcula o custo do prox nivel
+    static get_custo = function()
+    {
+        return custo_base * power(aumento_custo, level_atual);
+    }
+    
+    //calcula o prox valor do efeito
+    static get_valor = function(_level = _level_atual)
+    {
+        return valor_base + (_level * incremento);
+    }
+}
+
+global.upgrades =
+{
+    stamina_max: new cria_upgrade("Stamina", //nome
+    "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
+    0, 10, 1, 1.5, global.stamina_max, 50, //valores
+    function()
+    {   
+        global.stamina_max = get_valor(level_atual);
+    }),
+    
+    capacidade_max: new cria_upgrade("Capacidade", //nome
+    "Aumenta a capacidade em [cor_upgrade_verde]20[/]", //descrição
+    1, 20, 3, 1.5, global.sacola.max_peso, 20, //valores
+    function()
+    {
+        global.sacola.max_peso = get_valor(level_atual);
+    }),
+    
+    alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
+    "Aumenta o alcance da lanterna em [cor_upgrade_verde]1[/]", //descrição
+    2, 30, 2, 1.5, global.alcance_lanterna, .1, //valores
+    function()
+    {
+        global.alcance_lanterna = get_valor(level_atual);
+    }),
+}

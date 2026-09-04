@@ -9,15 +9,30 @@ function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign
         .draw(_x, _y);
 }
 
-//texto com typist
-function texto_scribble_typist(_typist, _x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
+//texto ext
+function texto_scribble_ext(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _typist = undefined, _wrap = -1)
 {
-    scribble(_texto)
+    var _txt = scribble(_texto)
         .starting_format(_font, c_white)
         .align(_halign, _valign)
         .scale(_xscale, _yscale)
         .blend(_cor, _alpha)
-        .draw(_x, _y, _typist);
+    
+    //aplicando wrap
+    if (_wrap > 0)
+    {
+        _txt.wrap(_wrap);
+    }
+    
+    //aplicando typist
+    if (_typist != undefined)
+    {
+        _txt.draw(_x, _y, _typist);
+    }
+    else
+    {
+        _txt.draw(_x, _y);
+    }
 }
 
 //formatacao de numero

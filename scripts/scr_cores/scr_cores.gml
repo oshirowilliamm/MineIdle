@@ -8,9 +8,13 @@
 #macro cor_poste #99E550
 
 //upgrade
-#macro cor_upgrade_verde c_lime
-#macro cor_upgrade_amarelo c_yellow
-#macro cor_upgrade_vermelho c_red
+#macro cor_upgrade_verde #30993E
+#macro cor_upgrade_amarelo #FFC700
+#macro cor_upgrade_vermelho #EE2F37
+
+scribble_color_set("cor_upgrade_verde", #4dcb1f);
+scribble_color_set("cor_upgrade_amarelo", #FFC700);
+scribble_color_set("cor_upgrade_vermelho", #EE2F37);
 
 //minerios
 #macro cor_b1_pedra     #292961
