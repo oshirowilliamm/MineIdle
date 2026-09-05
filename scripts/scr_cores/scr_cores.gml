@@ -1,6 +1,8 @@
 //verde e vermelho
-#macro cor_negativo #e41818
 #macro cor_positivo #4dcb1f
+#macro cor_negativo #e41818
+scribble_color_set("cor_positivo", #4dcb1f);
+scribble_color_set("cor_negativo", #e41818);
 
 //iluminacao
 #macro cor_luz #f0eca4
@@ -11,7 +13,6 @@
 #macro cor_upgrade_verde #30993E
 #macro cor_upgrade_amarelo #FFC700
 #macro cor_upgrade_vermelho #EE2F37
-
 scribble_color_set("cor_upgrade_verde", #4dcb1f);
 scribble_color_set("cor_upgrade_amarelo", #FFC700);
 scribble_color_set("cor_upgrade_vermelho", #EE2F37);

@@ -20,10 +20,8 @@ cor_valor = c_white;
 escala_valor = 1;
 
 //typists
-typist_nome = scribble_typist();
-typist_nome.in(1, 5);
-typist_valor = scribble_typist();
-typist_valor.in(1, 5);
+typist_nome = scribble_typist().in(1, 5);
+typist_valor = scribble_typist().in(1, 5);
 
 
 

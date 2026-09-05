@@ -1,2 +1,0 @@
-selecao();
-colocando_item();

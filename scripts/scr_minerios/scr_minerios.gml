@@ -12,7 +12,7 @@ global.minerios =
                 vida: 10,
                 drop_qtd: 1,
                 valor: 10,
-                peso: 2, 
+                peso: 2,
             },
             b1_rocha1:
             {
@@ -23,6 +23,8 @@ global.minerios =
                 drop_qtd: 1,
                 valor: 20,
                 peso: 4,
+                pedras: 20,
+                tempo: 
             },
             b1_rocha2:
             {
@@ -33,6 +35,7 @@ global.minerios =
                 drop_qtd: 1,
                 valor: 30,
                 peso: 6,
+                pedras: 40,
             },
             b1_cristal1:
             {
@@ -43,6 +46,7 @@ global.minerios =
                 drop_qtd: 1,
                 valor: 40,
                 peso: 8,
+                pedras: 60,
             },
             b1_cristal2:
             {
@@ -53,6 +57,7 @@ global.minerios =
                 drop_qtd: 1,
                 valor: 50,
                 peso: 10,
+                pedras: 80,
             },
             
         #endregion

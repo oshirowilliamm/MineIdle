@@ -23,6 +23,8 @@ function desenha_efeito_squash()
 }
 
 
+
+
 //constructor para fazer varias vezes no mesmo objeto
 function efeito_escala() constructor 
 {

@@ -13,3 +13,7 @@ global.dest_y  = -1;
 //rooms
 global.rooms_mina = [rm_mina];
 global.rooms_vila = [rm_shop, rm_upgrade, rm_refinacao];
+
+
+//variaveis da refinação
+global.alimentando = false;

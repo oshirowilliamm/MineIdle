@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":9,
   "parent":{
-    "name":"Refinacao",
-    "path":"folders/Sprites/Vila/Refinacao.yy",
+    "name":"Vila",
+    "path":"folders/Sprites/Vila.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

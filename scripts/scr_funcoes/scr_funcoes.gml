@@ -47,16 +47,17 @@ function cria_persistentes(_player = true, _controller = true, _hud = true, _deb
     //player
     if (!instance_exists(obj_player) && _player) 
     {
-        //definindo posição do player
+        //definindo posição do player na mina
         if (array_contains(global.rooms_mina, room))
         {
             global.spawn_x = 20;
             global.spawn_y = 270;
         }
+        //na vila
         else
         {
-            global.spawn_x = 928;
-            global.spawn_y = 530;
+            global.spawn_x = 480;
+            global.spawn_y = 891;
         }
         
         //criando a layer
