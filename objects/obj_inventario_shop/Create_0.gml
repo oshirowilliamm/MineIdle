@@ -14,8 +14,8 @@ cria_pagina = function()
     
     //posição dos minerios
     var _xbruto     = 75;
-    var _xlimpo     = _xbruto + 130;
-    var _xrefinado  = _xlimpo + 130;
+    var _xpuro     = _xbruto + 130;
+    var _xrefinado  = _xpuro + 130;
     var _yinicial   = display_get_gui_height() / 2 - 370;
     
     var _pagina = global.paginas_livro[pagina_atual];
@@ -23,26 +23,26 @@ cria_pagina = function()
     //desenhando todos os minerios
     for (var i = 0; i < array_length(_pagina); i++)
     {
+        var _item = _pagina[i];
+        
         //tirando a pedra
-        if (string_pos("_pedra", _pagina[i]) == 0)
+        if (string_pos("_pedra", _item) == 0)
         {
             //definindo o y
             var _yatual = _yinicial + (i * 140);
             
             //////// BRUTOS /////////
-            var _item_bruto = _pagina[i];
-            
-            var _infos = {item: _item_bruto, categoria: "minerios", sprite: spr_minerios};
+            var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};
             instance_create_depth(_xbruto, _yatual, -9999, obj_minerio_inv, _infos);
             
-            //////// LIMPOS /////////
-            var _item_limpo = _item_bruto + "_limpo";
+            //////// puroS /////////
+            var _item_puro = _item + "_puro";
             
-            _infos = {item: _item_limpo, categoria: "limpos", sprite: spr_limpos};
-            instance_create_depth(_xlimpo, _yatual, -9999, obj_minerio_inv, _infos);
+            _infos = {item: _item_puro, categoria: "puros", sprite: spr_puros};
+            instance_create_depth(_xpuro, _yatual, -9999, obj_minerio_inv, _infos);
             
             //////// REFINADOS /////////      
-            var _item_refinado = _item_bruto + "_refinado";
+            var _item_refinado = _item + "_refinado";
             
             _infos = {item: _item_refinado, categoria: "refinados", sprite: spr_refinados};
             instance_create_depth(_xrefinado, _yatual, -9999, obj_minerio_inv, _infos);

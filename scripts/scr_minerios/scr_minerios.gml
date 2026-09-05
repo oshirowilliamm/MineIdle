@@ -6,11 +6,12 @@ global.minerios =
             
             b1_pedra:
             {
-                nome: "Pedra",
+                nome: "Stone",
                 sprite: 0,
-                cor: cor_b1_pedra,
                 vida: 10,
+                cor: cor_b1_pedra,
                 drop_qtd: 1,
+                //dados
                 valor: 10,
                 peso: 2,
             },
@@ -21,9 +22,12 @@ global.minerios =
                 vida: 20,
                 cor: cor_b1_rocha1,
                 drop_qtd: 1,
+                //dados
                 valor: 20,
                 peso: 4,
+                //refinação
                 pedras: 20,
+                qtd_refina: 5
             },
             b1_rocha2:
             {
@@ -32,20 +36,26 @@ global.minerios =
                 cor: cor_b1_rocha2,
                 vida: 40,
                 drop_qtd: 1,
+                //dados
                 valor: 30,
                 peso: 6,
+                //refinação
                 pedras: 40,
+                qtd_refina: 2,
             },
             b1_cristal1:
             {
                 nome: "Pererita",
                 sprite: 3,
                 cor: cor_b1_cristal1,
-                vida: 50,
+                vida: 60,
                 drop_qtd: 1,
+                //dados
                 valor: 40,
                 peso: 8,
+                //refinação
                 pedras: 60,
+                qtd_refina: 4,
             },
             b1_cristal2:
             {
@@ -54,54 +64,73 @@ global.minerios =
                 cor: cor_b1_cristal2,
                 vida: 100,
                 drop_qtd: 1,
+                //dados
                 valor: 50,
                 peso: 10,
+                //refinação
                 pedras: 80,
+                qtd_refina: 4,
             },
             
         #endregion
         
     #endregion
     
-    #region Limpos
+    #region Puros
         
         #region Bioma 1
             
-            b1_rocha1_limpo:
+            b1_rocha1_puro:
             {
-                nome: "Ametilita Limpa",
+                nome: "Pure Ametilita",
                 sprite: 0,
                 cor: cor_b1_rocha1,
                 drop_qtd: 1,
+                //dados
                 valor: 100,
                 peso: 4,
+                //refinação
+                pedras: 20,
+                qtd_refina: 2,
             },
-            b1_rocha2_limpo:
+            b1_rocha2_puro:
             {
-                nome: "Malacuru Limpa",
+                nome: "Pure Malacuru",
                 sprite: 1,
                 cor: cor_b1_rocha2,
                 drop_qtd: 1,
+                //dados
                 valor: 150,
                 peso: 6,
+                //refinação
+                pedras: 20,
+                qtd_refina: 2,
             },
-            b1_cristal1_limpo:
+            b1_cristal1_puro:
             {
-                nome: "Pererita Limpa",
+                nome: "Pure Pererita",
                 sprite: 2,
                 cor: cor_b1_cristal1,
                 drop_qtd: 1,
+                //dados
                 valor: 200,
                 peso: 8,
+                //refinação
+                pedras: 20,
+                qtd_refina: 2,
             },
-            b1_cristal2_limpo:
+            b1_cristal2_puro:
             {
-                nome: "Diarã Limpa",
+                nome: "Pure Diarã",
                 sprite: 3,
                 cor: cor_b1_cristal2,
                 drop_qtd: 1,
+                //dados
                 valor: 250,
                 peso: 10,
+                //refinação
+                pedras: 20,
+                qtd_refina: 2,
             },
             
         #endregion
@@ -114,37 +143,41 @@ global.minerios =
             
             b1_rocha1_refinado:
             {
-                nome: "Barra de Ametilita",
+                nome: "Ametilita Bar",
                 sprite: 0,
                 cor: cor_b1_rocha1,
                 drop_qtd: 1,
+                //dados
                 valor: 200,
                 peso: 4,
             },
             b1_rocha2_refinado:
             {
-                nome: "Barra de Malacuru",
+                nome: "Malacuru Bar",
                 sprite: 1,
                 cor: cor_b1_rocha2,
                 drop_qtd: 1,
+                //dados
                 valor: 300,
                 peso: 6,
             },
             b1_cristal1_refinado:
             {
-                nome: "Joia de Pererita",
+                nome: "Pererita Jewel",
                 sprite: 2,
                 cor: cor_b1_cristal1,
                 drop_qtd: 1,
+                //dados
                 valor: 400,
                 peso: 8,
             },
             b1_cristal2_refinado:   
             {
-                nome: "Joia de Diarã",
+                nome: "Diarã Jewel",
                 sprite: 3,
                 cor: cor_b1_cristal2,
                 drop_qtd: 1,
+                //dados
                 valor: 500,
                 peso: 10,
             },

@@ -60,8 +60,7 @@ pula = function()
     //no chão, flutuando
     else
     {
-        var _z_flutuando = sin(current_time / 300) - 4;
-        z = lerp(z, _z_flutuando, .2);
+        z = efeito_flutuar(z, -4, 2, 200);
         
         //abaixando o timer
         if (timer_andar > 0) timer_andar--;

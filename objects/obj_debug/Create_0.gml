@@ -108,10 +108,10 @@ ativa_painel = function()
             
             global.inventario_global.minerios[$ _item] += 5;
             
-            //limpos
-            if (global.inventario_global.limpos[$ _item] == undefined) global.inventario_global.limpos[$ _item] = 0;
+            //puros
+            if (global.inventario_global.puros[$ _item] == undefined) global.inventario_global.puros[$ _item] = 0;
             
-            global.inventario_global.limpos[$ _item] += 5;
+            global.inventario_global.puros[$ _item] += 5;
             
             //refinados
             if (global.inventario_global.refinados[$ _item] == undefined) global.inventario_global.refinados[$ _item] = 0;

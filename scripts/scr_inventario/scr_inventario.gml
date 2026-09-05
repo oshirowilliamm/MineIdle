@@ -11,7 +11,7 @@ global.sacola =
 global.inventario_global =
 {
     minerios: {},
-    limpos: {},
+    puros: {},
     refinados: {},
 }
 

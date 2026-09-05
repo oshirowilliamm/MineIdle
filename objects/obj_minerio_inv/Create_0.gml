@@ -17,6 +17,8 @@ shake_x = 0;
 
 y_efeito = y;
 
+//variavel pra criar a receita na refinação
+receita = noone;
 
 
 
@@ -46,14 +48,8 @@ selecao = function()
                 y_efeito = lerp(y_efeito, ystart - 15, .1);
                 
                 //interação
-                if (room == rm_shop) 
-                {
-                    interage_shop();
-                }
-                else if (room == rm_refinacao) 
-                {
-                    interage_refina();
-                }
+                if (room == rm_shop) interage_shop();
+                else if (room == rm_refinacao) interage_refina();
             }
             //n tem nada
             else
@@ -83,23 +79,9 @@ interage_refina = function()
 {
     if (mouse_check_button_pressed(mb_left))
     {
-        //mostrando o item na cesta
-        with (obj_cesta) 
+        //mostrando o item no prato
+        with (obj_prato) 
         {
-            //se cliquei em um minerio diferente do que estava na cesta
-            if (item != noone && item != other.item)
-            {
-                //devolvendo os itens
-                global.inventario_global[$ categoria][$ item] += qtd;
-                
-                //zera o qtd
-                qtd = 0;
-            }
-            
-            //adicionando minerio
-            qtd++;
-            global.inventario_global[$ other.categoria][$ other.item]--;
-            
             //mostrando o minério
             desenho = true;
             
@@ -109,13 +91,9 @@ interage_refina = function()
             sprite      = other.sprite;
             minerio     = other.minerio;
             
-            //efeito na cesta
-            escala_efeito.squash(.9, 1.5);
+            //efeito no prato
+            escala_efeito.squash(1.5, .8);
         }
-        
-        //mandando quantidade de pedras necessárias
-        obj_alimente.categoria = categoria;
-        obj_alimente.qtd = minerio.pedras;
         
         //efeitos
         escala_efeito.squash(.6, 1.4);

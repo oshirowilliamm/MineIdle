@@ -10,6 +10,41 @@ function toca_som(_snd, _pitch = .1)
 }
 
 
+function pega_receita(_item, _categoria)
+{
+    var _dados = global.minerios[$ _item];
+    var _resultado = "";
+    var _result_categoria = "";
+    
+    //transformando bruto em puro
+    if (_categoria == "minerios")
+    {
+        _resultado = _item + "_puro";
+        _result_categoria = "puros";
+    }
+    //transformando puro em refinado
+    else if (_categoria == "puros")
+    {
+        _resultado = string_replace(_item, "_puro", "_refinado");
+        _result_categoria = "refinados";
+    }
+    //acaba
+    else
+    {
+        return undefined;
+    }
+    
+    //retornando o resultado e a receita
+    return
+    {
+        resultado: _resultado,
+        categoria_resultado: _result_categoria,
+        custo_pedras: _dados.pedras,
+        custo_minerio: _dados.qtd_refina,
+    }
+}
+
+
 //sombra
 function desenha_sombra(_scale = .5)
 {
@@ -132,7 +167,7 @@ function reseta_globais()
         global.inventario_global =
         {
             minerios: {},
-            limpos: {},
+            puros: {},
             refinados: {},
         }
         

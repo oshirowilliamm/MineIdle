@@ -329,27 +329,46 @@ escala_voltar = new efeito_escala();
         //efeitos
         moeda_efeito();
         
-        //desenhando fundo
+        //posição do fundo
         var _margem = 10;
         var _w = 250;
         var _h = 120;
         var _x = display_get_gui_width() - _w - _margem;
         var _y = _margem;
         
+        //desenhando fundo
         draw_sprite_stretched(spr_caixa_fundo, 0, _x, _y, _w, _h);
         
-        //desenhando moeda
-        var _xmoeda = _x + _w / 2;
-        var _ymoeda = _y + (_h / 2) - 7;
+        var _xitem = _x + _w / 2;
+        var _yitem = _y + (_h / 2) - 7;
         var _xscale = .2 * escala_moeda.xscale;
         var _yscale = .2 * escala_moeda.yscale;
         
-        //texto dinheiro
-        moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
-        var _sprite = "[scale, 20][spr_moeda, 0][scale, 1]";
-        var _texto = string("{1} ${0}", formata_moeda(moeda_desenhada), _sprite)
-        
-        texto_scribble(_xmoeda, _ymoeda, _texto, _xscale, _yscale, 1, 1, moeda_cor);
+        //desenhando pedras
+        if (room == rm_refinacao)
+        {
+            //pegando a quantidade de pedras q eu tenho
+            var _qtd = global.inventario_global.minerios[$ global.pedra_atual];
+            if (_qtd == undefined) _qtd = 0;
+            
+            //pegando a sprite
+            var _index = global.minerios[$ global.pedra_atual].sprite;
+            var _sprite = string("[scale, 12][spr_minerios,{0}][scale, 1]", _index);
+            
+            //texto
+            var _texto = string("{1} {0}", _qtd, _sprite)
+            
+            texto_scribble(_xitem, _yitem, _texto, _xscale, _yscale, 1, 1, moeda_cor);
+        }
+        //desenhando moeda
+        else
+        {
+            moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
+            var _sprite = "[scale, 20][spr_moeda, 0][scale, 1]";
+            var _texto = string("{1} ${0}", formata_moeda(moeda_desenhada), _sprite)
+            
+            texto_scribble(_xitem, _yitem, _texto, _xscale, _yscale, 1, 1, moeda_cor);
+        }
     }
     
 #endregion

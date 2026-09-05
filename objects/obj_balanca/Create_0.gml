@@ -25,11 +25,6 @@ typist_valor = scribble_typist().in(1, 5);
 
 
 
-flutuando = function()
-{
-    var _y = sin(current_time / 300) * 5 + 190;
-    y_minerio_atual = lerp(y_minerio_atual, _y, .2);
-}
 
 aplica_efeitos = function()
 {
