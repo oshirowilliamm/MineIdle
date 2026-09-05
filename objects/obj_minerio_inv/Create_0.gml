@@ -28,31 +28,6 @@ segue_inventario = function()
     y = obj_inventario.y_livro + y_inicial;
 }
 
-efeito_shake = function()
-{
-    //efeito de shake no item não descoberto
-    if (shake)
-    {
-        //diminuindo o timer
-        shake_timer--;
-        
-        //efeito de tremer
-        if (shake_timer > 0)
-        {
-            shake_x = dsin(shake_timer * 50) * 3;
-        }
-        //resetando o shake
-        else
-        {
-            shake_timer = 10;
-            shake = false;
-            shake_x = 0;
-        }
-    }
-}
-
-
-
 selecao = function()
 {
     //pegando a quantidade do item
@@ -201,11 +176,5 @@ desenha_minerio = function()
             texto_scribble(x + 15, y + 5, string("x{0}", _qtd), .2, , , , c_gray, .5);
         }
         
-    }
-    //se ainda não existe
-    else
-    {
-        draw_sprite_ext(sprite, minerio.sprite, x + shake_x, y_efeito, escala, escala, 0, c_black, 1);
-        texto_scribble(x + 15 + shake_x, y + 5, "???", .2);
     }
 }

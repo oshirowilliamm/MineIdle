@@ -196,17 +196,15 @@ desenha_custo = function(_x, _y)
     //se n esta no level maximo
     else
     {
-        //desenhando a moeda
-        var _xmoeda = _x - (30 * escala_efeito.xscale);
-        draw_sprite_ext(spr_moeda, 0, _xmoeda, _y, _xscale, _yscale, 0, c_white, alpha);
+        var _sprite = "[scale, 8][spr_moeda, 0][scale, 1]";
         
         //pegando a cor de acordo com o dinheiro q tenho
         var _custo = (global.moeda >= dados.get_custo())
-            ? string("[cor_upgrade_verde]${0}", dados.get_custo())
-            : string("[cor_upgrade_vermelho]${0}", dados.get_custo());
+            ? string("{1} [cor_upgrade_verde]${0}", dados.get_custo(), _sprite)
+            : string("{1} [cor_upgrade_vermelho]${0}", dados.get_custo(), _sprite);
         
         //texto do custo
-        texto_scribble_ext(_x, _y, _custo, _txt_xscale, _txt_yscale,, 1,, alpha, "fnt_upgrade_info", typist_custo);
+        texto_scribble_ext(_x, _y, _custo, _txt_xscale, _txt_yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_custo);
     }
 }
 

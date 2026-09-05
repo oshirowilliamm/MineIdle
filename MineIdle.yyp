@@ -122,7 +122,6 @@
     {"id":{"name":"obj_ilumina_ponto","path":"objects/obj_ilumina_ponto/obj_ilumina_ponto.yy",},},
     {"id":{"name":"obj_ilumina_poste","path":"objects/obj_ilumina_poste/obj_ilumina_poste.yy",},},
     {"id":{"name":"obj_iluminacao","path":"objects/obj_iluminacao/obj_iluminacao.yy",},},
-    {"id":{"name":"obj_info_inventario","path":"objects/obj_info_inventario/obj_info_inventario.yy",},},
     {"id":{"name":"obj_inventario_refinacao","path":"objects/obj_inventario_refinacao/obj_inventario_refinacao.yy",},},
     {"id":{"name":"obj_inventario_shop","path":"objects/obj_inventario_shop/obj_inventario_shop.yy",},},
     {"id":{"name":"obj_inventario","path":"objects/obj_inventario/obj_inventario.yy",},},
@@ -378,11 +377,11 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
-    {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
-    {"roomId":{"name":"rm_refinacao","path":"rooms/rm_refinacao/rm_refinacao.yy",},},
-    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
-    {"roomId":{"name":"rm_shop","path":"rooms/rm_shop/rm_shop.yy",},},
     {"roomId":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},},
+    {"roomId":{"name":"rm_shop","path":"rooms/rm_shop/rm_shop.yy",},},
+    {"roomId":{"name":"rm_refinacao","path":"rooms/rm_refinacao/rm_refinacao.yy",},},
+    {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
+    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

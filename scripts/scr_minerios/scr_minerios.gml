@@ -24,7 +24,6 @@ global.minerios =
                 valor: 20,
                 peso: 4,
                 pedras: 20,
-                tempo: 
             },
             b1_rocha2:
             {

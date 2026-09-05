@@ -1,2 +1,0 @@
-iniciando();
-destruindo();

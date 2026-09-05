@@ -339,16 +339,17 @@ escala_voltar = new efeito_escala();
         draw_sprite_stretched(spr_caixa_fundo, 0, _x, _y, _w, _h);
         
         //desenhando moeda
-        var _xmoeda = _x + 55;
-        var _ymoeda = _y + (_h / 2) - 10;
-        
-        draw_sprite_ext(spr_moeda, 0, _xmoeda, _ymoeda, global.escala_hud, global.escala_hud, 0, c_white, 1);
+        var _xmoeda = _x + _w / 2;
+        var _ymoeda = _y + (_h / 2) - 7;
+        var _xscale = .2 * escala_moeda.xscale;
+        var _yscale = .2 * escala_moeda.yscale;
         
         //texto dinheiro
         moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
-        var _texto = string("${0}", formata_moeda(moeda_desenhada))
+        var _sprite = "[scale, 20][spr_moeda, 0][scale, 1]";
+        var _texto = string("{1} ${0}", formata_moeda(moeda_desenhada), _sprite)
         
-        texto_scribble(_xmoeda + 40, _ymoeda, _texto, .2 * escala_moeda.xscale, .2 * escala_moeda.yscale, , 1, moeda_cor);
+        texto_scribble(_xmoeda, _ymoeda, _texto, _xscale, _yscale, 1, 1, moeda_cor);
     }
     
 #endregion

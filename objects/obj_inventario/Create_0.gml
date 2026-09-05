@@ -106,31 +106,33 @@ cria_pagina = function()
     //desenhando todos os minerios
     for (var i = 0; i < array_length(_pagina); i++)
     {
-        //definindo o y
-        var _yatual = _yinicial + (i * 120);
-        
-        //////// BRUTOS /////////
-        var _item_bruto = _pagina[i];
-        
-        var _infos = {item: _item_bruto, categoria: "minerios", sprite: spr_minerios};
-        instance_create_depth(_xbruto, _yatual, -9999, obj_minerio_inv, _infos);
-        
-        //////// LIMPOS /////////
-        var _item_limpo = _item_bruto + "_limpo";
-        
-        //eliminando a pedra da categoria
-        if (global.minerios[$ _item_limpo] != undefined)
+        //centralizando so a pedra
+        if (string_pos("_pedra", _pagina[i]) != 0)
         {
+            var _infos = {item: _pagina[i], categoria: "minerios", sprite: spr_minerios};
+            instance_create_depth(_xlimpo, _yinicial, -9999, obj_minerio_inv, _infos);
+        }
+        //resto dos minerios
+        else
+        {
+            //definindo o y
+            var _yatual = _yinicial + (i * 120);
+            
+            //////// BRUTOS /////////
+            var _item_bruto = _pagina[i];
+            
+            var _infos = {item: _item_bruto, categoria: "minerios", sprite: spr_minerios};
+            instance_create_depth(_xbruto, _yatual, -9999, obj_minerio_inv, _infos);
+            
+            //////// LIMPOS /////////
+            var _item_limpo = _item_bruto + "_limpo";
+            
             _infos = {item: _item_limpo, categoria: "limpos", sprite: spr_limpos};
             instance_create_depth(_xlimpo, _yatual, -9999, obj_minerio_inv, _infos);
-        }
-        
-        //////// REFINADOS /////////      
-        var _item_refinado = _item_bruto + "_refinado";
-        
-        //eliminando a pedra da categoria
-        if (global.minerios[$ _item_refinado] != undefined)
-        {
+            
+            //////// REFINADOS /////////      
+            var _item_refinado = _item_bruto + "_refinado";
+            
             _infos = {item: _item_refinado, categoria: "refinados", sprite: spr_refinados};
             instance_create_depth(_xrefinado, _yatual, -9999, obj_minerio_inv, _infos);
         }
