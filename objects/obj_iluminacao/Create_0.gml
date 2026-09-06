@@ -52,7 +52,7 @@ brilho_minerio = function(_cam_x, _cam_y)
             var _random = real(id) * .67;
             var _onda = sin((current_time / 1900) + _random);
             var _tempo_apagado = (_onda - .8) * 2.5;
-            var _brilho = clamp(_tempo_apagado, 0, .5);
+            var _brilho = clamp(_tempo_apagado, .05, .5);
             
         	//desenhando o brilho
             draw_sprite_ext(spr_blocos_brilho, image_index, _x, _y, xscale, yscale, 0, c_white, _brilho);

@@ -1,2 +1,2 @@
-image_xscale = 2;
+image_xscale = 1.5;
 image_yscale = image_xscale;

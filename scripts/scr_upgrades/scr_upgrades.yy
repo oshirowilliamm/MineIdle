@@ -6,7 +6,7 @@
   "name":"scr_upgrades",
   "parent":{
     "name":"Dados",
-    "path":"folders/Objects/Dados.yy",
+    "path":"folders/Scripts/Dados.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

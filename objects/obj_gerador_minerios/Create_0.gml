@@ -1,10 +1,10 @@
 //posição inicial da primeira colunas
 #macro X_INICIAL 336
-#macro Y_INICIAL 79
+#macro Y_INICIAL 111
 
 //colunas e linhas
 #macro MAX_COLUNAS 100 
-#macro MAX_LINHAS 12
+#macro MAX_LINHAS 10
 
 //margem de visualização dos blocos
 #macro MARGEM 2 

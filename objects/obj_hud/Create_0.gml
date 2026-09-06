@@ -196,7 +196,7 @@ escala_vila = new efeito_escala();
         //efeito de se mexer
         var _mexe_y = sin(current_time / 300) * 3;
         var _x = 100;
-        var _y = 620 + _mexe_y;
+        var _y = display_get_gui_height() - 100 + _mexe_y;
         
         //escalas
         var _escala_x = (global.escala_hud * escala_sacola.xscale);

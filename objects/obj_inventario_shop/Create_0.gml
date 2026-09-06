@@ -16,7 +16,7 @@ cria_pagina = function()
     var _xbruto     = 75;
     var _xpuro     = _xbruto + 130;
     var _xrefinado  = _xpuro + 130;
-    var _yinicial   = display_get_gui_height() / 2 - 370;
+    var _yinicial   = (room_height / 2) - 70;
     
     var _pagina = global.paginas_livro[pagina_atual];
     
@@ -25,11 +25,17 @@ cria_pagina = function()
     {
         var _item = _pagina[i];
         
-        //tirando a pedra
-        if (string_pos("_pedra", _item) == 0)
+        //centralizando so a pedra
+        if (string_pos("_pedra", _item) != 0)
+        {
+            var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};
+            instance_create_depth(_xpuro, _yinicial, -9999, obj_minerio_inv, _infos);
+        }
+        //resto dos minerios
+        else
         {
             //definindo o y
-            var _yatual = _yinicial + (i * 140);
+            var _yatual = _yinicial + (i * 120);
             
             //////// BRUTOS /////////
             var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};

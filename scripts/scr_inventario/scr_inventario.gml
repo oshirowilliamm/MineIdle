@@ -1,9 +1,8 @@
 //inventario da sacola
 global.sacola = 
 {
-    max_peso: 20,
+    max_peso: 30,
     peso_atual: 0,
-    
     itens: {},
 };
 

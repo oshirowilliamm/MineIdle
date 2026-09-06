@@ -19,4 +19,4 @@ global.transicao = false;
 #macro SPAWN_Y_MINA 274
 
 #macro SPAWN_X_VILA 480
-#macro SPAWN_Y_VILA 891
+#macro SPAWN_Y_VILA 832

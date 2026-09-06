@@ -28,7 +28,7 @@ global.upgrades =
 {
     stamina_max: new cria_upgrade("Stamina", //nome
     "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
-    0, 10, 5, 1.5, global.stamina_max, 50, //valoresa
+    0, 15, 5, 1.5, global.stamina_max, 50, //index sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {   
         global.stamina_max = get_valor(level_atual);
@@ -36,7 +36,7 @@ global.upgrades =
     
     capacidade_max: new cria_upgrade("Capacidade", //nome
     "Aumenta a capacidade em [cor_upgrade_verde]20[/]", //descrição
-    1, 20, 10, 1.5, global.sacola.max_peso, 20, //valores
+    1, 50, 10, 1.5, global.sacola.max_peso, 20, //index sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {
         global.sacola.max_peso = get_valor(level_atual);
@@ -44,7 +44,7 @@ global.upgrades =
     
     alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
     "Aumenta o alcance da lanterna em [cor_upgrade_verde]1[/]", //descrição
-    2, 30, 10, 1.5, global.alcance_lanterna, .1, //valores
+    2, 30, 10, 1.5, global.alcance_lanterna, .1, //index sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {
         global.alcance_lanterna = get_valor(level_atual);

@@ -1,3 +1,3 @@
 event_inherited();
 
-entrando_loja();
+tecla_interacao(x, y_origem, entra_loja);

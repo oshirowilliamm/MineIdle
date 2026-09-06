@@ -7,7 +7,7 @@ desenha_quantidade = function(_receita)
 {
     var _pedra   = global.minerios[$ global.pedra_atual];
     var _minerio = obj_prato.minerio;
-    var _pedra_atual   = global.inventario_global.minerios[$ global.pedra_atual];
+    var _pedra_atual   = global.inventario_global.minerios[$ global.pedra_atual] ?? 0;
     var _minerio_atual = global.inventario_global[$ obj_prato.categoria][$ obj_prato.item];
     
     //pegando as cores

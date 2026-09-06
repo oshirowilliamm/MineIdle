@@ -1,6 +1,5 @@
 //efeitos
 escala = new efeito_escala();
-inicia_efeito_squash();
 inicia_efeito_brilho();
 
 //variaveis de movimento
@@ -22,7 +21,6 @@ tempo_desmaio = 0;
 //variaveis para minerar
 usando_equip = false;
 golpe_aplicado = false;
-cooldown_max = global.picareta.cooldown;
 cooldown_atual = 0;
 
 
@@ -250,7 +248,7 @@ fim_animacao_minerar = function()
         if (click && cooldown_atual <= 0)
         {
             image_index = 0;
-            cooldown_atual = cooldown_max;
+            cooldown_atual = global.picareta.cooldown;
         }
         //se parar de minerar
         else
@@ -269,7 +267,7 @@ usa_equipamento = function()
         if (!usando_equip && cooldown_atual <= 0)
         {
             usando_equip = true; //avisando que to usando o equip
-            cooldown_atual = cooldown_max;
+            cooldown_atual = global.picareta.cooldown;
             estado = estado_minerando;
             image_index = 0;
         }
