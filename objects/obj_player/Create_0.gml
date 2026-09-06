@@ -84,7 +84,6 @@ player_spawn_posicao = function()
         golpe_aplicado = false;
         cooldown_atual = 0;
         tempo_desmaio = 0;
-        direcao = 3;
         
         //garatindo seu estado
         estado = estado_parado;

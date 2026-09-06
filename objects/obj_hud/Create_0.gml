@@ -163,6 +163,31 @@ escala_vila = new efeito_escala();
         }
     }
     
+    sacola_recolhe_itens = function()
+    {
+        //se a lista tiver vazio, n faz nada
+        if (array_length(itens_caindo) == 0) return;
+        
+        //força os itens a serem coletados
+        for (var i = 0; i < array_length(itens_caindo); i++)
+        {
+            var _item = itens_caindo[i];
+            
+            //criando a chave se n tem
+            if (global.sacola.itens[$ _item.tipo] == undefined)
+            {
+                global.sacola.itens[$ _item.tipo] = 0;
+            }
+            
+            //adicionando o minerio e o peso
+            global.sacola.itens[$ _item.tipo]++;
+            global.sacola.peso_atual += _item.peso;
+        }
+        
+        //esvaziando a lista
+        itens_caindo = [];
+    }    
+    
     desenha_sacola = function()
     {
         //so desenha na mina
