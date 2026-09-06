@@ -326,26 +326,92 @@ escala_vila = new efeito_escala();
 
 #region Moeda
     
-    moeda_desenhada = global.moeda;
-    moeda_atual = global.moeda;
-    moeda_cor = c_white;
+    dinheiro_desenhada = global.moeda;
+    pedra_desenhada = 0;
+    
+    dinheiro_anterior = global.moeda;
+    pedra_anterior = 0;
+    
+    dinheiro_cor = c_white;
     
     moeda_efeito = function()
     {
-        if (global.moeda > moeda_atual)
+        //checando qual a hud que esta
+        var _refinacao = room == rm_refinacao;
+        
+        var _valor_real = 0;
+        var _valor_anterior = 0;
+        
+        //pedra
+        if (_refinacao)
         {
-            //efeito squash
-            escala_moeda.squash(2, 2);
+            _valor_real = global.inventario_global.minerios[$ global.pedra_atual] ?? 0;
+            _valor_anterior = pedra_anterior;
+        }
+        //dinheiro
+        else
+        {
+            _valor_real = global.moeda;
+            _valor_anterior = dinheiro_anterior;
+        }
+        
+        //checando se ganhou ou perder moeda
+        if (_valor_real != _valor_anterior)
+        {
+            //se ganhou
+            if (_valor_real > _valor_anterior)
+            {
+                dinheiro_cor = cor_positivo;
+                escala_moeda.squash(1.5, 1.5);
+            }
+            //se perdeu
+            else
+            {
+                dinheiro_cor = cor_negativo;
+                escala_moeda.squash(.8, .8);
+            }
             
-            //efeito da cor
-            moeda_cor = cor_positivo;
-            
-            moeda_atual = global.moeda;
+            //atualizando o valor anterior
+            if (_refinacao) pedra_anterior = _valor_real;
+            else            dinheiro_anterior = _valor_real;
         }
         
         //retornando os efeitos
         escala_moeda.retorna();
-        moeda_cor = merge_colour(moeda_cor, c_white, .07);
+        dinheiro_cor = merge_colour(dinheiro_cor, c_white, .07);
+    }
+    
+    desenha_pedra = function(_x, _y, _xscale, _yscale)
+    {
+        //pegando a quantidade de pedras q eu tenho
+        var _qtd = global.inventario_global.minerios[$ global.pedra_atual];
+        if (_qtd == undefined) _qtd = 0;
+        
+        //efeito suave
+        pedra_desenhada = lerp(pedra_desenhada, _qtd, .1);
+        
+        //pegando a sprite
+        var _index = global.minerios[$ global.pedra_atual].sprite;
+        var _sprite = string("[scale, 15][spr_minerios,{0}][scale, 1]", _index);
+        
+        //texto
+        var _texto = string("{1} {0}", round(pedra_desenhada), _sprite)
+        
+        texto_scribble(_x, _y, _texto, _xscale, _yscale, 1, 1, dinheiro_cor);
+    }
+    
+    desenha_dinheiro = function(_x, _y, _xscale, _yscale)
+    {
+        //efeito suave
+        dinheiro_desenhada = lerp(dinheiro_desenhada, global.moeda, .1);
+        
+        //sprite de moeda
+        var _sprite = "[scale, 20][spr_moeda, 0][scale, 1]";
+        
+        //texto com formatação de moeda
+        var _texto = string("{1} ${0}", formata_moeda(dinheiro_desenhada), _sprite)
+        
+        texto_scribble(_x, _y, _texto, _xscale, _yscale, 1, 1, dinheiro_cor);
     }
     
     desenha_moeda = function()
@@ -388,27 +454,12 @@ escala_vila = new efeito_escala();
         //desenhando pedras
         if (room == rm_refinacao)
         {
-            //pegando a quantidade de pedras q eu tenho
-            var _qtd = global.inventario_global.minerios[$ global.pedra_atual];
-            if (_qtd == undefined) _qtd = 0;
-            
-            //pegando a sprite
-            var _index = global.minerios[$ global.pedra_atual].sprite;
-            var _sprite = string("[scale, 12][spr_minerios,{0}][scale, 1]", _index);
-            
-            //texto
-            var _texto = string("{1} {0}", _qtd, _sprite)
-            
-            texto_scribble(_xitem, _yitem, _texto, _xscale, _yscale, 1, 1, moeda_cor);
+            desenha_pedra(_xitem, _yitem, _xscale, _yscale);
         }
         //desenhando moeda
         else
         {
-            moeda_desenhada = lerp(moeda_desenhada, global.moeda, .1);
-            var _sprite = "[scale, 20][spr_moeda, 0][scale, 1]";
-            var _texto = string("{1} ${0}", formata_moeda(moeda_desenhada), _sprite)
-            
-            texto_scribble(_xitem, _yitem, _texto, _xscale, _yscale, 1, 1, moeda_cor);
+            desenha_dinheiro(_xitem, _yitem, _xscale, _yscale);
         }
     }
     

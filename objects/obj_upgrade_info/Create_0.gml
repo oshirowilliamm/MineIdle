@@ -190,8 +190,8 @@ desenha_custo = function(_x, _y)
     if (dados.level_atual >= dados.level_max)
     {
         //desenhando MAX
-        var _custo = "[cor_upgrade_verde]MAX![/]";
-        texto_scribble_ext(_x, _y, _custo, _txt_xscale, _txt_yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_custo);
+        var _texto = "[cor_upgrade_verde]MAX![/]";
+        texto_scribble_ext(_x, _y, _texto, _txt_xscale, _txt_yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_custo);
     }
     //se n esta no level maximo
     else
@@ -199,12 +199,13 @@ desenha_custo = function(_x, _y)
         var _sprite = "[scale, 8][spr_moeda, 0][scale, 1]";
         
         //pegando a cor de acordo com o dinheiro q tenho
-        var _custo = (global.moeda >= dados.get_custo())
-            ? string("{1} [cor_upgrade_verde]${0}", dados.get_custo(), _sprite)
-            : string("{1} [cor_upgrade_vermelho]${0}", dados.get_custo(), _sprite);
+        var _custo = round(dados.get_custo());
+        var _texto = (global.moeda >= _custo)
+            ? string("{1} [cor_upgrade_verde]${0}", _custo, _sprite)
+            : string("{1} [cor_upgrade_vermelho]${0}", _custo, _sprite);
         
         //texto do custo
-        texto_scribble_ext(_x, _y, _custo, _txt_xscale, _txt_yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_custo);
+        texto_scribble_ext(_x, _y, _texto, _txt_xscale, _txt_yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_custo);
     }
 }
 

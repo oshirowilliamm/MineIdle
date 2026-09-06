@@ -3,7 +3,7 @@ inicia_efeito_squash();
 
 
 x_geral = 0;
-y_geral = display_get_gui_height() / 4;
+y_geral = display_get_gui_height() / 2 - 200;
 escala = global.escala_hud;
 
 //variaveis da ficha
