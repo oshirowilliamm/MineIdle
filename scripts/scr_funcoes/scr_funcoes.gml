@@ -18,7 +18,7 @@ function tecla_interacao(_x, _y, _funcao)
     var _dist = point_distance(_x, _y, obj_player.x, obj_player.y);
     
     //só mostra as infos se estiver perto
-    if (_dist <= 40)
+    if (_dist <= 30)
     {
         //criando a tecla
         if (!instance_exists(tecla))

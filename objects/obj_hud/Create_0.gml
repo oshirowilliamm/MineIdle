@@ -435,7 +435,7 @@ escala_vila = new efeito_escala();
         }
         else if (room == rm_shop)
         {
-            _x = display_get_gui_width() / 2 - _w / 2 + 250;
+            _x = display_get_gui_width() / 2 - _w / 2 + 370;
         }
         else
         {
@@ -467,6 +467,19 @@ escala_vila = new efeito_escala();
 
 #region Voltar
     
+    voltar_esc = function()
+    {
+        if (!array_contains(global.rooms_vila, room)) return;
+        
+        //indo pra vila
+        if (keyboard_check_pressed(vk_escape))
+        {
+            cria_transicao(rm_vila, sq_transicao_1_loja, sq_transicao_2_loja, "tela");
+            global.spawn_x = global.dest_x;
+            global.spawn_y = global.dest_y;
+        }
+    }
+    
     selecao_voltar = function(_x, _y)
     {
         if (mouse_sobre_ui(_x, _y, spr_voltar, global.escala_hud))
@@ -477,7 +490,7 @@ escala_vila = new efeito_escala();
             //indo pra vila
             if (mouse_check_button_pressed(mb_left))
             {
-                cria_transicao_inicia(rm_vila);
+                cria_transicao(rm_vila, sq_transicao_1_loja, sq_transicao_2_loja, "tela");
                 global.spawn_x = global.dest_x;
                 global.spawn_y = global.dest_y;
             }
@@ -515,7 +528,7 @@ escala_vila = new efeito_escala();
             
             if (mouse_check_button_pressed(mb_left))
             {
-                cria_transicao_inicia(rm_vila);
+                cria_transicao(rm_vila);
                 global.spawn_x = SPAWN_X_VILA;
                 global.spawn_y = SPAWN_Y_VILA;
             }

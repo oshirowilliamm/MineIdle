@@ -29,7 +29,7 @@ centraliza_camera = function()
         
         //centralizando
         var _x = stamina_max.x - _w / 2;
-        var _y = stamina_max.y - 20 - _h / 2;
+        var _y = stamina_max.y - 50 - _h / 2;
         
         //travando os valores
         _x = clamp(_x, 0, room_width - _w);

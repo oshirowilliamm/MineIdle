@@ -5,7 +5,7 @@ if (pode_ir)
     global.spawn_y = destino_y;
     
     //criando a transicao
-    cria_transicao_inicia(destino);
+    cria_transicao(destino);
     
     //desativando o player
     other.estado = other.estado_desativado;
