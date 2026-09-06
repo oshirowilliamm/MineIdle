@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_minerios_blocos",
-    "path":"sprites/spr_minerios_blocos/spr_minerios_blocos.yy",
+    "name":"spr_blocos",
+    "path":"sprites/spr_blocos/spr_blocos.yy",
   },
   "spriteMaskId":null,
   "visible":true,

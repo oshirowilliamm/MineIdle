@@ -127,7 +127,7 @@ coleta = function(_dist)
         with (obj_player) 
         {
         	var _escala = random_range(.1, .3);
-            efeito_squash(1 + _escala, 1 + _escala);
+            escala.squash(1 + _escala, 1 + _escala);
             aplica_efeito_brilho(global.minerios[$ other.tipo_item].cor);
         }
         

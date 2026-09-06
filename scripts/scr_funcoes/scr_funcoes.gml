@@ -85,14 +85,14 @@ function cria_persistentes(_player = true, _controller = true, _hud = true, _deb
         //definindo posição do player na mina
         if (array_contains(global.rooms_mina, room))
         {
-            global.spawn_x = 20;
-            global.spawn_y = 270;
+            global.spawn_x = SPAWN_X_MINA;
+            global.spawn_y = SPAWN_Y_MINA;
         }
         //na vila
         else
         {
-            global.spawn_x = 480;
-            global.spawn_y = 891;
+            global.spawn_x = SPAWN_X_VILA;
+            global.spawn_y = SPAWN_Y_VILA;
         }
         
         //criando a layer

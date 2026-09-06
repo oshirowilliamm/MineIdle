@@ -32,6 +32,8 @@ info = noone;
 
 
 
+
+
 abre_inventario = function()
 {
     if (inventario)

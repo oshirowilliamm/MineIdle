@@ -3,6 +3,7 @@ depth = -y;
 //efeitos
 inicia_efeito_squash();
 inicia_efeito_brilho();
+brilho = noone;
 
 //se o gerador n passou o tipo_bloco, coloca o padrão como a pedra 1
 if (!variable_instance_exists(id, "tipo_bloco")) tipo_bloco = "pedra1";
@@ -16,6 +17,7 @@ image_index = _dados.sprite;
 //vida
 vida = _dados.vida;
 max_vida = _dados.vida;
+custo_stamina = _dados.stamina;
 
 //tempo pra regeneração
 tempo = 5 * FPS;
@@ -40,6 +42,19 @@ descarrega_bloco = function()
     {
         instance_destroy();
     }
+}
+
+cria_drop = function(_minerio)
+{
+    //infos pra mandar pro drop
+    var _infos =
+    {
+        index: global.minerios[$ tipo_bloco].sprite,
+        tipo: tipo_bloco
+    }
+    
+    //criando o drop
+    instance_create_layer(x, y, "Drops", obj_drop, _infos);
 }
 
 recebe_dano = function(_dano)
@@ -90,18 +105,23 @@ morre = function()
     }
 }
 
-cria_drop = function(_minerio)
+regenera_vida = function()
 {
-    //infos pra mandar pro drop
-    var _infos =
-    {
-        index: global.minerios[$ tipo_bloco].sprite,
-        tipo: tipo_bloco
-    }
+    //se a vida estiver cheia, n faz nada
+    if (vida >= max_vida) return;
     
-    //criando o drop
-    instance_create_layer(x, y, "Drops", obj_drop, _infos);
+    //abaixando o timer
+    if (timer > 0) timer--;
+    
+    //quando o tempo terminar, regenera a vida
+    if (timer <= 0)
+    {
+        vida = max_vida;
+        timer = tempo;
+    }
 }
+
+
 
 desenha_rachaduras = function()
 {
@@ -125,18 +145,3 @@ desenha_rachaduras = function()
     draw_sprite_ext(spr_rachaduras, _index, x, y, xscale, yscale, 0, c_white, 1);
 }
 
-regenera_vida = function()
-{
-    //se a vida estiver cheia, n faz nada
-    if (vida >= max_vida) return;
-    
-    //abaixando o timer
-    if (timer > 0) timer--;
-    
-    //quando o tempo terminar, regenera a vida
-    if (timer <= 0)
-    {
-        vida = max_vida;
-        timer = tempo;
-    }
-}

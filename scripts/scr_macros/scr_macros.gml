@@ -12,3 +12,11 @@ global.debug = false;
 //transicao
 global.transicao = false;
 #macro EM_TRANSICAO if (global.transicao) exit
+
+
+//posição de spawn do player
+#macro SPAWN_X_MINA 170
+#macro SPAWN_Y_MINA 274
+
+#macro SPAWN_X_VILA 480
+#macro SPAWN_Y_VILA 891

@@ -1,4 +1,5 @@
 //efeitos
+escala = new efeito_escala();
 inicia_efeito_squash();
 inicia_efeito_brilho();
 
@@ -16,6 +17,7 @@ colisoes = colisoes_originais;
 estado = noone;
 direcao = 1;
 dir = 1;
+tempo_desmaio = 0;
 
 //variaveis para minerar
 usando_equip = false;
@@ -56,7 +58,7 @@ outras_funcoes = function()
     
     
     //efeitos
-    retorna_squash();
+    escala.retorna();
     retorna_efeito_brilho();
 }
 
@@ -71,6 +73,21 @@ player_spawn_posicao = function()
         //resetando o valor do spawn
         global.spawn_x = -1;
         global.spawn_y = -1;
+        
+        //resetando variaveis do player
+        image_index = 0;
+        image_xscale = 1;
+        image_yscale = 1;
+        image_angle = 0;
+        visible = true;
+        usando_equip = false;
+        golpe_aplicado = false;
+        cooldown_atual = 0;
+        tempo_desmaio = 0;
+        direcao = 3;
+        
+        //garatindo seu estado
+        estado = estado_parado;
     }
 }
 
@@ -167,6 +184,62 @@ controla_player = function()
 
 
 
+
+//metodos de stamina
+perde_stamina = function()
+{
+    global.stamina_atual -= .01;
+}
+
+efeito_stamina = function()
+{
+    //se estiver fora da mina, recarrega a stamina
+    if (!array_contains(global.rooms_mina, room))
+    {
+        global.stamina_atual = global.stamina_max;
+    }
+    //se estiver na mina
+    else
+    {
+        if (estado != estado_desmaio)
+        {
+            //perdendo stamina aos poucos
+            perde_stamina();
+            
+            //se acabar, vai pro estado de desmaio
+            if (global.stamina_atual <= 0)
+            {
+                estado = estado_desmaio;
+                tempo_desmaio = 0;
+            }
+        }
+    }
+    
+    //garatindo que a stamina zere
+    if (global.stamina_atual < 0)
+    {
+        global.stamina_atual = 0;
+    }
+}
+
+dano_picareta = function()
+{
+    //se tiver stamina, tem o dano normal
+    if (global.stamina_atual > 0)
+    {
+        return global.picareta.dano;
+    }
+    //se n tiver stamina, fica fraco
+    else
+    {
+        return 0;
+    }
+}
+
+
+
+
+
 //metodos de mineração
 fim_animacao_minerar = function()
 {
@@ -236,10 +309,10 @@ quebra_bloco = function()
             _bloco.recebe_dano(dano_picareta());
             
             //perdendo stamina
-            perde_stamina();
+            global.stamina_atual -= _bloco.custo_stamina;
         }
         
-        efeito_squash(1.5, .8);
+        escala.squash(1.5, .8);
         
         //aplicando golpe
         golpe_aplicado = true;
@@ -247,41 +320,6 @@ quebra_bloco = function()
 }
 
 
-
-//metodos de stamina
-perde_stamina = function()
-{
-    global.stamina_atual--;
-}
-
-efeito_stamina = function()
-{
-    //se estiver fora da mina, recarrega a stamina
-    if (!array_contains(global.rooms_mina, room))
-    {
-        global.stamina_atual = global.stamina_max;
-    }
-    
-    //garatindo que a stamina zere
-    if (global.stamina_atual < 0)
-    {
-        global.stamina_atual = 0;
-    }
-}
-
-dano_picareta = function()
-{
-    //se tiver stamina, tem o dano normal
-    if (global.stamina_atual > 0)
-    {
-        return global.picareta.dano;
-    }
-    //se n tiver stamina, fica fraco
-    else
-    {
-        return 0;
-    }
-}
 
 
 
@@ -402,6 +440,27 @@ estado_minerando = function()
     
     //no fim da animação, sai do estado
     fim_animacao_minerar();
+}
+
+estado_desmaio = function()
+{
+    //fica parado
+    hspd = 0;
+    vspd = 0;
+    
+    //sprite de cansado
+    define_sprite(spr_player_pic_idle_front, spr_player_pic_idle_side, spr_player_pic_idle_back);
+    image_angle = lerp(image_angle, 90, .1);
+    
+    tempo_desmaio++;
+    
+    //qnd o tempo passar, rola a transição
+    if (tempo_desmaio >= 1.5 * FPS)
+    {
+        cria_transicao_inicia(rm_vila);
+        global.spawn_x = SPAWN_X_VILA;
+        global.spawn_y = SPAWN_Y_VILA;
+    }
 }
 
 estado_desativado = function()

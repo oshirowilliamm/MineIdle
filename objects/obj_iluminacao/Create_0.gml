@@ -5,6 +5,8 @@ sombra_surface = surface_create(camera_get_view_width(cam), camera_get_view_heig
 
 
 
+
+
 //luz do player
 luz_player = function(_cam_x, _cam_y)
 {
@@ -29,6 +31,32 @@ luz_player = function(_cam_x, _cam_y)
         
         //desenhando a luz
         draw_sprite_ext(spr_circulo_luz, 0, _x, _y, _escala, _escala, 0, cor_luz, _brilho);
+    }
+}
+
+//brilho do minerio
+brilho_minerio = function(_cam_x, _cam_y)
+{
+    if (!instance_exists(obj_minerio)) return;
+    
+    with (obj_minerio) 
+    {
+        //tirando a pedra
+        if (string_pos("_pedra", tipo_bloco) == 0)
+        {
+            //posição
+            var _x = x - _cam_x;
+            var _y = y - _cam_y;
+            
+            //efeito de breathing no brilho
+            var _random = real(id) * .67;
+            var _onda = sin((current_time / 1900) + _random);
+            var _tempo_apagado = (_onda - .8) * 2.5;
+            var _brilho = clamp(_tempo_apagado, 0, .5);
+            
+        	//desenhando o brilho
+            draw_sprite_ext(spr_blocos_brilho, image_index, _x, _y, xscale, yscale, 0, c_white, _brilho);
+        }
     }
 }
 
@@ -107,7 +135,7 @@ desenha_escuridao = function()
         
         //desenhando a escuridao
         draw_clear(cor_sombra);
-        
+        brilho_minerio(_cam_x, _cam_y);
         //iluminação
         gpu_set_blendmode(bm_add);
         
@@ -129,8 +157,9 @@ desenha_escuridao = function()
     gpu_set_blendmode_ext(bm_dest_colour, bm_zero);
     draw_surface(sombra_surface, _cam_x, _cam_y);
     
-    //desenhando o poste acima da surface
+    //desenhando o brilho acima da surface
     gpu_set_blendmode(bm_add);
+    
     luz_poste(0, 0, .2);
     
     gpu_set_blendmode(bm_normal);

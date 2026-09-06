@@ -3,6 +3,7 @@ escala_sacola = new efeito_escala();
 escala_stamina = new efeito_escala();
 escala_moeda = new efeito_escala();
 escala_voltar = new efeito_escala();
+escala_vila = new efeito_escala();
 
 
 
@@ -249,7 +250,7 @@ escala_voltar = new efeito_escala();
         {
             var _x = device_mouse_x_to_gui(0) + 25;
             var _y = 90;
-            var _texto = string("[wheel]{0} / {1}[/]", global.stamina_atual, global.stamina_max)
+            var _texto = string("[wheel]{0} / {1}[/]", round(global.stamina_atual), global.stamina_max)
             
             texto_scribble(_x - 20, _y, _texto, .2, , 1, 1);
         }
@@ -262,14 +263,14 @@ escala_voltar = new efeito_escala();
         
         //pegando valor da stamina e dividindo em blocos
         var _porc = clamp(global.stamina_atual / global.stamina_max, 0, 1);
-        var _porc_blocos = ceil(_porc * 9) / 9;
-        stamina_desenhada = lerp(stamina_desenhada, _porc_blocos, .1);
+        var _porc_blocos = ceil(_porc * 9);
+        stamina_desenhada = lerp(stamina_desenhada, _porc, .1);
         
         //cor da stamina
         var _cor = merge_colour(cor_negativo, cor_positivo, stamina_desenhada);
         
         //efeitos
-        var _shake = stamina_efeito(_porc_blocos);
+        var _shake = stamina_efeito(_porc_blocos);  
         
         //aplicando a escala na largura
         var _base_w = sprite_get_width(spr_barra_stamina);
@@ -333,16 +334,31 @@ escala_voltar = new efeito_escala();
         var _margem = 10;
         var _w = 250;
         var _h = 120;
-        var _x = display_get_gui_width() - _w - _margem;
+        var _x = 0;
         var _y = _margem;
+        
+        //mudando o x de acordo com a room
+        if (room == rm_vila || room == rm_upgrade)
+        {
+            _x = display_get_gui_width() / 2 - _w / 2;
+        }
+        else if (room == rm_shop)
+        {
+            _x = display_get_gui_width() / 2 - _w / 2 + 250;
+        }
+        else
+        {
+            _x = display_get_gui_width() - _w - _margem;
+        }
+        
+        //posição da moeda
+        var _xitem = _x + _w / 2 - 10;
+        var _yitem = _y + _h / 2 - 7;
+        var _xscale = .2 * escala_moeda.xscale;
+        var _yscale = .2 * escala_moeda.yscale;
         
         //desenhando fundo
         draw_sprite_stretched(spr_caixa_fundo, 0, _x, _y, _w, _h);
-        
-        var _xitem = _x + _w / 2;
-        var _yitem = _y + (_h / 2) - 7;
-        var _xscale = .2 * escala_moeda.xscale;
-        var _yscale = .2 * escala_moeda.yscale;
         
         //desenhando pedras
         if (room == rm_refinacao)
@@ -413,10 +429,52 @@ escala_voltar = new efeito_escala();
     
 #endregion
 
+#region Botão Vila
+    
+    selecao_vila = function(_x, _y, _xscale, _yscale)
+    {
+        if (mouse_sobre_ui(_x, _y, spr_caixa_vila, _xscale, _yscale))
+        {
+            escala_vila.atualiza(1.1, 1.1);
+            
+            if (mouse_check_button_pressed(mb_left))
+            {
+                cria_transicao_inicia(rm_vila);
+                global.spawn_x = SPAWN_X_VILA;
+                global.spawn_y = SPAWN_Y_VILA;
+            }
+        }
+        else
+        {
+            escala_vila.retorna();
+        }
+    }
+    
+    desenha_botao_vila = function()
+    {
+        if (!array_contains(global.rooms_mina, room)) return;
+        
+        var _x = display_get_gui_width() - 150;
+        var _y = display_get_gui_height() - 80;
+        var _xscale = global.escala_hud * escala_vila.xscale;
+        var _yscale = global.escala_hud * escala_vila.yscale;
+        
+        //fundo
+        draw_sprite_ext(spr_caixa_vila, 0, _x, _y, _xscale, _yscale, 0, c_white, 1);
+        
+        //simbolo da vila
+        texto_scribble(_x, _y - 8, "Go Back", .2 * escala_vila.xscale, .2 * escala_vila.yscale, 1, 1);
+        
+        selecao_vila(_x, _y, _xscale, _yscale);
+    }
+    
+#endregion
+
 desenha_hud = function()
 {
     desenha_sacola();
     desenha_stamina();
     desenha_moeda();
     desenha_voltar();
+    desenha_botao_vila();
 }

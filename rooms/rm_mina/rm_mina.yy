@@ -8,7 +8,6 @@
   "instanceCreationOrder":[
     {"name":"inst_78D90E56","path":"rooms/rm_mina/rm_mina.yy",},
     {"name":"inst_58881D38","path":"rooms/rm_mina/rm_mina.yy",},
-    {"name":"inst_672F659F","path":"rooms/rm_mina/rm_mina.yy",},
     {"name":"inst_32E801F1","path":"rooms/rm_mina/rm_mina.yy",},
     {"name":"inst_5F7DA535","path":"rooms/rm_mina/rm_mina.yy",},
   ],
@@ -28,19 +27,13 @@
     {"$GMRInstanceLayer":"","%Name":"Minerios","depth":-100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"inst_78D90E56","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_78D90E56","objectId":{"name":"obj_gerador_minerios","path":"objects/obj_gerador_minerios/obj_gerador_minerios.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":-32.0,"y":0.0,},
       ],"layers":[],"name":"Minerios","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
-    {"$GMRInstanceLayer":"","%Name":"Mina","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-        {"$GMRInstance":"v4","%Name":"inst_672F659F","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_672F659F","objectId":{"name":"obj_muda_room","path":"objects/obj_muda_room/obj_muda_room.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_muda_room","path":"objects/obj_muda_room/obj_muda_room.yy",},"propertyId":{"name":"destino","path":"objects/obj_muda_room/obj_muda_room.yy",},"resource":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_vila",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_muda_room","path":"objects/obj_muda_room/obj_muda_room.yy",},"propertyId":{"name":"destino_x","path":"objects/obj_muda_room/obj_muda_room.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"480",},
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_muda_room","path":"objects/obj_muda_room/obj_muda_room.yy",},"propertyId":{"name":"destino_y","path":"objects/obj_muda_room/obj_muda_room.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"891",},
-          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":2.0,"x":-32.0,"y":224.0,},
-      ],"layers":[],"name":"Mina","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+    {"$GMRInstanceLayer":"","%Name":"Mina","depth":0,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"Mina","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRTileLayer":"","%Name":"Tile_Parede","depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Tile_Parede","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":16,"SerialiseWidth":110,"TileCompressedData":[
           -119,1,1,149,-98,196,1,147,-10,1,1,127,-8,-2147483648,-5,0,-85,-2147483648,1,121,-10,1,1,127,-8,-2147483648,
           -5,0,-85,-2147483648,4,121,1,1,149,-7,196,1,197,-8,-2147483648,-5,0,-85,-2147483648,4,121,1,1,127,-16,
-          -2147483648,-3,0,-87,-2147483648,4,121,1,196,197,-16,-2147483648,-3,0,-87,-2147483648,4,121,1,0,0,-16,
-          -2147483648,-3,0,-87,-2147483648,4,121,1,0,0,-4,-2147483648,-5,0,-7,-2147483648,-3,0,-8,-2147483648,
-          -5,0,-3,-2147483648,-6,0,-65,-2147483648,4,121,1,52,53,-14,0,1,-2147483648,-83,0,-8,-2147483648,4,121,
+          -2147483648,-3,0,-87,-2147483648,4,121,1,1,127,-16,-2147483648,-3,0,-87,-2147483648,4,121,1,1,127,-16,
+          -2147483648,-3,0,-87,-2147483648,4,121,1,1,127,-4,-2147483648,-5,0,-7,-2147483648,-3,0,-8,-2147483648,
+          -5,0,-3,-2147483648,-6,0,-65,-2147483648,4,121,1,1,127,-14,0,1,-2147483648,-83,0,-8,-2147483648,4,121,
           1,1,127,-106,0,4,121,1,1,101,-7,52,1,53,-98,0,1,121,-10,1,1,127,-35,0,-53,-2147483648,-10,0,1,121,-10,
           1,1,127,-22,0,1,-2147483648,-12,0,-59,-2147483648,-4,0,1,121,-10,1,1,101,-98,52,1,99,-111,1,
         ],"TileDataFormat":1,},"tilesetId":{"name":"tl_parede","path":"tilesets/tl_parede/tl_parede.yy",},"userdefinedDepth":true,"visible":true,"x":0,"y":0,},
