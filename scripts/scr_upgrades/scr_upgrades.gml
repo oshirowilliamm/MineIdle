@@ -28,7 +28,7 @@ global.upgrades =
 {
     stamina_max: new cria_upgrade("Stamina", //nome
     "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
-    0, 10, 1, 1.5, global.stamina_max, 50, //valoresa
+    0, 10, 190, 1.5, global.stamina_max, 50, //valores
     function()
     {   
         global.stamina_max = get_valor(level_atual);
