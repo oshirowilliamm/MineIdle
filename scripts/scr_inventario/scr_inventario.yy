@@ -6,7 +6,7 @@
   "name":"scr_inventario",
   "parent":{
     "name":"Dados",
-    "path":"folders/Scripts/Dados.yy",
+    "path":"folders/Objects/Dados.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
