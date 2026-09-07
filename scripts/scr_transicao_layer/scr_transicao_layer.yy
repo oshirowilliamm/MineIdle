@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_transicao",
+  "%Name":"scr_transicao_layer",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_transicao",
+  "name":"scr_transicao_layer",
   "parent":{
     "name":"Scripts",
     "path":"folders/Efeitos/Transicao/Scripts.yy",
