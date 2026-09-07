@@ -9,6 +9,26 @@ function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign
         .draw(_x, _y);
 }
 
+//texto com borda
+function texto_scribble_borda(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _espessura = 4, _cor_borda = c_black, _typist = undefined, _wrap = -1)
+{
+    // 1. Desenha a borda preta em volta (nas diagonais e lados)
+    for (var i = -_espessura; i <= _espessura; i += _espessura) 
+    {
+        for (var j = -_espessura; j <= _espessura; j += _espessura) 
+        {
+            if (i != 0 || j != 0) 
+            {
+                //texto de bordas
+                texto_scribble(_x + i, _y + j, _texto, _xscale, _yscale, _halign, _valign, _cor_borda, _alpha, _font);
+            }
+        }
+    }
+    
+    //texto principal por cima
+    texto_scribble(_x, _y, _texto, _xscale, _yscale, _halign, _valign, _cor, _alpha, _font);
+}
+
 //texto ext
 function texto_scribble_ext(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _typist = undefined, _wrap = -1)
 {
