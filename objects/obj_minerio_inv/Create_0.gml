@@ -106,6 +106,12 @@ interage_shop = function()
     //mostrando as infos dos itens na balança
     with (obj_balanca) 
     {
+        //resetando o efeito do custo
+        if (item != other.item)
+        {
+            valor_desenhado = 0;
+        }
+        
         desenho = true;
         
         item        = other.item;

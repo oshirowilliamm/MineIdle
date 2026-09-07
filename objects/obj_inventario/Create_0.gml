@@ -1,18 +1,12 @@
-//efeitos
-inicia_efeito_squash();
 
+escala = global.escala_hud;
 
 x_geral = 0;
 y_geral = display_get_gui_height() / 2 - 200;
-escala = global.escala_hud;
-
-//variaveis da ficha
-ficha_xscale = escala;
-ficha_yscale = escala;
 
 //variaveis do livro
 x_livro = 0;
-y_livro = (display_get_gui_height() / 2) + 10;
+y_livro = (display_get_gui_height() / 2) + 60;
 
 //variaveis do texto
 texto_xscale = .15;
@@ -36,6 +30,16 @@ info = noone;
 
 abre_inventario = function()
 {
+    //se tiver nas lojas
+    if (array_contains(global.rooms_vila, room))
+    {
+        x_geral = 450;
+        inventario = true;
+        desenhar = true;
+        return;
+    }
+    
+    //se tiver na vila
     if (inventario)
     {
         //puxando o livro
@@ -64,31 +68,26 @@ abre_inventario = function()
 desenha_inventario = function()
 {
     //sprite do livro
-    x_livro = x_geral - (sprite_get_width(spr_livro_hud) * escala) + 80;
-    draw_sprite_ext(spr_livro_hud, 0, x_livro, y_livro, escala, escala, 0, c_white, 1);
-    
-    //sprite da ficha
-    draw_sprite_ext(spr_ficha, 0, x_geral, y_geral, ficha_xscale * xscale, ficha_yscale * yscale, 0, c_white, 1);   
-    
-    //texto
-    texto_scribble(x_geral + 8, y_geral, "Inventory", texto_xscale * xscale, texto_yscale * yscale, , 1);
-    
-    //interagindo
-    if (mouse_sobre_ui(x_geral, y_geral, spr_ficha, ficha_xscale, ficha_yscale))
+    if (room != rm_refinacao)
     {
-        xscale = lerp(xscale, 1.5, .1);
-        yscale = lerp(yscale, 1.5, .1);
-        
-        //clicando
-        if (mouse_check_button_pressed(mb_left))
-        {
-            inventario = !inventario;
-            desenhar = true;
-        }
+        x_livro = x_geral - (sprite_get_width(spr_livro_hud) * escala) + 80;
+        draw_sprite_ext(spr_livro_hud, 0, x_livro, y_livro, escala, escala, 0, c_white, 1);
     }
     else
     {
-        retorna_squash();
+        draw_sprite_ext(spr_livro_hud, 0, x_livro - 120, y_livro, escala, escala, 0, c_white, 1);
+    }
+    
+    //interagindo
+    if (mouse_sobre_ui(x_livro, y_livro, spr_livro_hud, escala))
+    {
+        //abrindo o livro
+        inventario = true;
+        desenhar = true;
+    }
+    else
+    {
+        inventario = false;
     }
 }
 
@@ -101,7 +100,7 @@ cria_pagina = function()
     var _xbruto     = x_livro + 75;
     var _xpuro     = _xbruto + 130;
     var _xrefinado  = _xpuro + 130;
-    var _yinicial   = y_livro - 250;
+    var _yinicial   = y_livro - 280;
     
     var _pagina = global.paginas_livro[pagina_atual];
     
@@ -113,30 +112,51 @@ cria_pagina = function()
         //centralizando so a pedra
         if (string_pos("_pedra", _item) != 0)
         {
-            var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};
-            instance_create_depth(_xpuro, _yinicial, -9999, obj_minerio_inv, _infos);
+            if (room != rm_refinacao)
+            {
+                var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};
+                instance_create_depth(_xpuro, _yinicial, -9999, obj_minerio_inv, _infos);
+            }
         }
         //resto dos minerios
         else
         {
-            //definindo o y
-            var _yatual = _yinicial + (i * 120);
-            
-            //////// BRUTOS /////////
-            var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};
-            instance_create_depth(_xbruto, _yatual, -9999, obj_minerio_inv, _infos);
-            
-            //////// puroS /////////
-            var _item_puro = _item + "_puro";
-            
-            _infos = {item: _item_puro, categoria: "puros", sprite: spr_puros};
-            instance_create_depth(_xpuro, _yatual, -9999, obj_minerio_inv, _infos);
-            
-            //////// REFINADOS /////////      
-            var _item_refinado = _item + "_refinado";
-            
-            _infos = {item: _item_refinado, categoria: "refinados", sprite: spr_refinados};
-            instance_create_depth(_xrefinado, _yatual, -9999, obj_minerio_inv, _infos);
+            //livro da vila
+            if (room != rm_refinacao)
+            {
+                var _yatual = _yinicial + (i * 120);
+                
+                //////// BRUTOS /////////
+                var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};
+                instance_create_depth(_xbruto, _yatual, -9999, obj_minerio_inv, _infos);
+                
+                //////// PUROS /////////
+                var _item_puro = _item + "_puro";
+                
+                _infos = {item: _item_puro, categoria: "puros", sprite: spr_puros};
+                instance_create_depth(_xpuro, _yatual, -9999, obj_minerio_inv, _infos);
+                
+                //////// REFINADOS /////////   
+                var _item_refinado = _item + "_refinado";
+                
+                _infos = {item: _item_refinado, categoria: "refinados", sprite: spr_refinados};
+                instance_create_depth(_xrefinado, _yatual, -9999, obj_minerio_inv, _infos);
+            }
+            //livro da refinação
+            else
+            {
+                var _yatual = _yinicial - 110 + (i * 130);
+                
+                //////// BRUTOS /////////
+                var _infos = {item: _item, categoria: "minerios", sprite: spr_minerios};
+                instance_create_depth(_xbruto, _yatual, -9999, obj_minerio_inv, _infos);
+                
+                //////// PUROS /////////
+                var _item_puro = _item + "_puro";
+                
+                _infos = {item: _item_puro, categoria: "puros", sprite: spr_puros};
+                instance_create_depth(_xpuro, _yatual, -9999, obj_minerio_inv, _infos);
+            }
         }
     }
     

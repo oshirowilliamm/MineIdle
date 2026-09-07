@@ -38,8 +38,38 @@ function texto_scribble_ext(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _ha
 //formatacao de numero
 function formata_moeda(_valor)
 {
+    //quadrilhao
+    if (_valor >= 1000000000000000)
+    {
+        var _num = _valor / 1000000000000000;
+        var _str = string_format(_num, 0, 1);
+        _str = string_replace(_str, ".0", "");
+        
+        //tirando o numero depois do . apos a dezena
+        if (_num > 10)
+        {
+            _str = string_format(_num, 0, 0);
+        }
+        
+        return _str + "QD";
+    }
+    //trilhao
+    else if (_valor >= 1000000000000)
+    {
+        var _num = _valor / 1000000000000;
+        var _str = string_format(_num, 0, 1);
+        _str = string_replace(_str, ".0", "");
+        
+        //tirando o numero depois do . apos a dezena
+        if (_num > 10)
+        {
+            _str = string_format(_num, 0, 0);
+        }
+        
+        return _str + "T";
+    }
     //bilhao
-    if (_valor >= 1000000000)
+    else if (_valor >= 1000000000)
     {
         var _num = _valor / 1000000000;
         var _str = string_format(_num, 0, 1);

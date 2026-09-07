@@ -37,7 +37,7 @@ cria_painel = function()
         dbg_checkbox(ref_create(id, "draw_mask_player"), "Máscara de Colisão");
         dbg_slider(ref_create(global.picareta, "dano"), 5, 100, "Dano Picareta", 1);
         dbg_slider(ref_create(global, "alcance_lanterna"), .3, 5, "Alcance Lanterna", .1);
-        dbg_slider(ref_create(global, "moeda"), 0, 1000, "Moeda", 1);
+        dbg_button("Ganhar Dinheiro", ganha_dinheiro);
         dbg_button("Ganhar Itens", ganha_itens);
     }
     
@@ -94,6 +94,18 @@ ativa_painel = function()
         if (!instance_exists(obj_player)) return;
         
         obj_player.colisoes = noclip ? [] : obj_player.colisoes_originais;
+    }
+    
+    ganha_dinheiro = function()
+    {
+        if (global.moeda == 0)
+        {
+            global.moeda = 5;
+        }
+        else
+        {
+            global.moeda *= 10;
+        }
     }
     
     ganha_itens = function()

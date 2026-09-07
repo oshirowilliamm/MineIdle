@@ -4,6 +4,8 @@
 scribble_color_set("cor_positivo", #4dcb1f);
 scribble_color_set("cor_negativo", #e41818);
 
+#macro cor_balanca_valor #8f974a
+
 //iluminacao
 #macro cor_luz #f0eca4
 #macro cor_sombra #040404

@@ -8,6 +8,7 @@ pagina_criada = false;
 
 
 
+
 cria_pagina = function()
 {
     if (pagina_criada) return;

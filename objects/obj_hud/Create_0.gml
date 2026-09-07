@@ -397,7 +397,7 @@ escala_vila = new efeito_escala();
         //texto
         var _texto = string("{1} {0}", round(pedra_desenhada), _sprite)
         
-        texto_scribble(_x, _y, _texto, _xscale, _yscale, 1, 1, dinheiro_cor);
+        texto_scribble(_x, _y, _texto, _xscale, _yscale,, 1, dinheiro_cor);
     }
     
     desenha_dinheiro = function(_x, _y, _xscale, _yscale)
@@ -411,7 +411,7 @@ escala_vila = new efeito_escala();
         //texto com formatação de moeda
         var _texto = string("{1} ${0}", formata_moeda(dinheiro_desenhada), _sprite)
         
-        texto_scribble(_x, _y, _texto, _xscale, _yscale, 1, 1, dinheiro_cor);
+        texto_scribble(_x, _y, _texto, _xscale, _yscale,, 1, dinheiro_cor);
     }
     
     desenha_moeda = function()
@@ -425,25 +425,11 @@ escala_vila = new efeito_escala();
         var _margem = 10;
         var _w = 250;
         var _h = 120;
-        var _x = 0;
+        var _x = _margem;
         var _y = _margem;
         
-        //mudando o x de acordo com a room
-        if (room == rm_vila || room == rm_upgrade)
-        {
-            _x = display_get_gui_width() / 2 - _w / 2;
-        }
-        else if (room == rm_shop)
-        {
-            _x = display_get_gui_width() / 2 - _w / 2 + 370;
-        }
-        else
-        {
-            _x = display_get_gui_width() - _w - _margem;
-        }
-        
         //posição da moeda
-        var _xitem = _x + _w / 2 - 10;
+        var _xitem = _x + 30;
         var _yitem = _y + _h / 2 - 7;
         var _xscale = .2 * escala_moeda.xscale;
         var _yscale = .2 * escala_moeda.yscale;
@@ -456,7 +442,7 @@ escala_vila = new efeito_escala();
         {
             desenha_pedra(_xitem, _yitem, _xscale, _yscale);
         }
-        //desenhando moeda
+        //desenhando dinheiro
         else
         {
             desenha_dinheiro(_xitem, _yitem, _xscale, _yscale);
