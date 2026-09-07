@@ -94,7 +94,9 @@
   "ForcedPrefabProjectReferences":[
     {"link":"io.gamemaker.sdfshaders-1.0.0","name":"io.gamemaker.sdfshaders-1.0.0","path":"io.gamemaker.sdfshaders-1.0.0.yyp",},
   ],
-  "IncludedFiles":[],
+  "IncludedFiles":[
+    {"$GMIncludedFile":"","%Name":"scribble_license.txt","CopyToMask":-1,"filePath":"datafiles","name":"scribble_license.txt","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
+  ],
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
@@ -163,6 +165,7 @@
     {"id":{"name":"__scribble_config_colours","path":"scripts/__scribble_config_colours/__scribble_config_colours.yy",},},
     {"id":{"name":"__scribble_config_defaults","path":"scripts/__scribble_config_defaults/__scribble_config_defaults.yy",},},
     {"id":{"name":"__scribble_constants","path":"scripts/__scribble_constants/__scribble_constants.yy",},},
+    {"id":{"name":"__scribble_flush_nodels","path":"scripts/__scribble_flush_nodels/__scribble_flush_nodels.yy",},},
     {"id":{"name":"__scribble_font_add_all_from_bundle","path":"scripts/__scribble_font_add_all_from_bundle/__scribble_font_add_all_from_bundle.yy",},},
     {"id":{"name":"__scribble_font_add_from_bundle","path":"scripts/__scribble_font_add_from_bundle/__scribble_font_add_from_bundle.yy",},},
     {"id":{"name":"__scribble_font_add_from_info","path":"scripts/__scribble_font_add_from_info/__scribble_font_add_from_info.yy",},},
@@ -380,6 +383,7 @@
     {"id":{"name":"spr_sapao","path":"sprites/spr_sapao/spr_sapao.yy",},},
     {"id":{"name":"spr_sombra","path":"sprites/spr_sombra/spr_sombra.yy",},},
     {"id":{"name":"spr_tecla","path":"sprites/spr_tecla/spr_tecla.yy",},},
+    {"id":{"name":"spr_tile_chao","path":"sprites/spr_tile_chao/spr_tile_chao.yy",},},
     {"id":{"name":"spr_tile_parede","path":"sprites/spr_tile_parede/spr_tile_parede.yy",},},
     {"id":{"name":"spr_tocha","path":"sprites/spr_tocha/spr_tocha.yy",},},
     {"id":{"name":"spr_transicao","path":"sprites/spr_transicao/spr_transicao.yy",},},
@@ -387,16 +391,17 @@
     {"id":{"name":"spr_upgrade_tras","path":"sprites/spr_upgrade_tras/spr_upgrade_tras.yy",},},
     {"id":{"name":"spr_upgrade","path":"sprites/spr_upgrade/spr_upgrade.yy",},},
     {"id":{"name":"spr_voltar","path":"sprites/spr_voltar/spr_voltar.yy",},},
+    {"id":{"name":"tl_chao","path":"tilesets/tl_chao/tl_chao.yy",},},
     {"id":{"name":"tl_parede","path":"tilesets/tl_parede/tl_parede.yy",},},
   ],
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},},
+    {"roomId":{"name":"rm_refinacao","path":"rooms/rm_refinacao/rm_refinacao.yy",},},
+    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
     {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
     {"roomId":{"name":"rm_shop","path":"rooms/rm_shop/rm_shop.yy",},},
-    {"roomId":{"name":"rm_refinacao","path":"rooms/rm_refinacao/rm_refinacao.yy",},},
-    {"roomId":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},},
-    {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

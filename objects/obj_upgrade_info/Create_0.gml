@@ -3,7 +3,7 @@ escala_efeito = new efeito_escala();
 
 dados = dados_upgrade;
 escala = global.escala_hud;
-escala_txt = .3;
+escala_txt = .4;
 
 //configurações da caixa
 margem = 20;
