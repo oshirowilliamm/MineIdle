@@ -323,8 +323,8 @@ quebra_bloco = function()
         //dando dano
         if (_bloco)
         {
+            //dano o dano no bloco
             var _golpe = dano_picareta();
-            
             _bloco.recebe_dano(_golpe.dano, _golpe.critico);
             
             //perdendo stamina
