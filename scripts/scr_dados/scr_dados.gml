@@ -21,3 +21,4 @@ global.picareta = global.tipos_picareta[global.nivel_picareta];
 
 //variaveis de upgrade
 global.chance_drop = 0;
+global.chance_critico = 0;

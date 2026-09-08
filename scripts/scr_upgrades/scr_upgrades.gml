@@ -1,4 +1,4 @@
-function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo, _valor, _incremento, _efeito) constructor
+function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo, _valor, _incremento, _efeito, _sufixo = "") constructor
 {
     nome            = _nome;
     descricao       = _desc;
@@ -10,6 +10,7 @@ function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo,
     valor_base      = _valor;           //valor que vai aumentar no efeito
     incremento      = _incremento;      //incremento do prox valor
     efeito          = method(self,_efeito);
+    sufixo          = _sufixo;
     
     //calcula o custo do prox nivel
     static get_custo = function()
@@ -40,7 +41,7 @@ global.upgrades =
     function()
     {
         global.sacola.max_peso = get_valor(level_atual);
-    }),
+    }, "kg"),
     
     alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
     "Aumenta o alcance da lanterna.", //descrição
@@ -50,11 +51,19 @@ global.upgrades =
         global.alcance_lanterna = get_valor(level_atual);
     }),
     
+    chance_critico: new cria_upgrade("Chance de Crítico", //nome
+    "Ao minerar, tem chance de um golpe crítico que causa o dobro de dano.", //descrição
+    3, 40, 5, 1.5, global.chance_critico, 10, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.chance_critico = get_valor(level_atual);
+    }, "%"),
+    
     chance_drop: new cria_upgrade("Chance do Drop", //nome
     "Chance do bloco deixar 2 drops em vez de 1.", //descrição
-    3, 30, 5, 1.5, global.chance_drop, .1, //sprite, cudsto, level max, aumento do custo, valor, incremento
+    4, 30, 5, 1.5, global.chance_drop, 10, //sprite, cudsto, level max, aumento do custo, valor, incremento
     function()
     {
         global.chance_drop = get_valor(level_atual);
-    }),
+    }, "%"),
 }

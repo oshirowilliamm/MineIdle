@@ -219,20 +219,6 @@ efeito_stamina = function()
     }
 }
 
-dano_picareta = function()
-{
-    //se tiver stamina, tem o dano normal
-    if (global.stamina_atual > 0)
-    {
-        return global.picareta.dano;
-    }
-    //se n tiver stamina, fica fraco
-    else
-    {
-        return 0;
-    }
-}
-
 
 
 
@@ -286,6 +272,29 @@ linha_mineracao = function()
     {
         x: _x,
         y: _y
+    }
+}
+
+dano_picareta = function()
+{
+    //se tiver stamina, tem o dano normal
+    if (global.stamina_atual > 0)
+    {
+        var _dano = global.picareta.dano;
+        
+        //aplicando o critico se tiver
+        if (random(100) < global.chance_critico)
+        {
+            _dano += global.picareta.dano * 2;
+            toca_som(snd_critico, .1);
+        }
+        
+        return _dano;
+    }
+    //se n tiver stamina, fica fraco
+    else
+    {
+        return 0;
     }
 }
 

@@ -136,9 +136,12 @@ desenha_valor = function(_x, _y)
     var _xscale = escala_txt * escala_efeito.xscale;
     var _yscale = escala_txt * escala_efeito.yscale;
     
+    //pegando o sufixo se tiver
+    var _sufixo = dados.sufixo;
+    
     //pegando o valor atual e o prox
-    var _valor_atual = string(dados.get_valor(dados.level_atual));
-    var _prox_valor  = string(dados.get_valor(dados.level_atual + 1));
+    var _valor_atual = string(dados.get_valor(dados.level_atual)) + _sufixo;
+    var _prox_valor  = string(dados.get_valor(dados.level_atual + 1)) + _sufixo;
     
     //setando o valor de acordo com o level
     var _valor = (dados.level_atual >= dados.level_max)

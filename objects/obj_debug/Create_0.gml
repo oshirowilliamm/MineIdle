@@ -39,7 +39,8 @@ cria_painel = function()
         dbg_slider(ref_create(global, "alcance_lanterna"), .3, 5, "Alcance Lanterna", .1);
         dbg_button("Ganhar Dinheiro", ganha_dinheiro);
         dbg_button("Ganhar Itens", ganha_itens);
-        dbg_slider(ref_create(global, "chance_drop"), 0, 1, "Chance de drop", .1);
+        dbg_slider(ref_create(global, "chance_drop"), 0, 100, "Chance de drop", 10);
+        dbg_slider(ref_create(global, "chance_critico"), 0, 100, "Chance Critico", 10);
     }
     
     //blocos

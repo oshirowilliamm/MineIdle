@@ -56,9 +56,10 @@ cria_drop = function(_minerio)
     var _qtd = 1;
     
     //verificando a chance de dropar mais de um
-    if (random(1) < global.chance_drop)
+    if (random(100) < global.chance_drop)
     {
         _qtd += 1;
+        toca_som(snd_drop_duplo, .2);
     }
     
     //criando o drop
