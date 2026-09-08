@@ -1,16 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_inventario_refinacao",
+  "%Name":"obj_botao_mult",
   "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_inventario_refinacao",
+  "name":"obj_botao_mult",
   "overriddenProperties":[],
   "parent":{
-    "name":"Refinacao",
-    "path":"folders/Objects/Vila/Refinacao.yy",
+    "name":"Shop",
+    "path":"folders/Objects/Vila/Shop.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -31,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_livro_hud",
-    "path":"sprites/spr_livro_hud/spr_livro_hud.yy",
+    "name":"spr_balanca_botao",
+    "path":"sprites/spr_balanca_botao/spr_balanca_botao.yy",
   },
   "spriteMaskId":null,
   "visible":true,

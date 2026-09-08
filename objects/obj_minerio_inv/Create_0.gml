@@ -123,11 +123,24 @@ interage_shop = function()
     //vendendo minerio
     if (mouse_check_button_pressed(mb_left))
     {
+        var _qtd = global.inventario_global[$ categoria][$item];
+        var _qtd_venda = 0;
+        
+        //definindo o modo de venda
+        if (global.modo_venda == "MAX")
+        {
+            _qtd_venda = _qtd;
+        }
+        else
+        {
+            _qtd_venda = min(_qtd, global.modo_venda);
+        }
+        
         //tirando o minerio
-        global.inventario_global[$ categoria][$item]--;
+        global.inventario_global[$ categoria][$item] -= _qtd_venda;
         
         //ganhando dinheiro
-        global.moeda += minerio.valor;
+        global.moeda += minerio.valor * _qtd_venda;
         
         //efeitos
         escala_efeito.squash(.6, 1.4);
@@ -144,21 +157,31 @@ desenha_minerio = function()
     //pegando a quantidade do item
     var _qtd = global.inventario_global[$ categoria][$item];
     
-    //se existe
+    //fundo
+    draw_sprite_ext(spr_livro_slot, 0, x, y, escala, escala, 0, c_white, 1);
+    
+    //desenhando os itens descobertos
     if (_qtd != undefined)
     {
+        var _texto = string("{0}", _qtd);
+        var _recuo = 35;
+        
         //se tem mais que 0
         if (_qtd > 0)
         {
             draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_white, 1);
-            texto_scribble(x + 15, y + 5, string("x{0}", _qtd), .2);
+            texto_scribble(x + _recuo, y + _recuo, _texto, .2,, 1, 1);
         }
         //se n tem
         else
         {
             draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_gray, .5);
-            texto_scribble(x + 15, y + 5, string("x{0}", _qtd), .2, , , , c_gray, .5);
         }
-        
+    }
+    //se n foi descoberto
+    else
+    {
+        draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_black, .3);
+        texto_scribble(x, y, "?", .4,, 1, 1);
     }
 }

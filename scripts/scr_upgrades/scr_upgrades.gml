@@ -27,26 +27,34 @@ function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo,
 global.upgrades =
 {
     stamina_max: new cria_upgrade("Stamina", //nome
-    "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
-    0, 15, 5, 1.5, global.stamina_max, 50, //index sprite, custo, level max, aumento do custo, valor, incremento
+    "Aumenta sua capacidade de estamina.", //descrição
+    0, 15, 2, 1.5, global.stamina_max, 50, //sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {   
         global.stamina_max = get_valor(level_atual);
     }),
     
     capacidade_max: new cria_upgrade("Capacidade", //nome
-    "Aumenta a capacidade em [cor_upgrade_verde]20[/]", //descrição
-    1, 50, 10, 1.5, global.sacola.max_peso, 20, //index sprite, custo, level max, aumento do custo, valor, incremento
+    "Aumenta a capacidade da sua mochila na mina.", //descrição
+    1, 50, 5, 1.5, global.sacola.max_peso, 20, //sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {
         global.sacola.max_peso = get_valor(level_atual);
     }),
     
     alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
-    "Aumenta o alcance da lanterna em [cor_upgrade_verde]1[/]", //descrição
-    2, 30, 10, 1.5, global.alcance_lanterna, .1, //index sprite, custo, level max, aumento do custo, valor, incremento
+    "Aumenta o alcance da lanterna.", //descrição
+    2, 30, 3, 1.5, global.alcance_lanterna, .1, //sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {
         global.alcance_lanterna = get_valor(level_atual);
+    }),
+    
+    chance_drop: new cria_upgrade("Chance do Drop", //nome
+    "Chance do bloco deixar 2 drops em vez de 1.", //descrição
+    3, 30, 5, 1.5, global.chance_drop, .1, //sprite, cudsto, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.chance_drop = get_valor(level_atual);
     }),
 }

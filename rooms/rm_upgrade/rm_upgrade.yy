@@ -10,6 +10,7 @@
     {"name":"stamina_max","path":"rooms/rm_upgrade/rm_upgrade.yy",},
     {"name":"capacidade_max","path":"rooms/rm_upgrade/rm_upgrade.yy",},
     {"name":"alcance_lanterna","path":"rooms/rm_upgrade/rm_upgrade.yy",},
+    {"name":"chance_drop","path":"rooms/rm_upgrade/rm_upgrade.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -18,7 +19,7 @@
       ],"layers":[],"name":"HUD","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"Upgrades","depth":100,"effectEnabled":true,"effectType":null,"gridX":16,"gridY":16,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
         {"$GMRInstance":"v4","%Name":"stamina_max","colour":4294967295,"frozen":false,"hasCreationCode":true,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"stamina_max","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
-            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"filhos","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"[capacidade_max, alcance_lanterna]",},
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"filhos","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"[capacidade_max, alcance_lanterna, chance_drop]",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3520.0,"y":1984.0,},
         {"$GMRInstance":"v4","%Name":"capacidade_max","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"capacidade_max","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"filhos","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"[]",},
@@ -28,6 +29,9 @@
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"\"alcance_lanterna\"",},
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"filhos","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"[]",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3424.0,"y":1920.0,},
+        {"$GMRInstance":"v4","%Name":"chance_drop","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"chance_drop","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"properties":[
+            {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"propertyId":{"name":"upgrade","path":"objects/obj_upgrade/obj_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"\"chance_drop\"",},
+          ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":3520.0,"y":2080.0,},
       ],"layers":[],"name":"Upgrades","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":30.0,"animationSpeedType":0,"colour":4294967295,"depth":200,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.5,"htiled":true,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":{"name":"spr_bg_upgrade","path":"sprites/spr_bg_upgrade/spr_bg_upgrade.yy",},"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.5,"vtiled":true,"x":0,"y":0,},
   ],

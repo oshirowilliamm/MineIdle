@@ -9,15 +9,15 @@ brilho = noone;
 if (!variable_instance_exists(id, "tipo_bloco")) tipo_bloco = "pedra1";
 
 //pegando os dados do bloco
-var _dados = global.minerios[$ tipo_bloco];
+dados = global.minerios[$ tipo_bloco];
 
 //definindo a sprite
-image_index = _dados.sprite;
+image_index = dados.sprite;
 
 //vida
-vida = _dados.vida;
-max_vida = _dados.vida;
-custo_stamina = _dados.stamina;
+vida = dados.vida;
+max_vida = dados.vida;
+custo_stamina = dados.stamina;
 
 //tempo pra regeneração
 tempo = 5 * FPS;
@@ -49,12 +49,23 @@ cria_drop = function(_minerio)
     //infos pra mandar pro drop
     var _infos =
     {
-        index: global.minerios[$ tipo_bloco].sprite,
+        index: dados.sprite,
         tipo: tipo_bloco
     }
     
+    var _qtd = 1;
+    
+    //verificando a chance de dropar mais de um
+    if (random(1) < global.chance_drop)
+    {
+        _qtd += 1;
+    }
+    
     //criando o drop
-    instance_create_layer(x, y, "Drops", obj_drop, _infos);
+    repeat (_qtd) 
+    {
+    	instance_create_layer(x, y, "Drops", obj_drop, _infos);
+    }
 }
 
 recebe_dano = function(_dano)

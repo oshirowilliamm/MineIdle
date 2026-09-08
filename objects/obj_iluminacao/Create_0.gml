@@ -25,8 +25,8 @@ luz_player = function(_cam_x, _cam_y)
         //se tiver na vila, o alcance fica grandão
         if (room == rm_vila)
         {
-            _escala = 8;
-            _brilho = 1;
+            _escala = 4;
+            _brilho = .9;
         }
         
         //desenhando a luz

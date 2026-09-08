@@ -1,11 +1,10 @@
-function Minerio(_nome, _sprite, _cor, _valor, _peso = 1, _drop = 1) constructor 
+function Minerio(_nome, _sprite, _cor, _valor, _peso = 1) constructor 
 {
     nome    = _nome;
     sprite  = _sprite;
     cor     = _cor;
     valor   = _valor;
     peso    = _peso;
-    drop_qtd = _drop;
 }
 
 function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _pedras = 0, _qtd_refina = 0)

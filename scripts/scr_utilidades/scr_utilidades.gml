@@ -19,3 +19,6 @@ global.pedra_atual = "b1_pedra";
 
 //variavel para desbloquear a refinacao
 global.refinacao_bloqueada = true;
+
+//variavel do botão de multiplicação do shop
+global.modo_venda = 1;
