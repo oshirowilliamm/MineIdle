@@ -20,5 +20,9 @@ global.nivel_picareta = 0;
 global.picareta = global.tipos_picareta[global.nivel_picareta];
 
 //variaveis de upgrade
+global.speed = 2;
 global.chance_drop = 0;
 global.chance_critico = 0;
+global.drop_atracao = 25;
+global.mais_minerio = 0;
+global.minerio_antes = 0;

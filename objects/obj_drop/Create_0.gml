@@ -15,7 +15,6 @@ grav = .3;
 flutuando = false;
 
 //variaveis de coleta
-raio_atracao = 96;
 raio_coleta = 10;
 tempo_andar = 30;
 timer_andar = tempo_andar;
@@ -86,7 +85,7 @@ atrai = function()
             var _dist = point_distance(x, y, obj_player.x, obj_player.yy);
             
             //se estiver no raio de atração
-            if (_dist <= raio_atracao)
+            if (_dist <= global.drop_atracao)
             {  
                 //direção do drop pro player
                 var _dir = point_direction(x, y, obj_player.x, obj_player.yy);

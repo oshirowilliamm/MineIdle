@@ -1,0 +1,1 @@
+//desenha_debug_porcentagens();

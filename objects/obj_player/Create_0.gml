@@ -3,7 +3,6 @@ escala = new efeito_escala();
 inicia_efeito_brilho();
 
 //variaveis de movimento
-spd = 2;
 hspd = 0;
 vspd = 0;
 yy = y;
@@ -153,8 +152,8 @@ aplica_velocidade = function()
         var _dir = point_direction(0, 0, _xaxis, _yaxis);
         
         //aplicando as velocidades
-        hspd = lengthdir_x(spd, _dir);
-        vspd = lengthdir_y(spd, _dir);
+        hspd = lengthdir_x(global.speed, _dir);
+        vspd = lengthdir_y(global.speed, _dir);
     }
     //se ta parado, fica parado
     else

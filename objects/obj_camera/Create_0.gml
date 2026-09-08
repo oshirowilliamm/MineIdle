@@ -29,7 +29,7 @@ centraliza_camera = function()
         
         //centralizando
         var _x = stamina_max.x - _w / 2;
-        var _y = stamina_max.y - 50 - _h / 2;
+        var _y = stamina_max.y - 30 - _h / 2;
         
         //travando os valores
         _x = clamp(_x, 0, room_width - _w);
@@ -84,9 +84,12 @@ processa_arrasto = function(_cam_x, _cam_y, _cam_w, _cam_h)
 {
     var _janela_mx = window_mouse_get_x();
     var _janela_my = window_mouse_get_y();
+    var _mouse = mouse_check_button(mb_right) || mouse_check_button(mb_middle);
+    var _mouse_pressed = mouse_check_button_pressed(mb_right) || mouse_check_button_pressed(mb_middle);
+    var _mouse_released = mouse_check_button_released(mb_right) || mouse_check_button_released(mb_middle);
     
     //inicio do clique
-    if (mouse_check_button_pressed(mb_right)) 
+    if (_mouse_pressed) 
     {
         arrastando = true;
         mouse_x_prev = _janela_mx;
@@ -94,7 +97,7 @@ processa_arrasto = function(_cam_x, _cam_y, _cam_w, _cam_h)
     }
     
     //durante o movimento
-    if (mouse_check_button(mb_right) && arrastando) 
+    if (_mouse && arrastando) 
     {
         var _delta_x = _janela_mx - mouse_x_prev;
         var _delta_y = _janela_my - mouse_y_prev;
@@ -111,7 +114,7 @@ processa_arrasto = function(_cam_x, _cam_y, _cam_w, _cam_h)
     }
     
     //fim do clique
-    if (mouse_check_button_released(mb_right)) 
+    if (_mouse_released) 
     {
         arrastando = false;
     }

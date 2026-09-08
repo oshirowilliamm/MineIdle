@@ -10,6 +10,7 @@ margem = 20;
 caixa_width = 0;
 caixa_height = 0;
 desc_height = 0;
+wrap = 0;
 
 //posições
 x_caixa = 0;
@@ -64,14 +65,14 @@ calcula_config_caixa = function()
     x_geral = _gui.x;
     y_geral = _gui.y;
     
-    var _w = 400;
+    var _w = 500;
     
     //espaço que a descrição vai ocupar
-    var _wrap = _w - ((margem + 10) * 2);
+    wrap = _w - ((margem + 10) * 2);
     desc_height = scribble(string(dados.descricao))
         .starting_format("fnt_upgrade_info", c_white)
         .scale(escala_txt)
-        .wrap(_wrap)
+        .wrap(wrap)
         .get_height();
     
     //calculando a altura da caixa
@@ -126,9 +127,7 @@ desenha_descricao = function(_x, _y)
     var _desc = string(dados.descricao);
     
     //distancia do wrap
-    var _wrap = 400 - ((margem + 10) * 2);
-    
-    texto_scribble_ext(_x, _y, _desc, _xscale, _yscale, 1,,, alpha, "fnt_upgrade_info", typist_desc, _wrap);
+    texto_scribble_ext(_x, _y, _desc, _xscale, _yscale, 1,,, alpha, "fnt_upgrade_info", typist_desc, wrap);
 }
 
 desenha_valor = function(_x, _y)
@@ -145,8 +144,8 @@ desenha_valor = function(_x, _y)
     
     //setando o valor de acordo com o level
     var _valor = (dados.level_atual >= dados.level_max)
-        ? string("[delay, 500]{0} -> [cor_upgrade_verde]MAX[/]", _valor_atual) 
-        : string("[delay, 500]{0} -> [cor_upgrade_verde]{1}[/]", _valor_atual, _prox_valor); 
+        ? string("[delay, 500][c_ltgray]{0} -> [/][cor_upgrade_verde]MAX[/]", _valor_atual)
+        : string("[delay, 500][c_ltgray]{0} -> [/][cor_upgrade_verde]{1}[/]", _valor_atual, _prox_valor); 
     
     texto_scribble_ext(_x, _y, _valor, _xscale, _yscale, 1, 1,, alpha, "fnt_upgrade_info", typist_valor);
 }

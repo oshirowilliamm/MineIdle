@@ -52,13 +52,13 @@ desenha_texto = function()
     var _texto = "";
     
     //definindo o texto de acordo com o modo
-    if (modos[modo_atual] == "MAX")
+    if (global.modo_venda == "MAX")
     {
         _texto = "MAX";
     }
     else
     {
-        _texto = string("x{0}", modos[modo_atual]);
+        _texto = string("x{0}", global.modo_venda);
     }
     
     //desenhando o texto

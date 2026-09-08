@@ -27,7 +27,7 @@ function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo,
 
 global.upgrades =
 {
-    stamina_max: new cria_upgrade("Stamina", //nome
+    stamina_max: new cria_upgrade("Estamina", //nome
     "Aumenta sua capacidade de estamina.", //descrição
     0, 15, 2, 1.5, global.stamina_max, 50, //sprite, custo, level max, aumento do custo, valor, incremento
     function()
@@ -61,9 +61,50 @@ global.upgrades =
     
     chance_drop: new cria_upgrade("Chance do Drop", //nome
     "Chance do bloco deixar 2 drops em vez de 1.", //descrição
-    4, 30, 5, 1.5, global.chance_drop, 5, //sprite, cudsto, level max, aumento do custo, valor, incremento
+    4, 30, 5, 1.5, global.chance_drop, 5, //sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {
         global.chance_drop = get_valor(level_atual);
+    }, "%"),
+    
+    velocidade_player: new cria_upgrade("Velocidade Anfíbia", //nome
+    "Aumenta sua velocidade de movimentação.", //descrição
+    5, 30, 5, 1.5, 100, 10, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        var _mult = get_valor(level_atual) / 100;
+        global.speed = 2 * _mult;
+    }, "%"),
+    
+    drop_atracao: new cria_upgrade("Imã de Coleta", //nome
+    "Aumenta o alcance de coleta dos minérios.", //descrição
+    6, 30, 5, 1.5, global.drop_atracao, 5, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.drop_atracao = get_valor(level_atual);
+    }),
+    
+    mais_minerio: new cria_upgrade("Mais Minérios", //nome
+    "Aparece mais minérios do que pedras.", //descrição
+    7, 30, 5, 1.5, global.mais_minerio, 10, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.mais_minerio = get_valor(level_atual);
+    }, "%"),
+    
+    minerio_antes: new cria_upgrade("Minérios Raros!", //nome
+    "Minérios raros começam a aparecer antes.", //descrição
+    8, 30, 5, 1.5, global.minerio_antes, 10, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.minerio_antes = get_valor(level_atual);
+    }, "%"),
+    
+    aumenta_valor_minerio: new cria_upgrade("Aumenta Valor do Minério", //nome
+    "Aumenta o valor de venda dos minérios.", //descrição
+    9, 30, 5, 1.5, global.minerio_antes, 10, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.minerio_antes = get_valor(level_atual);
     }, "%"),
 }

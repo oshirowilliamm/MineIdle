@@ -31,14 +31,20 @@ minerios_veias = function(_col, _linha)
     var _vizinho_esq  = (_col > 0) ? global.blocos_struct[_col - 1][_linha] : undefined;
     var _vizinho_cima = (_linha > 0) ? global.blocos_struct[_col][_linha - 1] : undefined;
     
+    //tirando a pedra e o cristal da lista
+    var _pedra_esq = string_pos("_pedra", _vizinho_esq) == 0;
+    var _pedra_cima = string_pos("_pedra", _vizinho_cima) == 0;
+    var _cristal_esq = string_pos("_cristal", _vizinho_esq) == 0;
+    var _cristal_cima = string_pos("_cristal", _vizinho_cima) == 0;
+    
     //se o minerio da esquerda for do mesmo tipo, copia ele
-    if (_vizinho_esq != undefined && _vizinho_esq != "vazio" && string_pos("_pedra", _vizinho_esq) == 0)
+    if (_vizinho_esq != undefined && _vizinho_esq != "vazio" && _pedra_esq && _cristal_esq)
     {
         if (random(99) < 20) return _vizinho_esq;
     }
     
     //se o minerio de cima for do mesmo tipo, copia ele
-    if (_vizinho_cima != undefined && _vizinho_cima != "vazio" && string_pos("_pedra", _vizinho_cima) == 0)
+    if (_vizinho_cima != undefined && _vizinho_cima != "vazio" && _pedra_cima && _cristal_cima)
     {
         if (random(99) < 20) return _vizinho_cima;
     }
@@ -49,38 +55,42 @@ minerios_veias = function(_col, _linha)
 
 calcula_chance_minerio = function(_nome, _chance_base, _profundidade, _col)
 {
-    //se for pedra
-    if (string_pos("_pedra", _nome) != 0)
+    var _chance = _chance_base;
+    var _curva = power(_profundidade, 2);
+    
+    //se for pedra, só mantem
+    if (string_pos("_pedra", _nome) != 0) return _chance;
+    
+    //rocha1
+    if (string_pos("_rocha1", _nome) != 0)
     {
-        //perde chance quanto mais profundo
-        return max(10, _chance_base - (_profundidade * 40))
+        _chance = _chance_base + (_curva * (_chance_base * 1.1));
     }
     
-    //se for cristal
-    if (string_pos("_cristal", _nome) != 0)
+    //rocha2
+    if (string_pos("_rocha2", _nome) != 0)
     {
-        //ganha chance
-        return _chance_base + (_profundidade * (_chance_base * 6));
+        _chance = _chance_base + (_curva * (_chance_base * 1.3));
     }
     
-    //se for rocha
-    if (string_pos("_rocha", _nome) != 0)
+    //cristal1
+    if (string_pos("_cristal1", _nome) != 0)
     {
-        if (_col < MAX_COLUNAS / 2)
-        {
-            //ganha chance
-            return _chance_base + (_profundidade * (_chance_base * 3));
-        }
-        else
-        {
-            //perde chance quanto mais profundo
-            var _chance_atual = _chance_base + (.5 * (_chance_base * 3));
-            var _profundidade_atual = _profundidade * .5;
-            
-            return max(2, _chance_atual - (_profundidade_atual * 40));
-        }
-        
+        _chance = _chance_base + (_curva * (_chance_base * 3));
     }
+    
+    //cristal2
+    if (string_pos("_cristal2", _nome) != 0)
+    {
+        _chance = _chance_base + (_curva * (_chance_base * 5));
+    }
+    
+    //aplicando o upgrade de aumentar a geração de minérios
+    var _bonus = global.mais_minerio / 100;
+    _chance *= (1 + _bonus * 5);
+    
+    //retornando a chance
+    return _chance;
 }
 
 sorteia_minerio = function(_blocos, _chances_blocos, _chances_totais)
@@ -126,11 +136,14 @@ gera_tipo_blocos = function(_col, _linha)
         var _chances_totais = 0;
         var _chances_blocos  = array_create(array_length(_blocos));
         
+        //upgrade que faz os minerios aparecerem antes
+        var _upgrade = (global.minerio_antes / 100) * .5;
+        
         //calculando os pesos de cada bloco
         for (var i = 0; i < array_length(_blocos); i++)
         {
             var _atual  = _blocos[i];
-            var _camada = _atual.camada;
+            var _camada = max(0, round(_atual.camada * (1 - _upgrade)));
             
             if (_col >= _camada)
             {
@@ -236,6 +249,79 @@ atualiza_blocos_visiveis = function()
                 draw_text_transformed(_x, _y, _texto, .5, .5, 0);
             }
         }
+    }
+    
+    calcula_porcentagens_coluna = function(_col)
+    {
+        var _room = room_get_name(room);
+        if (!variable_struct_exists(global.biomas, _room)) return [];
+        
+        var _bioma = global.biomas[$ _room];
+        var _blocos = _bioma.minerios;
+        var _profundidade = _col / max(1, MAX_COLUNAS - 1);
+        
+        var _chances_totais = 0;
+        var _pesos_temp = [];
+        var _resultado = [];
+        
+        // 1. Calcula o peso de cada bloco que já está liberado nessa camada
+        for (var i = 0; i < array_length(_blocos); i++)
+        {
+            var _atual = _blocos[i];
+            if (_col >= _atual.camada)
+            {
+                var _peso = calcula_chance_minerio(_atual.nome, _atual.chance, _profundidade, _col);
+                array_push(_pesos_temp, { nome: _atual.nome, peso: _peso });
+                _chances_totais += _peso;
+            }
+        }
+        
+        // 2. Converte os pesos em porcentagem (0% a 100%)
+        for (var i = 0; i < array_length(_pesos_temp); i++)
+        {
+            var _pct = (_pesos_temp[i].peso / _chances_totais) * 100;
+            array_push(_resultado, {
+                nome: _pesos_temp[i].nome,
+                porcentagem: _pct
+            });
+        }
+        
+        return _resultado;
+    }   
+    
+    desenha_debug_porcentagens = function()
+    {
+        // Pega a coluna onde o mouse está posicionado
+        var _col_mouse = floor((mouse_x - X_INICIAL) / BLOCO_WIDTH);
+        _col_mouse = clamp(_col_mouse, 0, MAX_COLUNAS - 1);
+        
+        // Pega a lista de porcentagens
+        var _lista = calcula_porcentagens_coluna(_col_mouse);
+        
+        // Posição no canto da tela (GUI)
+        var _gx = 20;
+        var _gy = 20;
+        
+        draw_set_color(c_black);
+        draw_set_alpha(0.7);
+        draw_rectangle(_gx - 10, _gy - 10, _gx + 220, _gy + 30 + (array_length(_lista) * 20), false);
+        draw_set_alpha(1.0);
+        
+        draw_set_color(c_yellow);
+        draw_text(_gx, _gy, string("Coluna: {0} | Prof: {1}%", _col_mouse, round((_col_mouse / MAX_COLUNAS) * 100)));
+        _gy += 25;
+        
+        // Desenha cada minério e sua %
+        for (var i = 0; i < array_length(_lista); i++)
+        {
+            var _item = _lista[i];
+            var _cor = (string_pos("_pedra", _item.nome) != 0) ? c_gray : c_lime;
+            
+            draw_set_color(_cor);
+            draw_text(_gx, _gy, string("{0}: {1}%", _item.nome, string_format(_item.porcentagem, 1, 2)));
+            _gy += 20;
+        }
+        draw_set_color(c_white);
     }
     
 #endregion

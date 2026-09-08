@@ -211,7 +211,6 @@ function reseta_globais()
         
         //lanterna do player
         global.alcance_lanterna = .3;
-        global.brilho_lanterna = 1;
         
         //picareta
         global.picareta = 
