@@ -140,7 +140,7 @@ interage_shop = function()
         global.inventario_global[$ categoria][$item] -= _qtd_venda;
         
         //ganhando dinheiro
-        global.moeda += minerio.valor * _qtd_venda;
+        global.moeda += minerio.get_valor() * _qtd_venda;
         
         //efeitos
         escala_efeito.squash(.6, 1.4);

@@ -5,6 +5,11 @@ function Minerio(_nome, _sprite, _cor, _valor, _peso = 1) constructor
     cor     = _cor;
     valor   = _valor;
     peso    = _peso;
+    
+    static get_valor = function()
+    {
+        return valor * (1 + global.mult_venda_refinado / 100);
+    }
 }
 
 function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _pedras = 0, _qtd_refina = 0)
@@ -12,6 +17,11 @@ function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _ped
 {
     vida = _vida;
     stamina = _stamina;
+    
+    static get_valor = function()
+    {
+        return valor * (1 + global.mult_venda_bruto / 100);
+    }
     
     if (_pedras > 0)
     {
@@ -23,6 +33,11 @@ function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _ped
 function MinerioPuro(_nome, _sprite, _cor, _valor, _peso, _pedras = 0, _qtd_refina = 0) 
 : Minerio(_nome, _sprite, _cor, _valor, _peso) constructor 
 {
+    static get_valor = function()
+    {
+        return valor * (1 + global.mult_venda_puro / 100);
+    }
+    
     if (_pedras > 0) 
     {
         pedras = _pedras;

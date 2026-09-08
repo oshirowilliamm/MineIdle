@@ -82,7 +82,7 @@ desenha_minerio = function()
         texto_scribble_ext(x, y_minerio - 60, _nome, .15,, 1, 1,,,, typist_nome);
         
         //valor
-        valor_desenhado = lerp(valor_desenhado, minerio.valor, .2);
+        valor_desenhado = lerp(valor_desenhado, minerio.get_valor(), .2);
     }
     else
     {

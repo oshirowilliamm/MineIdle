@@ -26,3 +26,6 @@ global.chance_critico = 0;
 global.drop_atracao = 25;
 global.mais_minerio = 0;
 global.minerio_antes = 0;
+global.mult_venda_bruto = 0;
+global.mult_venda_puro = 0;
+global.mult_venda_refinado = 0;

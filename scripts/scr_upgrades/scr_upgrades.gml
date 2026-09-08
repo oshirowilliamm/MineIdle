@@ -102,9 +102,25 @@ global.upgrades =
     
     aumenta_valor_minerio: new cria_upgrade("Aumenta Valor do Minério", //nome
     "Aumenta o valor de venda dos minérios.", //descrição
-    9, 30, 5, 1.5, global.minerio_antes, 10, //sprite, custo, level max, aumento do custo, valor, incremento
+    9, 30, 5, 1.5, global.mult_venda_bruto, 50, //sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {
-        global.minerio_antes = get_valor(level_atual);
+        global.mult_venda_bruto = get_valor(level_atual);
+    }, "%"),
+    
+    aumenta_valor_puro: new cria_upgrade("Aumenta Valor do Minério Puro", //nome
+    "Aumenta o valor de venda dos minérios puros.", //descrição
+    10, 30, 5, 1.5, global.mult_venda_puro, 50, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.mult_venda_puro = get_valor(level_atual);
+    }, "%"),
+    
+    aumenta_valor_refinado: new cria_upgrade("Aumenta Valor do Minério Refinado", //nome
+    "Aumenta o valor de venda dos minérios refinados.", //descrição
+    11, 30, 5, 1.5, global.mult_venda_refinado, 50, //sprite, custo, level max, aumento do custo, valor, incremento
+    function()
+    {
+        global.mult_venda_refinado = get_valor(level_atual);
     }, "%"),
 }
