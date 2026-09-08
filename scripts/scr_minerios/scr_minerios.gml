@@ -8,7 +8,7 @@ function Minerio(_nome, _sprite, _cor, _valor, _peso = 1) constructor
     
     static get_valor = function()
     {
-        return valor * (1 + global.mult_venda_refinado / 100);
+        return valor * (1 + global.dados.mult_venda_refinado / 100);
     }
 }
 
@@ -20,7 +20,7 @@ function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _ped
     
     static get_valor = function()
     {
-        return valor * (1 + global.mult_venda_bruto / 100);
+        return valor * (1 + global.dados.mult_venda_bruto / 100);
     }
     
     if (_pedras > 0)
@@ -35,7 +35,7 @@ function MinerioPuro(_nome, _sprite, _cor, _valor, _peso, _pedras = 0, _qtd_refi
 {
     static get_valor = function()
     {
-        return valor * (1 + global.mult_venda_puro / 100);
+        return valor * (1 + global.dados.mult_venda_puro / 100);
     }
     
     if (_pedras > 0) 

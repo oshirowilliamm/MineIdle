@@ -19,8 +19,8 @@ luz_player = function(_cam_x, _cam_y)
         var _y = yy - _cam_y;
         
         var _flick = random_range(-0.01, 0.01);
-        var _brilho = (global.alcance_lanterna * 2) + (_flick * 2);
-        var _escala = global.alcance_lanterna + _flick;
+        var _brilho = (global.dados.alcance_lanterna * 2) + (_flick * 2);
+        var _escala = global.dados.alcance_lanterna + _flick;
         
         //se tiver na vila, o alcance fica grandão
         if (room == rm_vila)

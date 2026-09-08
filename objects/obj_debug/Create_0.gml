@@ -100,13 +100,13 @@ ativa_painel = function()
     
     ganha_dinheiro = function()
     {
-        if (global.moeda == 0)
+        if (global.dados.moeda == 0)
         {
-            global.moeda = 5;
+            global.dados.moeda = 5;
         }
         else
         {
-            global.moeda *= 10;
+            global.dados.moeda *= 10;
         }
     }
     

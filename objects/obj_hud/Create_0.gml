@@ -275,7 +275,7 @@ escala_vila = new efeito_escala();
         {
             var _x = device_mouse_x_to_gui(0) + 25;
             var _y = 90;
-            var _texto = string("[wheel]{0} / {1}[/]", round(global.stamina_atual), global.stamina_max)
+            var _texto = string("[wheel]{0} / {1}[/]", round(global.dados.stamina_atual), global.dados.stamina_max)
             
             texto_scribble(_x - 20, _y, _texto, .2, , 1, 1);
         }
@@ -287,7 +287,7 @@ escala_vila = new efeito_escala();
         if (!array_contains(global.rooms_mina, room)) return;
         
         //pegando valor da stamina e dividindo em blocos
-        var _porc = clamp(global.stamina_atual / global.stamina_max, 0, 1);
+        var _porc = clamp(global.dados.stamina_atual / global.dados.stamina_max, 0, 1);
         var _porc_blocos = ceil(_porc * 9);
         stamina_desenhada = lerp(stamina_desenhada, _porc, .1);
         
@@ -326,10 +326,10 @@ escala_vila = new efeito_escala();
 
 #region Moeda
     
-    dinheiro_desenhada = global.moeda;
+    dinheiro_desenhada = global.dados.moeda;
     pedra_desenhada = 0;
     
-    dinheiro_anterior = global.moeda;
+    dinheiro_anterior = global.dados.moeda;
     pedra_anterior = 0;
     
     dinheiro_cor = c_white;
@@ -351,7 +351,7 @@ escala_vila = new efeito_escala();
         //dinheiro
         else
         {
-            _valor_real = global.moeda;
+            _valor_real = global.dados.moeda;
             _valor_anterior = dinheiro_anterior;
         }
         
@@ -403,7 +403,7 @@ escala_vila = new efeito_escala();
     desenha_dinheiro = function(_x, _y, _xscale, _yscale)
     {
         //efeito suave
-        dinheiro_desenhada = lerp(dinheiro_desenhada, global.moeda, .1);
+        dinheiro_desenhada = lerp(dinheiro_desenhada, global.dados.moeda, .1);
         
         //sprite de moeda
         var _sprite = "[scale, 20][spr_moeda, 0][scale, 1]";

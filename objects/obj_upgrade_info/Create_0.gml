@@ -202,7 +202,7 @@ desenha_custo = function(_x, _y)
         
         //pegando a cor de acordo com o dinheiro q tenho
         var _custo = round(dados.get_custo());
-        var _texto = (global.moeda >= _custo)
+        var _texto = (global.dados.moeda >= _custo)
             ? string("{1} [cor_upgrade_verde]${0}", _custo, _sprite)
             : string("{1} [cor_upgrade_vermelho]${0}", _custo, _sprite);
         

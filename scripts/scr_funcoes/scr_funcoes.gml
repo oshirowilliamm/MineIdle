@@ -186,7 +186,7 @@ function reseta_globais()
     #region Dados
         
         //moeda
-        global.moeda = 50;
+        global.dados.moeda = 50;
         
         //inventario da sacola
         global.sacola = 
@@ -206,11 +206,11 @@ function reseta_globais()
         }
         
         //stamina
-        global.stamina_max = 50;
-        global.stamina_atual = global.stamina_max;
+        global.dados.stamina_max = 50;
+        global.dados.stamina_atual = global.dados.stamina_max;
         
         //lanterna do player
-        global.alcance_lanterna = .3;
+        global.dados.alcance_lanterna = .3;
         
         //picareta
         global.picareta = 
@@ -227,10 +227,10 @@ function reseta_globais()
         {
             stamina_max: new cria_upgrade("Stamina", //nome
             "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
-            0, 10, 1, 1.5, global.stamina_max, 50, //valores
+            0, 10, 1, 1.5, global.dados.stamina_max, 50, //valores
             function()
             {   
-                global.stamina_max = get_valor(level_atual);
+                global.dados.stamina_max = get_valor(level_atual);
             }),
             
             capacidade_max: new cria_upgrade("Capacidade", //nome
@@ -243,10 +243,10 @@ function reseta_globais()
             
             alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
             "Aumenta o alcance da lanterna em [cor_upgrade_verde]1[/]", //descrição
-            2, 30, 2, 1.5, global.alcance_lanterna, .1, //valores
+            2, 30, 2, 1.5, global.dados.alcance_lanterna, .1, //valores
             function()
             {
-                global.alcance_lanterna = get_valor(level_atual);
+                global.dados.alcance_lanterna = get_valor(level_atual);
             }),
         }
         

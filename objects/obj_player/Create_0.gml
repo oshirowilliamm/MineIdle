@@ -152,8 +152,8 @@ aplica_velocidade = function()
         var _dir = point_direction(0, 0, _xaxis, _yaxis);
         
         //aplicando as velocidades
-        hspd = lengthdir_x(global.speed, _dir);
-        vspd = lengthdir_y(global.speed, _dir);
+        hspd = lengthdir_x(global.dados.speed_player, _dir);
+        vspd = lengthdir_y(global.dados.speed_player, _dir);
     }
     //se ta parado, fica parado
     else
@@ -184,7 +184,7 @@ controla_player = function()
 //metodos de stamina
 perde_stamina = function()
 {
-    global.stamina_atual -= .01;
+    global.dados.stamina_atual -= .01;
 }
 
 efeito_stamina = function()
@@ -192,7 +192,7 @@ efeito_stamina = function()
     //se estiver fora da mina, recarrega a stamina
     if (!array_contains(global.rooms_mina, room))
     {
-        global.stamina_atual = global.stamina_max;
+        global.dados.stamina_atual = global.dados.stamina_max;
     }
     //se estiver na mina
     else
@@ -203,7 +203,7 @@ efeito_stamina = function()
             perde_stamina();
             
             //se acabar, vai pro estado de desmaio
-            if (global.stamina_atual <= 0)
+            if (global.dados.stamina_atual <= 0)
             {
                 estado = estado_desmaio;
                 tempo_desmaio = 0;
@@ -212,9 +212,9 @@ efeito_stamina = function()
     }
     
     //garatindo que a stamina zere
-    if (global.stamina_atual < 0)
+    if (global.dados.stamina_atual < 0)
     {
-        global.stamina_atual = 0;
+        global.dados.stamina_atual = 0;
     }
 }
 
@@ -277,13 +277,13 @@ linha_mineracao = function()
 dano_picareta = function()
 {
     //se tiver stamina, tem o dano normal
-    if (global.stamina_atual > 0)
+    if (global.dados.stamina_atual > 0)
     {
         var _dano = global.picareta.dano;
         var _critico = false;
         
         //aplicando o critico se tiver
-        if (random(100) < global.chance_critico)
+        if (random(100) < global.dados.chance_critico)
         {
             _dano += global.picareta.dano * 2;
             _critico = true;
@@ -327,7 +327,7 @@ quebra_bloco = function()
             _bloco.recebe_dano(_golpe.dano, _golpe.critico);
             
             //perdendo stamina
-            global.stamina_atual -= _bloco.custo_stamina;
+            global.dados.stamina_atual -= _bloco.custo_stamina;
         }
         
         escala.squash(1.5, .8);

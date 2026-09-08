@@ -85,7 +85,7 @@ atrai = function()
             var _dist = point_distance(x, y, obj_player.x, obj_player.yy);
             
             //se estiver no raio de atração
-            if (_dist <= global.drop_atracao)
+            if (_dist <= global.dados.drop_atracao)
             {  
                 //direção do drop pro player
                 var _dir = point_direction(x, y, obj_player.x, obj_player.yy);

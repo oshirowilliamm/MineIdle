@@ -74,19 +74,19 @@ comprando = function()
         var _custo_atual = dados.get_custo();
         
         //comprando
-        if (global.moeda >= _custo_atual)
+        if (global.dados.moeda >= _custo_atual)
         {
             //tirando dinheiro
-            global.moeda -= _custo_atual;
+            global.dados.moeda -= _custo_atual;
             
-            //sobre de level
+            //sobe de level
             dados.level_atual++;
             
             //atualizando o estado, pra verificar o level
             checa_estado();
             
             //efeito
-            dados.efeito();
+            dados.aplica_efeito();
             
             //efeitos
             escala.squash(.6, 1.5);
@@ -204,7 +204,7 @@ cor_linha = function(_filho)
             _tracejado = false;
             
             //cor quando n tem dinheiro suficiente
-            if (global.moeda < _filho.dados.get_custo())
+            if (global.dados.moeda < _filho.dados.get_custo())
             {
                 _cor = cor_upgrade_vermelho;
                 _tracejado = false;
@@ -312,7 +312,7 @@ desenha_upgrade = function()
     else
     {
         //cor quando n tem dinheiro suficiente
-        if (global.moeda < dados.get_custo())
+        if (global.dados.moeda < dados.get_custo())
         {
             _cor = cor_upgrade_vermelho;
         }

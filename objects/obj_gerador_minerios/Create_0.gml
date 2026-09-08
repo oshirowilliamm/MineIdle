@@ -86,7 +86,7 @@ calcula_chance_minerio = function(_nome, _chance_base, _profundidade, _col)
     }
     
     //aplicando o upgrade de aumentar a geração de minérios
-    var _bonus = global.mais_minerio / 100;
+    var _bonus = global.dados.mais_minerio / 100;
     _chance *= (1 + _bonus * 5);
     
     //retornando a chance
@@ -137,7 +137,7 @@ gera_tipo_blocos = function(_col, _linha)
         var _chances_blocos  = array_create(array_length(_blocos));
         
         //upgrade que faz os minerios aparecerem antes
-        var _upgrade = (global.minerio_antes / 100) * .5;
+        var _upgrade = (global.dados.minerio_antes / 100) * .5;
         
         //calculando os pesos de cada bloco
         for (var i = 0; i < array_length(_blocos); i++)

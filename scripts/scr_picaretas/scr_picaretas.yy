@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_picaretas",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_picaretas",
+  "parent":{
+    "name":"Dados",
+    "path":"folders/Scripts/Dados.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
