@@ -53,7 +53,7 @@ global.upgrades =
     
     chance_critico: new cria_upgrade("Chance de Crítico", //nome
     "Ao minerar, tem chance de um golpe crítico que causa o dobro de dano.", //descrição
-    3, 40, 5, 1.5, global.chance_critico, 10, //sprite, custo, level max, aumento do custo, valor, incremento
+    3, 40, 5, 1.5, global.chance_critico, 5, //sprite, custo, level max, aumento do custo, valor, incremento
     function()
     {
         global.chance_critico = get_valor(level_atual);
@@ -61,7 +61,7 @@ global.upgrades =
     
     chance_drop: new cria_upgrade("Chance do Drop", //nome
     "Chance do bloco deixar 2 drops em vez de 1.", //descrição
-    4, 30, 5, 1.5, global.chance_drop, 10, //sprite, cudsto, level max, aumento do custo, valor, incremento
+    4, 30, 5, 1.5, global.chance_drop, 5, //sprite, cudsto, level max, aumento do custo, valor, incremento
     function()
     {
         global.chance_drop = get_valor(level_atual);

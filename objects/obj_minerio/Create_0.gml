@@ -69,7 +69,7 @@ cria_drop = function(_minerio)
     }
 }
 
-recebe_dano = function(_dano)
+recebe_dano = function(_dano, _critico = false)
 {
     //se tiver dano, executa o dano
     if (_dano > 0)
@@ -85,7 +85,10 @@ recebe_dano = function(_dano)
                 toca_som(snd_hit_bloco, .4);
                 screenshake(2);
                 efeito_squash(.8, .8);
-                aplica_efeito_brilho();
+                
+                //brilho de acordo com o critico
+                if (!_critico) aplica_efeito_brilho();
+                else          aplica_efeito_brilho(cor_negativo);
             }
         }
     }

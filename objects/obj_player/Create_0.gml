@@ -281,20 +281,31 @@ dano_picareta = function()
     if (global.stamina_atual > 0)
     {
         var _dano = global.picareta.dano;
+        var _critico = false;
         
         //aplicando o critico se tiver
         if (random(100) < global.chance_critico)
         {
             _dano += global.picareta.dano * 2;
+            _critico = true;
+            
             toca_som(snd_critico, .1);
         }
         
-        return _dano;
+        return
+        {
+            dano: _dano,
+            critico: _critico
+        }
     }
     //se n tiver stamina, fica fraco
     else
     {
-        return 0;
+        return
+        {
+            dano: 0,
+            critico: false
+        }
     }
 }
 
@@ -312,7 +323,9 @@ quebra_bloco = function()
         //dando dano
         if (_bloco)
         {
-            _bloco.recebe_dano(dano_picareta());
+            var _golpe = dano_picareta();
+            
+            _bloco.recebe_dano(_golpe.dano, _golpe.critico);
             
             //perdendo stamina
             global.stamina_atual -= _bloco.custo_stamina;
