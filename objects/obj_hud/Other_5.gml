@@ -1,1 +1,1 @@
-sacola_recolhe_itens();
+mochila_recolhe_itens();

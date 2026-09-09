@@ -1,9 +1,9 @@
 //tipos de picaretas
 global.tipos_picareta =
 [
-    {nome: "Picareta Inicial", dano: 5, cooldown: 15},
-    {nome: "Picareta de Ametilita", dano: 8, cooldown: 12},
-    {nome: "Picareta de Malacuru", dano: 15, cooldown: 8},
+    {nome: "Picareta Inicial", dano: 5, cooldown: 20},
+    {nome: "Picareta de Ametilita", dano: 15, cooldown: 16},
+    {nome: "Picareta de Malacuru", dano: 35, cooldown: 12},
 ]
 
 //picareta atual

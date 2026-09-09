@@ -17,7 +17,7 @@ image_index = dados.sprite;
 //vida
 vida = dados.vida;
 max_vida = dados.vida;
-custo_stamina = dados.stamina;
+custo_stamina = dados.get_stamina();
 
 //tempo pra regeneração
 tempo = 5 * FPS;

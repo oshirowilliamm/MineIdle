@@ -1,7 +1,7 @@
 // Inherit the parent event
 event_inherited();
 
-custo = 50;
+custo = 100;
 
 
 

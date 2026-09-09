@@ -1,3 +1,3 @@
 player_spawn_posicao();
-descarrega_sacola();
+descarrega_mochila();
 atualiza_colisao();

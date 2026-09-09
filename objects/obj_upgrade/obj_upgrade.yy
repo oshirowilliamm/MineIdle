@@ -30,7 +30,7 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v2","%Name":"upgrade","filters":[],"listItems":[],"multiselect":false,"name":"upgrade","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"\"stamina_max\"","varType":2,},
+    {"$GMObjectProperty":"v2","%Name":"upgrade","filters":[],"listItems":[],"multiselect":false,"name":"upgrade","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"\"status_stamina\"","varType":2,},
     {"$GMObjectProperty":"v2","%Name":"filhos","filters":[],"listItems":[],"multiselect":false,"name":"filhos","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"[]","varType":4,},
   ],
   "resourceType":"GMObject",

@@ -1,5 +1,5 @@
 //efeitos
-escala_sacola = new efeito_escala();
+escala_mochila = new efeito_escala();
 escala_stamina = new efeito_escala();
 escala_moeda = new efeito_escala();
 escala_voltar = new efeito_escala();
@@ -7,12 +7,12 @@ escala_vila = new efeito_escala();
 
 
 
-#region Sacola
+#region Mochila
     
     itens_caindo = [];
     peso_desenhado = 0;
     
-    sacola_drops_caindo = function(_xsacola, _ysacola)
+    mochila_drops_caindo = function(_xmochila, _ymochila)
     {
         //rodando a lista de tras pra frente pra poder deletar mais facil
         for (var i = array_length(itens_caindo) - 1; i >= 0; i--)
@@ -24,28 +24,28 @@ escala_vila = new efeito_escala();
             _item.y += _item.vspd;
             
             //desenhando a sprite
-            draw_sprite_ext(spr_minerios_pequenos, _item.frame, _xsacola, _item.y, global.escala_hud, global.escala_hud, 0, c_white, 1);
+            draw_sprite_ext(spr_minerios_pequenos, _item.frame, _xmochila, _item.y, global.escala_hud, global.escala_hud, 0, c_white, 1);
             
-            //apagando se chegou na sacola
-            if (_item.y >= _ysacola)
+            //apagando se chegou na mochila
+            if (_item.y >= _ymochila)
             {
                 //criando a chave
-                if (global.sacola.itens[$ _item.tipo] == undefined)
+                if (global.mochila.itens[$ _item.tipo] == undefined)
                 {
-                    global.sacola.itens[$ _item.tipo] = 0;
+                    global.mochila.itens[$ _item.tipo] = 0;
                 }
                 
                 //adicionando minerio
-                global.sacola.itens[$ _item.tipo]++;
+                global.mochila.itens[$ _item.tipo]++;
                 
                 //adicionando peso
-                global.sacola.peso_atual += _item.peso;
+                global.mochila.peso_atual += _item.peso;
                 
                 //efeito
-                escala_sacola.squash(1.5, .5);
+                escala_mochila.squash(1.5, .5);
                 
                 //efeito de texto voador
-                var _txt = instance_create_depth(0, 0, -9999, obj_texto_voador, {xx: _xsacola, yy: _ysacola});
+                var _txt = instance_create_depth(0, 0, -9999, obj_texto_voador, {xx: _xmochila, yy: _ymochila});
                 _txt.texto = "[wave]+" + string(_item.peso) + "kg[/]";
                 
                 //deletando o item da array
@@ -54,20 +54,20 @@ escala_vila = new efeito_escala();
         }
     }
     
-    sacola_porcentagem = function(_xsacola, _ysacola)
+    mochila_porcentagem = function(_xmochila, _ymochila)
     {
         scribble_anim_wave(3, .1, .1)
         
         //posição do texto
-        var _xscale = .3 * escala_sacola.xscale;
-        var _yscale = .3 * escala_sacola.yscale;
-        var _x = _xsacola + 5;
-        var _y = _ysacola - 10;
+        var _xscale = .3 * escala_mochila.xscale;
+        var _yscale = .3 * escala_mochila.yscale;
+        var _x = _xmochila + 5;
+        var _y = _ymochila - 10;
         var _cor = c_white;
         
         //porcentagem
-        peso_desenhado = lerp(peso_desenhado, global.sacola.peso_atual, .1);
-        var _porc = string(round((peso_desenhado / global.sacola.max_peso) * 100));
+        peso_desenhado = lerp(peso_desenhado, global.mochila.peso_atual, .1);
+        var _porc = string(round((peso_desenhado / global.mochila.max_peso) * 100));
         var _texto = "";
         
         if (_porc < 100)
@@ -85,12 +85,12 @@ escala_vila = new efeito_escala();
         texto_scribble(_x, _y, _texto, _xscale, _yscale, 1, , _cor);
     }
     
-    sacola_infos = function(_xsacola, _ysacola)
+    mochila_infos = function(_xmochila, _ymochila)
     {
-        //só desenha se tiver algum item na sacola
-        if (global.sacola.peso_atual <= 0) return;
+        //só desenha se tiver algum item na mochila
+        if (global.mochila.peso_atual <= 0) return;
         
-        var _mouse_sobre = mouse_sobre_ui(_xsacola, _ysacola, spr_sacola, global.escala_hud);
+        var _mouse_sobre = mouse_sobre_ui(_xmochila, _ymochila, spr_mochila, global.escala_hud);
          
         if (_mouse_sobre)
         {
@@ -99,7 +99,7 @@ escala_vila = new efeito_escala();
             var _my = device_mouse_y_to_gui(0);   
             var _wfundo = 400;
             var _hfundo = 350;
-            var _xfundo = _xsacola + 80;
+            var _xfundo = _xmochila + 80;
             var _min = display_get_gui_height() - _hfundo;
             var _max = _my - _hfundo / 1.5;
             var _yfundo = min(_min, _max);
@@ -112,7 +112,7 @@ escala_vila = new efeito_escala();
             var _wbar = sprite_get_width(spr_barra) + 40;
             var _hbar = sprite_get_height(spr_barra) + 8;
             
-            var _porc = clamp(peso_desenhado / global.sacola.max_peso, 0, 1);
+            var _porc = clamp(peso_desenhado / global.mochila.max_peso, 0, 1);
             
             draw_sprite_stretched(spr_barra, 0, _xbar, _ybar, _wbar, _hbar);
             draw_sprite_stretched(spr_barra, 1, _xbar, _ybar, _wbar * _porc, _hbar);
@@ -123,7 +123,7 @@ escala_vila = new efeito_escala();
             
             if (_porc < .99)
             {
-                var _texto = string("{0}kg / {1}kg", round(peso_desenhado), global.sacola.max_peso)
+                var _texto = string("{0}kg / {1}kg", round(peso_desenhado), global.mochila.max_peso)
                 texto_scribble(_xcap, _ycap, _texto, .2, , 1);
             }
             else
@@ -141,11 +141,11 @@ escala_vila = new efeito_escala();
             draw_line_width_color(_xfundo + 20, _y_inicial - 30, _xfundo + _wfundo - 20, _y_inicial - 30, 4, #1C1C33, #1C1C33);
             
             //rodando meus itens
-            var _chaves = struct_get_names(global.sacola.itens);
+            var _chaves = struct_get_names(global.mochila.itens);
             for (var i = 0; i < array_length(_chaves); i++)
             {
                 var _item   = _chaves[i];
-                var _qtd    = global.sacola.itens[$ _item];
+                var _qtd    = global.mochila.itens[$ _item];
                 var _dados  = global.minerios[$ _item];
                 
                 //pegando a posição em grid
@@ -163,7 +163,7 @@ escala_vila = new efeito_escala();
         }
     }
     
-    sacola_recolhe_itens = function()
+    mochila_recolhe_itens = function()
     {
         //se a lista tiver vazio, n faz nada
         if (array_length(itens_caindo) == 0) return;
@@ -174,21 +174,21 @@ escala_vila = new efeito_escala();
             var _item = itens_caindo[i];
             
             //criando a chave se n tem
-            if (global.sacola.itens[$ _item.tipo] == undefined)
+            if (global.mochila.itens[$ _item.tipo] == undefined)
             {
-                global.sacola.itens[$ _item.tipo] = 0;
+                global.mochila.itens[$ _item.tipo] = 0;
             }
             
             //adicionando o minerio e o peso
-            global.sacola.itens[$ _item.tipo]++;
-            global.sacola.peso_atual += _item.peso;
+            global.mochila.itens[$ _item.tipo]++;
+            global.mochila.peso_atual += _item.peso;
         }
         
         //esvaziando a lista
         itens_caindo = [];
     }    
     
-    desenha_sacola = function()
+    desenha_mochila = function()
     {
         //so desenha na mina
         if (!array_contains(global.rooms_mina, room)) return;
@@ -199,18 +199,18 @@ escala_vila = new efeito_escala();
         var _y = display_get_gui_height() - 100 + _mexe_y;
         
         //escalas
-        var _escala_x = (global.escala_hud * escala_sacola.xscale);
-        var _escala_y = (global.escala_hud * escala_sacola.yscale);
-        escala_sacola.retorna(); // Processa a suavização para voltar a 1
+        var _escala_x = (global.escala_hud * escala_mochila.xscale);
+        var _escala_y = (global.escala_hud * escala_mochila.yscale);
+        escala_mochila.retorna(); // Processa a suavização para voltar a 1
         
-        //fundo da sacola
-        draw_sprite_ext(spr_sacola, 1, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
+        //fundo da mochila
+        draw_sprite_ext(spr_mochila, 1, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
         
-        //adicionando os minerios na sacola de acordo com o peso
-        var _porc = (global.sacola.peso_atual / global.sacola.max_peso) * 100;
+        //adicionando os minerios na mochila de acordo com o peso
+        var _porc = (global.mochila.peso_atual / global.mochila.max_peso) * 100;
         var _index = 0;
         
-        //se tiver em 100%, a sacola treme
+        //se tiver em 100%, a mochila treme
         if (_porc >= 100)
         {
             _x += random_range(-2, 2);
@@ -225,17 +225,17 @@ escala_vila = new efeito_escala();
         else if (_porc >= 80 && _porc < 100) _index = 6;
         else if (_porc >= 100)               _index = 7;
         
-        sacola_drops_caindo(_x, _y);
+        mochila_drops_caindo(_x, _y);
         
-        //minerios da sacola
-        draw_sprite_ext(spr_sacola, _index, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
+        //minerios da mochila
+        draw_sprite_ext(spr_mochila, _index, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
         
-        //frente da sacola
-        draw_sprite_ext(spr_sacola, 0, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
+        //frente da mochila
+        draw_sprite_ext(spr_mochila, 0, _x, _y, _escala_x, _escala_y, 0, c_white, 1);
         
         //outras funções
-        sacola_porcentagem(_x, _y);
-        sacola_infos(_x, _y);
+        mochila_porcentagem(_x, _y);
+        mochila_infos(_x, _y);
     }
     
 #endregion
@@ -492,10 +492,10 @@ escala_vila = new efeito_escala();
     {
         if (!array_contains(global.rooms_vila, room)) return;
         
-        var _xscale = global.escala_hud * escala_voltar.xscale;
-        var _yscale = global.escala_hud * escala_voltar.yscale
-        var _x = display_get_gui_width() - sprite_get_width(spr_voltar) * global.escala_hud;
-        var _y = display_get_gui_height() - sprite_get_height(spr_voltar) * global.escala_hud;
+        var _xscale = 6 * escala_voltar.xscale;
+        var _yscale = 6 * escala_voltar.yscale;
+        var _x = display_get_gui_width() - sprite_get_width(spr_voltar) * 6;
+        var _y = display_get_gui_height() - sprite_get_height(spr_voltar) * 6;
         
         draw_sprite_ext(spr_voltar, 0, _x, _y, _xscale, _yscale, 0, c_white, 1);
         
@@ -547,7 +547,7 @@ escala_vila = new efeito_escala();
 
 desenha_hud = function()
 {
-    desenha_sacola();
+    desenha_mochila();
     desenha_stamina();
     desenha_moeda();
     desenha_voltar();

@@ -1,5 +1,5 @@
-//inventario da sacola
-global.sacola = 
+//inventario da mochila
+global.mochila = 
 {
     max_peso: 30,
     peso_atual: 0,

@@ -76,7 +76,7 @@ atrai = function()
     if (!instance_exists(obj_player)) return;
     
     //verificando o peso
-    if (global.sacola.peso_atual < global.sacola.max_peso)
+    if (global.mochila.peso_atual < global.mochila.max_peso)
     {
         //se o timer acabou
         if (timer_andar <= 0)
@@ -85,7 +85,7 @@ atrai = function()
             var _dist = point_distance(x, y, obj_player.x, obj_player.yy);
             
             //se estiver no raio de atração
-            if (_dist <= global.dados.drop_atracao)
+            if (_dist <= global.dados.ima_drop)
             {  
                 //direção do drop pro player
                 var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
@@ -109,7 +109,7 @@ coleta = function(_dist)
     //se o drop ta no raio da coleta
     if (_dist <= raio_coleta)
     {
-        //mandando o drop pra sacola
+        //mandando o drop pra mochila
         if (instance_exists(obj_hud))
         {
             array_push(obj_hud.itens_caindo, 

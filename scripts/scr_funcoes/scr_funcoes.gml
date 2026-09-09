@@ -223,8 +223,8 @@ function reseta_globais()
         //moeda
         global.dados.moeda = 50;
         
-        //inventario da sacola
-        global.sacola = 
+        //inventario da mochila
+        global.mochila = 
         {
             max_peso: 50,
             peso_atual: 0,
@@ -270,10 +270,10 @@ function reseta_globais()
             
             capacidade_max: new cria_upgrade("Capacidade", //nome
             "Aumenta a capacidade em [cor_upgrade_verde]20[/]", //descrição
-            1, 20, 3, 1.5, global.sacola.max_peso, 20, //valores
+            1, 20, 3, 1.5, global.mochila.max_peso, 20, //valores
             function()
             {
-                global.sacola.max_peso = get_valor(level_atual);
+                global.mochila.max_peso = get_valor(level_atual);
             }),
             
             alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome

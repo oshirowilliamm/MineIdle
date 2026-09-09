@@ -87,16 +87,16 @@ player_spawn_posicao = function()
     }
 }
 
-descarrega_sacola = function()
+descarrega_mochila = function()
 {
     if (room != rm_vila) return;
     
-    var _chaves = struct_get_names(global.sacola.itens);
+    var _chaves = struct_get_names(global.mochila.itens);
     
     for (var i = 0; i < array_length(_chaves); i++)
     {
         var _item = _chaves[i];
-        var _qtd  = global.sacola.itens[$ _item];
+        var _qtd  = global.mochila.itens[$ _item];
         
         //criando a chave
         if (global.inventario_global.minerios[$ _item] == undefined)
@@ -108,9 +108,17 @@ descarrega_sacola = function()
         global.inventario_global.minerios[$ _item] += _qtd;
     }
     
-    //zerando a sacola
-    global.sacola.itens = {};
-    global.sacola.peso_atual = 0;
+    //zerando a mochila
+    global.mochila.itens = {};
+    global.mochila.peso_atual = 0;
+}
+
+mochila_cheia = function()
+{
+    if (global.mochila.peso_atual >= global.mochila.max_peso)
+    {
+        estado = estado_desmaio;
+    }
 }
 
 atualiza_colisao = function()
@@ -184,7 +192,7 @@ controla_player = function()
 //metodos de stamina
 perde_stamina = function()
 {
-    global.dados.stamina_atual -= .01;
+    global.dados.stamina_atual -= .02;
 }
 
 efeito_stamina = function()
@@ -328,6 +336,7 @@ quebra_bloco = function()
             
             //perdendo stamina
             global.dados.stamina_atual -= _bloco.custo_stamina;
+            show_message(_bloco.custo_stamina)
         }
         
         escala.squash(1.5, .8);

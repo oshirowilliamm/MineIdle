@@ -44,60 +44,77 @@ function cria_upgrade(_nome, _desc, _sprite, _custo, _level_max, _aumento_custo,
 
 global.upgrades =
 {
-    stamina_max: new cria_upgrade("Estamina", //nome
+    // STATUS (atributos base do sapo)
+    status_stamina: new cria_upgrade("Estamina I", //nome
     "Aumenta sua capacidade de estamina.", //descrição
-    0, 15, 2, 1.5, 50, 50, "stamina_max"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
+    0, 20, 1, 1.5, 50, 50, "stamina_max"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
     
-    capacidade_max: new cria_upgrade("Capacidade", //nome
-    "Aumenta a capacidade da sua mochila na mina.", //descrição
-    1, 50, 5, 1.5, 20, 20, //sprite, custo, level max, aumento do custo, valor base, incremento
-    function(_val)
-    {
-        global.sacola.max_peso = _val;
-    }, "kg"), //variavel, sufixo
-    
-    alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
-    "Aumenta o alcance da lanterna.", //descrição
-    2, 30, 3, 1.5, .3, .1, "alcance_lanterna"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
-    
-    chance_critico: new cria_upgrade("Chance de Crítico", //nome
-    "Ao minerar, tem chance de um golpe crítico que causa o dobro de dano.", //descrição
-    3, 40, 5, 1.5, 0, 5, "chance_critico", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
-    
-    chance_drop: new cria_upgrade("Chance do Drop", //nome
-    "Chance do bloco deixar 2 drops em vez de 1.", //descrição
-    4, 30, 5, 1.5, 0, 5, "chance_drop", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
-    
-    velocidade_player: new cria_upgrade("Velocidade Anfíbia", //nome
+    status_velocidade: new cria_upgrade("Velocidade Anfíbia", //nome
     "Aumenta sua velocidade de movimentação.", //descrição
-    5, 30, 5, 1.5, 100, 10, //sprite, custo, level max, aumento do custo, valor base, incremento
+    5, 30, 3, 1.5, 100, 10, //sprite, custo, level max, aumento do custo, valor base, incremento
     function(_val)
     {
         var _mult = _val / 100;
         global.dados.speed_player = 2 * _mult;
     }, "%"), //variavel, sufixo
     
-    drop_atracao: new cria_upgrade("Imã de Coleta", //nome
+    
+    
+    //EQUIP (ferramentas e utilitários)
+    equip_mochila: new cria_upgrade("Mochila I", //nome
+    "Aumenta a capacidade da sua mochila na mina.", //descrição
+    1, 30, 5, 1.6, 20, 10, //sprite, custo, level max, aumento do custo, valor base, incremento
+    function(_val)
+    {
+        global.mochila.max_peso = _val;
+    }, "kg"), //variavel, sufixo
+    
+    equip_alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
+    "Aumenta o alcance da lanterna.", //descrição
+    2, 30, 3, 1.5, .3, .1, "alcance_lanterna"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
+    
+    equip_ima_coleta: new cria_upgrade("Imã de Coleta", //nome
     "Aumenta o alcance de coleta dos minérios.", //descrição
-    6, 30, 5, 1.5, 25, 5, "drop_atracao"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
+    6, 30, 3, 1.5, 25, 5, "drop_atracao"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
     
-    mais_minerio: new cria_upgrade("Mais Minérios", //nome
+    
+    
+    //AÇÃO (ato de minerar)
+    acao_chance_critico: new cria_upgrade("Chance de Crítico", //nome
+    "Ao minerar, tem chance de um golpe crítico que causa o dobro de dano.", //descrição
+    3, 50, 5, 1.5, 0, 5, "chance_critico", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    
+    acao_drop_duplo: new cria_upgrade("Chance do Drop", //nome
+    "Chance do bloco deixar 2 drops em vez de 1.", //descrição
+    4, 30, 3, 1.5, 0, 5, "chance_drop", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    
+    acao_custo_stamina: new cria_upgrade("Sapo Bruto!", //nome
+    "Minérios consomem menos estamina.", //descrição
+    12, 30, 3, 1.5, 0, 10, "minerio_menos_stamina", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    
+    
+    
+    //MINA (geração do mundo)
+    mina_mais_minerios: new cria_upgrade("Mais Minérios", //nome
     "Aparece mais minérios do que pedras.", //descrição
-    7, 30, 5, 1.5, 0, 10, "mais_minerio", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    7, 30, 3, 1.5, 0, 10, "mais_minerio", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
     
-    minerio_antes: new cria_upgrade("Minérios Raros!", //nome
+    mina_minerios_raros: new cria_upgrade("Minérios Raros!", //nome
     "Minérios raros começam a aparecer antes.", //descrição
-    8, 30, 5, 1.5, 0, 10, "minerio_antes", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    8, 30, 3, 1.5, 0, 10, "minerio_antes", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
     
-    aumenta_valor_minerio: new cria_upgrade("Aumenta Valor do Minério", //nome
+    
+    
+    //VENDA (multiplicadores de dinheiro)
+    venda_valor_bruto: new cria_upgrade("Aumenta Valor do Minério", //nome
     "Aumenta o valor de venda dos minérios.", //descrição
-    9, 30, 5, 1.5, 0, 50, "mult_venda_bruto", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    9, 30, 3, 1.5, 0, 50, "mult_venda_bruto", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
     
-    aumenta_valor_puro: new cria_upgrade("Aumenta Valor do Minério Puro", //nome
+    venda_valor_puro: new cria_upgrade("Aumenta Valor do Minério Puro", //nome
     "Aumenta o valor de venda dos minérios puros.", //descrição
-    10, 30, 5, 1.5, 0, 50, "mult_venda_puro", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    10, 30, 3, 1.5, 0, 50, "mult_venda_puro", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
     
-    aumenta_valor_refinado: new cria_upgrade("Aumenta Valor do Minério Refinado", //nome
+    venda_valor_refinado: new cria_upgrade("Aumenta Valor do Minério Refinado", //nome
     "Aumenta o valor de venda dos minérios refinados.", //descrição
-    11, 30, 5, 1.5, 0, 50, "mult_venda_refinado", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
+    11, 30, 3, 1.5, 0, 50, "mult_venda_refinado", "%"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel, sufixo
 }
