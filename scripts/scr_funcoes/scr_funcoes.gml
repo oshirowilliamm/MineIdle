@@ -88,6 +88,41 @@ function desenha_sombra(_scale = .5)
 }
 
 
+function desenha_minerio_infinito(_spr, _index, _x, _y, _xscale, _yscale, _rot = 0, _cor = c_white, _alpha = 1)
+{
+    var _tam = 128;
+    var _meio = _tam / 2;
+    
+    //criando a surface
+    if (!surface_exists(global.surf_minerio))
+    {
+        global.surf_minerio = surface_create(_tam, _tam);
+    }
+    
+    //configuração da surface
+    surface_set_target(global.surf_minerio);
+    draw_clear_alpha(c_black, 0);
+    
+    //desenhando a silhueta do minerio
+    draw_sprite_ext(_spr, _index, _meio, _meio, _xscale, _yscale, _rot, c_white, 1);
+    
+    //efeito de mesclagem 
+    gpu_set_blendmode_ext(bm_dest_alpha, bm_zero);
+    
+    //fundo infinito dentro do minerio
+    var _tempo_x = current_time * 0.02; //hspd
+    var _tempo_y = current_time * 0.01; //vspd
+    draw_sprite_tiled_ext(spr_bg_minerios, 0, _tempo_x, _tempo_y, 1, 1, _cor, 1);
+    
+    //resetando a surface
+    gpu_set_blendmode(bm_normal);
+    surface_reset_target();
+    
+    //desenhando a surface na posição do minerio
+    draw_surface_ext(global.surf_minerio, _x - _meio, _y - _meio, 1, 1, 0, c_white, _alpha);
+}
+
+
 function mouse_sobre_ui(_x, _y, _sprite, _escala_x = 1, _escala_y = _escala_x)
 {
     //mouse

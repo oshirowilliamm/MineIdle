@@ -19,3 +19,5 @@ global.dados =
     mult_venda_puro: 0,
     mult_venda_refinado: 0,
 }
+
+global.surf_minerio = -1;

@@ -169,7 +169,19 @@ desenha_minerio = function()
         //se tem mais que 0
         if (_qtd > 0)
         {
-            draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_white, 1);
+            //desenhando o minerio bruto
+            if (string_pos("_puro", item) == 0 && string_pos("_refinado", item) == 0)
+            {
+                draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_white, 1);
+            }
+            //desenhando os minerios puros e refinados
+            else
+            {
+                desenha_minerio_infinito(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, minerio.cor, 1);
+                draw_sprite_ext(spr_puros_borda, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_white, 1);
+            }
+            
+            //texto da qtd
             texto_scribble(x + _recuo, y + _recuo, _texto, .2,, 1, 1);
         }
         //se n tem

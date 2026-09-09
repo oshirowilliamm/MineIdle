@@ -30,6 +30,15 @@ function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _ped
     }
 }
 
+function Pedra(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina) 
+: MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina) constructor
+{
+    static get_valor = function()
+    {
+        return valor;
+    }
+}
+
 function MinerioPuro(_nome, _sprite, _cor, _valor, _peso, _pedras = 0, _qtd_refina = 0) 
 : Minerio(_nome, _sprite, _cor, _valor, _peso) constructor 
 {
@@ -51,7 +60,7 @@ global.minerios =
         
         //brutos
         //nome, index da sprite, cor, valor, peso, vida, stamina perdida, pedras e minerios pra refinação
-        b1_pedra:    new MinerioBruto("Stone",     0, cor_b1_pedra,    1, 2,  10, 1),
+        b1_pedra:    new Pedra("Stone", 0, cor_b1_pedra, 1, 2,  10, 1),
         b1_rocha1:   new MinerioBruto("Ametilita", 1, cor_b1_rocha1,   10, 4,  20, 3,  20, 2),
         b1_rocha2:   new MinerioBruto("Malacuru",  2, cor_b1_rocha2,   30, 6,  40, 10, 40, 2),
         b1_cristal1: new MinerioBruto("Pererita",  3, cor_b1_cristal1, 40, 8,  60, 15, 60, 4),
