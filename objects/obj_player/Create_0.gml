@@ -336,7 +336,6 @@ quebra_bloco = function()
             
             //perdendo stamina
             global.dados.stamina_atual -= _bloco.custo_stamina;
-            show_message(_bloco.custo_stamina)
         }
         
         escala.squash(1.5, .8);
@@ -405,17 +404,8 @@ estado_parado = function()
 {
     controla_player();
     
-    //definindo sprite da mina
-    if (array_contains(global.rooms_mina, room))
-    {
-        define_sprite(spr_player_pic_idle_front, spr_player_pic_idle_side, spr_player_pic_idle_back);
-    }
-    //definindo sprite da vila
-    else
-    {
-        define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
-    }
-    
+    //definindo sprite
+    define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
     
     //mudando pro estado andando
     if (right xor left || up xor down) estado = estado_andando;
@@ -428,16 +418,8 @@ estado_andando = function()
 {
     controla_player();
     
-    //definindo sprite da mina
-    if (array_contains(global.rooms_mina, room))
-    {
-        define_sprite(spr_player_pic_run_front, spr_player_pic_run_side, spr_player_pic_run_back);
-    }
-    //definindo sprite da vila
-    else
-    {
-        define_sprite(spr_player_run_front, spr_player_run_side, spr_player_run_back);
-    }
+    //definindo sprite
+    define_sprite(spr_player_run_front, spr_player_run_side, spr_player_run_back);
     
     //mudando pro estado parado
     if (hspd == 0 && vspd == 0) estado = estado_parado;
