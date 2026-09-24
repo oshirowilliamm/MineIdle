@@ -53,10 +53,6 @@ outras_funcoes = function()
     //y com offset
     yy = y - 15;
     
-    //voltando cooldown de mineração
-    if (cooldown_atual > 0) cooldown_atual--;
-    
-    
     //efeitos
     escala.retorna();
     retorna_efeito_brilho();
@@ -82,8 +78,14 @@ player_spawn_posicao = function()
         visible = true;
         usando_equip = false;
         golpe_aplicado = false;
-        cooldown_atual = 0;
         tempo_desmaio = 0;
+        
+        //resetando a picareta
+        if (instance_exists(picareta))
+        {
+            picareta.encerra_golpe();
+            picareta.cooldown_atual = 0;
+        }
         
         //garatindo seu estado
         estado = estado_parado;
