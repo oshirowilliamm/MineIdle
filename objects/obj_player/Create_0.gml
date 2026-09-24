@@ -20,7 +20,10 @@ tempo_desmaio = 0;
 //variaveis para minerar
 usando_equip = false;
 golpe_aplicado = false;
-cooldown_atual = 0;
+
+//picareta atual
+picareta = instance_create_depth(x, y, depth, obj_picareta);
+picareta.dono = id;
 
 
 
@@ -135,8 +138,6 @@ atualiza_colisao = function()
 
 
 
-
-
 //metodos de movimento
 inputs = function()
 {
@@ -187,8 +188,6 @@ controla_player = function()
 
 
 
-
-
 //metodos de stamina
 perde_stamina = function()
 {
@@ -228,8 +227,6 @@ efeito_stamina = function()
 
 
 
-
-
 //metodos de mineração
 fim_animacao_minerar = function()
 {
@@ -238,16 +235,20 @@ fim_animacao_minerar = function()
         golpe_aplicado = false;
         
         //se continuar minerando
-        if (click && cooldown_atual <= 0)
+        if (click && picareta.cooldown_atual <= 0)
         {
             image_index = 0;
-            cooldown_atual = global.picareta.cooldown;
+            picareta.inicia_golpe();
         }
         //se parar de minerar
         else
         {
             usando_equip = false;
+            picareta.encerra_golpe();
             estado = estado_andando;
+            
+            //voltando a velocidade
+            image_speed = 1;
         }
     }
 }
@@ -257,61 +258,20 @@ usa_equipamento = function()
     if (click && array_contains(global.rooms_mina, room))
     {
         //se o equip ainda n ta sendo usado e o cooldown deixar
-        if (!usando_equip && cooldown_atual <= 0)
+        if (!usando_equip && picareta.cooldown_atual <= 0)
         {
-            usando_equip = true; //avisando que to usando o equip
-            cooldown_atual = global.picareta.cooldown;
+            //avisando que to usando o equip
+            usando_equip = true; 
+            golpe_aplicado = false;
+            
+            //inicia o golpe da picareta
+            picareta.inicia_golpe();
+            
             estado = estado_minerando;
             image_index = 0;
-        }
-    }
-}
-
-linha_mineracao = function()
-{
-    var _dist = 30; //distancia da linha
-    var _dir = point_direction(x, yy, mouse_x, mouse_y);
-    
-    var _x = x + lengthdir_x(_dist, _dir);
-    var _y = yy + lengthdir_y(_dist, _dir);
-    
-    return
-    {
-        x: _x,
-        y: _y
-    }
-}
-
-dano_picareta = function()
-{
-    //se tiver stamina, tem o dano normal
-    if (global.dados.stamina_atual > 0)
-    {
-        var _dano = global.picareta.dano;
-        var _critico = false;
-        
-        //aplicando o critico se tiver
-        if (random(100) < global.dados.chance_critico)
-        {
-            _dano += global.picareta.dano * 2;
-            _critico = true;
             
-            toca_som(snd_critico, .1);
-        }
-        
-        return
-        {
-            dano: _dano,
-            critico: _critico
-        }
-    }
-    //se n tiver stamina, fica fraco
-    else
-    {
-        return
-        {
-            dano: 0,
-            critico: false
+            //velocidade da picareta
+            image_speed = 30 / max(1, global.picareta.cooldown);
         }
     }
 }
@@ -321,31 +281,16 @@ quebra_bloco = function()
     //quebra quando chegar no frame certo
     if (image_index >= 2 && !golpe_aplicado)
     {
-        //pegando a linha de mineração
-        var _linha = linha_mineracao();
+        //realizando o golpe da picareta
+        picareta.aplica_golpe();
         
-        //se tem um bloco na minha visão
-        var _bloco = instance_position(_linha.x, _linha.y, obj_minerio);
-        
-        //dando dano
-        if (_bloco)
-        {
-            //dano o dano no bloco
-            var _golpe = dano_picareta();
-            _bloco.recebe_dano(_golpe.dano, _golpe.critico);
-            
-            //perdendo stamina
-            global.dados.stamina_atual -= _bloco.custo_stamina;
-        }
-        
+        //efeito
         escala.squash(1.5, .8);
         
         //aplicando golpe
         golpe_aplicado = true;
     }
 }
-
-
 
 
 
