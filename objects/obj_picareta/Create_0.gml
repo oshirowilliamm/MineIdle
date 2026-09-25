@@ -7,24 +7,12 @@ dono = noone;
 //cooldown da picareta
 cooldown_atual = 0;
 
+//controles para o bloco e o seletor
+bloco = noone;
+seletor = noone;
 
 
-//metodos
-linha_mineracao = function()
-{
-    var _dist = 30; //distancia da linha
-    var _dir = point_direction(dono.x, dono.yy, mouse_x, mouse_y);
-    
-    var _x = dono.x + lengthdir_x(_dist, _dir);
-    var _y = dono.yy + lengthdir_y(_dist, _dir);
-    
-    return
-    {
-        x: _x,
-        y: _y
-    }
-}
-
+//metodos auxiliares
 segue_player = function()
 {
     if (instance_exists(dono))
@@ -81,8 +69,33 @@ define_sprite = function()
     }
 }
 
+linha_mineracao = function()
+{
+    //pegando a distancia da linha
+    var _dist = 30; 
+    var _dir = point_direction(dono.x, dono.yy, mouse_x, mouse_y);
+    
+    //pegando a posição da linha
+    var _x = dono.x + lengthdir_x(_dist, _dir);
+    var _y = dono.yy + lengthdir_y(_dist, _dir);
+    
+    //se tem um bloco na minha visão
+    var _bloco = instance_position(_x, _y, obj_minerio);
+    
+    //avisando se tem um bloco na minha visao ou nao
+    if (_bloco)
+    {
+        bloco = _bloco;
+    }
+    else
+    {
+        bloco = noone;
+    }
+}
 
 
+
+//metodos de mineração
 inicia_golpe = function()
 {
     visible = true;
@@ -97,14 +110,8 @@ aplica_golpe = function()
 {
     if (global.dados.stamina_atual > 0)
     {
-        //pegando a linha de mineração
-        var _linha = linha_mineracao();
-        
-        //se tem um bloco na minha visão
-        var _bloco = instance_position(_linha.x, _linha.y, obj_minerio);
-        
         //dando dano
-        if (_bloco)
+        if (bloco)
         {
             var _dano = global.picareta.dano;
             var _critico = false;
@@ -118,11 +125,40 @@ aplica_golpe = function()
             }
             
             //aplicando dano e tirando stamina
-            _bloco.recebe_dano(_dano, _critico);
-            global.dados.stamina_atual -= _bloco.custo_stamina;
+            bloco.recebe_dano(_dano, _critico);
+            global.dados.stamina_atual -= bloco.custo_stamina;
         }
         
         //aplicando o cooldown
         cooldown_atual = global.picareta.cooldown;
+    }
+}
+
+
+
+//metodos de selecao
+meu_seletor = function()
+{
+    //se existe o bloco
+    if (instance_exists(bloco))
+    {
+        //criando o seletor
+        if (!instance_exists(seletor))
+        {
+            seletor = instance_create_depth(bloco.x, bloco.y, obj_player.depth + 1, obj_seletor);
+        }
+        
+        //atualizando a posição do seletor
+        seletor.x = bloco.x;
+        seletor.y = bloco.y;
+    }
+    //se n tem bloco na minha visao
+    else
+    {
+        //destruindo o seletor
+        if (instance_exists(seletor))
+        {
+            instance_destroy(seletor);
+        }
     }
 }

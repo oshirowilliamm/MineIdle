@@ -28,6 +28,7 @@ picareta.dono = id;
 
 
 
+
 //outras funções
 ajusta_escala = function()
 {
@@ -405,10 +406,17 @@ estado_desmaio = function()
     vspd = 0;
     
     //sprite de cansado
-    define_sprite(spr_player_pic_idle_front, spr_player_pic_idle_side, spr_player_pic_idle_back);
+    define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
     image_angle = lerp(image_angle, 90, .1);
     
     tempo_desmaio++;
+    
+    //resetando a picareta
+    if (instance_exists(picareta))
+    {
+        picareta.encerra_golpe();
+        picareta.cooldown_atual = 0;
+    }
     
     //qnd o tempo passar, rola a transição
     if (tempo_desmaio >= 1.5 * FPS)

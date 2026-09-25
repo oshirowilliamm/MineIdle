@@ -31,10 +31,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_picareta_side",
-    "path":"sprites/spr_picareta_side/spr_picareta_side.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }
