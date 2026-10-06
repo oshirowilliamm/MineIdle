@@ -299,3 +299,10 @@ function restart()
 }
 
 
+function tween_scale (_dest, _anim, _time = 60)
+{
+    tween(id, "image_xscale", _dest, _anim, _time);
+    tween(id, "image_yscale", _dest, _anim, _time);
+}
+
+
