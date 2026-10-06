@@ -3,7 +3,7 @@ event_inherited();
 
 y_notificacao = y + 12;
 
-custo = 100;
+custo = 20;
 
 
 

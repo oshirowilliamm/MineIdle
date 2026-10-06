@@ -10,8 +10,8 @@
   "name":"obj_sombra",
   "overriddenProperties":[],
   "parent":{
-    "name":"Outros",
-    "path":"folders/Objects/Outros.yy",
+    "name":"Efeitos",
+    "path":"folders/Objects/Efeitos.yy",
   },
   "parentObjectId":null,
   "persistent":true,

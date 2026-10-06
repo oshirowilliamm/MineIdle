@@ -127,6 +127,11 @@ aplica_golpe = function()
             //aplicando dano e tirando stamina
             bloco.recebe_dano(_dano, _critico);
             global.dados.stamina_atual -= bloco.custo_stamina;
+            
+            //efeito de numero
+            var _num = instance_create_depth(obj_player.x, obj_player.yy - 10, -9999, obj_efx_numero);
+            _num.texto = string("-{0}", _dano);
+            _num.cor = c_white;
         }
         
         //aplicando o cooldown
