@@ -258,6 +258,8 @@ fim_animacao_minerar = function()
 
 usa_equipamento = function()
 {
+    if (global.mouse_hud) return;
+    
     if (click && array_contains(global.rooms_mina, room))
     {
         //se o equip ainda n ta sendo usado e o cooldown deixar

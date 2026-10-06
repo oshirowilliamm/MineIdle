@@ -510,6 +510,7 @@ escala_vila = new efeito_escala();
     {
         if (mouse_sobre_ui(_x, _y, spr_caixa_vila, _xscale, _yscale))
         {
+            global.mouse_hud = true;
             escala_vila.atualiza(1.1, 1.1);
             
             if (mouse_check_button_pressed(mb_left))
@@ -521,6 +522,7 @@ escala_vila = new efeito_escala();
         }
         else
         {
+            global.mouse_hud = false;
             escala_vila.retorna();
         }
     }

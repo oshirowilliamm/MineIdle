@@ -1,6 +1,9 @@
 //mina
 global.blocos_struct = [];
 
+//variavel pra saber se o mouse está em cima de alguma hud
+global.mouse_hud = false;
+
 //escala da hud
 global.escala_hud = 4;
 
