@@ -58,7 +58,7 @@ desenha_prato = function()
         y_prato = lerp(y_prato, y - 90, .1);
     }
     
-    draw_sprite_ext(spr_balanca_prato, 0, x - 2, y_prato, xscale, yscale, 0, c_white, 1);
+    draw_sprite_ext(spr_balanca_prato, 0, x + 1, y_prato, xscale, yscale, 0, c_white, 1);
 }
 
 desenha_minerio = function()

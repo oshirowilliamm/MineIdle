@@ -1,9 +1,6 @@
 //mina
 global.blocos_struct = [];
 
-//variavel pra saber se o mouse está em cima de alguma hud
-global.mouse_hud = false;
-
 //escala da hud
 global.escala_hud = 4;
 
@@ -26,3 +23,6 @@ global.upgrades_bloqueado = true;
 
 //variavel do botão de multiplicação do shop
 global.modo_venda = 1;
+
+//variavel pra controlar o shop ou a loja de picaretas
+global.shop = "venda";

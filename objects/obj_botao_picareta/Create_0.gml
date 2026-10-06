@@ -1,34 +1,78 @@
-escala = 1.5;
+shop = ["venda", "picareta"];
+atual = 0;
 
 
+
+
+atualiza_picaretas = function()
+{
+    //destruindo as picaretas
+    if (instance_exists(obj_shop_picareta))
+    {
+        instance_destroy(obj_shop_picareta);
+    }
+    
+    //criando as picaretas
+    if (global.shop == "picareta")
+    {
+        var _x = 110;
+        var _y = 212;
+        var _espaco = 200;
+        
+        for (var i = 0; i < 3; i++)
+        {
+        	var _picaretas = instance_create_layer(_x + (i * _espaco), _y, "Itens", obj_shop_picareta);
+            _picaretas.index = i;
+        }
+    }
+}
+
+muda_shop = function()
+{
+    //mudando o icone
+    image_index = !image_index;
+    
+    //mudando o shop
+    if (atual < 1)
+    {
+        atual++;
+    }
+    else
+    {
+        atual = 0;
+    }
+    
+    global.shop = shop[atual];
+    
+    atualiza_picaretas();
+}
 
 selecao = function()
 {
     var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
-    var _mouse_click = mouse_check_button(mb_left);
-    var _escala_atual = 1.5;
     
     if (_mouse_sobre)
     {
-        if (_mouse_click)
+        if (global.mouse_hold)
         {
-            _escala_atual = 1.2;
+            //mouse segurando o botão
+            tween_scale(1.2, tween_animation.flat, 30);
         }
         else
         {
-            _escala_atual = 2;
+            //mouse em cima
+            tween_scale(2, tween_animation.back, 30);
+        }
+        
+        //clicando
+        if (global.mouse_released)
+        {
+            muda_shop();
         }
     }
+    //normal
     else
     {
-        _escala_atual = 1.5; 
-    }
-    
-    //aplicando tween
-    if (escala != _escala_atual)
-    {
-        escala = _escala_atual;
-        
-        tween_scale(_escala_atual, tween_animation.back, 30);
+        tween_scale(1.5, tween_animation.back, 30);
     }
 }

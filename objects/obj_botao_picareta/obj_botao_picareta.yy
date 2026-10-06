@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_caixa_picareta",
-    "path":"sprites/spr_caixa_picareta/spr_caixa_picareta.yy",
+    "name":"spr_caixa_shop",
+    "path":"sprites/spr_caixa_shop/spr_caixa_shop.yy",
   },
   "spriteMaskId":null,
   "visible":true,

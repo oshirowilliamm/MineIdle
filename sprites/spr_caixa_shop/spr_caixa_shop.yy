@@ -1,6 +1,6 @@
 {
   "$GMSprite":"v2",
-  "%Name":"spr_caixa_picareta",
+  "%Name":"spr_caixa_shop",
   "bboxMode":0,
   "bbox_bottom":38,
   "bbox_left":0,
@@ -18,6 +18,7 @@
   "For3D":false,
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"f8b93e4d-ad78-4655-914e-706b106346a6","name":"f8b93e4d-ad78-4655-914e-706b106346a6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"c909348b-a07f-409e-b235-70641c10aed0","name":"c909348b-a07f-409e-b235-70641c10aed0","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":1,
   "gridY":1,
@@ -26,7 +27,7 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"d2c106ae-9adb-4de5-b7be-566c29bcd508","blendMode":0,"displayName":"default","isLocked":false,"name":"d2c106ae-9adb-4de5-b7be-566c29bcd508","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"spr_caixa_picareta",
+  "name":"spr_caixa_shop",
   "nineSlice":{
     "$GMNineSliceData":"",
     "bottom":8,
@@ -49,15 +50,15 @@
   },
   "origin":4,
   "parent":{
-    "name":"Vila",
-    "path":"folders/Sprites/HUD/Vila.yy",
+    "name":"Shop",
+    "path":"folders/Sprites/Vila/Shop.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"v1",
-    "%Name":"spr_caixa_picareta",
+    "%Name":"spr_caixa_shop",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -73,7 +74,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":1.0,
+    "length":2.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -81,7 +82,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"spr_caixa_picareta",
+    "name":"spr_caixa_shop",
     "playback":1,
     "playbackSpeed":0.0,
     "playbackSpeedType":0,
@@ -93,8 +94,11 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f8b93e4d-ad78-4655-914e-706b106346a6","path":"sprites/spr_caixa_picareta/spr_caixa_picareta.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f8b93e4d-ad78-4655-914e-706b106346a6","path":"sprites/spr_caixa_shop/spr_caixa_shop.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"5c8f44b7-9440-4773-bc37-546d06b3587c","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c909348b-a07f-409e-b235-70641c10aed0","path":"sprites/spr_caixa_shop/spr_caixa_shop.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"6be384ac-d4e7-4611-b38b-3d6942ea8706","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
