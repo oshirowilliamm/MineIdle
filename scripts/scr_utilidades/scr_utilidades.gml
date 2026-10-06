@@ -17,8 +17,9 @@ global.rooms_vila = [rm_shop, rm_upgrade, rm_refinacao];
 //variavel pra saber qual a pedra do bioma atual (refinacao)
 global.pedra_atual = "b1_pedra";
 
-//variavel para desbloquear a refinacao
+//variavel para desbloquear as lojas
 global.refinacao_bloqueada = true;
+global.upgrades_bloqueado = true;
 
 //variavel do botão de multiplicação do shop
 global.modo_venda = 1;

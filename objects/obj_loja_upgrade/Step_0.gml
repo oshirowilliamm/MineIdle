@@ -1,4 +1,6 @@
-event_inherited();
+depth = -y;
+
+estado();
 
 //efeito de flutuar no y da notificação
 var _ystart = ystart + 12;
