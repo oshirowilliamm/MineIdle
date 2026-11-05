@@ -1,12 +1,12 @@
 {
   "$GMObject":"",
-  "%Name":"obj_botao_picareta",
+  "%Name":"obj_carrossel_picareta",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_botao_picareta",
+  "name":"obj_carrossel_picareta",
   "overriddenProperties":[],
   "parent":{
     "name":"Shop",
@@ -30,10 +30,7 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_caixa_shop",
-    "path":"sprites/spr_caixa_shop/spr_caixa_shop.yy",
-  },
+  "spriteId":null,
   "spriteMaskId":null,
   "visible":true,
 }

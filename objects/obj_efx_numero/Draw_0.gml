@@ -1,1 +1,1 @@
-texto_scribble(x, y_num, texto, .1,, 1, 1, cor, alpha);
+texto_scribble(x, y_num, texto, 1,, 1, 1, cor, alpha);

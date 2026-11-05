@@ -65,9 +65,6 @@ desenha_minerio = function()
 {
     retorna_efeitos();
     
-    //variaveis do texto do valor
-    var _scale = .1 * escala_valor;
-    
     //desenhando o minerio quando esta desenhado
     if (desenho)
     {
@@ -79,7 +76,7 @@ desenha_minerio = function()
         
         //nome
         var _nome = string("[wave]{0}[/]", minerio.nome);
-        texto_scribble_ext(x, y_minerio - 60, _nome, .15,, 1, 1,,,, typist_nome);
+        texto_scribble_ext(x, y_minerio - 60, _nome, 1.5,, 1, 1,,,, typist_nome);
         
         //valor
         valor_desenhado = lerp(valor_desenhado, minerio.get_valor(), .2);
@@ -92,5 +89,5 @@ desenha_minerio = function()
     
     //texto do valor
     var _texto = string("${0}", formata_moeda(round(valor_desenhado)));
-    texto_scribble_ext(x, y_minerio + 95, _texto, _scale, _scale, 1, 1, c_white);
+    texto_scribble(x, y_minerio + 95, _texto, escala_valor, escala_valor, 1, 1, c_white);
 }

@@ -160,7 +160,7 @@
 
 //Whether to force double-draw behaviour. This is useful for fixing problems with SDF glyph outline
 //overlap.
-#macro SCRIBBLE_ALWAYS_DOUBLE_DRAW  false
+#macro SCRIBBLE_ALWAYS_DOUBLE_DRAW  true
 
 //What function to use to play audio from Scribble. This function is called using the same
 //parameters as `audio_play_sound()`:

@@ -7,9 +7,14 @@ callback
 anim_curve
 */
 
-percent  = 0;
 position = 0;
-base_value = 0;
-with(object){
-	other.base_value = id[$ other.variable_name];	
-}
+percent = 0;
+base = object[$ variable_name];
+
+voltando = false;
+// Se não herdou origem de um tween anterior, a origem é o valor atual
+origem ??= base;
+
+// Controle de chamadas: contínua (todo frame) não reinicia, nova chamada reinicia
+chamado          = true;
+chamado_anterior = false;

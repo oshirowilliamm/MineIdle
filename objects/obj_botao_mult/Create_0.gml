@@ -47,8 +47,8 @@ selecao = function()
 
 desenha_texto = function()
 {
-    var _xscale = .1 * escala.xscale;
-    var _yscale = .1 * escala.yscale;
+    var _xscale = escala.xscale;
+    var _yscale = escala.yscale;
     var _texto = "";
     
     //definindo o texto de acordo com o modo

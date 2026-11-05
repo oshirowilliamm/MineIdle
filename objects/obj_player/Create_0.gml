@@ -192,11 +192,6 @@ controla_player = function()
 
 
 //metodos de stamina
-perde_stamina = function()
-{
-    global.dados.stamina_atual -= .02;
-}
-
 efeito_stamina = function()
 {
     //se estiver fora da mina, recarrega a stamina
@@ -209,9 +204,6 @@ efeito_stamina = function()
     {
         if (estado != estado_desmaio)
         {
-            //perdendo stamina aos poucos
-            perde_stamina();
-            
             //se acabar, vai pro estado de desmaio
             if (global.dados.stamina_atual <= 0)
             {

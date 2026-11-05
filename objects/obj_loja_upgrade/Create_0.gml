@@ -27,12 +27,12 @@ desenha_loja = function()
         var _y = y - 40;
         
         //sprite da moeda
-        var _sprite = string("[wave][scale, 15][{0}][/]", spr_moeda);
-        texto_scribble(x, _y, _sprite, .1, .1, 1, 1);
+        var _sprite = string("[wave][scale, 2][{0}][/]", spr_moeda);
+        texto_scribble(x, _y, _sprite, 1, 1, 1);
         
         //texto do custo
         var _texto  = string("[wave]{2}{1}[/c] / {0}[/wave]", custo, global.dados.moeda, _cor);
-        texto_scribble(x, _y + 20, _texto, .1, .1, 1, 1);
+        texto_scribble(x, _y + 30, _texto, 1, 1, 1);
     }
 }
 

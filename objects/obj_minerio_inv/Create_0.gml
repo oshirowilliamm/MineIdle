@@ -170,7 +170,7 @@ desenha_minerio = function()
         if (_qtd > 0)
         {
             draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_white, 1);
-            texto_scribble(x + _recuo, y + _recuo, _texto, .2,, 1, 1);
+            texto_scribble(x + _recuo, y + _recuo, _texto,,, 1, 1);
         }
         //se n tem
         else
@@ -182,6 +182,6 @@ desenha_minerio = function()
     else
     {
         draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_black, .3);
-        texto_scribble(x, y, "?", .4,, 1, 1);
+        texto_scribble(x, y, "?",,, 1, 1);
     }
 }

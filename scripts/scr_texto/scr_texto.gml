@@ -1,8 +1,10 @@
 //texto normal
-function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game")
+function texto_scribble(_x, _y, _texto, _xscale = 2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_pixel_outline", _cor_outline = c_black)
 {
     scribble(_texto)
         .starting_format(_font, c_white)
+        .outline(_cor_outline)
+        .shadow(_cor_outline, 1)
         .align(_halign, _valign)
         .scale(_xscale, _yscale)
         .blend(_cor, _alpha)
@@ -10,10 +12,12 @@ function texto_scribble(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign
 }
 
 //texto ext
-function texto_scribble_ext(_x, _y, _texto, _xscale = .2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_game", _typist = undefined, _wrap = -1)
+function texto_scribble_ext(_x, _y, _texto, _xscale = 2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_pixel_outline", _typist = undefined, _wrap = -1, _cor_outline = c_black)
 {
     var _txt = scribble(_texto)
         .starting_format(_font, c_white)
+        .outline(_cor_outline)
+        .shadow(_cor_outline, 1)
         .align(_halign, _valign)
         .scale(_xscale, _yscale)
         .blend(_cor, _alpha)

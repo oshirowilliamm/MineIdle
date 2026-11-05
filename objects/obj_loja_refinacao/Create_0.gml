@@ -29,12 +29,12 @@ desenha_loja = function()
         var _y = y - 80;
         
         //sprite da pedra
-        var _sprite = string("[wave][scale, 10][{0},{1}][/]", spr_minerios, _dados.sprite);
-        texto_scribble(x, _y, _sprite, .1, .1, 1, 1);
+        var _sprite = string("[wave][scale, 1.5][{0},{1}][/]", spr_minerios, _dados.sprite);
+        texto_scribble(x, _y, _sprite, 1, 1, 1);
         
         //texto do custo
         var _texto  = string("[wave]{2}{1}[/c] / {0}[/wave]", custo, _pedra_atual, _cor_pedra);
-        texto_scribble(x, _y + 20, _texto, .1, .1, 1, 1);
+        texto_scribble(x, _y + 30, _texto, 1, 1, 1);
     }
 }
 

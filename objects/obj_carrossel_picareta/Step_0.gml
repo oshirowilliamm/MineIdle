@@ -1,0 +1,1 @@
+if (global.shop == "venda") exit;

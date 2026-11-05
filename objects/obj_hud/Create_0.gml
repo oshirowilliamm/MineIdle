@@ -59,8 +59,8 @@ escala_vila = new efeito_escala();
         scribble_anim_wave(3, .1, .1)
         
         //posição do texto
-        var _xscale = .3 * escala_mochila.xscale;
-        var _yscale = .3 * escala_mochila.yscale;
+        var _xscale = 2 * escala_mochila.xscale;
+        var _yscale = 2 * escala_mochila.yscale;
         var _x = _xmochila + 5;
         var _y = _ymochila - 10;
         var _cor = c_white;
@@ -119,16 +119,16 @@ escala_vila = new efeito_escala();
             
             //desenhando o texto da capacidade
             var _xcap = _xfundo + _wfundo / 2;
-            var _ycap = _ybar + 5;
+            var _ycap = _ybar;
             
             if (_porc < .99)
             {
                 var _texto = string("{0}kg / {1}kg", round(peso_desenhado), global.mochila.max_peso)
-                texto_scribble(_xcap, _ycap, _texto, .2, , 1);
+                texto_scribble(_xcap, _ycap, _texto,,, 1);
             }
             else
             {
-                texto_scribble(_xcap, _ycap, "[shake][wheel]FULL[/]", .2, , 1, , cor_negativo);
+                texto_scribble(_xcap, _ycap, "[shake][wheel]FULL[/]",, , 1, , cor_negativo);
             }
             
             //variaveis pro desenho dos minerios
@@ -158,7 +158,7 @@ escala_vila = new efeito_escala();
                 draw_sprite_ext(spr_minerios_pequenos, _dados.sprite, _x, _y, global.escala_hud, global.escala_hud, 0, c_white, 1);
                 
                 //quantidade
-                texto_scribble(_x + 20, _y, "x" + string(_qtd), .15);
+                texto_scribble(_x + 20, _y, "x" + string(_qtd), 1);
             }
         }
     }
@@ -277,7 +277,7 @@ escala_vila = new efeito_escala();
             var _y = 90;
             var _texto = string("[wheel]{0} / {1}[/]", round(global.dados.stamina_atual), global.dados.stamina_max)
             
-            texto_scribble(_x - 20, _y, _texto, .2, , 1, 1);
+            texto_scribble(_x - 20, _y, _texto,,, 1, 1);
         }
     }
     
@@ -316,7 +316,7 @@ escala_vila = new efeito_escala();
         if (_porc <= 0)
         {
             var _xtxt = display_get_gui_width() / 2;
-            texto_scribble(_xtxt, _y + 13, "[shake][wave]EMPTY[/]", .3, , 1, 1, cor_negativo);
+            texto_scribble(_xtxt, _y + 20, "[shake][wave]EMPTY[/]",,, 1, 1, cor_negativo);
         }
         
         stamina_info(_x, _y)
@@ -406,7 +406,7 @@ escala_vila = new efeito_escala();
         dinheiro_desenhada = lerp(dinheiro_desenhada, global.dados.moeda, .1);
         
         //sprite de moeda
-        var _sprite = "[scale, 20][spr_moeda, 0][scale, 1]";
+        var _sprite = "[scale, 2][spr_moeda, 0][scale, 1]";
         
         //texto com formatação de moeda
         var _texto = string("{1} ${0}", formata_moeda(dinheiro_desenhada), _sprite)
@@ -431,8 +431,8 @@ escala_vila = new efeito_escala();
         //posição da moeda
         var _xitem = _x + 30;
         var _yitem = _y + _h / 2 - 7;
-        var _xscale = .2 * escala_moeda.xscale;
-        var _yscale = .2 * escala_moeda.yscale;
+        var _xscale = 2 * escala_moeda.xscale;
+        var _yscale = 2 * escala_moeda.yscale;
         
         //desenhando fundo
         draw_sprite_stretched(spr_caixa_fundo, 0, _x, _y, _w, _h);
@@ -540,7 +540,7 @@ escala_vila = new efeito_escala();
         draw_sprite_ext(spr_caixa_vila, 0, _x, _y, _xscale, _yscale, 0, c_white, 1);
         
         //simbolo da vila
-        texto_scribble(_x, _y - 8, "Go Back", .2 * escala_vila.xscale, .2 * escala_vila.yscale, 1, 1);
+        texto_scribble(_x, _y - 8, "Go Back", 2 * escala_vila.xscale, 2 * escala_vila.yscale, 1, 1);
         
         selecao_vila(_x, _y, _xscale, _yscale);
     }
