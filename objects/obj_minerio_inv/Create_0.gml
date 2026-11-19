@@ -62,7 +62,7 @@ selecao = function()
         else
         {
             //efeito de shake
-            if (mouse_check_button_pressed(mb_left))
+            if (global.mouse_pressed)
             {
                 shake = true;
             }
@@ -77,7 +77,7 @@ selecao = function()
 
 interage_refina = function()
 {
-    if (mouse_check_button_pressed(mb_left))
+    if (global.mouse_pressed)
     {
         //mostrando o item no prato
         with (obj_prato) 
@@ -121,7 +121,7 @@ interage_shop = function()
     }
     
     //vendendo minerio
-    if (mouse_check_button_pressed(mb_left))
+    if (global.mouse_pressed)
     {
         var _qtd = global.inventario_global[$ categoria][$item];
         var _qtd_venda = 0;

@@ -26,13 +26,12 @@ troca_modo = function()
 selecao = function()
 {
     var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
-    var _mouse_click = mouse_check_button_pressed(mb_left);
     
     if (_mouse_sobre)
     {
         escala.atualiza(1.3,, .2);
         
-        if (_mouse_click) 
+        if (global.mouse_pressed) 
         {
             troca_modo();
             

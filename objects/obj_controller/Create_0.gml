@@ -1,6 +1,8 @@
 //atualizando o tamanho do display pra full hd
 display_set_gui_size(1920, 1080);
 
+global.mouse_hud = false;
+
 //setando a fonte com outline
 var _x = 0;
 var _y = 2;

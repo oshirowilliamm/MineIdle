@@ -32,7 +32,7 @@ info = noone;
 abre_inventario = function()
 {
     //se tiver nas lojas
-    if (array_contains(global.rooms_vila, room))
+    if (array_contains(global.rooms_loja, room))
     {
         x_geral = 450;
         inventario = true;

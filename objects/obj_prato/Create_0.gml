@@ -18,9 +18,7 @@ y_desenho = y;
 
 devolve_item = function()
 {
-    var _mouse_click = mouse_check_button_pressed(mb_left);
-    
-    if (_mouse_click)
+    if (global.mouse_pressed)
     {
         //desativando o desenho
         desenho = false;

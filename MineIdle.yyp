@@ -99,7 +99,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2026.0.0.16",
+    "IDEVersion":"2026.1.0.27",
   },
   "name":"MineIdle",
   "resources":[
@@ -112,6 +112,7 @@
     {"id":{"name":"obj_balanca","path":"objects/obj_balanca/obj_balanca.yy",},},
     {"id":{"name":"obj_barril1","path":"objects/obj_barril1/obj_barril1.yy",},},
     {"id":{"name":"obj_botao_mult","path":"objects/obj_botao_mult/obj_botao_mult.yy",},},
+    {"id":{"name":"obj_botao_voltar","path":"objects/obj_botao_voltar/obj_botao_voltar.yy",},},
     {"id":{"name":"obj_buraco","path":"objects/obj_buraco/obj_buraco.yy",},},
     {"id":{"name":"obj_calcada","path":"objects/obj_calcada/obj_calcada.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
@@ -420,11 +421,11 @@
   "resourceType":"GMProject",
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
+    {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
     {"roomId":{"name":"rm_mina","path":"rooms/rm_mina/rm_mina.yy",},},
+    {"roomId":{"name":"rm_shop","path":"rooms/rm_shop/rm_shop.yy",},},
     {"roomId":{"name":"rm_shop_picareta","path":"rooms/rm_shop_picareta/rm_shop_picareta.yy",},},
     {"roomId":{"name":"rm_refinacao","path":"rooms/rm_refinacao/rm_refinacao.yy",},},
-    {"roomId":{"name":"rm_vila","path":"rooms/rm_vila/rm_vila.yy",},},
-    {"roomId":{"name":"rm_shop","path":"rooms/rm_shop/rm_shop.yy",},},
     {"roomId":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},},
   ],
   "templateType":"game",

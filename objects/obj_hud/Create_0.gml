@@ -2,7 +2,6 @@
 escala_mochila = new efeito_escala();
 escala_stamina = new efeito_escala();
 escala_moeda = new efeito_escala();
-escala_voltar = new efeito_escala();
 escala_vila = new efeito_escala();
 
 
@@ -451,59 +450,6 @@ escala_vila = new efeito_escala();
     
 #endregion
 
-#region Voltar
-    
-    voltar_esc = function()
-    {
-        if (!array_contains(global.rooms_vila, room)) return;
-        
-        //indo pra vila
-        if (keyboard_check_pressed(vk_escape))
-        {
-            cria_transicao(rm_vila, sq_transicao_1_loja, sq_transicao_2_loja, "tela");
-            global.spawn_x = global.dest_x;
-            global.spawn_y = global.dest_y;
-        }
-    }
-    
-    selecao_voltar = function(_x, _y)
-    {
-        if (mouse_sobre_ui(_x, _y, spr_voltar, global.escala_hud))
-        {
-            //efeito squash
-            escala_voltar.atualiza(1.5, 1.5, .1);
-            
-            //indo pra vila
-            if (mouse_check_button_pressed(mb_left))
-            {
-                cria_transicao(rm_vila, sq_transicao_1_loja, sq_transicao_2_loja, "tela");
-                global.spawn_x = global.dest_x;
-                global.spawn_y = global.dest_y;
-            }
-        }
-        else
-        {
-            //retorna squash
-            escala_voltar.retorna(.1);
-        }
-    }
-    
-    desenha_voltar = function()
-    {
-        if (!array_contains(global.rooms_vila, room)) return;
-        
-        var _xscale = 6 * escala_voltar.xscale;
-        var _yscale = 6 * escala_voltar.yscale;
-        var _x = display_get_gui_width() - sprite_get_width(spr_voltar) * 6;
-        var _y = display_get_gui_height() - sprite_get_height(spr_voltar) * 6;
-        
-        draw_sprite_ext(spr_voltar, 0, _x, _y, _xscale, _yscale, 0, c_white, 1);
-        
-        selecao_voltar(_x, _y);
-    }
-    
-#endregion
-
 #region Botão Vila
     
     selecao_vila = function(_x, _y, _xscale, _yscale)
@@ -513,7 +459,7 @@ escala_vila = new efeito_escala();
             global.mouse_hud = true;
             escala_vila.atualiza(1.1, 1.1);
             
-            if (mouse_check_button_pressed(mb_left))
+            if (global.mouse_pressed)
             {
                 cria_transicao(rm_vila);
                 global.spawn_x = SPAWN_X_VILA;
@@ -552,6 +498,5 @@ desenha_hud = function()
     desenha_mochila();
     desenha_stamina();
     desenha_moeda();
-    desenha_voltar();
     desenha_botao_vila();
 }

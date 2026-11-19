@@ -308,7 +308,7 @@ depth = -99999;
         //mouse em cima do mapa: o jogo não deve minerar
         global.mouse_hud = true;
 
-        if (mouse_check_button_pressed(mb_left))
+        if (global.mouse_pressed)
         {
             var _x = X_INICIAL + _cel.col * BLOCO_WIDTH;
             var _y = Y_INICIAL + _cel.linha * BLOCO_HEIGHT;
@@ -327,7 +327,7 @@ depth = -99999;
         if (_e == _p.estado_andando)    return "andando";
         if (_e == _p.estado_minerando)  return "minerando";
         if (_e == _p.estado_desmaio)    return "desmaio";
-        if (_e == _p.estado_desativado) return "desativado";
+        if (_e == _p.estado_transicao) return "transicao";
         return "?";
     }
 
@@ -554,8 +554,6 @@ depth = -99999;
             global.dest_y = SPAWN_Y_VILA;
         }
 
-        if (instance_exists(obj_player)) obj_player.estado = obj_player.estado_desativado;
-
         cria_transicao(_sala);
     }
 
@@ -579,7 +577,7 @@ depth = -99999;
         show_debug_overlay(true);
         painel_view = dbg_view("MineIdle Debug", true, 20, 60, 400, 720);
 
-        dbg_section("Desempenho", true);
+        dbg_section("Desempenho", false);
         dbg_watch(ref_create(id, "n_instancias"), "Instâncias");
         dbg_watch(ref_create(id, "n_minerio"), "Blocos (obj_minerio)");
         dbg_watch(ref_create(id, "blocos_criados_seg"), "Blocos criados/s");
@@ -588,7 +586,7 @@ depth = -99999;
         dbg_watch(ref_create(id, "n_sombra"), "Sombras");
         dbg_checkbox(ref_create(id, "mostra_monitor"), "Monitor na tela (F1)");
 
-        dbg_section("Visualização", true);
+        dbg_section("Visualização", false);
         dbg_checkbox(ref_create(id, "mostra_hitbox"), "Hitboxes (F2)");
         dbg_checkbox(ref_create(id, "mostra_linha"), "Linha de mineração (F2)");
         dbg_checkbox(ref_create(id, "mostra_info_player"), "Info do player");
@@ -615,12 +613,12 @@ depth = -99999;
         dbg_slider(ref_create(global.picareta, "dano"), 1, 500, "Dano", 1);
         dbg_slider(ref_create(global.picareta, "cooldown"), 1, 60, "Cooldown (frames)", 1);
 
-        dbg_section("Mina", false);
+        dbg_section("Mina", true);
         dbg_checkbox(ref_create(id, "sem_escuridao"), "Sem escuridão (F7)");
         dbg_button("Limpar blocos da tela", limpa_blocos_tela);
         dbg_button("Regenerar mina", regenera_mina);
 
-        dbg_section("Economia", false);
+        dbg_section("Economia", true);
         dbg_button("Moeda x10", ganha_dinheiro);
         dbg_same_line();
         dbg_button("+1M", dinheiro_milhao);

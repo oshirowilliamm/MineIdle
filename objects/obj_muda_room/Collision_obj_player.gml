@@ -7,8 +7,5 @@ if (pode_ir)
     //criando a transicao
     cria_transicao(destino);
     
-    //desativando o player
-    other.estado = other.estado_desativado;
-    
     pode_ir = false
 }

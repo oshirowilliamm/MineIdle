@@ -45,14 +45,13 @@ alimentando = function()
 selecao = function()
 {
     var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
-    var _mouse_click = mouse_check_button_pressed(mb_left);
     
     if (_mouse_sobre && obj_prato.desenho)
     {
         y_atual = lerp(y_atual, ystart + 10, .1);
         
         //quando clicar, alimenta
-        if (_mouse_click)
+        if (global.mouse_pressed)
         {
             alimentando();
         }

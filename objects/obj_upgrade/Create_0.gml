@@ -106,7 +106,6 @@ cria_info = function()
 selecao = function()
 {
     var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
-    var _mouse_click = mouse_check_button_pressed(mb_left);
     
     if (_mouse_sobre)
     {
@@ -115,7 +114,7 @@ selecao = function()
         y_efeito = lerp(y_efeito, ystart - 15, .1);
         
         //evento de compra do upgrade
-        if (_mouse_click) comprando();
+        if (global.mouse_pressed) comprando();
         
         //criando a info do upgrade
         if (!instance_exists(info))

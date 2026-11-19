@@ -1,5 +1,12 @@
 movimento();
 estado();
 outras_funcoes();
-efeito_stamina();
-mochila_cheia();
+
+//y com offset
+yy = y - 15;
+
+//retornando efeitos
+escala.retorna();
+retorna_efeito_brilho();
+
+//show_debug_message(alpha_brilho)

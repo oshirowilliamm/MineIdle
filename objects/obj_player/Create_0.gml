@@ -6,15 +6,15 @@ inicia_efeito_brilho();
 hspd = 0;
 vspd = 0;
 yy = y;
+direcao = 1;
+dir = 1;
 
 //variaveis pra colisao
-colisoes_originais = [obj_colisao, layer_tilemap_get_id("Tile_Parede")];
-colisoes = colisoes_originais;
+colisoes_originais = noone;
+colisoes = noone;
 
 //variaveis de estado
 estado = noone;
-direcao = 1;
-dir = 1;
 tempo_desmaio = 0;
 
 //variaveis para minerar
@@ -25,120 +25,6 @@ golpe_aplicado = false;
 picareta = instance_create_depth(x, y, depth, obj_picareta);
 picareta.dono = id;
 
-
-
-
-
-//outras funções
-ajusta_escala = function()
-{
-    //pegando a direção do mouse
-    var _dir = point_direction(x, y, mouse_x, mouse_y);
-    
-    //aplicando na direção do player
-    direcao = round(_dir / 90) % 4;
-}
-
-outras_funcoes = function()
-{
-    //ajustando o depth de acordo com a room
-    if (!array_contains(global.rooms_mina, room))
-    {
-        depth = -y;
-    }
-    else
-    {
-        depth = layer_get_depth("Tile_Parede") - 10;
-    }
-    
-    //y com offset
-    yy = y - 15;
-    
-    //efeitos
-    escala.retorna();
-    retorna_efeito_brilho();
-}
-
-player_spawn_posicao = function()
-{
-    if (global.spawn_x != -1 && global.spawn_y != -1)
-    {
-        //colocando a posição do player na posição do spawn
-        x = global.spawn_x;
-        y = global.spawn_y;
-        
-        //resetando o valor do spawn
-        global.spawn_x = -1;
-        global.spawn_y = -1;
-        
-        //resetando variaveis do player
-        image_index = 0;
-        image_xscale = 1;
-        image_yscale = 1;
-        image_angle = 0;
-        visible = true;
-        usando_equip = false;
-        golpe_aplicado = false;
-        tempo_desmaio = 0;
-        
-        //resetando a picareta
-        if (instance_exists(picareta))
-        {
-            picareta.encerra_golpe();
-            picareta.cooldown_atual = 0;
-        }
-        
-        //garatindo seu estado
-        estado = estado_parado;
-    }
-}
-
-descarrega_mochila = function()
-{
-    if (room != rm_vila) return;
-    
-    var _chaves = struct_get_names(global.mochila.itens);
-    
-    for (var i = 0; i < array_length(_chaves); i++)
-    {
-        var _item = _chaves[i];
-        var _qtd  = global.mochila.itens[$ _item];
-        
-        //criando a chave
-        if (global.inventario_global.minerios[$ _item] == undefined)
-        {
-            global.inventario_global.minerios[$ _item] = 0;
-        }
-        
-        //adicionando os itens no inventario global
-        global.inventario_global.minerios[$ _item] += _qtd;
-    }
-    
-    //zerando a mochila
-    global.mochila.itens = {};
-    global.mochila.peso_atual = 0;
-}
-
-mochila_cheia = function()
-{
-    if (global.mochila.peso_atual >= global.mochila.max_peso)
-    {
-        estado = estado_desmaio;
-    }
-}
-
-atualiza_colisao = function()
-{
-    var _tile = noone;
-    
-    if (layer_exists("Tile_Parede"))
-    {
-        _tile = layer_tilemap_get_id("Tile_Parede");
-    }
-    
-    colisoes_originais = [obj_colisao, _tile];
-    colisoes = colisoes_originais;
-}
 
 
 
@@ -183,116 +69,25 @@ movimento = function()
     move_and_collide(0, vspd, colisoes, 12); //vertical
 }
 
+ajusta_direcao = function()
+{
+    //pegando a direção do mouse
+    var _dir = point_direction(x, y, mouse_x, mouse_y);
+    
+    //aplicando na direção do player
+    direcao = round(_dir / 90) % 4;
+}
+
 controla_player = function()
 {
     inputs();
     aplica_velocidade();
-    ajusta_escala();
+    ajusta_direcao();
 }
 
 
 
-//metodos de stamina
-efeito_stamina = function()
-{
-    //se estiver fora da mina, recarrega a stamina
-    if (!array_contains(global.rooms_mina, room))
-    {
-        global.dados.stamina_atual = global.dados.stamina_max;
-    }
-    //se estiver na mina
-    else
-    {
-        if (estado != estado_desmaio)
-        {
-            //se acabar, vai pro estado de desmaio
-            if (global.dados.stamina_atual <= 0)
-            {
-                estado = estado_desmaio;
-                tempo_desmaio = 0;
-            }
-        }
-    }
-    
-    //garatindo que a stamina zere
-    if (global.dados.stamina_atual < 0)
-    {
-        global.dados.stamina_atual = 0;
-    }
-}
-
-
-
-//metodos de mineração
-fim_animacao_minerar = function()
-{
-    if (image_index >= image_number - 1)
-    {
-        golpe_aplicado = false;
-        
-        //se continuar minerando
-        if (click && picareta.cooldown_atual <= 0)
-        {
-            image_index = 0;
-            picareta.inicia_golpe();
-        }
-        //se parar de minerar
-        else
-        {
-            usando_equip = false;
-            picareta.encerra_golpe();
-            estado = estado_andando;
-            
-            //voltando a velocidade
-            image_speed = 1;
-        }
-    }
-}
-
-usa_equipamento = function()
-{
-    if (global.mouse_hud) return;
-    
-    if (click && array_contains(global.rooms_mina, room))
-    {
-        //se o equip ainda n ta sendo usado e o cooldown deixar
-        if (!usando_equip && picareta.cooldown_atual <= 0)
-        {
-            //avisando que to usando o equip
-            usando_equip = true; 
-            golpe_aplicado = false;
-            
-            //inicia o golpe da picareta
-            picareta.inicia_golpe();
-            
-            estado = estado_minerando;
-            image_index = 0;
-            
-            //velocidade da picareta
-            image_speed = 30 / max(1, global.picareta.cooldown);
-        }
-    }
-}
-
-quebra_bloco = function()
-{
-    //quebra quando chegar no frame certo
-    if (image_index >= 2 && !golpe_aplicado)
-    {
-        //realizando o golpe da picareta
-        picareta.aplica_golpe();
-        
-        //efeito
-        escala.squash(1.5, .8);
-        
-        //aplicando golpe
-        golpe_aplicado = true;
-    }
-}
-
-
-
-//metodos de auxilio pro estado
+//auxilio pro estado
 define_sprite = function(_spr_front, _spr_side, _spr_back)
 {
     var _sprite = sprite_index;
@@ -337,6 +132,75 @@ define_sprite = function(_spr_front, _spr_side, _spr_back)
     if (sprite_index != _sprite)
     {
         sprite_index = _sprite;
+    }
+}
+
+
+
+//metodos de mineração
+usa_equipamento = function()
+{
+    if (global.mouse_hud) return;
+    
+    if (click && array_contains(global.rooms_mina, room))
+    {
+        //se o equip ainda n ta sendo usado e o cooldown deixar
+        if (!usando_equip && picareta.cooldown_atual <= 0)
+        {
+            //avisando que to usando o equip
+            usando_equip = true; 
+            golpe_aplicado = false;
+            
+            //inicia o golpe da picareta
+            picareta.inicia_golpe();
+            
+            estado = estado_minerando;
+            image_index = 0;
+            
+            //velocidade da picareta
+            image_speed = 30 / max(1, global.picareta.cooldown);
+        }
+    }
+}
+
+quebra_bloco = function()
+{
+    //quebra quando chegar no frame certo
+    if (image_index >= 2 && !golpe_aplicado)
+    {
+        //realizando o golpe da picareta
+        picareta.aplica_golpe();
+        
+        //efeito
+        escala.squash(1.5, .8);
+        
+        //aplicando golpe
+        golpe_aplicado = true;
+    }
+}
+
+fim_animacao_minerar = function()
+{
+    if (image_index >= image_number - 1)
+    {
+        golpe_aplicado = false;
+        
+        //se continuar minerando
+        if (click && picareta.cooldown_atual <= 0)
+        {
+            image_index = 0;
+            picareta.inicia_golpe();
+        }
+        //se parar de minerar
+        else
+        {
+            usando_equip = false;
+            picareta.encerra_golpe();
+            estado = estado_andando;
+            
+            //voltando a velocidade
+            image_speed = 1;
+        }
     }
 }
 
@@ -422,7 +286,7 @@ estado_desmaio = function()
     }
 }
 
-estado_desativado = function()
+estado_transicao = function()
 {
     define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
     
@@ -430,36 +294,194 @@ estado_desativado = function()
     hspd = 0;
     vspd = 0;
     
-    //so sai do estado se n tiver em room de loja
-    if (!array_contains(global.rooms_vila, room))
+    //se acabou a transicao, sai do estado
+    if (!global.transicao) 
     {
-        visible = true;
-        
-        //se acabou a transicao, sai do estado
-        if (!instance_exists(obj_transicao)) 
+        estado = estado_parado;
+    }
+}
+
+
+#region Outros Métodos
+    
+    //metodos de stamina
+    efeito_stamina = function()
+    {
+        //se estiver fora da mina, recarrega a stamina
+        if (!array_contains(global.rooms_mina, room))
         {
+            global.dados.stamina_atual = global.dados.stamina_max;
+        }
+        //se estiver na mina
+        else
+        {
+            if (estado != estado_desmaio)
+            {
+                //se acabar, vai pro estado de desmaio
+                if (global.dados.stamina_atual <= 0)
+                {
+                    estado = estado_desmaio;
+                    tempo_desmaio = 0;
+                }
+            }
+        }
+        
+        //garatindo que a stamina zere
+        if (global.dados.stamina_atual < 0)
+        {
+            global.dados.stamina_atual = 0;
+        }
+    }
+    
+    
+    
+    //metodos de mochila
+    mochila_cheia = function()
+    {
+        if (global.mochila.peso_atual >= global.mochila.max_peso)
+        {
+            estado = estado_desmaio;
+        }
+    }
+    
+    descarrega_mochila = function()
+    {
+        if (room != rm_vila) return;
+        
+        var _chaves = struct_get_names(global.mochila.itens);
+        
+        for (var i = 0; i < array_length(_chaves); i++)
+        {
+            var _item = _chaves[i];
+            var _qtd  = global.mochila.itens[$ _item];
+            
+            //criando a chave
+            if (global.inventario_global.minerios[$ _item] == undefined)
+            {
+                global.inventario_global.minerios[$ _item] = 0;
+            }
+            
+            //adicionando os itens no inventario global
+            global.inventario_global.minerios[$ _item] += _qtd;
+        }
+        
+        //zerando a mochila
+        global.mochila.itens = {};
+        global.mochila.peso_atual = 0;
+    }
+    
+    
+    
+    //metodos de room e posição
+    player_spawn_posicao = function()
+    {
+        if (global.spawn_x != -1 && global.spawn_y != -1)
+        {
+            //colocando a posição do player na posição do spawn
+            x = global.spawn_x;
+            y = global.spawn_y;
+            
+            //resetando o valor do spawn
+            global.spawn_x = -1;
+            global.spawn_y = -1;
+            
+            //resetando variaveis do player
+            image_index = 0;
+            image_xscale = 1;
+            image_yscale = 1;
+            image_angle = 0;
+            usando_equip = false;
+            golpe_aplicado = false;
+            tempo_desmaio = 0;
+            
+            //resetando a picareta
+            if (instance_exists(picareta))
+            {
+                picareta.encerra_golpe();
+                picareta.cooldown_atual = 0;
+            }
+            
+            //garatindo seu estado
             estado = estado_parado;
         }
     }
     
-    //se ele esta em room de vila
-    else
+    atualiza_colisao = function()
     {
-        //fica invisivel
-        visible = false;
+        var _tile = noone;
         
-        //vai pro meio da tela
-        x = room_width / 2;
-        y = room_height / 2;
+        if (layer_exists("Tile_Parede"))
+        {
+            _tile = layer_tilemap_get_id("Tile_Parede");
+        }
+        
+        colisoes_originais = [obj_colisao, _tile];
+        colisoes = colisoes_originais;
     }
-}
- 
+    
+    consulta_transicao = function()
+    {
+        //se tiver em transição, congela o player
+        if (global.transicao)
+        {
+            estado = estado_transicao;
+        }
+    }
+    
+    em_room_loja = function()
+    {
+        //desativando o player nas rooms de loja
+        if (array_contains(global.rooms_loja, room))
+        {
+            //travando o player
+            visible = false;
+            hspd = 0;
+            vspd = 0;
+            
+            //deixando no centro
+            x = room_width / 2;
+            y = room_height / 2;
+        }
+        else
+        {
+            visible = true;
+        }
+    }
+    
+    ajusta_depth = function()
+    {
+        if (!array_contains(global.rooms_mina, room))
+        {
+            depth = -y;
+        }
+        else
+        {
+            depth = layer_get_depth("Tile_Parede") - 10;
+        }
+    }
+    
+    
+    
+    //metodo com os metodos 
+    outras_funcoes = function()
+    {
+        efeito_stamina();
+        mochila_cheia();
+        consulta_transicao();
+        em_room_loja();
+        ajusta_depth();
+    }
+    
+#endregion
+
+
 
 
 //aplicamendo meu estado
 estado = estado_parado;
 
-
+//atualizando colisao
+atualiza_colisao();
 
 //criando minha sombra
 sombra = instance_create_depth(x, y, 1, obj_sombra);

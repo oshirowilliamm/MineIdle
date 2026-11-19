@@ -8,6 +8,7 @@
   "instanceCreationOrder":[
     {"name":"inst_862320_1","path":"rooms/rm_shop_picareta/rm_shop_picareta.yy",},
     {"name":"inst_52D15FBD","path":"rooms/rm_shop_picareta/rm_shop_picareta.yy",},
+    {"name":"inst_43C78299","path":"rooms/rm_shop_picareta/rm_shop_picareta.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -18,6 +19,7 @@
             {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_troca_shop","path":"objects/obj_troca_shop/obj_troca_shop.yy",},"propertyId":{"name":"texto","path":"objects/obj_troca_shop/obj_troca_shop.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"\"Vendas\"",},
           ],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.5,"scaleY":1.5,"x":596.0,"y":40.0,},
         {"$GMRInstance":"v4","%Name":"inst_52D15FBD","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_52D15FBD","objectId":{"name":"obj_carrossel_picareta","path":"objects/obj_carrossel_picareta/obj_carrossel_picareta.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":-16.0,"y":-32.0,},
+        {"$GMRInstance":"v4","%Name":"inst_43C78299","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_43C78299","objectId":{"name":"obj_botao_voltar","path":"objects/obj_botao_voltar/obj_botao_voltar.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":16.0,"y":-16.0,},
       ],"layers":[],"name":"HUD","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRInstanceLayer":"","%Name":"Itens","depth":100,"effectEnabled":true,"effectType":"none","gridX":8,"gridY":8,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"Itens","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRAssetLayer":"","%Name":"Mesa","assets":[
