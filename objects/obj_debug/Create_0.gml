@@ -18,6 +18,7 @@
 //inicializadas antes do guard porque o CleanUp usa elas
 painel_view  = -1;
 mapa_surface = -1;
+fps_atual = -1;
 
 if (!DEBUG_MODE)
 {
@@ -535,17 +536,20 @@ depth = -99999;
     vai_para_sala = function(_sala)
     {
         if (global.transicao || _sala == room) return;
-
+        
+        var _x = -1;
+        var _y = -1;
+        
         //mina e vila têm ponto de spawn; as lojas usam o player desativado
         if (array_contains(global.rooms_mina, _sala))
         {
-            global.spawn_x = SPAWN_X_MINA;
-            global.spawn_y = SPAWN_Y_MINA;
+            _x = SPAWN_X_MINA;
+            _y = SPAWN_Y_MINA;
         }
         else if (_sala == rm_vila)
         {
-            global.spawn_x = SPAWN_X_VILA;
-            global.spawn_y = SPAWN_Y_VILA;
+            _x = SPAWN_X_VILA;
+            _y = SPAWN_Y_VILA;
         }
         else
         {
@@ -554,7 +558,7 @@ depth = -99999;
             global.dest_y = SPAWN_Y_VILA;
         }
 
-        cria_transicao(_sala);
+        cria_transicao(_sala,, _x, _y);
     }
 
     tira_screenshot = function()
@@ -578,6 +582,7 @@ depth = -99999;
         painel_view = dbg_view("MineIdle Debug", true, 20, 60, 400, 720);
 
         dbg_section("Desempenho", false);
+        dbg_watch(ref_create(id, "fps_atual"), "FPS");
         dbg_watch(ref_create(id, "n_instancias"), "Instâncias");
         dbg_watch(ref_create(id, "n_minerio"), "Blocos (obj_minerio)");
         dbg_watch(ref_create(id, "blocos_criados_seg"), "Blocos criados/s");

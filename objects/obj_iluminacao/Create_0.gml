@@ -55,7 +55,10 @@ brilho_minerio = function(_cam_x, _cam_y)
             var _brilho = clamp(_tempo_apagado, 0, .3);
             
         	//desenhando o brilho
-            draw_sprite_ext(spr_blocos_brilho, image_index, _x, _y, xscale, yscale, 0, c_white, _brilho);
+            if (_brilho > 0)
+            {
+                draw_sprite_ext(spr_blocos_brilho, image_index, _x, _y, xscale, yscale, 0, c_white, _brilho);
+            }
         }
     }
 }

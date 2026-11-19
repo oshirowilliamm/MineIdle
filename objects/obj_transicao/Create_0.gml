@@ -51,6 +51,13 @@ atualiza_posicao_sequence = function()
             layer_sequence_x(seq, _cam_x);
             layer_sequence_y(seq, _cam_y);
         }
+        
+        //atualizando a escala de acordo com o zoom
+        if (room == rm_upgrade && instance_exists(obj_camera))
+        {
+            layer_sequence_xscale(seq, camera_get_view_width(view_camera[0]) / obj_camera.cam_width);
+            layer_sequence_yscale(seq, camera_get_view_height(view_camera[0]) / obj_camera.cam_height);
+        }
     }
 }
 

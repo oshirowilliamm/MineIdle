@@ -9,4 +9,4 @@ yy = y - 15;
 escala.retorna();
 retorna_efeito_brilho();
 
-//show_debug_message(alpha_brilho)
+show_debug_message(view_camera[0])

@@ -9,3 +9,5 @@ if (global.debug && instance_exists(obj_player))
 {
     estado_player_txt = "Estado: " + nome_estado(obj_player);
 }
+
+fps_atual = round(fps_real);

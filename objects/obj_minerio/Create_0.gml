@@ -53,7 +53,7 @@ cria_drop = function(_minerio)
         tipo: tipo_bloco
     }
     
-    var _qtd = 1;
+    var _qtd = 1000;
     
     //verificando a chance de dropar mais de um
     if (random(100) < global.dados.chance_drop)

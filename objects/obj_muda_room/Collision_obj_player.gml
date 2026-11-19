@@ -1,11 +1,7 @@
 if (pode_ir)
 {
-    //definindo o spawn do player
-    global.spawn_x = destino_x;
-    global.spawn_y = destino_y;
-    
     //criando a transicao
-    cria_transicao(destino);
+    cria_transicao(destino,, destino_x, destino_y);
     
     pode_ir = false
 }

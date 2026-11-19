@@ -281,8 +281,6 @@ estado_desmaio = function()
     if (tempo_desmaio >= 1.5 * FPS)
     {
         cria_transicao(rm_vila);
-        global.spawn_x = SPAWN_X_VILA;
-        global.spawn_y = SPAWN_Y_VILA;
     }
 }
 

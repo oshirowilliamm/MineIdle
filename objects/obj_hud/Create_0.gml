@@ -462,8 +462,6 @@ escala_vila = new efeito_escala();
             if (global.mouse_pressed)
             {
                 cria_transicao(rm_vila);
-                global.spawn_x = SPAWN_X_VILA;
-                global.spawn_y = SPAWN_Y_VILA;
             }
         }
         else

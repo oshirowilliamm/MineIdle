@@ -32,7 +32,7 @@ selecao = function()
         //clicando
         if (global.mouse_released)
         {
-            cria_transicao(destino, sq_transicao_1_loja, sq_transicao_2_loja);
+            cria_transicao(destino);
         }
     }
     //normal

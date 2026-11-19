@@ -6,9 +6,8 @@ tecla = noone;
 
 entra_loja = function()
 {
-    cria_transicao(destino);
+    cria_transicao(destino, "tela");
     
-    //definindo a posição do player quando voltar
     global.dest_x = dest_x;
     global.dest_y = dest_y;
 }
