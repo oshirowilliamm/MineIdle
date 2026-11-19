@@ -137,6 +137,7 @@ atualiza_colisao = function()
     }
     
     colisoes_originais = [obj_colisao, _tile];
+    colisoes = colisoes_originais;
 }
 
 

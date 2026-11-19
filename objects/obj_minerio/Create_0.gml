@@ -33,7 +33,7 @@ descarrega_bloco = function()
     var _vw = camera_get_view_width(view_camera[0]);
     
     //pegando inicio e fim da camera
-    var _margem = BLOCO_WIDTH * 2;
+    var _margem = (MARGEM + 1) * BLOCO_WIDTH;
     var _inicio = _vx - _margem;
     var _fim    = _vx + _vw + _margem;
     

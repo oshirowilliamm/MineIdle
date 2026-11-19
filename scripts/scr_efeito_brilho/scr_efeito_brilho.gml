@@ -21,7 +21,7 @@ function retorna_efeito_brilho(_spd = .1)
 
 function desenha_efeito_brilho()
 {
-    if (alpha_brilho <= 0) return;
+    if (alpha_brilho < 0.01) return;
     
     shader_set(sh_muda_cor);
     draw_sprite_ext(sprite_index, image_index, x, y, xscale * dir, yscale, image_angle, cor_brilho, alpha_brilho);

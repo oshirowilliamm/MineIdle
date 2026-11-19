@@ -210,7 +210,7 @@ botao_comprar = function(_y)
         {
             var _texto = string("[wave][cor_positivo]EQUIPAR[/]");
             texto_scribble(_x, _y, _texto, 2 * escala_botao.xscale,, 1, 1);
-        }a
+        }
     }
     //se a picareta não foi adquirida
     else

@@ -186,7 +186,7 @@ function cria_persistentes(_player = true, _controller = true, _hud = true, _deb
     }
     
     //debug
-    if (!instance_exists(obj_debug) && _debug) 
+    if (DEBUG_MODE && !instance_exists(obj_debug) && _debug) 
     {
         instance_create_layer(0, 0, "HUD", obj_debug);
     }
@@ -306,3 +306,14 @@ function tween_scale (_dest, _anim, _time = 60)
 }
 
 
+//mensagem de debug: vai pro console e aparece na tela (obj_debug)
+//uso: log_debug("bloco quebrado: " + tipo_bloco);
+function log_debug(_texto)
+{
+    if (!DEBUG_MODE) return;
+    
+    _texto = string(_texto);
+    show_debug_message("[debug] " + _texto);
+    
+    if (instance_exists(obj_debug)) obj_debug.adiciona_log(_texto);
+}
