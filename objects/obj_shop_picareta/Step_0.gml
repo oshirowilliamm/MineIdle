@@ -1,2 +1,3 @@
-image_index = index;
+status_picareta();
+posicao();
 selecao();

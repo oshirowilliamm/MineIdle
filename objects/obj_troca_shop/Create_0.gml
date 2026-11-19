@@ -1,25 +1,15 @@
-shop = ["venda", "picareta"];
-atual = 0;
+image_index = index;
 
 
 
-
-muda_shop = function()
+mostra_nome = function()
 {
-    //mudando o icone
-    image_index = !image_index;
+    var _mouse_sobre = position_meeting(mouse_x, mouse_y, id);
     
-    //mudando o shop
-    if (atual < 1)
+    if (_mouse_sobre)
     {
-        atual++;
+        texto_scribble(x - sprite_width / 2, y, texto, 1,, 2, 1);
     }
-    else
-    {
-        atual = 0;
-    }
-    
-    global.shop = shop[atual];
 }
 
 selecao = function()
@@ -42,7 +32,7 @@ selecao = function()
         //clicando
         if (global.mouse_released)
         {
-            muda_shop();
+            cria_transicao(destino);
         }
     }
     //normal

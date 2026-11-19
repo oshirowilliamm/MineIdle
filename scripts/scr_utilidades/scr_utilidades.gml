@@ -12,7 +12,7 @@ global.dest_y  = -1;
 
 //rooms
 global.rooms_mina = [rm_mina];
-global.rooms_vila = [rm_shop, rm_upgrade, rm_refinacao];
+global.rooms_vila = [rm_shop, rm_shop_picareta, rm_upgrade, rm_refinacao];
 
 //variavel pra saber qual a pedra do bioma atual (refinacao)
 global.pedra_atual = "b1_pedra";
@@ -23,6 +23,3 @@ global.upgrades_bloqueado = true;
 
 //variavel do botão de multiplicação do shop
 global.modo_venda = 1;
-
-//variavel pra controlar o shop ou a loja de picaretas
-global.shop = "venda";

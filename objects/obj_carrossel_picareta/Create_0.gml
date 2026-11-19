@@ -1,4 +1,22 @@
-atualiza_picaretas = function()
+centro = room_width / 2;
+y_picaretas = 235;
+espaco = 200;
+vendo = global.nivel_picareta;
+
+
+
+proxima = function()
+{
+    //pegando a proxima picareta depois da comprada
+    for (var i = 0; i < array_length(global.tipos_picareta); i++)
+    {
+        if (!global.tipos_picareta[i].comprada) return i;
+    }
+    
+    return -1; //todas foram compradas
+}
+
+cria_picaretas = function()
 {
     //destruindo as picaretas
     if (instance_exists(obj_shop_picareta))
@@ -7,16 +25,12 @@ atualiza_picaretas = function()
     }
     
     //criando as picaretas
-    if (global.shop == "picareta")
+    for (var i = 0; i < array_length(global.tipos_picareta); i++)
     {
-        var _x = 110;
-        var _y = 222;
-        var _espaco = 200;
+        var _x = centro * (i - vendo) * espaco;
         
-        for (var i = 0; i < 3; i++)
-        {
-        	var _picaretas = instance_create_layer(_x + (i * _espaco), _y, "Itens", obj_shop_picareta);
-            _picaretas.index = i;
-        }
+        instance_create_layer(_x, y_picaretas, "Itens", obj_shop_picareta, {index: i});
     }
 }
+
+cria_picaretas();

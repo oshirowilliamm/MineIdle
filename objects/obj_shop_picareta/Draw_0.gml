@@ -1,4 +1,5 @@
 //desenhando pedestal
-draw_sprite(spr_pedestal, 0, x, y_inicial + 50);
+draw_sprite(spr_pedestal, 0, x, y_pedestal + 50);
 
-draw_self();
+//me desenhando de acordo com o status
+me_desenhando();

@@ -1,4 +1,3 @@
-
 escala = global.escala_hud;
 
 x_geral = 0;

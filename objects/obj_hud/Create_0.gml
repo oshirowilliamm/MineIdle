@@ -104,7 +104,7 @@ escala_vila = new efeito_escala();
             var _max = _my - _hfundo / 1.5;
             var _yfundo = min(_min, _max);
             
-            draw_sprite_stretched(spr_caixa_fundo, 0, _xfundo, _yfundo, _wfundo, _hfundo);
+            draw_sprite_stretched(spr_caixa_gui, 0, _xfundo, _yfundo, _wfundo, _hfundo);
             
             //desenhando a barra
             var _xbar = _xfundo + 20;
@@ -435,7 +435,7 @@ escala_vila = new efeito_escala();
         var _yscale = 2 * escala_moeda.yscale;
         
         //desenhando fundo
-        draw_sprite_stretched(spr_caixa_fundo, 0, _x, _y, _w, _h);
+        draw_sprite_stretched(spr_caixa_gui, 0, _x, _y, _w, _h);
         
         //desenhando pedras
         if (room == rm_refinacao)
