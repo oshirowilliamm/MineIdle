@@ -35,8 +35,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_loja",
-    "path":"sprites/spr_loja/spr_loja.yy",
+    "name":"spr_lesma",
+    "path":"sprites/spr_lesma/spr_lesma.yy",
   },
   "spriteMaskId":null,
   "visible":true,
