@@ -106,6 +106,38 @@ encerra_golpe = function()
     visible = false;
 }
 
+efeito_numero = function(_dano, _critico)
+{
+    var _variaveis = {};
+    
+    //modificando o texto
+    if (!_critico)
+    {
+        _variaveis = 
+        {
+            texto: string("{0}", _dano),
+            cor: c_white,
+            scale_inicial: 1
+        }
+    }
+    else
+    {
+        _variaveis = 
+        {
+            texto: string("[shake]{0}![/]", _dano),
+            cor: cor_negativo,
+            scale_inicial: 1.5
+        }
+    }
+    
+    //criando o numero
+    var _random = choose(-3, -2, 2, 3);
+    var _x = bloco.x + _random;
+    var _y = bloco.y - 10 + _random;
+    
+    instance_create_depth(_x, _y, -9999, obj_efx_numero, _variaveis);
+}
+
 aplica_golpe = function()
 {
     if (global.dados.stamina_atual > 0)
@@ -129,9 +161,7 @@ aplica_golpe = function()
             global.dados.stamina_atual -= bloco.custo_stamina;
             
             //efeito de numero
-            var _num = instance_create_depth(obj_player.x, obj_player.yy - 10, -9999, obj_efx_numero);
-            _num.texto = string("-{0}", _dano);
-            _num.cor = c_white;
+            efeito_numero(_dano, _critico);
         }
         
         //aplicando o cooldown

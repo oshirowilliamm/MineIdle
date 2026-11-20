@@ -1,12 +1,12 @@
 //texto normal
-function texto_scribble(_x, _y, _texto, _xscale = 2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_pixel_outline", _cor_outline = c_black)
+function texto_scribble(_x, _y, _texto, _xscale = 2, _yscale = _xscale, _halign = 0, _valign = 0, _cor = c_white, _alpha = 1, _font = "fnt_pixel_outline", _cor_outline = c_black, _angle = 0)
 {
     scribble(_texto)
         .starting_format(_font, c_white)
         .outline(_cor_outline)
         .shadow(_cor_outline, 1)
         .align(_halign, _valign)
-        .scale(_xscale, _yscale)
+        .transform(_xscale, _yscale, _angle)
         .blend(_cor, _alpha)
         .draw(_x, _y);
 }
