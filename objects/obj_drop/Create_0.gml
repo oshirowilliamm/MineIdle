@@ -19,19 +19,12 @@ raio_coleta = 10;
 tempo_andar = 30;
 timer_andar = tempo_andar;
 
+//variavel do efeito de onda
+onda_spd = random_range(2, 4);
 
 
-controla_drop = function()
-{
-    depth = -y;
-    
-    pula();
-    atrai();
-    
-    //movendo
-    x += hspd;
-    y += vspd;
-}
+
+
 
 desacelera = function()
 {
@@ -59,7 +52,8 @@ pula = function()
     //no chão, flutuando
     else
     {
-        z = efeito_flutuar(z, -4, 2, 200);
+        //efeito de onda
+        z = (sin(onda_spd * current_time / 1000) + 1) / 2 * -5;
         
         //abaixando o timer
         if (timer_andar > 0) timer_andar--;
@@ -70,6 +64,37 @@ pula = function()
 }
 
 //se atrai até o player
+coleta = function(_dist)
+{
+    //se o drop ta no raio da coleta
+    if (_dist <= raio_coleta)
+    {
+        //mandando o drop pra mochila
+        if (instance_exists(obj_hud))
+        {
+            array_push(obj_hud.itens_caindo, 
+            {
+                vspd: 0,
+                y: -5,
+                tipo: tipo_item,
+                frame: global.minerios[$ tipo_item].sprite,
+                peso: global.minerios[$ tipo_item].peso,
+            });
+        }
+        
+        //efeito no player
+        with (obj_player) 
+        {
+        	var _escala = random_range(.1, .3);
+            escala.squash(1 + _escala, 1 + _escala);
+            aplica_efeito_brilho(global.minerios[$ other.tipo_item].cor);
+        }
+        
+        //destruindo o drop
+        instance_destroy();
+    }
+}
+
 atrai = function()
 {
     //só funciona se o player existir
@@ -104,37 +129,14 @@ atrai = function()
     else desacelera();
 }
 
-coleta = function(_dist)
+controla_drop = function()
 {
-    //se o drop ta no raio da coleta
-    if (_dist <= raio_coleta)
-    {
-        //mandando o drop pra mochila
-        if (instance_exists(obj_hud))
-        {
-            array_push(obj_hud.itens_caindo, 
-            {
-                vspd: 0,
-                y: -5,
-                tipo: tipo_item,
-                frame: global.minerios[$ tipo_item].sprite,
-                peso: global.minerios[$ tipo_item].peso,
-            });
-        }
-        
-        //efeito no player
-        with (obj_player) 
-        {
-        	var _escala = random_range(.1, .3);
-            escala.squash(1 + _escala, 1 + _escala);
-            aplica_efeito_brilho(global.minerios[$ other.tipo_item].cor);
-        }
-        
-        //destruindo o drop
-        instance_destroy();
-    }
+    depth = -y;
+    
+    pula();
+    atrai();
+    
+    //movendo
+    x += hspd;
+    y += vspd;
 }
-
-//criando minha sombra
-sombra = instance_create_depth(x, y, depth, obj_sombra);
-sombra.dono = id;

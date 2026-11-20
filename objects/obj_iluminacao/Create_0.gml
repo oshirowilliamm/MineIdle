@@ -99,24 +99,23 @@ luz_poste = function(_cam_x, _cam_y, alpha = 1)
     }
 }
 
-//luz da tocha
-luz_tocha = function(_cam_x, _cam_y)
+//luz do drop
+luz_drop = function(_cam_x, _cam_y)
 {
-    //iluminação da tocha
-    if (!instance_exists(obj_tocha)) return
+    if (!instance_exists(obj_drop)) return
     
-    with (obj_tocha) 
+    with (obj_drop) 
     {
-    	//posição
+        //posição
         var _x = x - _cam_x;
         var _y = y - _cam_y;
         
-        var _flick = random_range(-0.01, 0.01);
-        var _escala = 2 + _flick;
-        var _brilho = 1 + (_flick * 2);
+    	var _flick = random_range(-0.02, 0.02);
+        var _escala = .8 + _flick;
+        var _brilho = .7;
         
         //desenhando a luz
-        draw_sprite_ext(spr_circulo_luz, 0, _x, _y, _escala, _escala, 0, cor_luz, _brilho);
+        draw_sprite_ext(spr_luz_drop, 0, _x, _y + z, _escala, _escala, 0, cor_luz, _brilho);
     }
 }
 
@@ -133,9 +132,6 @@ desenha_escuridao = function()
         //desenhando na surface
         surface_set_target(sombra_surface);
         
-        var _cam = view_camera[0];
-        var _escala = 2;
-        
         //desenhando a escuridao
         draw_clear(cor_sombra);
         brilho_minerio(_cam_x, _cam_y);
@@ -144,6 +140,7 @@ desenha_escuridao = function()
         
         luz_player(_cam_x, _cam_y);
         luz_ponto(_cam_x, _cam_y);
+        luz_drop(_cam_x, _cam_y);
         
         gpu_set_blendmode(bm_normal);
         luz_poste(_cam_x, _cam_y);
