@@ -10,6 +10,7 @@ function toca_som(_snd, _pitch = .1)
 }
 
 
+//desenha tecla de interação em cima do player
 function tecla_interacao(_x, _y, _funcao)
 {
     if (!instance_exists(obj_player)) exit;
@@ -44,41 +45,6 @@ function tecla_interacao(_x, _y, _funcao)
 }
 
 
-function pega_receita(_item, _categoria)
-{
-    var _dados = global.minerios[$ _item];
-    var _resultado = "";
-    var _result_categoria = "";
-    
-    //transformando bruto em puro
-    if (_categoria == "minerios")
-    {
-        _resultado = _item + "_puro";
-        _result_categoria = "puros";
-    }
-    //transformando puro em refinado
-    else if (_categoria == "puros")
-    {
-        _resultado = string_replace(_item, "_puro", "_refinado");
-        _result_categoria = "refinados";
-    }
-    //acaba
-    else
-    {
-        return undefined;
-    }
-    
-    //retornando o resultado e a receita
-    return
-    {
-        resultado: _resultado,
-        categoria_resultado: _result_categoria,
-        custo_pedras: _dados.pedras,
-        custo_minerio: _dados.qtd_refina,
-    }
-}
-
-
 //sombra
 function desenha_sombra(_scale = .5)
 {
@@ -88,41 +54,7 @@ function desenha_sombra(_scale = .5)
 }
 
 
-function desenha_minerio_infinito(_spr, _index, _x, _y, _xscale, _yscale, _rot = 0, _cor = c_white, _alpha = 1)
-{
-    var _tam = 128;
-    var _meio = _tam / 2;
-    
-    //criando a surface
-    if (!surface_exists(global.surf_minerio))
-    {
-        global.surf_minerio = surface_create(_tam, _tam);
-    }
-    
-    //configuração da surface
-    surface_set_target(global.surf_minerio);
-    draw_clear_alpha(c_black, 0);
-    
-    //desenhando a silhueta do minerio
-    draw_sprite_ext(_spr, _index, _meio, _meio, _xscale, _yscale, _rot, c_white, 1);
-    
-    //efeito de mesclagem 
-    gpu_set_blendmode_ext(bm_dest_alpha, bm_zero);
-    
-    //fundo infinito dentro do minerio
-    var _tempo_x = current_time * 0.02; //hspd
-    var _tempo_y = current_time * 0.01; //vspd
-    draw_sprite_tiled_ext(spr_bg_minerios, 0, _tempo_x, _tempo_y, 1, 1, _cor, 1);
-    
-    //resetando a surface
-    gpu_set_blendmode(bm_normal);
-    surface_reset_target();
-    
-    //desenhando a surface na posição do minerio
-    draw_surface_ext(global.surf_minerio, _x - _meio, _y - _meio, 1, 1, 0, c_white, _alpha);
-}
-
-
+//detecta o mouse sobre alguma coisa no draw gui
 function mouse_sobre_ui(_x, _y, _sprite, _escala_x = 1, _escala_y = _escala_x)
 {
     //mouse
@@ -146,6 +78,7 @@ function mouse_sobre_ui(_x, _y, _sprite, _escala_x = 1, _escala_y = _escala_x)
 }
 
 
+//cria os objetos persistentes no começo da room
 function cria_persistentes(_player = true, _controller = true, _hud = true, _debug = true)
 {
     //player
@@ -216,89 +149,7 @@ function room_to_gui(_x, _y, _cam = view_camera[0])
 }
 
 
-function reseta_globais()
-{
-    #region Dados
-        
-        //moeda
-        global.dados.moeda = 50;
-        
-        //inventario da mochila
-        global.mochila = 
-        {
-            max_peso: 50,
-            peso_atual: 0,
-            
-            itens: {},
-        };
-        
-        //inventario global (da vila)
-        global.inventario_global =
-        {
-            minerios: {},
-            puros: {},
-            refinados: {},
-        }
-        
-        //stamina
-        global.dados.stamina_max = 50;
-        global.dados.stamina_atual = global.dados.stamina_max;
-        
-        //lanterna do player
-        global.dados.alcance_lanterna = .3;
-        
-        //picareta
-        global.picareta = 
-        {
-            dano: 5,
-            cooldown: 15
-        };
-        
-    #endregion
-    
-    #region Upgrades
-        
-        global.upgrades =
-        {
-            stamina_max: new cria_upgrade("Stamina", //nome
-            "Aumenta a stamina em [cor_upgrade_verde]50[/]", //descrição
-            0, 10, 1, 1.5, global.dados.stamina_max, 50, //valores
-            function()
-            {   
-                global.dados.stamina_max = get_valor(level_atual);
-            }),
-            
-            capacidade_max: new cria_upgrade("Capacidade", //nome
-            "Aumenta a capacidade em [cor_upgrade_verde]20[/]", //descrição
-            1, 20, 3, 1.5, global.mochila.max_peso, 20, //valores
-            function()
-            {
-                global.mochila.max_peso = get_valor(level_atual);
-            }),
-            
-            alcance_lanterna: new cria_upgrade("Alcance da Lanterna", //nome
-            "Aumenta o alcance da lanterna em [cor_upgrade_verde]1[/]", //descrição
-            2, 30, 2, 1.5, global.dados.alcance_lanterna, .1, //valores
-            function()
-            {
-                global.dados.alcance_lanterna = get_valor(level_atual);
-            }),
-        }
-        
-    #endregion
-}
-
-
-function restart()
-{
-    if (keyboard_check_pressed(ord("R"))) 
-    {
-        reseta_globais();
-        room_restart();
-    }
-}
-
-
+//tween para o image_xscale e image_yscale
 function tween_scale (_dest, _anim, _time = 60)
 {
     tween(id, "image_xscale", _dest, _anim, _time);
@@ -317,3 +168,38 @@ function log_debug(_texto)
     
     if (instance_exists(obj_debug)) obj_debug.adiciona_log(_texto);
 }
+
+/*function pega_receita(_item, _categoria)
+{
+    var _dados = global.minerios[$ _item];
+    var _resultado = "";
+    var _result_categoria = "";
+    
+    //transformando bruto em puro
+    if (_categoria == "minerios")
+    {
+        _resultado = _item + "_puro";
+        _result_categoria = "puros";
+    }
+    //transformando puro em refinado
+    else if (_categoria == "puros")
+    {
+        _resultado = string_replace(_item, "_puro", "_refinado");
+        _result_categoria = "refinados";
+    }
+    //acaba
+    else
+    {
+        return undefined;
+    }
+    
+    //retornando o resultado e a receita
+    return
+    {
+        resultado: _resultado,
+        categoria_resultado: _result_categoria,
+        custo_pedras: _dados.pedras,
+        custo_minerio: _dados.qtd_refina,
+    }
+}
+*/

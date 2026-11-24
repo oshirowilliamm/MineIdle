@@ -75,7 +75,7 @@ global.upgrades =
     
     equip_ima_coleta: new cria_upgrade("Imã de Coleta", //nome
     "Aumenta o alcance de coleta dos minérios.", //descrição
-    6, 30, 3, 1.5, 25, 5, "drop_atracao"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
+    6, 30, 3, 1.5, 25, 5, "ima_drop"), //sprite, custo, level max, aumento do custo, valor base, incremento, variavel
     
     
     

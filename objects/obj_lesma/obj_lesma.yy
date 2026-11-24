@@ -1,12 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_receita",
+  "%Name":"obj_lesma",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":2,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_receita",
+  "name":"obj_lesma",
   "overriddenProperties":[],
   "parent":{
     "name":"Refinacao",
@@ -31,8 +32,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_caixa_receita",
-    "path":"sprites/spr_caixa_receita/spr_caixa_receita.yy",
+    "name":"spr_lesma",
+    "path":"sprites/spr_lesma/spr_lesma.yy",
   },
   "spriteMaskId":null,
   "visible":true,

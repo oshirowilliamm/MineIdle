@@ -30,70 +30,16 @@ segue_inventario = function()
     y = obj_inventario.y_livro + y_inicial;
 }
 
-selecao = function()
-{
-    //pegando a quantidade do item
-    var _qtd = global.inventario_global[$ categoria][$item];
-    
-    //verifica se o mouse esta em cima
-    if (mouse_sobre_ui(x, y, sprite, escala))
-    {
-        //se foi descoberto
-        if (_qtd != undefined)
-        {
-            //se tem mais que 0
-            if (_qtd > 0)
-            {
-                escala_efeito.atualiza(1.2);
-                y_efeito = lerp(y_efeito, ystart - 15, .1);
-                
-                //interação
-                if (room == rm_shop) interage_shop();
-                else if (room == rm_refinacao) interage_refina();
-            }
-            //n tem nada
-            else
-            {
-                escala_efeito.retorna();
-                y_efeito = lerp(y_efeito, ystart, .1);
-            }
-        }
-        //se n foi descoberto
-        else
-        {
-            //efeito de shake
-            if (global.mouse_pressed)
-            {
-                shake = true;
-            }
-        }
-    }
-    else
-    {
-        escala_efeito.retorna();
-        y_efeito = lerp(y_efeito, ystart, .1);
-    }
-}
-
 interage_refina = function()
 {
+    //avisando a lesma
+    obj_lesma.boca_aberta = true;
+    
+    //clicando
     if (global.mouse_pressed)
     {
-        //mostrando o item no prato
-        with (obj_prato) 
-        {
-            //mostrando o minério
-            desenho = true;
-            
-            //dando as infos para a cesta
-            item        = other.item;
-            categoria   = other.categoria;
-            sprite      = other.sprite;
-            minerio     = other.minerio;
-            
-            //efeito no prato
-            escala_efeito.squash(1.5, .8);
-        }
+        //mandando pra lesma
+        instance_create_depth(x, y, depth, obj_minerio_boca, {sprite: minerio.sprite});
         
         //efeitos
         escala_efeito.squash(.6, 1.4);
@@ -146,6 +92,51 @@ interage_shop = function()
         escala_efeito.squash(.6, 1.4);
         y_efeito = ystart - 30;
         obj_balanca.aplica_efeitos();
+    }
+}
+
+selecao = function()
+{
+    //pegando a quantidade do item
+    var _qtd = global.inventario_global[$ categoria][$item];
+    
+    //verifica se o mouse esta em cima
+    if (mouse_sobre_ui(x, y, sprite, escala))
+    {
+        //se foi descoberto
+        if (_qtd != undefined)
+        {
+            //se tem mais que 0
+            if (_qtd > 0)
+            {
+                escala_efeito.atualiza(1.2);
+                y_efeito = lerp(y_efeito, ystart - 15, .1);
+                
+                //interação
+                if (room == rm_shop) interage_shop();
+                else if (room == rm_refinacao) interage_refina();
+            }
+            //n tem nada
+            else
+            {
+                escala_efeito.retorna();
+                y_efeito = lerp(y_efeito, ystart, .1);
+            }
+        }
+        //se n foi descoberto
+        else
+        {
+            //efeito de shake
+            if (global.mouse_pressed)
+            {
+                shake = true;
+            }
+        }
+    }
+    else
+    {
+        escala_efeito.retorna();
+        y_efeito = lerp(y_efeito, ystart, .1);
     }
 }
 

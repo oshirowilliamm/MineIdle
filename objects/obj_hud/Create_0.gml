@@ -391,7 +391,7 @@ escala_vila = new efeito_escala();
         
         //pegando a sprite
         var _index = global.minerios[$ global.pedra_atual].sprite;
-        var _sprite = string("[scale, 15][spr_minerios,{0}][scale, 1]", _index);
+        var _sprite = string("[scale, 2][spr_minerios,{0}][scale, 1]", _index);
         
         //texto
         var _texto = string("{1} {0}", round(pedra_desenhada), _sprite)

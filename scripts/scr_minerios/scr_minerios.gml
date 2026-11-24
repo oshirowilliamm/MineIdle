@@ -14,7 +14,7 @@ function Minerio(_nome, _sprite, _cor, _valor, _peso = 1) constructor
 }
 
 //minerio bruto
-function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _pedras = 0, _qtd_refina = 0)
+function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _pedras = 0)
 : Minerio(_nome, _sprite, _cor, _valor, _peso) constructor
 {
     vida = _vida;
@@ -34,7 +34,6 @@ function MinerioBruto(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina, _ped
     if (_pedras > 0)
     {
         pedras = _pedras;
-        qtd_refina = _qtd_refina;
     }
 }
 
@@ -49,7 +48,7 @@ function Pedra(_nome, _sprite, _cor, _valor, _peso, _vida, _stamina)
 }
 
 //minerio puro
-function MinerioPuro(_nome, _sprite, _cor, _valor, _peso, _pedras = 0, _qtd_refina = 0) 
+function MinerioPuro(_nome, _sprite, _cor, _valor, _peso, _pedras = 0) 
 : Minerio(_nome, _sprite, _cor, _valor, _peso) constructor 
 {
     static get_valor = function()
@@ -60,7 +59,6 @@ function MinerioPuro(_nome, _sprite, _cor, _valor, _peso, _pedras = 0, _qtd_refi
     if (_pedras > 0) 
     {
         pedras = _pedras;
-        qtd_refina = _qtd_refina;
     }
 }
 
@@ -71,17 +69,17 @@ global.minerios =
         //brutos
         //nome, index da sprite, cor, valor, peso, vida, stamina perdida, pedras e minerios pra refinação
         b1_pedra:    new Pedra("Stone", 0, cor_b1_pedra, 1, 1,  10, 2),
-        b1_rocha1:   new MinerioBruto("Ametilita", 1, cor_b1_rocha1,   10, 4,  25, 3,   10, 2),
-        b1_rocha2:   new MinerioBruto("Malacuru",  2, cor_b1_rocha2,   40, 6,  60, 5,   25, 2),
-        b1_cristal1: new MinerioBruto("Pererita",  3, cor_b1_cristal1, 150, 8,  120, 8,  50, 3), 
-        b1_cristal2: new MinerioBruto("Diarã",     4, cor_b1_cristal2, 600, 10, 300, 12, 100, 3),
+        b1_rocha1:   new MinerioBruto("Ametilita", 1, cor_b1_rocha1,   10, 4,  25, 3,   10),
+        b1_rocha2:   new MinerioBruto("Malacuru",  2, cor_b1_rocha2,   40, 6,  60, 5,   25),
+        b1_cristal1: new MinerioBruto("Pererita",  3, cor_b1_cristal1, 150, 8,  120, 8,  50), 
+        b1_cristal2: new MinerioBruto("Diarã",     4, cor_b1_cristal2, 600, 10, 300, 12, 100),
         
         //puros
         //nome, index da sprite, cor, valor, peso, pedras e minerios pra refinação
-        b1_rocha1_puro:   new MinerioPuro("Pure Ametilita", 0, cor_b1_rocha1,   50, 4,   15, 2),
-        b1_rocha2_puro:   new MinerioPuro("Pure Malacuru",  1, cor_b1_rocha2,   200, 6,  30, 2),
-        b1_cristal1_puro: new MinerioPuro("Pure Pererita",  2, cor_b1_cristal1, 800, 8,  60, 2),
-        b1_cristal2_puro: new MinerioPuro("Pure Diarã",     3, cor_b1_cristal2, 3500, 10, 120, 2),
+        b1_rocha1_puro:   new MinerioPuro("Pure Ametilita", 0, cor_b1_rocha1,   50, 4,   15),
+        b1_rocha2_puro:   new MinerioPuro("Pure Malacuru",  1, cor_b1_rocha2,   200, 6,  30),
+        b1_cristal1_puro: new MinerioPuro("Pure Pererita",  2, cor_b1_cristal1, 800, 8,  60),
+        b1_cristal2_puro: new MinerioPuro("Pure Diarã",     3, cor_b1_cristal2, 3500, 10, 120),
         
         //refinados
         //nome, index da sprite, cor, valor, peso
