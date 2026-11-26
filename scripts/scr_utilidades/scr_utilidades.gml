@@ -19,7 +19,7 @@ global.pedra_atual = "b1_pedra";
 
 //variavel para desbloquear as lojas
 global.refinacao_bloqueada = true;
-global.upgrades_bloqueado = true;
+global.upgrades_bloqueado = false;
 
 //variavel do botão de multiplicação do shop
 global.modo_venda = 1;

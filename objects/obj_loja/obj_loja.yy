@@ -14,8 +14,8 @@
     "path":"folders/Objects/Vila.yy",
   },
   "parentObjectId":{
-    "name":"obj_colisao",
-    "path":"objects/obj_colisao/obj_colisao.yy",
+    "name":"obj_interagiveis",
+    "path":"objects/obj_interagiveis/obj_interagiveis.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

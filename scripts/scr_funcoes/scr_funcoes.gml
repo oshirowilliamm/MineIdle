@@ -10,41 +10,6 @@ function toca_som(_snd, _pitch = .1)
 }
 
 
-//desenha tecla de interação em cima do player
-function tecla_interacao(_x, _y, _funcao)
-{
-    if (!instance_exists(obj_player)) exit;
-    
-    //pegando distancia do player
-    var _dist = point_distance(_x, _y, obj_player.x, obj_player.y);
-    
-    //só mostra as infos se estiver perto
-    if (_dist <= 30)
-    {
-        //criando a tecla
-        if (!instance_exists(tecla))
-        {
-            tecla = instance_create_depth(obj_player.x, obj_player.y - 40, -999, obj_tecla);
-        }
-        
-        //interação
-        if (keyboard_check_pressed(ord("E")))
-        {
-            _funcao();
-        }
-    }
-    //destruindo a tecla
-    else
-    {
-        if (instance_exists(tecla))
-        {
-            instance_destroy(tecla);
-            tecla = noone;
-        }
-    }
-}
-
-
 //sombra
 function desenha_sombra(_scale = .5)
 {

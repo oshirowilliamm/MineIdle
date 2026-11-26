@@ -1,10 +1,36 @@
 // Inherit the parent event
 event_inherited();
 
+acao = noone;
 image_speed = 0;
 custo = 100;
 
 
+
+
+desbloqueia = function()
+{
+    //desbloqueando
+    global.refinacao_bloqueada = false;
+    
+    //gastando a pedra
+    global.inventario_global.minerios[$ global.pedra_atual] -= custo;
+}
+
+estado = function()
+{
+    if (global.refinacao_bloqueada)
+    {
+        var _pedra_atual = global.inventario_global.minerios[$ global.pedra_atual] ?? 0;
+        
+        //se eu tenho pedras pra comprar
+        acao = _pedra_atual >= custo ? desbloqueia : noone;
+    }
+    else
+    {
+        acao = entra_loja;
+    }
+}
 
 desenha_loja = function()
 {
@@ -36,32 +62,5 @@ desenha_loja = function()
         //texto do custo
         var _texto  = string("[wave]{2}{1}[/c] / {0}[/wave]", custo, _pedra_atual, _cor_pedra);
         texto_scribble(x, _y + 30, _texto, 1, 1, 1);
-    }
-}
-
-desbloqueia = function()
-{
-    //desbloqueando
-    global.refinacao_bloqueada = false;
-    
-    //gastando a pedra
-    global.inventario_global.minerios[$ global.pedra_atual] -= custo;
-}
-
-estado = function()
-{
-    if (global.refinacao_bloqueada)
-    {
-        var _pedra_atual = global.inventario_global.minerios[$ global.pedra_atual] ?? 0;
-        
-        //se eu tenho pedras pra comprar
-        if (_pedra_atual >= custo)
-        {
-            tecla_interacao(x, y_origem, desbloqueia);
-        }
-    }
-    else
-    {
-        tecla_interacao(x, y_origem, entra_loja);
     }
 }

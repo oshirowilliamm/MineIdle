@@ -1,11 +1,34 @@
 event_inherited();
 
 
+acao = noone;
 y_notificacao = y + 12;
-
 custo = 20;
 
 
+
+
+desbloqueia = function()
+{
+    //desbloqueando
+    global.upgrades_bloqueado = false;
+    
+    //gastando dinheiro
+    global.dados.moeda -= custo;
+}
+
+estado = function()
+{
+    if (global.upgrades_bloqueado)
+    {
+        //se eu tenho dinheiro suficiente
+        acao = global.dados.moeda >= custo ? desbloqueia : noone;
+    }
+    else
+    {
+        acao = entra_loja;
+    }
+}
 
 desenha_loja = function()
 {
@@ -34,32 +57,7 @@ desenha_loja = function()
         var _texto  = string("[wave]{2}{1}[/c] / {0}[/wave]", custo, global.dados.moeda, _cor);
         texto_scribble(x, _y + 30, _texto, 1, 1, 1);
     }
-}
-
-desbloqueia = function()
-{
-    //desbloqueando
-    global.upgrades_bloqueado = false;
-    
-    //gastando dinheiro
-    global.dados.moeda -= custo;
-}
-
-estado = function()
-{
-    if (global.upgrades_bloqueado)
-    {
-        //se eu tenho dinheiro suficiente
-        if (global.dados.moeda >= custo)
-        {
-            tecla_interacao(x, y_origem, desbloqueia);
-        }
-    }
-    else
-    {
-        tecla_interacao(x, y_origem, entra_loja);
-    }
-}
+}   
 
 mostra_notificacao = function()
 {

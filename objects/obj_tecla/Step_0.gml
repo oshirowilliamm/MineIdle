@@ -1,6 +1,8 @@
-//segue o player
-with (obj_player) 
+estado();
+
+//efeito ao apertar o e
+if (keyboard_check_pressed(ord("E")))
 {
-	other.x = x;
-    other.y = y - 40;
+    image_xscale = 1;
+    image_yscale = image_xscale;
 }

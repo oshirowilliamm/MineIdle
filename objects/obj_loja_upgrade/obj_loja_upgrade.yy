@@ -11,9 +11,9 @@
   "overriddenProperties":[
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"destino","path":"objects/obj_loja/obj_loja.yy",},"resource":{"name":"rm_upgrade","path":"rooms/rm_upgrade/rm_upgrade.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_upgrade",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"sprite","path":"objects/obj_loja/obj_loja.yy",},"resource":{"name":"spr_cogumelo","path":"sprites/spr_cogumelo/spr_cogumelo.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"spr_cogumelo",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"y_origem","path":"objects/obj_loja/obj_loja.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"y + 40",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"dest_x","path":"objects/obj_loja/obj_loja.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"288",},
     {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"dest_y","path":"objects/obj_loja/obj_loja.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"768",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"y_origem","path":"objects/obj_loja/obj_loja.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"y + 40",},
   ],
   "parent":{
     "name":"Upgrades",

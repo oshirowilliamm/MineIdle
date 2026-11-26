@@ -1,2 +1,10 @@
-x = lerp(x, obj_lesma.x, .1);
-y = lerp(y, obj_lesma.y, .1);
+if (!instance_exists(obj_lesma)) exit;
+
+if (boca)
+{
+    indo_boca();
+}
+else
+{
+    pulando();
+}

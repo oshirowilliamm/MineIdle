@@ -17,8 +17,11 @@ shake_x = 0;
 
 y_efeito = y;
 
-//variavel pra criar a receita na refinação
-receita = noone;
+//variaveis para qnd for refinação
+bloqueado = false;
+minerio_alpha = 1
+minerio_cor = c_white;
+
 
 
 
@@ -30,25 +33,40 @@ segue_inventario = function()
     y = obj_inventario.y_livro + y_inicial;
 }
 
-interage_refina = function()
+bloqueando_item = function()
 {
-    //avisando a lesma
-    obj_lesma.boca_aberta = true;
-    
-    //clicando
-    if (global.mouse_pressed)
+    //qnd for refinação, as pedras e os refinados n podem ser interagivels
+    if (room == rm_refinacao && (string_pos("_pedra", item) != 0 || categoria == "refinados"))
     {
-        //mandando pra lesma
-        instance_create_depth(x, y, depth, obj_minerio_boca, {sprite: minerio.sprite});
-        
-        //efeitos
-        escala_efeito.squash(.6, 1.4);
-        y_efeito = ystart - 30;
+        bloqueado = true;
+    }
+    //normal
+    else
+    {
+        bloqueado = false;
+    }
+    
+    //mudando cor e alpha de acordo com o bloqueado
+    if (bloqueado)
+    {
+        minerio_alpha = .5;
+        minerio_cor = c_gray;
+    }
+    else
+    {
+        minerio_alpha = 1;
+        minerio_cor = c_white;
     }
 }
 
+
+
 interage_shop = function()
 {
+    //efeitos
+    escala_efeito.atualiza(1.2);
+    y_efeito = lerp(y_efeito, ystart - 15, .1);
+    
     //mostrando as infos dos itens na balança
     with (obj_balanca) 
     {
@@ -95,6 +113,41 @@ interage_shop = function()
     }
 }
 
+interage_refina = function()
+{
+    //tirando a pedra e os refinados
+    if (bloqueado) exit;
+    
+    //efeitos
+    escala_efeito.atualiza(1.2);
+    y_efeito = lerp(y_efeito, ystart - 15, .1);
+    
+    //avisando a lesma
+    obj_lesma.boca_aberta = true;
+    
+    //clicando
+    if (global.mouse_clicado)
+    {
+        //mandando pra lesma
+        var _struct = {sprite: sprite, index: minerio.sprite};
+        instance_create_depth(x, y, depth - 1, obj_minerio_boca, _struct);
+        
+        //tirando o minerio
+        global.inventario_global[$ categoria][$item]--;
+        
+        //efeitos
+        escala_efeito.squash(.6, 1.4);
+        y_efeito = ystart - 30;
+    }
+}
+
+interage_vila = function()
+{
+    //efeitos
+    escala_efeito.atualiza(1.2);
+    y_efeito = lerp(y_efeito, ystart - 15, .1);
+}
+
 selecao = function()
 {
     //pegando a quantidade do item
@@ -109,12 +162,13 @@ selecao = function()
             //se tem mais que 0
             if (_qtd > 0)
             {
-                escala_efeito.atualiza(1.2);
-                y_efeito = lerp(y_efeito, ystart - 15, .1);
-                
                 //interação
-                if (room == rm_shop) interage_shop();
-                else if (room == rm_refinacao) interage_refina();
+                switch (room) 
+                {
+                	case rm_shop: interage_shop(); break;
+                	case rm_refinacao: interage_refina(); break;
+                	default: interage_vila(); break;
+                }
             }
             //n tem nada
             else
@@ -160,7 +214,7 @@ desenha_minerio = function()
         //se tem mais que 0
         if (_qtd > 0)
         {
-            draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, c_white, 1);
+            draw_sprite_ext(sprite, minerio.sprite, x, y_efeito, _xscale, _yscale, 0, minerio_cor, minerio_alpha);
             texto_scribble(x + _recuo, y + _recuo, _texto,,, 1, 1);
         }
         //se n tem

@@ -1,3 +1,3 @@
-abrindo_boca();
+estado();
 
 boca_aberta = false;

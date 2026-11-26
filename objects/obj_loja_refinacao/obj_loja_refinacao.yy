@@ -9,10 +9,7 @@
   "managed":true,
   "name":"obj_loja_refinacao",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"dest_x","path":"objects/obj_loja/obj_loja.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"672",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"dest_y","path":"objects/obj_loja/obj_loja.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"755",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"destino","path":"objects/obj_loja/obj_loja.yy",},"resource":{"name":"rm_refinacao","path":"rooms/rm_refinacao/rm_refinacao.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"rm_refinacao",},
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"sprite","path":"objects/obj_loja/obj_loja.yy",},"resource":{"name":"spr_lesma","path":"sprites/spr_lesma/spr_lesma.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"spr_lesma",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"sprite","path":"objects/obj_loja/obj_loja.yy",},"resource":{"name":"spr_lesma_abrindo_boca","path":"sprites/spr_lesma_abrindo_boca/spr_lesma_abrindo_boca.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"spr_lesma_abrindo_boca",},
   ],
   "parent":{
     "name":"Refinacao",
@@ -40,8 +37,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_lesma",
-    "path":"sprites/spr_lesma/spr_lesma.yy",
+    "name":"spr_lesma_parada",
+    "path":"sprites/spr_lesma_parada/spr_lesma_parada.yy",
   },
   "spriteMaskId":null,
   "visible":true,

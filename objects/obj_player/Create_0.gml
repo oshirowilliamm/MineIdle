@@ -25,6 +25,11 @@ golpe_aplicado = false;
 picareta = instance_create_depth(x, y, depth, obj_picareta);
 picareta.dono = id;
 
+//variaveis para tecla de interação
+tecla = noone;
+alcance_tecla = 30;
+
+
 
 
 
@@ -458,6 +463,48 @@ estado_transicao = function()
         }
     }
     
+    tecla_interacao = function()
+    {
+        //pegando o alvo primeiro
+        var _alvo = noone;
+        var _alcance = alcance_tecla;
+        
+        with (obj_interagiveis) 
+        {
+            //so interage se tiver acao
+            if (acao == noone) continue;
+            
+            //pegando a distancia do obj mais proximo
+            var _dist = point_distance(x_interacao, y_interacao, other.x, other.y);
+            
+            if (_dist <= _alcance)
+            {
+                _alcance = _dist;
+                _alvo = id;
+            }
+        }
+        
+        //destruindo a tecla
+        if (_alvo == noone)
+        {
+            if (instance_exists(tecla)) tecla.estado = tecla.fim;
+            tecla = noone;
+            return;
+        }
+        
+        //criando a tecla
+        if (!instance_exists(tecla))
+        {
+            tecla = instance_create_depth(x, y, -999, obj_tecla);
+        }
+        
+        //interação
+        if (keyboard_check_pressed(ord("E")))
+        {
+            _alvo.acao();
+        }
+    }
+    
     
     
     //metodo com os metodos 
@@ -468,6 +515,7 @@ estado_transicao = function()
         consulta_transicao();
         em_room_loja();
         ajusta_depth();
+        tecla_interacao();
     }
     
 #endregion

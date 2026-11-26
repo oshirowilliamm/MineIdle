@@ -1,0 +1,1 @@
+draw_sprite_ext(sprite, index, x, y + z, escala, escala, 0, c_white, 1);
