@@ -128,6 +128,7 @@
     {"id":{"name":"obj_botao_voltar","path":"objects/obj_botao_voltar/obj_botao_voltar.yy",},},
     {"id":{"name":"obj_buraco","path":"objects/obj_buraco/obj_buraco.yy",},},
     {"id":{"name":"obj_calcada","path":"objects/obj_calcada/obj_calcada.yy",},},
+    {"id":{"name":"obj_camera_alvo","path":"objects/obj_camera_alvo/obj_camera_alvo.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
     {"id":{"name":"obj_carrossel_picareta","path":"objects/obj_carrossel_picareta/obj_carrossel_picareta.yy",},},
     {"id":{"name":"obj_colisao","path":"objects/obj_colisao/obj_colisao.yy",},},

@@ -1,10 +1,10 @@
+event_inherited();
+
 escala = 5;
 estado = noone;
 
-//variavel da posição da lesma
-x_lesma = display_get_gui_width() / 2;
-y_lesma = display_get_gui_height() / 2 + 300;
-y_boca = y_lesma - 450;
+//variaveis para o entrar_refinacao
+botao_voltar = noone;
 
 //variavel da animação da boca
 boca_aberta = false;
@@ -14,6 +14,36 @@ timer_boca = 0;
 
 
 
+
+
+
+entra_refinacao = function()
+{
+    //desativando player
+    obj_player.estado = obj_player.estado_desativado;
+    
+    //desativando a tecla de interação
+    acao = noone;
+    
+    //avisando que a refinação está aberta
+    global.refinacao_aberta = true;
+    
+    //criando o voltar
+    if (!instance_exists(obj_botao_voltar))
+    {
+        var _voltar = instance_create_layer(0, 0, "HUD", obj_botao_voltar);
+        _voltar.lesma = true;
+    }
+}
+
+sai_refinacao = function()
+{
+    obj_player.estado = obj_player.estado_parado;
+    acao = entra_refinacao;
+    global.refinacao_aberta = false;
+}
+
+//estados
 parada = function()
 {
     sprite_index = spr_lesma_parada;
@@ -67,4 +97,10 @@ cagando = function()
     
 }
 
+
+
+//definindo estado
 estado = parada;
+
+//definindo acao
+acao = entra_refinacao;

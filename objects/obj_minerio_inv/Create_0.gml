@@ -4,11 +4,8 @@ escala = global.escala_hud;
 minerio = global.minerios[$ item];
 
 //posicao inicial
-if (room == rm_vila)
-{
-    x_inicial = x - obj_inventario.x_livro;
-    y_inicial = y - obj_inventario.y_livro;
-}
+x_inicial = x - obj_inventario.x_livro;
+y_inicial = y - obj_inventario.y_livro;
 
 //efeito de shakes
 shake = false;
@@ -27,8 +24,6 @@ minerio_cor = c_white;
 
 segue_inventario = function()
 {
-    if (room != rm_vila) return;
-    
     x = obj_inventario.x_livro + x_inicial;
     y = obj_inventario.y_livro + y_inicial;
 }
@@ -36,7 +31,7 @@ segue_inventario = function()
 bloqueando_item = function()
 {
     //qnd for refinação, as pedras e os refinados n podem ser interagivels
-    if (room == rm_refinacao && (string_pos("_pedra", item) != 0 || categoria == "refinados"))
+    if (global.refinacao_aberta && (string_pos("_pedra", item) != 0 || categoria == "refinados"))
     {
         bloqueado = true;
     }
@@ -163,11 +158,17 @@ selecao = function()
             if (_qtd > 0)
             {
                 //interação
-                switch (room) 
+                if (room == rm_shop)
                 {
-                	case rm_shop: interage_shop(); break;
-                	case rm_refinacao: interage_refina(); break;
-                	default: interage_vila(); break;
+                    interage_shop();
+                }
+                else if (global.refinacao_aberta)
+                {
+                    interage_refina();
+                }
+                else
+                {
+                    interage_vila();
                 }
             }
             //n tem nada

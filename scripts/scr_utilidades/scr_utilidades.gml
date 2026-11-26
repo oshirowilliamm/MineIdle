@@ -18,6 +18,7 @@ global.rooms_loja = [rm_shop, rm_shop_picareta, rm_upgrade, rm_refinacao];
 global.pedra_atual = "b1_pedra";
 
 //variavel para desbloquear as lojas
+global.refinacao_aberta = false;
 global.refinacao_bloqueada = true;
 global.upgrades_bloqueado = false;
 

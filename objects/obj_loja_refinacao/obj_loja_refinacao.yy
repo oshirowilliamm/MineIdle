@@ -9,7 +9,7 @@
   "managed":true,
   "name":"obj_loja_refinacao",
   "overriddenProperties":[
-    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"sprite","path":"objects/obj_loja/obj_loja.yy",},"resource":{"name":"spr_lesma_abrindo_boca","path":"sprites/spr_lesma_abrindo_boca/spr_lesma_abrindo_boca.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"spr_lesma_abrindo_boca",},
+    {"$GMOverriddenProperty":"v1","%Name":"","name":"","objectId":{"name":"obj_loja","path":"objects/obj_loja/obj_loja.yy",},"propertyId":{"name":"sprite","path":"objects/obj_loja/obj_loja.yy",},"resource":{"name":"spr_lesma_parada","path":"sprites/spr_lesma_parada/spr_lesma_parada.yy",},"resourceType":"GMOverriddenProperty","resourceVersion":"2.0","value":"spr_lesma_parada",},
   ],
   "parent":{
     "name":"Refinacao",

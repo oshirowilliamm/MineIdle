@@ -304,6 +304,14 @@ estado_transicao = function()
     }
 }
 
+estado_desativado = function()
+{
+    define_sprite(spr_player_idle_front, spr_player_idle_side, spr_player_idle_back);
+    hspd = 0;
+    vspd = 0; 
+}
+
+
 
 #region Outros Métodos
     

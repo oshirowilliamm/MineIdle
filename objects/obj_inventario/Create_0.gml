@@ -32,9 +32,9 @@ info = noone;
 abre_inventario = function()
 {
     //se tiver nas lojas
-    if (array_contains(global.rooms_loja, room))
+    if (array_contains(global.rooms_loja, room) || global.refinacao_aberta)
     {
-        x_geral = 450;
+        x_geral = lerp(x_geral, 450, .1);
         inventario = true;
         desenhar = true;
         return;
@@ -64,6 +64,11 @@ abre_inventario = function()
             }
         }
     }
+}
+
+atualiza_livro = function()
+{
+    x_livro = x_geral - (sprite_get_width(spr_livro) * escala) + 80;
 }
 
 cria_pagina = function()
@@ -134,7 +139,6 @@ desenha_linhas = function()
 desenha_inventario = function()
 {
     //sprite do livro
-    x_livro = x_geral - (sprite_get_width(spr_livro) * escala) + 80;
     draw_sprite_ext(spr_livro, 0, x_livro, y_livro, escala, escala, 0, c_white, 1);
     
     //linhas de divisória
@@ -155,3 +159,6 @@ desenha_inventario = function()
         inventario = false;
     }
 }
+
+
+atualiza_livro();

@@ -113,6 +113,28 @@ function room_to_gui(_x, _y, _cam = view_camera[0])
     }
 }
 
+//converte uma posição da gui em uma posição da room
+function gui_to_room(_x, _y, _cam = view_camera[0])
+{
+    var _cam_x = camera_get_view_x(_cam);
+    var _cam_y = camera_get_view_y(_cam);
+    var _cam_w = camera_get_view_width(_cam);
+    var _cam_h = camera_get_view_height(_cam);
+    
+    var _gui_w = display_get_gui_width();
+    var _gui_h = display_get_gui_height();
+    
+    //convertendo
+    var _xroom = _cam_x + (_x / _gui_w) * _cam_w;
+    var _yroom = _cam_y + (_y / _gui_h) * _cam_h;
+    
+    return
+    {
+        x: _xroom,
+        y: _yroom
+    }
+}
+
 
 //tween para o image_xscale e image_yscale
 function tween_scale (_dest, _anim, _time = 60)

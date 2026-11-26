@@ -1,4 +1,5 @@
 escala = global.escala_hud;
+angle = random_range(-45, 45);
 
 //variaveis pro movimento
 var _random = random(359);
@@ -34,12 +35,17 @@ pulando = function()
 indo_boca = function()
 {
     //indo ate boca
-    x = lerp(x, obj_lesma.x_lesma, .1);
-    y = lerp(y, obj_lesma.y_boca, .1);
+    var _lesma = room_to_gui(obj_lesma.x, obj_lesma.y - 90);
+    
+    x = lerp(x, _lesma.x, .1);
+    y = lerp(y, _lesma.y, .1);
     z = lerp(z, 0, .1);
     
+    //diminuindo
+    escala = lerp(escala, global.escala_hud / 2, .1);
+    
     //sumindo 
-    var _dist = point_distance(x, y, obj_lesma.x_lesma, obj_lesma.y_boca);
+    var _dist = point_distance(x, y, _lesma.x, _lesma.y);
     
     if (_dist < 5)
     {

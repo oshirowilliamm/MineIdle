@@ -45,8 +45,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_loja",
-    "path":"sprites/spr_loja/spr_loja.yy",
+    "name":"spr_bigorna",
+    "path":"sprites/spr_bigorna/spr_bigorna.yy",
   },
   "spriteMaskId":null,
   "visible":true,
