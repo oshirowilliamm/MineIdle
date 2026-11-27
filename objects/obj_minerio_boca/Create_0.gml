@@ -7,13 +7,29 @@ hspd = lengthdir_x(1, _random);
 vspd = -2;
 z       = -1;
 zspd    = -10;
-grav    = .4    ;
+grav    = .5;
 altura_fim = -80;
 
 //variavel de controle para ir ate a boca da lesma
 boca = false;
 
+//variavel da posição do minerio na room
+var _room = room_to_gui(0, 0);
+x_ref = _room.x;
+y_ref = _room.y;
 
+
+
+segue_camera = function()
+{
+    var _room = room_to_gui(0, 0);
+    
+    x += _room.x - x_ref;
+    y += _room.y - y_ref;
+    
+    x_ref = _room.x;
+    y_ref = _room.y;
+}
 
 pulando = function()
 {
@@ -47,9 +63,12 @@ indo_boca = function()
     //sumindo 
     var _dist = point_distance(x, y, _lesma.x, _lesma.y);
     
-    if (_dist < 5)
+    if (_dist < 10)
     {
-        obj_lesma.cagar(item);
+        //colocando o minerio na fila
+        array_push(obj_lesma.fila, item);
+        
+        //se destruindo
         instance_destroy();
     }
 }   

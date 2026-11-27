@@ -30,7 +30,7 @@ segue_inventario = function()
 
 bloqueando_item = function()
 {
-    //qnd for refinação, as pedras e os refinados n podem ser interagivels
+    //qnd for refinação, as pedras e os refinados n podem ser interagiveis
     if (global.refinacao_aberta && (string_pos("_pedra", item) != 0 || categoria == "refinados"))
     {
         bloqueado = true;
@@ -39,6 +39,15 @@ bloqueando_item = function()
     else
     {
         bloqueado = false;
+    }
+    
+    //bloqueando se a fila esta cheia
+    with (obj_lesma) 
+    {
+    	if (global.refinacao_aberta && array_length(fila) + instance_number(obj_minerio_boca) >= fila_max)
+        {
+            other.bloqueado = true;
+        }
     }
     
     //mudando cor e alpha de acordo com o bloqueado
@@ -111,28 +120,34 @@ interage_shop = function()
 interage_refina = function()
 {
     //tirando a pedra e os refinados
-    if (bloqueado) exit;
-    
-    //efeitos
-    escala_efeito.atualiza(1.2);
-    y_efeito = lerp(y_efeito, ystart - 15, .1);
-    
-    //avisando a lesma
-    obj_lesma.boca_aberta = true;
-    
-    //clicando
-    if (global.mouse_clicado)
+    if (!bloqueado)
     {
-        //mandando pra lesma
-        var _struct = {sprite: sprite, index: minerio.sprite, item: item};
-        instance_create_depth(x, y, depth - 1, obj_minerio_boca, _struct);
-        
-        //tirando o minerio
-        global.inventario_global[$ categoria][$item]--;
-        
         //efeitos
-        escala_efeito.squash(.6, 1.4);
-        y_efeito = ystart - 30;
+        escala_efeito.atualiza(1.2);
+        y_efeito = lerp(y_efeito, ystart - 15, .1);
+        
+        //avisando a lesma
+        obj_lesma.boca_aberta = true;
+        
+        //clicando
+        if (global.mouse_clicado)
+        {
+            //criando o minerio que vai pra boca
+            var _struct = {sprite: sprite, index: minerio.sprite, item: item};
+            instance_create_depth(x, y, depth - 1, obj_minerio_boca, _struct);
+            
+            //tirando o minerio
+            global.inventario_global[$ categoria][$item]--;
+            
+            //efeitos
+            escala_efeito.squash(.6, 1.4);
+            y_efeito = ystart - 30;
+        }
+    }
+    else
+    {
+        escala_efeito.retorna();
+        y_efeito = lerp(y_efeito, ystart, .1);
     }
 }
 

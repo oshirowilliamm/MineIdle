@@ -7,8 +7,11 @@ boca_aberta = false;
 tempo_boca = 12;
 timer_boca = 0; 
 
-
-
+//variaveis da digestão
+fila = [];
+fila_max = 10;
+tempo_digestao = FPS * 3;
+timer_digestao = 0;
 
 
 
@@ -39,20 +42,6 @@ sai_refinacao = function()
     global.refinacao_aberta = false;
 }
 
-//estados
-parada = function()
-{
-    sprite_index = spr_lesma_parada;
-    image_speed = 1;
-    
-    //indo pro estado de abrindo a boca
-    if (boca_aberta)
-    {
-        estado = abrindo_boca;
-        image_index = 0;
-    }
-}
-
 cagar = function(_item)
 {
     var _tipo, _categoria, _sprite;
@@ -81,6 +70,19 @@ cagar = function(_item)
     instance_create_depth(_x, _y, -(y + 35), obj_drop_refinado, _struct);
 }
 
+//estados
+parada = function()
+{
+    sprite_index = spr_lesma_parada;
+    image_speed = 1;
+    
+    //indo pro estado de abrindo a boca
+    if (boca_aberta)
+    {
+        estado = abrindo_boca;
+        image_index = 0;
+    }
+}
 
 abrindo_boca = function()
 {
@@ -114,6 +116,33 @@ abrindo_boca = function()
         {
             estado = parada;
         }
+    }
+}
+
+digerindo = function()
+{
+    //se a fila tiver vazia, reseta o timer
+    if (array_length(fila) <= 0)
+    {
+        timer_digestao = tempo_digestao;
+        return;
+    }
+    //se não, começa o timer
+    else
+    {
+        timer_digestao--;
+    }
+    
+    //chegou o timer
+    if (timer_digestao <= 0)
+    {
+        //tirando o item da fila
+        var _item = array_shift(fila);
+        
+        //chamando o cagar
+        cagar(_item);
+        
+        timer_digestao = tempo_digestao;
     }
 }
 

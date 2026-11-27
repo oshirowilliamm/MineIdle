@@ -106,7 +106,7 @@ luz_drop = function(_cam_x, _cam_y)
     
     with (obj_drop) 
     {
-        if (!obj_drop.brilha) continue;
+        if (!brilha) continue;
         
         //posição
         var _x = x - _cam_x;

@@ -1,16 +1,26 @@
 // Inherit the parent event
 event_inherited();
 
-var _random = random(359);
-hspd = random_range(-10, -1);
-vspd = random_range(-1, 3);
+//movimento
+hspd = random_range(-7, -2);
+vspd = random_range(-1, 1);
 z    = -34;
-zspd = -1;
+zspd = -2.5;
+grav = .2;
 
+//não brilhar
 brilha = false;
 
-raio_player = 20;
+//aumentando o raio de alcance
+raio_player = 30;
 
+
+desacelera = function()
+{
+    hspd = lerp(hspd, 0, .05);
+    vspd = lerp(vspd, 0, .05);
+    spd  = lerp(spd, 0, .05);
+}
 
 coleta = function(_dist)
 {
