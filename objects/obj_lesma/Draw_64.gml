@@ -1,1 +1,0 @@
-//draw_sprite_ext(sprite_index, image_index, x_lesma, y_lesma, escala, escala, 0, c_white, 1);

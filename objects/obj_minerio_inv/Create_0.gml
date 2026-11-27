@@ -124,7 +124,7 @@ interage_refina = function()
     if (global.mouse_clicado)
     {
         //mandando pra lesma
-        var _struct = {sprite: sprite, index: minerio.sprite};
+        var _struct = {sprite: sprite, index: minerio.sprite, item: item};
         instance_create_depth(x, y, depth - 1, obj_minerio_boca, _struct);
         
         //tirando o minerio

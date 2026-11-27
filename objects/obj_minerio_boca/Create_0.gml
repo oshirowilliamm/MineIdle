@@ -49,6 +49,7 @@ indo_boca = function()
     
     if (_dist < 5)
     {
+        obj_lesma.cagar(item);
         instance_destroy();
     }
 }   

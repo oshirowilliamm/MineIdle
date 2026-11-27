@@ -1,10 +1,6 @@
 event_inherited();
 
-escala = 5;
 estado = noone;
-
-//variaveis para o entrar_refinacao
-botao_voltar = noone;
 
 //variavel da animação da boca
 boca_aberta = false;
@@ -57,6 +53,35 @@ parada = function()
     }
 }
 
+cagar = function(_item)
+{
+    var _tipo, _categoria, _sprite;
+    
+    //definindo se o resultado é um puro ou refinado
+    if (string_pos("_puro", _item) == 0)
+    {
+        _tipo = _item + "_puro";
+        _categoria = "puros";
+        _sprite = spr_puros;
+    }
+    else
+    {
+        _tipo = string_replace(_item, "_puro", "") + "_refinado";
+        _categoria = "refinados";
+        _sprite = spr_refinados;
+    }
+    
+    //infos do drop
+    var _struct = {tipo: _tipo, index: global.minerios[$ _tipo].sprite, categoria: _categoria, sprite_index: _sprite};
+    
+    //criando o drop
+    var _x = x + random_range(23, 29);
+    var _y = y + random_range(32, 38);
+    
+    instance_create_depth(_x, _y, -(y + 35), obj_drop_refinado, _struct);
+}
+
+
 abrindo_boca = function()
 {
     sprite_index = spr_lesma_abrindo_boca;  
@@ -92,10 +117,6 @@ abrindo_boca = function()
     }
 }
 
-cagando = function()
-{
-    
-}
 
 
 

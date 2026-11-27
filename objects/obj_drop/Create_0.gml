@@ -15,12 +15,15 @@ grav = .3;
 flutuando = false;
 
 //variaveis de coleta
+raio_player = global.dados.ima_drop;
 raio_coleta = 10;
 tempo_andar = 30;
 timer_andar = tempo_andar;
 
 //variavel do efeito de onda
 onda_spd = random_range(2, 4);
+
+brilha = true;
 
 
 
@@ -100,33 +103,29 @@ atrai = function()
     //só funciona se o player existir
     if (!instance_exists(obj_player)) return;
     
-    //verificando o peso
-    if (global.mochila.peso_atual < global.mochila.max_peso)
+    //validações
+    var _verifica_peso = global.mochila.peso_atual < global.mochila.max_peso;
+    var _timer_acabou = timer_andar <= 0;
+    var _dist = point_distance(x, y, obj_player.x, obj_player.yy);
+    var _dentro_raio = _dist <= raio_player;
+    
+    //se pode ser puxado
+    if (_verifica_peso && _timer_acabou && _dentro_raio)
     {
-        //se o timer acabou
-        if (timer_andar <= 0)
-        {
-            //pegando a distancia entre eu e o player
-            var _dist = point_distance(x, y, obj_player.x, obj_player.yy);
-            
-            //se estiver no raio de atração
-            if (_dist <= global.dados.ima_drop)
-            {  
-                //direção do drop pro player
-                var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
-                
-                //definindo movimentação
-                spd  = lerp(spd, 10, .01);
-                hspd = lengthdir_x(spd, _dir);
-                vspd = lengthdir_y(spd, _dir);
-                
-                coleta(_dist);
-            }
-            else desacelera();
-        }
-        else desacelera();
+        //direção do drop pro player
+        var _dir = point_direction(x, y, obj_player.x, obj_player.yy);
+        
+        //definindo movimentação
+        spd  = lerp(spd, 10, .01);
+        hspd = lengthdir_x(spd, _dir);
+        vspd = lengthdir_y(spd, _dir);
+        
+        coleta(_dist);
     }
-    else desacelera();
+    else 
+    {
+        desacelera();
+    }
 }
 
 controla_drop = function()
