@@ -7,15 +7,24 @@ boca_aberta = false;
 tempo_boca = 12;
 timer_boca = 0; 
 
+//variaveis do slot
+qtd_slot = 2;
+
 //variaveis da digestão
 fila = [];
 fila_max = 10;
-tempo_digestao = FPS * 3;
+tempo_digestao = FPS * .5;
 timer_digestao = 0;
 
+//variaveis do desenho
+desenho = false;
+escala = global.escala_hud;
+alpha = 0;
 
 
 
+
+//entrando e saindo da interface
 entra_refinacao = function()
 {
     //desativando player
@@ -26,6 +35,9 @@ entra_refinacao = function()
     
     //avisando que a refinação está aberta
     global.refinacao_aberta = true;
+    
+    //ativando o desenho do slot
+    desenho = true;
     
     //criando o voltar
     if (!instance_exists(obj_botao_voltar))
@@ -40,6 +52,84 @@ sai_refinacao = function()
     obj_player.estado = obj_player.estado_parado;
     acao = entra_refinacao;
     global.refinacao_aberta = false;
+    desenho = false;
+}
+
+//funções auxiliares
+entra_fila = function(_item, _sprite, _index)
+{
+    //verificando se ja tem slots disponiveis
+    for (var i = 0; i < array_length(fila); i++)
+    {
+        var _slot = fila[i];
+        
+        //se o item desse slot for o mesmo e ta antes do limite, soma o qtd
+        if (_slot.item == _item && _slot.qtd < fila_max)
+        {
+            _slot.qtd++;
+            return;
+        }
+    }
+    
+    //criando o slot se ele n foi criado
+    if (array_length(fila) < qtd_slot)
+    {
+        //colocando as infos no slot
+        var _struct = 
+        {
+            item: _item,
+            sprite: _sprite,
+            index: _index,
+            qtd: 1,
+            qtd_visual: 0
+        }
+        
+        //colocando o slot na fila
+        array_push(fila, _struct);
+    }
+}
+
+chegou_boca = function(_item)
+{
+    for (var i = 0; i < array_length(fila); i++)
+    {
+        var _slot = fila[i];
+        
+        //pegando o slot do item
+        if (_slot.item == _item)
+        {
+            //aplicando o qtd visual
+            if (_slot.qtd_visual < _slot.qtd)
+            {
+                _slot.qtd_visual++;
+                return;
+            }
+        }
+    }
+}
+
+tem_espaco = function(_item)
+{
+    for (var i = 0; i < array_length(fila); i++)
+    {
+        var _slot = fila[i];
+        
+        //se o slot do item da existe e caber, retorna true
+        if (_slot.item == _item && _slot.qtd < fila_max)
+        {
+            return true;
+        }
+    }
+    
+    //se tem mais um slot sobrando, retorna true
+    if (array_length(fila) < qtd_slot)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 cagar = function(_item)
@@ -121,8 +211,22 @@ abrindo_boca = function()
 
 digerindo = function()
 {
-    //se a fila tiver vazia, reseta o timer
-    if (array_length(fila) <= 0)
+    var _indice = -1;
+    
+    //pegando o slot que ja tenha chegado na boca
+    for (var i = 0; i < array_length(fila); i++)
+    {
+        var _slot = fila[i];
+        
+        if (_slot.qtd_visual > 0)
+        {
+            _indice = i;
+            break;
+        }
+    }
+    
+    //se o item ainda não chegou no slot, reseta o timer
+    if (_indice <= -1)
     {
         timer_digestao = tempo_digestao;
         return;
@@ -137,12 +241,61 @@ digerindo = function()
     if (timer_digestao <= 0)
     {
         //tirando o item da fila
-        var _item = array_shift(fila);
+        var _slot = fila[_indice];
         
         //chamando o cagar
-        cagar(_item);
+        cagar(_slot.item);
         
+        //tirando qtd
+        _slot.qtd--;
+        _slot.qtd_visual--;
+        
+        //tirando o slot se zerar
+        if (_slot.qtd <= 0)
+        {
+            array_delete(fila, _indice, 1);
+        } 
+        
+        //resetando timer
         timer_digestao = tempo_digestao;
+    }
+}
+
+//draw
+desenha_slots = function()
+{
+    //efeito de aparecer os slots
+    if (desenho || array_length(fila) > 0)
+    {
+        alpha = lerp(alpha, .8, .1);
+    }
+    else
+    {
+        alpha = lerp(alpha, 0, .1);
+    }
+    
+    //desenhando os slots
+    var _w = 28 * qtd_slot + 4;
+    var _h = sprite_get_height(spr_slot_refinacao);
+    var _x = x - _w / 2;
+    var _y = y - 55;
+    
+    draw_sprite_stretched_ext(spr_slot_refinacao, 0, _x, _y, _w, _h, c_white, alpha);
+    
+    //desenhando os minerios
+    for (var i = 0; i < array_length(fila); i++)
+    {
+        var _slot = fila[i];
+        
+        //so mostra se tiver o qtd visual
+        if (_slot.qtd_visual > 0)
+        {
+            var _xitem = _x + 16 + 28 * i;
+            var _yitem = _y + 16;
+            
+            draw_sprite_ext(_slot.sprite, _slot.index, _xitem, _yitem, 1, 1, 0, c_white, alpha);
+            texto_scribble(_xitem, _yitem, _slot.qtd_visual, .5);
+        }
     }
 }
 

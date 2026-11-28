@@ -30,23 +30,20 @@ segue_inventario = function()
 
 bloqueando_item = function()
 {
-    //qnd for refinação, as pedras e os refinados n podem ser interagiveis
-    if (global.refinacao_aberta && (string_pos("_pedra", item) != 0 || categoria == "refinados"))
-    {
-        bloqueado = true;
-    }
-    //normal
-    else
-    {
-        bloqueado = false;
-    }
+    bloqueado = false;
     
-    //bloqueando se a fila esta cheia
-    with (obj_lesma) 
+    if (global.refinacao_aberta)
     {
-    	if (global.refinacao_aberta && array_length(fila) + instance_number(obj_minerio_boca) >= fila_max)
+        //tirando a interação das pedras e dos refinados
+        if (string_pos("_pedra", item) != 0 || categoria == "refinados")
         {
-            other.bloqueado = true;
+            bloqueado = true;
+        }
+        
+        //bloqueando se n tem espaço na fila
+        if (obj_lesma.tem_espaco(item) == false)
+        {
+            bloqueado = true;
         }
     }
     
@@ -138,6 +135,9 @@ interage_refina = function()
             
             //tirando o minerio
             global.inventario_global[$ categoria][$item]--;
+            
+            //colocando o minerio na fila
+            obj_lesma.entra_fila(item, sprite, minerio.sprite);
             
             //efeitos
             escala_efeito.squash(.6, 1.4);

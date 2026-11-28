@@ -1,1 +1,1 @@
-posiciona();
+atualiza_camera();

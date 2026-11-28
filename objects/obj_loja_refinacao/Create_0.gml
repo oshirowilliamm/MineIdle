@@ -25,7 +25,7 @@ estado = function()
         
         //se eu tenho pedras pra comprar
         acao = _pedra_atual >= custo ? desbloqueia : noone;
-    }
+    }   
     else
     {
         acao = entra_loja;

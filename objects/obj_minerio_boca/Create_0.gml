@@ -14,7 +14,7 @@ altura_fim = -80;
 boca = false;
 
 //variavel da posição do minerio na room
-var _room = room_to_gui(0, 0);
+var _room = room_to_gui(obj_lesma.x, obj_lesma.y);
 x_ref = _room.x;
 y_ref = _room.y;
 
@@ -22,7 +22,7 @@ y_ref = _room.y;
 
 segue_camera = function()
 {
-    var _room = room_to_gui(0, 0);
+    var _room = room_to_gui(obj_lesma.x, obj_lesma.y);
     
     x += _room.x - x_ref;
     y += _room.y - y_ref;
@@ -65,8 +65,8 @@ indo_boca = function()
     
     if (_dist < 10)
     {
-        //colocando o minerio na fila
-        array_push(obj_lesma.fila, item);
+        //avisando a lesma que o minerio chegou na boca pra ativar o visual
+        obj_lesma.chegou_boca(item);
         
         //se destruindo
         instance_destroy();

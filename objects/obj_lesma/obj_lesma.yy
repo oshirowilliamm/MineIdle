@@ -38,6 +38,9 @@
     "name":"spr_lesma_parada",
     "path":"sprites/spr_lesma_parada/spr_lesma_parada.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_lesma_parada",
+    "path":"sprites/spr_lesma_parada/spr_lesma_parada.yy",
+  },
   "visible":true,
 }
